@@ -26,20 +26,24 @@ class Client(object):
     """Client used to make API requests.
 
     There are three ways of authenticating:
+
     1. Username and password. Use this to authenticate as a user.
+
     2. API token. Use this to authenticate an application that is not associated
-      with a user, such as a LIMS integration.
+       with a user, such as a LIMS integration.
+    
     3. Auto-authorization. If you are running a Jupyter CellEngine session, then
-      you will be automatically authorized as your user account.
+       you will be automatically authorized as your user account.
 
-    :type username: str or None :param username: (Optional) The username of the
-    user to authenticate as.
+    :type username: str or None
+    :param username: (Optional) The username of the user to authenticate as.
 
-    :type password: str or None :param password: (Optional) If ``username`` is
-    provided and ``password`` is not, an interactive prompt will be displayed to
-    collect your password.
+    :type password: str or None
+    :param password: (Optional) If ``username`` is provided and ``password`` is\
+    not, an interactive prompt will be displayed to collect your password.
 
-    :type token: str or None :param token: (Optional) An API token.
+    :type token: str or None
+    :param token: (Optional) An API token.
 
     .. versionadded:: 0.1
     """
@@ -70,9 +74,9 @@ class Client(object):
         case that you have an experiment name that looks like an _id, use the
         ``name`` argument explicitly.
 
-        Example:
+        .. code-block:: python
 
-            client.get_experiment("My experiment")
+          client.get_experiment("My experiment")
         """
         experiment = Experiment(self, name, _id)
         experiment.load()
