@@ -46,5 +46,5 @@ setup(
         "numpy",
         "pandas"
     ],
-	python_requires=">=3.0"
+    python_requires=">=3.0"
 )
