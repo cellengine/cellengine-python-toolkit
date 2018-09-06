@@ -1,3 +1,14 @@
+params.py
+.envrc
+venv/
+tags/
+tags
+.vim
+.bumpversion.cfg
+
+# for Mkdocs build
+site/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -102,3 +113,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# pypi
+.pypirc
