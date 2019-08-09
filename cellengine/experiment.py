@@ -29,7 +29,7 @@ class Experiment(object):
         load(self, self.path)  # from _helpers
 
     @staticmethod
-    def list():
+    def list_all():
         '''Return a list of Experiment objects for all experiments on client'''
         res = session.get('experiments')
         res.raise_for_status()

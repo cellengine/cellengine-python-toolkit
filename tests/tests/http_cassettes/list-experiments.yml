@@ -1,0 +1,127 @@
+interactions:
+- request:
+    body: username=gegnew&password=foo4206969
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '35'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://localhost:3000/api/v1/signin
+  response:
+    body:
+      string: '{"token":"s:tXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej+x/bpWE3j0KwPA0AK/WrNAC63LmNDo","userId":"5d366077a1789f7d6653075c","admin":true,"flags":{}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '150'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 05 Aug 2019 01:12:41 GMT
+      ETag:
+      - W/"96-KZ+paYUHUgPmQlz2p0yD8b2AMVA"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA+1VzW7bMAx+FUOnDUgMyX+yfRpQpLttxdrusLYoFJtOhMmSISldg6LvsmfZk5VK
+        0rQpkAzbrVvti01+JEV+/KCLO3ItW1KTvE2LggoQjJdVx9uiyFPKcyAjokUPiDjXXnoFbTS5HcDK
+        HrRH52JQRrRgSb2bifMXmZoAdmA32WYw0/ADbdALqYIhXlk+zMJ/3JgefZ20zn9aB3wEa2WoqMTW
+        Ntnk6BZK7cCiR8/hE92PyPX1Dalp6KMVHgI6oawaUz5O0jPKalbVGY/LMvuG2bDvXjonjXakvrga
+        EWesl3p2OkCDA8B0QmvjhUfEmZgqOEX/kVGL/jHgyf9VKIkljXUvI0Mnn+1qpiHEi9kmGMsfSwVH
+        ph9AuxXWTXSog+fuhHIwIhZu5LMDWvDIE/6fGCWbZWBpLh1WXQY/llWm+f4sfEBihV1+AQfCNvPX
+        y+uwmGLD275aULCfXp4Vgd4WYDj/zR7kAdhY2AtK4my9LNhq0Egg4o5IjSPyGHCpyT3OfXeoTbrb
+        QkH/d9kltKZpzGjyJrtXxes+2WlMeUhgSU3LmvG4qLJDAluvBa2SPxFYKYqOV52AkmdVeATPpk8C
+        YwVNGRtXxaDgdpy1S/i39ZWdsbLO8jrNY15Ub/p6Vbz+lb7y1d2E+mIxZckefa3XIqspj/OE7tfX
+        r5/hPQ6tRiyJTBdVRdQhfy7qrOmjKQ7YtLg9kYdmrmUjVATbqyt6d4If0i/fX+q1Uq8eACF5/iyD
+        CgAA
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 05 Aug 2019 01:12:41 GMT
+      ETag:
+      - W/"a83-KBl027xPn0iiKaL9Vzjn9tdaCK8"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo;
+        Path=/
+    status:
+      code: 200
+      message: OK
+version: 1

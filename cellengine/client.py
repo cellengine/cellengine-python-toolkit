@@ -68,4 +68,4 @@ class Client(object):
     @property
     def experiments(self):
         '''Return a list of Experiment objects for all experiments on client'''
-        return Experiment.list()
+        return Experiment.list_all()

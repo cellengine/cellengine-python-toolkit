@@ -43,10 +43,10 @@ setup(
         "setuptools",
         "fcsparser",
         "requests",
+        "requests_toolbelt",
         "numpy",
         "pandas"
     ],
-    python_requires=">=3.0",
+    python_requires=">=3.6",
     test_suite="tests.test_all"
 )
-
