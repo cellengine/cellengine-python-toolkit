@@ -18,35 +18,3 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from setuptools import setup, find_packages
-
-setup(
-    name="cellengine",
-    version="0.1.0",
-    description="CellEngine API toolkit for Python",
-    url="https://github.com/primitybio/cellengine-python-toolkit",
-    author="Primity Bio",
-    author_email="support@cellengine.com",
-    license="MIT",
-    packages=find_packages(),
-    zip_safe=False,
-    classifiers=[
-        "Development Status :: 3 - Alpha",
-        "License :: OSI Approved :: MIT License",
-        "Natural Language :: English",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3 :: Only",
-        "Topic :: Scientific/Engineering :: Bio-Informatics"
-    ],
-    platforms="Posix; MacOS X; Windows",
-    install_requires=[
-        "setuptools",
-        "fcsparser",
-        "requests",
-        "numpy",
-        "pandas"
-    ],
-    python_requires=">=3.0",
-    test_suite="tests.test_all"
-)
-
