@@ -17,7 +17,7 @@ class FcsFile(object):
     experiment_id = attr.ib(kw_only=True)
 
     def __attrs_post_init__(self):
-        '''Load automatically by name or by id'''
+        """Load automatically by name or by id"""
         load(self, self.path)  # from _helpers
 
     @staticmethod
@@ -45,8 +45,7 @@ class FcsFile(object):
 
     @property
     def events(self):
-        """
-        A DataFrame containing this file's data. This is fetched
+        """A DataFrame containing this file's data. This is fetched
         from the server on-demand the first time that this property is accessed.
         """
         if self._events is None:

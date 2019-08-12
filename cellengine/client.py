@@ -8,8 +8,15 @@ from .experiment import Experiment
 
 @attr.s(repr=True)
 class Client(object):
-    '''
-    A client for making API requests.
+    """A client for making API requests.
+
+    There are three ways of authenticating:
+        1. Username and password. Use this to authenticate a user.
+        2. API token. Use this to authenticate an application that is
+            not associated with a user, such as a LIMS integration.
+        3. Auto-authorization. If you are running a Jupyter CellEngine
+            session, you will be automatically authorized as your
+            user account.
 
     The `requests` Session is instantiated in the global __init__,
     but it is authorized here. Thus, all other objects must be
@@ -25,7 +32,7 @@ class Client(object):
 
     Returns:
         client: Authenticated client object
-    '''
+    """
     username = attr.ib(default=None)
     password = attr.ib(default=None)
     token = attr.ib(default=None)
@@ -42,7 +49,7 @@ class Client(object):
         pass
 
     def __attrs_post_init__(self):
-        '''Automatically send authentication'''
+        """Automatically send authentication"""
         if self.username is not None:
             if self.password is None:
                 self.password = getpass()
@@ -67,5 +74,5 @@ class Client(object):
 
     @property
     def experiments(self):
-        '''Return a list of Experiment objects for all experiments on client'''
+        """Return a list of Experiment objects for all experiments on client"""
         return Experiment.list_all()

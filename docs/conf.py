@@ -20,11 +20,11 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'CellEngine'
-copyright = '2018, Primity Bio'
+copyright = '2019, Primity Bio'
 author = 'Primity Bio'
 
 # The short X.Y version
-version = ''
+version = '0.1.1'
 # The full version, including alpha/beta/rc tags
 release = ''
 

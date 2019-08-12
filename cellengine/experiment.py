@@ -7,8 +7,7 @@ from .compensation import Compensation
 
 @attr.s()
 class Experiment(object):
-    """
-    A class representing a CellEngine experiment.
+   """A class representing a CellEngine experiment.
 
     Attributes
         name (:obj:`str`, optional):   Name of the experiment; can be queried
@@ -25,12 +24,12 @@ class Experiment(object):
     session = attr.ib(default=session, repr=False)
 
     def __attrs_post_init__(self):
-        '''Load automatically by name or by id'''
+        """Load automatically by name or by id"""
         load(self, self.path)  # from _helpers
 
     @staticmethod
     def list_all():
-        '''Return a list of Experiment objects for all experiments on client'''
+        """Return a list of Experiment objects for all experiments on client"""
         res = session.get('experiments')
         res.raise_for_status()
         exps = [Experiment(id=item['_id'], properties=item) for item in res.json()]
@@ -61,8 +60,7 @@ class Experiment(object):
 
     @comments.setter
     def comments(self, comments):
-        """
-        Sets comments for experiment. Defaults to overwrite;
+        """Sets comments for experiment. Defaults to overwrite;
         append new comments with experiment.comments.append(dict)
         with the form: dict = {"insert": "some text",
         "attributes": {"bold": False, "italic": False, "underline": false}}.
@@ -86,7 +84,8 @@ class Experiment(object):
     def delete(self):
         """Marks this experiment as deleted. Deleted experiments are permanently
         deleted after approximately 7 days. Until then, deleted experiments can
-        be recovered."""
+        be recovered.
+        """
         self._properties['deleted'] = today_timestamp()
         print('Experiment flagged for deletion.')
 

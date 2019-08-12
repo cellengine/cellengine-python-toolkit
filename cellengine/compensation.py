@@ -18,7 +18,7 @@ class Compensation(object):
     experiment_id = attr.ib(kw_only=True)
 
     def __attrs_post_init__(self):
-        '''Load automatically by name or by id'''
+        """Load automatically by name or by id"""
         load(self, self.path)  # from _helpers
 
     @staticmethod

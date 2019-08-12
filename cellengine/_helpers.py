@@ -7,13 +7,15 @@ ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
 
 def timestamp_to_datetime(value):
     """Converts ISO 8601 date+time UTC timestamps as returned by CellEngine to
-    ``datetime`` objects."""
+    ``datetime`` objects.
+    """
     return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 def today_timestamp():
     """Converts today's date to a ISO 8601 date+time UTC timestamp for deleting
-    experiments."""
+    experiments.
+    """
     return datetime.today().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
