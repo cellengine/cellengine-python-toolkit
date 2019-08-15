@@ -18,10 +18,6 @@ class Client(object):
             session, you will be automatically authorized as your
             user account.
 
-    The `requests` Session is instantiated in the global __init__,
-    but it is authorized here. Thus, all other objects must be
-    composed with the session from this client.
-
     Args:
         username: Login credential set during CellEngine registration
         password: Password for login
@@ -34,19 +30,9 @@ class Client(object):
         client: Authenticated client object
     """
     username = attr.ib(default=None)
-    password = attr.ib(default=None)
-    token = attr.ib(default=None)
-    session = attr.ib(session, repr=False)
-
-    @username.validator
-    def _check_username(self, attribute, value):
-        #TODO
-        pass
-
-    @password.validator
-    def _check_password(self, attribute, value):
-        #TODO
-        pass
+    password = attr.ib(default=None, repr=False)
+    token = attr.ib(default=None, repr=False)
+    _session = attr.ib(session, repr=False)
 
     def __attrs_post_init__(self):
         """Automatically send authentication"""

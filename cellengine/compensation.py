@@ -1,8 +1,8 @@
 import attr
-from .client import session
-import pandas as pd
-import numpy as np
+import pandas
+import numpy
 from ._helpers import load
+from .client import session
 
 
 @attr.s
@@ -10,7 +10,7 @@ class Compensation(object):
     """A class representing a CellEngine compensation matrix. Can be applied to
     FCS files to compensate them.
     """
-    session = attr.ib(default=session, repr=False)
+    _session = attr.ib(default=session, repr=False)
     name = attr.ib(default=None)
     _id = attr.ib(default=None)
     channels = attr.ib()
@@ -48,13 +48,18 @@ class Compensation(object):
         else:
             return f"{base_path}"
 
+#   TODO: check to make sure this works! Maybe lazy_property?
     @property
     def dataframe(self):
-        self.dataframe = pd.DataFrame(
-            data=np.array(self._properties.get('spillMatrix').reshape((self.N, self.N)),
-                          columns=self.channels,
-                          index=self.channels)
-        )
+        if hasattr(self, '_dataframe'):
+            return self._dataframe
+        else:
+            self._dataframe = pandas.DataFrame(
+                data=numpy.array(self._properties.get('spillMatrix').reshape((self.N, self.N)),
+                                 columns=self.channels,
+                                 index=self.channels)
+            )
+            return self._dataframe
 
     def apply(self, file, inplace=True):
         """Compensates the file's data.
@@ -70,7 +75,7 @@ class Compensation(object):
         data = file.events
 
         # spill -> comp by inverting
-        inverted = np.linalg.inv(self.dataframe)
+        inverted = numpy.linalg.inv(self.dataframe)
 
         # Calculate matrix product for channels matching between file and comp
         comped = data[self.channels].dot(inverted)

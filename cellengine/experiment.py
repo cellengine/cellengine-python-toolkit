@@ -5,23 +5,22 @@ from .fcsfile import FcsFile
 from .compensation import Compensation
 
 
-@attr.s()
+@attr.s
 class Experiment(object):
-   """A class representing a CellEngine experiment.
+    '''A class representing a CellEngine experiment.
 
     Attributes
         name (:obj:`str`, optional):   Name of the experiment; can be queried
         _id (:obj:`str`, optional):    Experiment ID; can be queried in place of `name`
         query (:obj:`str`, optional):  Query for loading. Defaults to "name"
-        _properties (:obj:`dict`, optional): Experiment properties. This is loaded automatically.
+        _properties (:obj:`dict`, optional): Experiment properties; loaded automatically.
         session: Authenticated session for the client. No reason to change this.
-    """
-
+    '''
     name = attr.ib(default=None)
     _id = attr.ib(default=None)
     query = attr.ib(default="name", repr=False)
     _properties = attr.ib(default={}, repr=False)
-    session = attr.ib(default=session, repr=False)
+    _session = attr.ib(default=session, repr=False)
 
     def __attrs_post_init__(self):
         """Load automatically by name or by id"""
@@ -29,7 +28,7 @@ class Experiment(object):
 
     @staticmethod
     def list_all():
-        """Return a list of Experiment objects for all experiments on client"""
+        """Returns a list of all accesible experiments"""
         res = session.get('experiments')
         res.raise_for_status()
         exps = [Experiment(id=item['_id'], properties=item) for item in res.json()]
@@ -37,7 +36,7 @@ class Experiment(object):
 
     @property
     def files(self):
-        """List all files on the experiment"""
+        """List all files in the experiment"""
         return FcsFile.list(self._id, query=self.query)
 
 #   TODO: settermethod for files as method of uploading files to experiment?

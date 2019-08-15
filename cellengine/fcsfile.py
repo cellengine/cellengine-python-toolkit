@@ -8,7 +8,7 @@ from ._helpers import load
 @attr.s
 class FcsFile(object):
     """A class representing a CellEngine FCS file."""
-    session = attr.ib(default=session, repr=False)
+    _session = attr.ib(default=session, repr=False)
     name = attr.ib(default=None)
     query = attr.ib(default="filename", repr=False)
     _id = attr.ib(default=None)
@@ -93,3 +93,6 @@ class FcsFile(object):
     @property
     def annotations(self):
         return self._properties['annotations']
+
+#   TODO: important
+    # compensation
