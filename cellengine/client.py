@@ -45,11 +45,8 @@ class Client(object):
                 "password": self.password
             })
             req.raise_for_status()
-            self.info = req.json()
-            self.token = self.info['token']
 
             if req.status_code == 200:
-                self.info['authenticated'] = True
                 print('Authentication successful.')
 
         elif self.token is not None:
