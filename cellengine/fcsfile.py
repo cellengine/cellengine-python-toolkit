@@ -2,7 +2,7 @@ import attr
 from .client import session
 import pandas as pd
 import fcsparser
-from ._helpers import load
+from ._helpers import load, GetSet
 
 
 @attr.s
@@ -15,6 +15,7 @@ class FcsFile(object):
     _properties = attr.ib(default={}, repr=False)
     _events = attr.ib(default=None, repr=False)
     experiment_id = attr.ib(kw_only=True)
+
 
     def __attrs_post_init__(self):
         """Load automatically by name or by id"""
@@ -92,7 +93,26 @@ class FcsFile(object):
 
     @property
     def annotations(self):
+        """Return file annotations.
+        New annotations may be added with file.annotations.append or
+        redefined by setting file.annotations to a dict with a 'name'
+        and 'value' key (i.e. {'name': 'plate row', 'value': 'A'}) or
+        a list of such dicts.
+        """
         return self._properties['annotations']
 
-#   TODO: important
-    # compensation
+    @annotations.setter
+    def annotations(self, val):
+        if type(val) is not dict or 'name' and 'value' not in val:
+            raise TypeError('Input must be a dict with a "name" and a "value" item.')
+        else:
+            get_input = input('This will overwrite current annotations. Confirm y/n: ')
+            if 'y' in get_input.lower():
+                self._properties['annotations'] = val
+
+    @property
+    def compensation(self):
+        if 'compensation' in self._properties.keys():
+            return self._properties['compensation']
+        else:
+            return None
