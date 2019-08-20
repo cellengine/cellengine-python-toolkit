@@ -27,22 +27,22 @@ def load(self, path):
         res.raise_for_status()
         content = res.json()
         if len(content) == 0:
-            ValueError(f"There are no items at {res.url}")
+            ValueError("There are no items at {0}".format(res.url))
         else:
             self._properties = content
 
 
 def load_by_name(self):
     # TODO does requests encode URI components for us?
-    url = f"{self.path}?query=eq({self.query},\"{self.name}\")&limit=2"
+    url = "{0}?query=eq({1},\"{2}\")&limit=2".format(self.path, self.query, self.name)
     res = session.get(url)
     res.raise_for_status()
     objs = res.json()
     if len(objs) == 0:
-        err = f"No objects found with the name {self.name}."
+        err = "No objects found with the name {0}.".format(self.name)
         raise RuntimeError(err)
     elif len(objs) > 1:
-        err = f"More than one object found with the name {self.name}, please use _id to query instead."
+        err = "More than one object found with the name {0}, please use _id to query instead.".format(self.name)
         raise RuntimeError(err)
     else:
         self._properties = objs[0]

@@ -24,9 +24,9 @@ class Compensation(object):
     @staticmethod
     def list(experiment_id, query=None):
         if query is not None:
-            res = session.get(f"experiments/{experiment_id}/compensations",
+            res = session.get("experiments/{0}/compensations".format(experiment_id),
                               params=query)
-        res = session.get(f"experiments/{experiment_id}/compensations")
+        res = session.get("experiments/{0}/compensations".format(experiment_id))
         res.raise_for_status()
         comps = [Compensation(id=item['_id'], experiment_id=experiment_id) for item in res.json()]
         return comps
@@ -42,11 +42,11 @@ class Compensation(object):
 
     @property
     def path(self):
-        base_path = f"experiments/{self.experiment_id}/compensations"
+        base_path = "experiments/{0}/compensations".format(self.experiment_id)
         if self._id is not None:
-            return f"{base_path}/{self._id}"
+            return "{0}/{1}".format(base_path, self._id)
         else:
-            return f"{base_path}"
+            return "{0}".format(base_path)
 
 #   TODO: check to make sure this works! Maybe lazy_property?
     @property

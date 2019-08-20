@@ -50,7 +50,7 @@ class Client(object):
                 print('Authentication successful.')
 
         elif self.token is not None:
-            session.headers.update({f"Authorization", "Bearer {self.token}"})
+            session.headers.update({"Authorization", "Bearer {0}".format(self.token)})
 
         else:
             raise RuntimeError("Username or token must be provided")

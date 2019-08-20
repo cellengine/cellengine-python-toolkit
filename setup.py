@@ -47,6 +47,6 @@ setup(
         "numpy",
         "pandas"
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.0",
     test_suite="tests.test_all"
 )

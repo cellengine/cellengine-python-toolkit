@@ -49,9 +49,9 @@ class Experiment(object):
     def path(self):
         base_path = 'experiments'
         if self._id is not None:
-            return f"{base_path}/{self._id}"
+            return "{0}/{1}".format(base_path, self._id)
         else:
-            return f"{base_path}"
+            return "{0}".format(base_path)
 
     @property
     def comments(self):

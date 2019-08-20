@@ -2,7 +2,7 @@ import attr
 from .client import session
 import pandas as pd
 import fcsparser
-from ._helpers import load, GetSet
+from ._helpers import load
 
 
 @attr.s
@@ -24,9 +24,9 @@ class FcsFile(object):
     @staticmethod
     def list(experiment_id, query=None):
         if query is not None:
-            res = session.get(f"experiments/{experiment_id}/fcsfiles",
+            res = session.get("experiments/{0}/fcsfiles".format(experiment_id),
                               params=query)
-        res = session.get(f"experiments/{experiment_id}/fcsfiles")
+        res = session.get("experiments/{0}/fcsfiles".format(experiment_id))
         res.raise_for_status()
         files = [FcsFile(id=item['_id'], experiment_id=experiment_id,
                          properties=item) for item in res.json()]
@@ -38,11 +38,11 @@ class FcsFile(object):
 
     @property
     def path(self):
-        base_path = f"experiments/{self.experiment_id}/fcsfiles"
+        base_path = "experiments/{0}/fcsfiles".format(self.experiment_id)
         if self._id is not None:
-            return f"{base_path}/{self._id}"
+            return "{0}/{1}".format(base_path, self._id)
         else:
-            return f"{base_path}"
+            return "{0}".format(base_path)
 
     @property
     def events(self):
@@ -52,7 +52,7 @@ class FcsFile(object):
         if self._events is None:
 #           TODO: name columns as $PnN; it appears to already do this, but I
 #           need to test with several files
-            fresp = self.session.get(f"experiments/{self.experiment_id}/fcsfiles/{self._id}.fcs")
+            fresp = self.session.get("experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id))
             parser = fcsparser.api.FCSParser.from_data(fresp.content)
             columns = parser.channel_names_n
             self._events = pd.DataFrame(parser.data, columns=columns)
