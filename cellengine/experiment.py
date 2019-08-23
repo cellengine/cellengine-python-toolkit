@@ -95,7 +95,6 @@ class Experiment(object):
         7 days. Until then, deleted experiments can be recovered.
         """
         self._properties['deleted'] = today_timestamp()
-        print('Experiment flagged for deletion.')
 
     @property
     def public(self):

@@ -1,6 +1,6 @@
 import attr
 from .client import session
-import pandas as pd
+import pandas
 import fcsparser
 from ._helpers import load
 
@@ -50,12 +50,9 @@ class FcsFile(object):
         from the server on-demand the first time that this property is accessed.
         """
         if self._events is None:
-#           TODO: name columns as $PnN; it appears to already do this, but I
-#           need to test with several files
-            fresp = self.session.get("experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id))
+            fresp = session.get("experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id))
             parser = fcsparser.api.FCSParser.from_data(fresp.content)
-            columns = parser.channel_names_n
-            self._events = pd.DataFrame(parser.data, columns=columns)
+            self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
 
         return self._events
 
