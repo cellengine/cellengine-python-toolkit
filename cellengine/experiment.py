@@ -1,73 +1,108 @@
-# Copyright 2018 Primity Bio
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+import attr
+from .client import session
+from ._helpers import load, created, timestamp_to_datetime, today_timestamp, CommentList
+from .fcsfile import FcsFile
+from .compensation import Compensation
 
-from ._helpers import _BaseApiObject, timestamp_to_datetime
 
-class Experiment(_BaseApiObject):
+@attr.s
+class Experiment(object):
     """A class representing a CellEngine experiment.
+
+    Attributes
+        name (:obj:`str`, optional):   Name of the experiment; can be queried
+        _id (:obj:`str`, optional):    Experiment ID; can be queried in place of `name`
+        query (:obj:`str`, optional):  Query for loading. Defaults to "name"
+        _properties (:obj:`dict`, optional): Experiment properties; loaded automatically.
     """
+    name = attr.ib(default=None)
+    _id = attr.ib(default=None)
+    query = attr.ib(default="name", repr=False)
+    _properties = attr.ib(default={}, repr=False)
+    _session = attr.ib(default=session, repr=False)
 
-    _BASE_PATH = "https://cellengine.com/api/v1/experiments"
+    def __attrs_post_init__(self):
+        """Load automatically by name or by id"""
+        load(self, self.path)  # from _helpers
 
-    def __init__(self, client, name=None, _id=None):
-        super(Experiment, self).__init__(client, _id, name)
-
-    def __repr__(self):
-        return "<Experiment: {0}>".format(self.name)
-
-    @property
-    def path(self):
-        return "{0}/{1}".format(self._BASE_PATH, self._id)
-
-    @property
-    def comments(self):
-        return self._properties.get("comments")
-
-    @comments.setter
-    def comments(self, comments):
-        self._properties["comments"] = comments
+    @staticmethod
+    def list_all():
+        """Returns a list of all accesible experiments"""
+        res = session.get('experiments')
+        res.raise_for_status()
+        exps = [Experiment(id=item['_id'], properties=item) for item in res.json()]
+        return exps
 
     @property
-    def updated(self):
-        return timestamp_to_datetime(self._properties.get("updated"))
+    def files(self):
+        """List all files in the experiment"""
+        return FcsFile.list(self._id, query=self.query)
 
     @property
-    def deep_updated(self):
-        return timestamp_to_datetime(self._properties.get("deepUpdated"))
-
-    @property
-    def deleted(self):
-        if self._properties.has_key("deleted"):
-            return timestamp_to_datetime(self._properties.get("deleted"))
-        return False
-
-    def delete(self):
-        """Marks this experiment as deleted. Deleted experiments are permanently
-        deleted after approximately 7 days. Until then, deleted experiments can
-        be recovered."""
-        # TODO
+    def upload(self, filepath, blob=None):
         raise NotImplementedError
 
     @property
+    def compensations(self):
+        return Compensation.list(self._id)
+
+    @property
+    def path(self):
+        base_path = 'experiments'
+        if self._id is not None:
+            return "{0}/{1}".format(base_path, self._id)
+        else:
+            return "{0}".format(base_path)
+
+    @property
+    def comments(self):
+        comments = self._properties['comments']
+        if type(comments) is not CommentList:
+            self._properties['comments'] = CommentList(comments)
+        return comments
+
+    @comments.setter
+    def comments(self, comments):
+        """Sets comments for experiment.
+
+        Defaults to overwrite; append new comments with
+        experiment.comments.append(dict) with the form:
+         dict = {"insert": "some text",
+        "attributes": {"bold": False, "italic": False, "underline": False}}.
+        """
+        if comments.get('insert').endswith('\n') is False:
+            comments.update(insert=comments.get('insert')+'\n')
+        self._properties['comments'] = comments
+
+    @property
+    def updated(self):
+        return timestamp_to_datetime(self._properties.get('updated'))
+
+    @property
+    def deep_updated(self):
+        return timestamp_to_datetime(self._properties.get('deepUpdated'))
+
+    @property
+    def deleted(self):
+        if self._properties.get('deleted') is not None:
+            return timestamp_to_datetime(self._properties.get('deleted'))
+
+    @property
+    def delete(self):
+        """Marks the experiment as deleted.
+
+        Deleted experiments are permanently deleted after approximately
+        7 days. Until then, deleted experiments can be recovered.
+        """
+        self._properties['deleted'] = today_timestamp()
+
+    @property
     def public(self):
-        return self._properties.get("public")
+        return self._properties.get('public')
+
+    @public.setter
+    def public(self, public):
+        self._properties['public'] = public
 
     # uploader
 
@@ -77,7 +112,7 @@ class Experiment(_BaseApiObject):
 
     @property
     def locked(self):
-        return self._properties.get("locked")
+        return self._properties.get('locked')
 
     @property
     def clone_source_experiment(self):
@@ -85,7 +120,7 @@ class Experiment(_BaseApiObject):
 
     @property
     def revision_source_experiment(self):
-        return self._properties.get("revisionSourceExperiment", None)
+        return self._properties.get('revisionSourceExperiment', None)
 
     # revisions
 
@@ -102,3 +137,7 @@ class Experiment(_BaseApiObject):
     # annotationTableSortColumns
 
     # permissions
+
+    @property
+    def created(self):
+        return created(self)
