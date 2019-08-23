@@ -1,42 +1,65 @@
-# Copyright 2018 Primity Bio
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
+import attr
 import pandas
 import numpy
+from ._helpers import load
+from .client import session
 
+
+@attr.s
 class Compensation(object):
     """A class representing a CellEngine compensation matrix. Can be applied to
     FCS files to compensate them.
     """
+    _session = attr.ib(default=session, repr=False)
+    name = attr.ib(default=None)
+    _id = attr.ib(default=None)
+    channels = attr.ib()
+    query = attr.ib(default='name')
+    experiment_id = attr.ib(kw_only=True)
 
-    def __init__(self, params):
-        self._id = params["_id"]
-        self.experiment_id = params["experimentId"]
-        self.name = params["name"]
-        self.channels = channels = params["channels"]
+    def __attrs_post_init__(self):
+        """Load automatically by name or by id"""
+        load(self, self.path)  # from _helpers
+
+    @staticmethod
+    def list(experiment_id, query=None):
+        if query is not None:
+            res = session.get("experiments/{0}/compensations".format(experiment_id),
+                              params=query)
+        res = session.get("experiments/{0}/compensations".format(experiment_id))
+        res.raise_for_status()
+        comps = [Compensation(id=item['_id'], experiment_id=experiment_id) for item in res.json()]
+        return comps
+
+    @property
+    def channels(self):
+        return self._properties.get('channels')
+
+    @property
+    def N(self):
         N = len(self.channels)
-        self.dataframe = pandas.DataFrame(
-            data=numpy.array(params["spillMatrix"]).reshape((N, N)),
-            columns=channels,
-            index=channels
-        )
+        return N
+
+    @property
+    def path(self):
+        base_path = "experiments/{0}/compensations".format(self.experiment_id)
+        if self._id is not None:
+            return "{0}/{1}".format(base_path, self._id)
+        else:
+            return "{0}".format(base_path)
+
+#   TODO: check to make sure this works! Maybe lazy_property?
+    @property
+    def dataframe(self):
+        if hasattr(self, '_dataframe'):
+            return self._dataframe
+        else:
+            self._dataframe = pandas.DataFrame(
+                data=numpy.array(self._properties.get('spillMatrix').reshape((self.N, self.N)),
+                                 columns=self.channels,
+                                 index=self.channels)
+            )
+            return self._dataframe
 
     def apply(self, file, inplace=True):
         """Compensates the file's data.
