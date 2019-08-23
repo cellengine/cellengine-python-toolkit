@@ -19,9 +19,9 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'CellEngine'
+project = 'CellEngine Python Toolkit'
 copyright = '2019, Primity Bio'
-author = 'Primity Bio'
+author = 'Zach Bjornson, Gerrit Egnew'
 
 # The short X.Y version
 version = '0.1.1'
