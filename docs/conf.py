@@ -19,12 +19,12 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'CellEngine'
-copyright = '2018, Primity Bio'
-author = 'Primity Bio'
+project = 'CellEngine Python Toolkit'
+copyright = '2019, Primity Bio'
+author = 'Zach Bjornson, Gerrit Egnew'
 
 # The short X.Y version
-version = ''
+version = '0.1.1'
 # The full version, including alpha/beta/rc tags
 release = ''
 
@@ -46,6 +46,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinx.ext.napoleon'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

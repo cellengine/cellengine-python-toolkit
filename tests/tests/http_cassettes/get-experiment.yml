@@ -1,0 +1,117 @@
+interactions:
+- request:
+    body: username=gegnew&password=foo4206969
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '35'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: http://localhost:3000/api/v1/signin
+  response:
+    body:
+      string: '{"token":"s:tXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej+x/bpWE3j0KwPA0AK/WrNAC63LmNDo","userId":"5d366077a1789f7d6653075c","admin":true,"flags":{}}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '150'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 05 Aug 2019 01:12:41 GMT
+      ETag:
+      - W/"96-KZ+paYUHUgPmQlz2p0yD8b2AMVA"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments?query=eq(name,%22160311-96plex-4dye%22)&limit=2
+  response:
+    body:
+      string: "[{\"_id\":\"5d38a6f79fae87499999a74b\",\"name\":\"160311-96plex-4dye\",\"uploader\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"__v\":0,\"updated\":\"2019-07-24T18:45:35.769Z\",\"permissions\":[],\"sortingSpec\":{},\"annotationTableSortColumns\":[],\"annotationValidators\":{},\"annotationNameOrder\":[],\"tags\":[],\"perFileCompensationsEnabled\":false,\"revisions\":[],\"retentionPolicy\":{\"history\":[]},\"locked\":false,\"primaryResearcher\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"public\":false,\"deleted\":null,\"deepUpdated\":\"2019-07-25T01:18:11.012Z\",\"created\":\"2019-07-24T18:44:07.520Z\",\"comments\":[{\"insert\":\"\_\_\_First
+        12 of 96 files from barcoding technical experiment (Primity)\\n\\n\"}]}]"
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '939'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 05 Aug 2019 01:12:41 GMT
+      ETag:
+      - W/"3ab-CewUVfhoYufKse/a/uMddMRxOVE"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3AtXsfrXrhGFOrJR_cpp2_B5bqfgqeeAoh.QIUP1yFTHL8ej%2Bx%2FbpWE3j0KwPA0AK%2FWrNAC63LmNDo;
+        Path=/
+    status:
+      code: 200
+      message: OK
+version: 1
