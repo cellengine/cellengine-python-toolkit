@@ -27,7 +27,7 @@ def load(self, path):
         res.raise_for_status()
         content = res.json()
         if len(content) == 0:
-            ValueError("There are no items at {0}".format(res.url))
+            ValueError("Failed to load object from {0}".format(res.url))
         else:
             self._properties = content
 
@@ -51,3 +51,18 @@ def load_by_name(self):
 
 def created(self):
     return timestamp_to_datetime(self._properties.get("created"))
+
+
+class CommentList(list):
+    """Modified list for CellEngine `comments` properties.
+
+    Ensures that an appended comment dict has a newline after
+    the last `insert` key.
+    """
+    def __init__(self, *args, **kwargs):
+        super(CommentList, self).__init__(args[0])
+
+    def append(self, comment):
+        if comment[-1].get('insert').endswith('\n') is False:
+            comment[-1].update(insert=comment[-1].get('insert')+'\n')
+        super(CommentList, self).extend(comment)

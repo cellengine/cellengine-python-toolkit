@@ -1,21 +1,20 @@
 import attr
 from .client import session
-from ._helpers import load, created
+from ._helpers import load, created, timestamp_to_datetime, today_timestamp, CommentList
 from .fcsfile import FcsFile
 from .compensation import Compensation
 
 
 @attr.s
 class Experiment(object):
-    '''A class representing a CellEngine experiment.
+    """A class representing a CellEngine experiment.
 
     Attributes
         name (:obj:`str`, optional):   Name of the experiment; can be queried
         _id (:obj:`str`, optional):    Experiment ID; can be queried in place of `name`
         query (:obj:`str`, optional):  Query for loading. Defaults to "name"
         _properties (:obj:`dict`, optional): Experiment properties; loaded automatically.
-        session: Authenticated session for the client. No reason to change this.
-    '''
+    """
     name = attr.ib(default=None)
     _id = attr.ib(default=None)
     query = attr.ib(default="name", repr=False)
@@ -39,7 +38,9 @@ class Experiment(object):
         """List all files in the experiment"""
         return FcsFile.list(self._id, query=self.query)
 
-#   TODO: settermethod for files as method of uploading files to experiment?
+    @property
+    def upload(self, filepath, blob=None):
+        raise NotImplementedError
 
     @property
     def compensations(self):
@@ -55,15 +56,22 @@ class Experiment(object):
 
     @property
     def comments(self):
-        return self._properties.get("comments")
+        comments = self._properties['comments']
+        if type(comments) is not CommentList:
+            self._properties['comments'] = CommentList(comments)
+        return comments
 
     @comments.setter
     def comments(self, comments):
-        """Sets comments for experiment. Defaults to overwrite;
-        append new comments with experiment.comments.append(dict)
-        with the form: dict = {"insert": "some text",
-        "attributes": {"bold": False, "italic": False, "underline": false}}.
+        """Sets comments for experiment.
+
+        Defaults to overwrite; append new comments with
+        experiment.comments.append(dict) with the form:
+         dict = {"insert": "some text",
+        "attributes": {"bold": False, "italic": False, "underline": False}}.
         """
+        if comments.get('insert').endswith('\n') is False:
+            comments.update(insert=comments.get('insert')+'\n')
         self._properties['comments'] = comments
 
     @property
@@ -81,9 +89,10 @@ class Experiment(object):
 
     @property
     def delete(self):
-        """Marks this experiment as deleted. Deleted experiments are permanently
-        deleted after approximately 7 days. Until then, deleted experiments can
-        be recovered.
+        """Marks the experiment as deleted.
+
+        Deleted experiments are permanently deleted after approximately
+        7 days. Until then, deleted experiments can be recovered.
         """
         self._properties['deleted'] = today_timestamp()
         print('Experiment flagged for deletion.')
