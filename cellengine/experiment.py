@@ -1,6 +1,6 @@
 import attr
 from .client import session
-from ._helpers import load, created, timestamp_to_datetime, today_timestamp, CommentList
+from . import _helpers
 from .fcsfile import FcsFile
 from .compensation import Compensation
 
@@ -12,18 +12,16 @@ class Experiment(object):
     Attributes
         name (:obj:`str`, optional):   Name of the experiment; can be queried
         _id (:obj:`str`, optional):    Experiment ID; can be queried in place of `name`
-        query (:obj:`str`, optional):  Query for loading. Defaults to "name"
         _properties (:obj:`dict`, optional): Experiment properties; loaded automatically.
     """
     name = attr.ib(default=None)
     _id = attr.ib(default=None)
-    query = attr.ib(default="name", repr=False)
     _properties = attr.ib(default={}, repr=False)
     _session = attr.ib(default=session, repr=False)
 
     def __attrs_post_init__(self):
         """Load automatically by name or by id"""
-        load(self, self.path)  # from _helpers
+        _helpers.load(self, self.path)  # from _helpers
 
     @staticmethod
     def list_all():
@@ -35,16 +33,27 @@ class Experiment(object):
 
     @property
     def files(self):
-        """List all files in the experiment"""
-        return FcsFile.list(self._id, query=self.query)
+        """List all files on the experiment"""
+        url = "experiments/{0}/fcsfiles".format(self._id)
+        return _helpers.base_list(url, FcsFile, experiment_id=self._id)
 
     @property
-    def upload(self, filepath, blob=None):
-        raise NotImplementedError
+    def populations(self):
+        """List all populations in the experiment"""
+        pass
+        # url = "experiments/{0}/populations".format(self._id)
+        # return _helpers.base_list(url, Population, experiment_id=self._id)
 
     @property
     def compensations(self):
-        return Compensation.list(self._id)
+        url = "experiments/{0}/compensations".format(self._id)
+        return _helpers.base_list(url, Compensation, experiment_id=self._id)
+
+    @property
+    def gates(self):
+        pass
+        # url = "experiments/{0}/gates".format(self._id)
+        # return _helpers.base_list(url, Gate, experiment_id=self._id)
 
     @property
     def path(self):
@@ -57,8 +66,8 @@ class Experiment(object):
     @property
     def comments(self):
         comments = self._properties['comments']
-        if type(comments) is not CommentList:
-            self._properties['comments'] = CommentList(comments)
+        if type(comments) is not _helpers.CommentList:
+            self._properties['comments'] = _helpers.CommentList(comments)
         return comments
 
     @comments.setter
@@ -80,12 +89,12 @@ class Experiment(object):
 
     @property
     def deep_updated(self):
-        return timestamp_to_datetime(self._properties.get('deepUpdated'))
+        return _helpers.timestamp_to_datetime(self._properties.get('deepUpdated'))
 
     @property
     def deleted(self):
         if self._properties.get('deleted') is not None:
-            return timestamp_to_datetime(self._properties.get('deleted'))
+            return _helpers.timestamp_to_datetime(self._properties.get('deleted'))
 
     @property
     def delete(self):
@@ -94,50 +103,32 @@ class Experiment(object):
         Deleted experiments are permanently deleted after approximately
         7 days. Until then, deleted experiments can be recovered.
         """
-        self._properties['deleted'] = today_timestamp()
+        self._properties['deleted'] = _helpers.today_timestamp()
 
-    @property
-    def public(self):
-        return self._properties.get('public')
+    public = _helpers.GetSet('public')
 
-    @public.setter
-    def public(self, public):
-        self._properties['public'] = public
+    uploader = _helpers.GetSet('uploader')
 
-    # uploader
+    primary_researcher = _helpers.GetSet('primaryResearcher')
 
-    # primaryResearcher
+    active_compensation = _helpers.GetSet('activeCompensation')
 
-    # activeCompensation
+    locked = _helpers.GetSet('locked')
 
-    @property
-    def locked(self):
-        return self._properties.get('locked')
+    clone_source_experiment = _helpers.GetSet('cloneSourceExperiment')
 
-    @property
-    def clone_source_experiment(self):
-        return self._properties.get("cloneSourceExperiment", None)
+    revision_source_experiment = _helpers.GetSet('revisionSourceExperiment')
 
-    @property
-    def revision_source_experiment(self):
-        return self._properties.get('revisionSourceExperiment', None)
+    revisions = _helpers.GetSet('revisions')
 
-    # revisions
+    per_file_compensations_enabled = _helpers.GetSet('perFileCompensationsEnabled')
 
-    @property
-    def per_file_compensations_enabled(self):
-        return self._properties.get("perFileCompensationsEnabled")
+    tags = _helpers.GetSet('tags')
 
-    @property
-    def tags(self):
-        return self._properties.get("tags")
+    annotation_name_order = _helpers.GetSet('annotationNameOrder')
 
-    # annotationNameOrder
+    annotation_tabe_sort_columns = _helpers.GetSet('annotationTableSortColumns')
 
-    # annotationTableSortColumns
+    permissions = _helpers.GetSet('permissions')
 
-    # permissions
-
-    @property
-    def created(self):
-        return created(self)
+    created = _helpers.GetSet('created')
