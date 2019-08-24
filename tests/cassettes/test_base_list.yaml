@@ -9,87 +9,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
-    method: GET
-    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles?name
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAAA+3bXW/bNhQG4L9i6NodziF5+OG7LEC33gzDsqUYiiLgl1YDthwkTlqs6H8flS6J
-        IyEcd6G7E0CAE79HIsVYDyiZH752V9vUbTpK0nqD5HqfrVFu/PFG5W7dXfsh737x+1xiv46vV1j+
-        mu/zcDw/3A3HbmOdXXef/O3b7S6/G475ZvC788P+utscb+7yurvd/l2KnVKy5PaJyo6MTb1SZHsP
-        4MELLTBmQimxD9SHWI7Ql70N3w97cZ3jdp+HKwC8OkMxbj/08XZsx5frfDO+d3z31A/dm0k/wmM/
-        us2Hr1385IeH193bi/M3Z+W9m+z/ymNXhrvdbt1th5S/dBv8tp6Gf341LObh96+G5cvwRbUZah5+
-        vRk0D7/eDP0y/OPuLpOESlPMvEA7qhTYlwWX24Oi2gHcLE+itn+EeYGtFuCsQEO1QMwLqFogZwUG
-        a33GyQD/cVk/R0jTfH3QcDLMv+WkTbXAzApM/Qh2XmCrBZNx/vMnsqKSFzDN6+opFTjLV3ssxDRf
-        HzIhZ/lqf8VkiH8vV6zXw/Tt47or0cPRH7eH4fbhovXvpfB6549j6b0vn73yu9Or93m3W71ZXa7C
-        4Xg87LvxUKfp1c3h80nF2TwQD7u7/XCSQTEPfS6HOd3NmCntvLq67zYPw1OThLBJEgRBDZQgGJT4
-        aInykFKMSgtNBlwSIYKxOsZIIjsPNUsKJcCUMCVMCVPClCxBCTRQAlVKdABh1HgFtuWFzX0bJcpB
-        CyUktYSnaQmpmIQzkIGcT6aXDgOAIWv7HFyVEiqUEFPClDAlTAlTsgQl1EAJVWclE0pcEyUKWyYl
-        Sp/OSVQwPiUC26feW9SRTG/76JLG3pCr3t8qkCBDwpAwJAwJQ7IEJNgACf6fOUlsgsQ52XR3S7pn
-        SUxGWS73JgZJkHLQPfZowWvhIFjT1ySRRRLJkrAkLAlLwpIsIYlskERWJZk8KNFtkkjd8sjdiud7
-        WyqDkNICiRyVTNoHFXvKIRTCtPK+BokqkCiGhCFhSBgShmQJSFQDJKoGiXk5JempCZIylWiARAg9
-        Ppj/DknyYBwSuJSEyyF6jJR00solxGBkDRJdINEMCUPCkDAkDMkSkOgGSHQNEjuBpO0hiSzZBkkk
-        GCncIyVBuKC88RFIW+eiDz1pHQRI5aQTVKPEFEoMU8KUMCVMCVOyBCWmgRJTo8RNKGlbTyK1VS2U
-        lH9HaR4pKZMQR+SBQpJZBKW9J5tztDYpp0L1q1u2UGKZEqaEKWFKmJIlKLENlNh2ShzIJkoEupYH
-        JUIo8TwrcUjal/MftQjJhVgE0YBJJ59BWle9weUKJY4pYUqYEqaEKVmCEtdAiatR4ieUmCZKEEXT
-        ghLU+vnbW1Kj9JgdZmFDMDZ5AQikSaVkjKuvc4dxY0vYEraELWFLlljnDg3r3KFmSZhY8nQF/g9L
-        ZNM6d7Qna0qkElZmC9olj8YbiZRUVKSTJCmirlrysLElbAlbwpawJUtY0rCoBF8sKvn4Dyila8R/
-        SwAA
-    headers:
-      Cache-Control:
-      - private, no-cache
-      Connection:
-      - keep-alive
-      Content-Encoding:
-      - gzip
-      Content-Security-Policy:
-      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
-        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
-        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
-        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        worker-src 'self'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 12 Aug 2019 14:46:47 GMT
-      ETag:
-      - 5d38a71bb02747499802790d
-      Strict-Transport-Security:
-      - max-age=5184000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      X-Content-Type-Options:
-      - nosniff
-      X-Current-Release:
-      - ''
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-      set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
-        Path=/
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
-      User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles
   response:
@@ -132,7 +54,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 12 Aug 2019 14:46:47 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - 5d38a71bb02747499802790d
       Strict-Transport-Security:
@@ -150,7 +72,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -165,9 +87,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a7159fae87499999a74e
   response:
@@ -227,7 +149,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:47 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"235e-fcuyhShS1PiMURzw2EfGdgVct+U"
       Strict-Transport-Security:
@@ -245,7 +167,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -260,9 +182,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a7159fae87499999a751
   response:
@@ -322,7 +244,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:47 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2358-lriNHD1Y9OsZLvhPZd+JZQ0l+9A"
       Strict-Transport-Security:
@@ -340,7 +262,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -355,9 +277,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a716b0274749980278ef
   response:
@@ -417,7 +339,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2357-rBY/yiFFuT4ww4TQxesNX+mOj18"
       Strict-Transport-Security:
@@ -435,7 +357,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -450,9 +372,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a715b0274749980278e9
   response:
@@ -512,7 +434,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2356-gdTlIlJrBzYVojDHILjknljnE1A"
       Strict-Transport-Security:
@@ -530,7 +452,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -545,9 +467,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a716b0274749980278ec
   response:
@@ -607,7 +529,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2357-OzvSFIM+B5b2cdnzmYsloUfVSH4"
       Strict-Transport-Security:
@@ -625,7 +547,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -640,9 +562,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a7169fae87499999a756
   response:
@@ -702,7 +624,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2355-AYrIwdMhZ7k7XdT4rX7XwEmVz0Y"
       Strict-Transport-Security:
@@ -720,7 +642,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -735,9 +657,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a717b0274749980278f5
   response:
@@ -797,7 +719,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2350-nXukKOpX6oKCPfusPboTekFqWy0"
       Strict-Transport-Security:
@@ -815,7 +737,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -830,9 +752,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a718b0274749980278f9
   response:
@@ -891,7 +813,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2356-CwdgTCJr8eue4+QXp4qIdRtCriY"
       Strict-Transport-Security:
@@ -909,7 +831,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -924,9 +846,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a719b0274749980278fe
   response:
@@ -986,7 +908,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"235e-c+F9LsAudQzDvLCLkxWiRJlIYCw"
       Strict-Transport-Security:
@@ -1004,7 +926,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -1019,9 +941,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a719b027474998027903
   response:
@@ -1080,7 +1002,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2356-hxp/rty1L3eIt5JTgDIPKjwRQcs"
       Strict-Transport-Security:
@@ -1098,7 +1020,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -1113,9 +1035,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a71ab027474998027907
   response:
@@ -1174,7 +1096,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2359-Eub+VyLwRxyZuLpBOqxZc7e79WM"
       Strict-Transport-Security:
@@ -1192,7 +1114,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
@@ -1207,9 +1129,9 @@ interactions:
       Connection:
       - keep-alive
       Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
-      - python-requests/2.22.0
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
     uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a71bb02747499802790b
   response:
@@ -1268,7 +1190,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:18 GMT
       ETag:
       - W/"2359-UsV0/CPV/g7rKA2mEFsqsW951p0"
       Strict-Transport-Security:
@@ -1286,7 +1208,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200

@@ -2,8 +2,6 @@ import attr
 from getpass import getpass
 from . import session
 from .experiment import Experiment
-# from .fcsfile import FcsFile
-# from .compensation import Compensation
 
 
 @attr.s(repr=True)
