@@ -1,8 +1,8 @@
 import attr
 import pandas
 import numpy
-from ._helpers import load
 from .client import session
+from . import _helpers
 
 
 @attr.s
@@ -13,13 +13,12 @@ class Compensation(object):
     _session = attr.ib(default=session, repr=False)
     name = attr.ib(default=None)
     _id = attr.ib(default=None)
-    channels = attr.ib()
-    query = attr.ib(default='name')
+    _properties = attr.ib(default={}, repr=False)
     experiment_id = attr.ib(kw_only=True)
 
     def __attrs_post_init__(self):
         """Load automatically by name or by id"""
-        load(self, self.path)  # from _helpers
+        _helpers.load(self, self.path)  # from _helpers
 
     @staticmethod
     def list(experiment_id, query=None):
@@ -31,9 +30,7 @@ class Compensation(object):
         comps = [Compensation(id=item['_id'], experiment_id=experiment_id) for item in res.json()]
         return comps
 
-    @property
-    def channels(self):
-        return self._properties.get('channels')
+    channels = _helpers.GetSet('channels')
 
     @property
     def N(self):
@@ -48,21 +45,20 @@ class Compensation(object):
         else:
             return "{0}".format(base_path)
 
-#   TODO: check to make sure this works! Maybe lazy_property?
     @property
     def dataframe(self):
         if hasattr(self, '_dataframe'):
             return self._dataframe
         else:
             self._dataframe = pandas.DataFrame(
-                data=numpy.array(self._properties.get('spillMatrix').reshape((self.N, self.N)),
+                data=numpy.array(self._properties.get('spillMatrix')).reshape(self.N, self.N),
                                  columns=self.channels,
                                  index=self.channels)
-            )
             return self._dataframe
 
     def apply(self, file, inplace=True):
-        """Compensates the file's data.
+        """
+        Compensates the file's data.
 
         :type parser: :class:`cellengine.FcsFile`
         :param parser: The FCS file to compensate.
