@@ -1,4 +1,3 @@
 import pytest
 import cellengine
-import vcr
-
+# from conftest import my_vcr
