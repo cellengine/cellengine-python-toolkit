@@ -1,0 +1,1909 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA+1Z227cNhD9FUFPLbArkJRIiXoqEDh9a4Nm24fEgUGJo12huoGinCyM/Eu/pV+W
+        0d7vdmzUxW5WCxiWeMgh58wZjqiPD+5drt3Y5dqPlMhCmSmIwkD2lwqDxB24lSoBERZaewdfGjB5
+        CZXFhq4paqXBuPHGKEKQMFQ0jGQWaiG4T0Ke9uAWzGKkMYwr+IzPoFR50T/wZk9+Gff3XlqX2Jbl
+        prW/zTv8CsbkvcVCrZ7dLMbIuqLYgjnLltMz+jpw7+7u3ZgMXJXa/B7e1GUDVatsXlezjjwhFAKI
+        QAjBEtAk1TzQs3VrZaEfnREqhyQasnBEw5jzmBOPc/IBQeinMm9bHKx144+fBm5bG5tX4/cNpOgw
+        NK+qqrYzcyOVFPAe29/URVcuO6zb/1JFjiZr0+727Ff+u5lx0HexarzojObf5sXWotqbqreD885U
+        0cLANXCfb0zQgEVe8f5dXeTptGd1krdoddq3o9miTv/e6N5gICgz/QNaUCadnG8cNF2CC16tS0MB
+        M3orHLK/hebPpzCeGtgChUMWjGgUB0FMQo+zOague/X0Ln9w8wqdYbHDv//0v7f9Uh3KnDpzpHAy
+        5K91MlOXToIOrjVGj2MhnVR5qgpnLUXnp3f4T26nP99Wt5X7FblaE8FBCcqFZkGmSZL5nDIZwVrW
+        WVdV09WsLkfUB0Tqj0gU8zAmgUd5dIYifcBgbFOTN4sctVijs0HfLAhrc5q2VWxkUrMs9IkGibHB
+        aJalJEJAm48rZTsDc6slqAq9gn1UZye4wkneLFDwElMKARZDuLWqbPaYIiQOQo9R+QFD+qnAwa6P
+        srp+jltksi0ZFf5nbtkzJU+7hcU+9yLCHnXLNvCa3r8nve/nit30jiA2okHMRMykJ5n/Gukdo/nI
+        H6212rzmNpc/JL8z1SpR3FbqYq6Z5pW1Jk862yvzwU3qAnmypgOkf8XCJn734fV62nWswNBbmT3R
+        GwUGFcSndChFU8CXYaCnMKRDetmVxjIx+P225J9hpXHdL75zv9hn/MR+0YNI9P+8DmRKiWi74Ejo
+        Wq2fczsZ4szHP87rAOMelfwq0rPi9UVFHQ+8QLAjIl2CKPN8eqKo25OWCFQCLFVSZ4L6gQQdQdi/
+        TR05XzqElxzxOG+1XMnhw7eL2D/Toq5QQZ1J4WZ9rHjyKHIZ/fu95t46eDJHAqzi+3Ma3w+uKj+r
+        EHnmydwu4wdUfgD02lvxTP88TVKKs/IDFRJgyn8kX+zgU/K0fMEuOl8czbwvyRe+xyS95ouzCpGX
+        5QtkPDp21HMA9Or5ggvweSqoShPKIxkKyQhfl+4j1Lxzc4kf6I5+cPOxUMP3rXM8y7/K9Fkf3DYZ
+        PyjTPdATi3cUF093xBX+0OIKYl94gsiruM6K1xeIa5Pxo+JagB4V16dveNoNMVwiAAA=
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"225c-ibr/TeRm/S5TebH3pD/gF1XGmhM"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b
+  response:
+    body:
+      string: "{\"_id\":\"5d38a6f79fae87499999a74b\",\"name\":\"test_experiment\",\"uploader\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"__v\":0,\"activeCompensation\":\"5d5b01e4e8e6662bed0cd54d\",\"updated\":\"2019-08-27T17:55:50.550Z\",\"permissions\":[],\"sortingSpec\":{},\"annotationTableSortColumns\":[],\"annotationValidators\":{},\"annotationNameOrder\":[],\"tags\":[],\"perFileCompensationsEnabled\":false,\"revisions\":[],\"retentionPolicy\":{\"history\":[]},\"locked\":false,\"primaryResearcher\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"public\":false,\"deleted\":null,\"deepUpdated\":\"2019-08-27T17:55:50.550Z\",\"created\":\"2019-07-24T18:44:07.520Z\",\"comments\":[{\"insert\":\"\_\_\_First
+        12 of 96 files from barcoding technical experiment (Primity)\\n\\n\"}]}"
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '982'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"3d6-KVoqlUAK/5Isvijw3sGynHHo0SI"
+      Last-Modified:
+      - Tue, 27 Aug 2019 17:55:50 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d5ea6156d24fd0bf351298e
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA+1V3W7TMBR+lchXIHVV4jS/V0jTxh1MbHAxOk1OfNxaOHZkO4Oq2rvwLDzZjrO2
+        tJsYu93Akarm+Dv/X85Zk2vJSU0yngHLkyzndCZ43Ig0S2hVApkQzTpAhBi0XrWm60B7h+KhV4Zx
+        sKRe72ykeR4XBUuKshIFz/MsjYusDWAHdmNnAQsN31EGHZMqCKaj5N0ivE/RA94JaZ3/cK/wHqyV
+        HoWK7WQnGxtiUOoAFm1vno7odkKur29IHYc8OPMQ0DROqqO4PKLpRVzWWVHHs2mSlZdorQfbSeek
+        0Y7UX68mxBnrpV6c99BiAdAc09p45hFxwRoF53h/bNTQbRV+339hSqJLY91DzZDJRzvWNKh4ttgo
+        o/tTqeDYdD1oN2LdiQ5+MG7BlIMJsXAjtwGuCQfXWtkHJGa2yTHaa19rIcTwYru3Za2oOBVFGnOo
+        kLU0EaKNS7Tg5EIzP1i4r0cHTGO/UIcNfom1X8p+g3rBFH6qCAwteNmB86zrH7E7jutZMaVJdUlu
+        r54LnDzklTDmdVGpag4HICv+QSo9KkL1NJVonWbTMqZ/pdIh0ILHWYREOjNKtqtQuaV0SKRVGHoY
+        kzLtt70B11vZMbv6BA6YbZcvt9b90GDCu7w4KBgXkEaT4RX6z8/ZSeNndwiiF8mspnlNq2lF0xG0
+        nfiBuVJjMTwq/PoZntOQapTQyIioyiOBG8ZFwpouarDAhiPJIw/tUsuWqQh+4BaSwVj05gz/SL96
+        O9c4Af7wwzln++fe5/bB5g9W7xbSXLNXc8Y5yby3shl8mBlr0hiFffJ2AGz/rgv7+IfC/+d5Z67n
+        GqfJ7R0+nfWNyAoAAA==
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"ac8-BhvmzOPAHixTDEGGBjOv+qczMPE"
+      Last-Modified:
+      - Fri, 23 Aug 2019 08:57:04 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d5ea61d730de90bf21ffbde
+  response:
+    body:
+      string: "{\"_id\":\"5d5ea61d730de90bf21ffbde\",\"name\":\"160311-96plex-4dye-1-1\",\"uploader\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"__v\":0,\"updated\":\"2019-08-22T14:26:37.213Z\",\"permissions\":[],\"sortingSpec\":{},\"annotationTableSortColumns\":[],\"annotationValidators\":{},\"annotationNameOrder\":[],\"tags\":[],\"perFileCompensationsEnabled\":false,\"revisions\":[],\"retentionPolicy\":{\"history\":[]},\"locked\":false,\"primaryResearcher\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"public\":false,\"deleted\":null,\"deepUpdated\":\"2019-08-22T14:26:37.213Z\",\"created\":\"2019-08-22T14:26:37.208Z\",\"comments\":[{\"insert\":\"\_\_\_First
+        12 of 96 files from barcoding technical experiment (Primity)\\n\\n\"}]}"
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '941'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"3ad-fIOUmX8k8DeTFq7c9q4O1xgoFRY"
+      Last-Modified:
+      - Thu, 22 Aug 2019 14:26:37 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d5faa686d24fd0bf35129b1
+  response:
+    body:
+      string: '{"_id":"5d5faa686d24fd0bf35129b1","name":"with-reagents","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-23T08:57:25.195Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-23T08:57:54.462Z","created":"2019-08-23T08:57:12.313Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '858'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"35a-rLhvldu+VOhmaO/wjIAACY63Vy4"
+      Last-Modified:
+      - Fri, 23 Aug 2019 08:57:25 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d64abe2ca9df61349ed8e78
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA9VSwW7bMAz9FUOnDUgC27Et26cCRbrbVqzZDl2LgpHpRJgsGZLcLQjyL/uWfdmo
+        JE2Wbi12nX2xST4+vkdu2INsWM3ypshggamAqmmLZJpV2JTISzZiILx8xEvT9agdeGn0i/VVTvUN
+        eGC1HpQaMQ0dUrVH5x/we49Wdqj9OKGyoVcGGrSs3hxnmBZFzDkkvKxa3hRFPo15LkKxQ3votcSl
+        xm8Uww6kCoHJLnKxDP8TYTrKtdI6/34PeIfWSk9BBcfY7NCjpSnPyqKnzOsTbUdMKKPxxgxW4Oyo
+        7ExMCUXLqxaw5FkVHuDZgr1kCiWERfAY0GmcVOOYj9NsnpR1ltUxn+RpfBuILT5KR1v4k3vv+dA3
+        Z13KccrnMbXI6jyeTKfZLVERqJMutHGs/nI/Ys5YL/XypkdBIogGtDZ+t+45LBQptf7SqKF7Apzy
+        n0FJojTWPUcGaz/Y3ZIDxMPyACb6K6nOjsrNdOChuVtQDk86DxCLnkTS/7VRUqyD0yvpiHUd8kSr
+        jPj6G7wnV8CuP6JDsGL1/x5aPyxI8FFXgwp3691vu0HsP/3Lxp8f19+LTBdOKVi+YVKTGXRW7OeP
+        8F4FqVGSRqaNqiJqaX8uaq3pogUZbBq6nsijWGkpQEWnw47eXNOH9Ou3d/pOs+399hcSthI7dQQA
+        AA==
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"475-JtDMC2pW5auw3sGpJF54Y3A2cuQ"
+      Last-Modified:
+      - Tue, 27 Aug 2019 04:04:50 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d64abe5cbc120134a70e2a3
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA9VSy27bMBD8FYGnFrANPayXTwECp7c2aNIe3ATBmlzJRClSIKm0huF/6bf0y7q0
+        HTtp4eRcSAdpd2dnZ3Y37EEKNmO5KKawxJwveZLGSTaFMsYUMjZiwL18xEvT9agdeGn02XoeU70A
+        D2ymB6VGTEOHVO3R+Qf82aOVHWo/Tqls6JUBgZbNNscZsqKIyxKSsqqbUhRFnsVlzkOxQ3vo1WKr
+        8QfFsAOpQmCyi1y04X/CTUe5RlrnP+4BH9Ba6Smo4BibH3o0NOWLsugp8/pE2xHjymi8MYPlOD8q
+        ey5mZ1DKoRZNQQbVKCosK3bWlIRS3CJ4DHgytR7H1Tgtb+PpjN48nmTZdBGoLT5KR3v4l33v+tCL
+        s12ySVonC6IiUCddaOPY7Nv9iDljvdTtTY+cZBANaG38buG3sFSk1fpLo4buCXDKfwUlidJY9zcy
+        mPvJ7tYcIB7aA5jor6R6cVZurgMPzd2AcnjSeYBY9CSS/q+NknwdvF5JR6zrkCdaZfj3Z/CeXAG7
+        /owOwfLV/3tq/bAkwUddAhXu1rvftkDsv7y+8apavHFcpyLThVMKlm+Y1GQGnRX7/Ss8V0FqlKSR
+        aaK6iBran4saa7poSQYbQdcTeeQrLTmo6HTa0btr+pB+/f5O32m2vd/+AV5osy53BAAA
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"477-S6Z15tSCo9pTnYx0IO8xiqimHPM"
+      Last-Modified:
+      - Tue, 27 Aug 2019 04:04:53 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d656e35c61acb1589769205
+  response:
+    body:
+      string: '{"_id":"5d656e35c61acb1589769205","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-27T17:53:57.218Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-27T17:53:57.218Z","created":"2019-08-27T17:53:57.218Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '860'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"35c-pfSZIyZhrhyrLmpAFLIkyd/8jZw"
+      Last-Modified:
+      - Tue, 27 Aug 2019 17:53:57 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d656e5cc61acb1589769207
+  response:
+    body:
+      string: '{"_id":"5d656e5cc61acb1589769207","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-27T17:54:36.609Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-27T17:54:36.609Z","created":"2019-08-27T17:54:36.608Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '860'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"35c-2D0ThauYrcikGh5NFkOpR/Pv8Ug"
+      Last-Modified:
+      - Tue, 27 Aug 2019 17:54:36 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/compensations
+  response:
+    body:
+      string: '[{"_id":"5d5b01e4e8e6662bed0cd54d","experimentId":"5d38a6f79fae87499999a74b","name":"Copy
+        of File-Internal (Specimen_001_A1_A01.fcs)","spillMatrix":[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],"channels":["Blue530-A","Blue695-A","Vio450-A","Vio525-A","Vio585-A","Vio605-A","Vio655-A","Vio710-A","UV450-A","UV530-A","Red670-A","Red730-A","Red780-A","YG582-A","YG610-A","YG670-A","YG710-A","YG780-A"],"__v":0}]'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1013'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"3f5-dI83CsxgNUnppgy4BwF0YDD6oXc"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/compensations/5d5b01e4e8e6662bed0cd54d
+  response:
+    body:
+      string: '{"_id":"5d5b01e4e8e6662bed0cd54d","experimentId":"5d38a6f79fae87499999a74b","name":"Copy
+        of File-Internal (Specimen_001_A1_A01.fcs)","spillMatrix":[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],"channels":["Blue530-A","Blue695-A","Vio450-A","Vio525-A","Vio585-A","Vio605-A","Vio655-A","Vio710-A","UV450-A","UV530-A","Red670-A","Red730-A","Red780-A","YG582-A","YG610-A","YG670-A","YG710-A","YG780-A"],"__v":0}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1011'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"3f3-VGL473EmokDj8zWJFftqfC204LA"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA+3bXW/bNhQG4L9i6NodziF5+OG7LEC33gzDsqUYiiLgl1YDthwkTlqs6H8flS6J
+        IyEcd6G7E0CAE79HIsVYDyiZH752V9vUbTpK0nqD5HqfrVFu/PFG5W7dXfsh737x+1xiv46vV1j+
+        mu/zcDw/3A3HbmOdXXef/O3b7S6/G475ZvC788P+utscb+7yurvd/l2KnVKy5PaJyo6MTb1SZHsP
+        4MELLTBmQimxD9SHWI7Ql70N3w97cZ3jdp+HKwC8OkMxbj/08XZsx5frfDO+d3z31A/dm0k/wmM/
+        us2Hr1385IeH193bi/M3Z+W9m+z/ymNXhrvdbt1th5S/dBv8tp6Gf341LObh96+G5cvwRbUZah5+
+        vRk0D7/eDP0y/OPuLpOESlPMvEA7qhTYlwWX24Oi2gHcLE+itn+EeYGtFuCsQEO1QMwLqFogZwUG
+        a33GyQD/cVk/R0jTfH3QcDLMv+WkTbXAzApM/Qh2XmCrBZNx/vMnsqKSFzDN6+opFTjLV3ssxDRf
+        HzIhZ/lqf8VkiH8vV6zXw/Tt47or0cPRH7eH4fbhovXvpfB6549j6b0vn73yu9Or93m3W71ZXa7C
+        4Xg87LvxUKfp1c3h80nF2TwQD7u7/XCSQTEPfS6HOd3NmCntvLq67zYPw1OThLBJEgRBDZQgGJT4
+        aInykFKMSgtNBlwSIYKxOsZIIjsPNUsKJcCUMCVMCVPClCxBCTRQAlVKdABh1HgFtuWFzX0bJcpB
+        CyUktYSnaQmpmIQzkIGcT6aXDgOAIWv7HFyVEiqUEFPClDAlTAlTsgQl1EAJVWclE0pcEyUKWyYl
+        Sp/OSVQwPiUC26feW9SRTG/76JLG3pCr3t8qkCBDwpAwJAwJQ7IEJNgACf6fOUlsgsQ52XR3S7pn
+        SUxGWS73JgZJkHLQPfZowWvhIFjT1ySRRRLJkrAkLAlLwpIsIYlskERWJZk8KNFtkkjd8sjdiud7
+        WyqDkNICiRyVTNoHFXvKIRTCtPK+BokqkCiGhCFhSBgShmQJSFQDJKoGiXk5JempCZIylWiARAg9
+        Ppj/DknyYBwSuJSEyyF6jJR00solxGBkDRJdINEMCUPCkDAkDMkSkOgGSHQNEjuBpO0hiSzZBkkk
+        GCncIyVBuKC88RFIW+eiDz1pHQRI5aQTVKPEFEoMU8KUMCVMCVOyBCWmgRJTo8RNKGlbTyK1VS2U
+        lH9HaR4pKZMQR+SBQpJZBKW9J5tztDYpp0L1q1u2UGKZEqaEKWFKmJIlKLENlNh2ShzIJkoEupYH
+        JUIo8TwrcUjal/MftQjJhVgE0YBJJ59BWle9weUKJY4pYUqYEqaEKVmCEtdAiatR4ieUmCZKEEXT
+        ghLU+vnbW1Kj9JgdZmFDMDZ5AQikSaVkjKuvc4dxY0vYEraELWFLlljnDg3r3KFmSZhY8nQF/g9L
+        ZNM6d7Qna0qkElZmC9olj8YbiZRUVKSTJCmirlrysLElbAlbwpawJUtY0rCoBF8sKvn4Dyila8R/
+        SwAA
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - 5d38a71bb02747499802790d
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a7159fae87499999a74e
+  response:
+    body:
+      string: !!binary |
+        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
+        Pm9rMUCbQe/5aeplTjF//voHJnzQ0F4jAAA=
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:18 GMT
+      ETag:
+      - W/"235e-fcuyhShS1PiMURzw2EfGdgVct+U"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a7159fae87499999a751
+  response:
+    body:
+      string: !!binary |
+        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
+        20YMw3bQR3GbZjXHmD9+/hd52yyTWCMAAA==
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2358-lriNHD1Y9OsZLvhPZd+JZQ0l+9A"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a716b0274749980278ef
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA+2ZXXPiOBaG/4rLNZeQ1pEsf3BniJOmloALm6TZ6amUA8o0tQRSQJKe6er/vsKS
+        bHMsmL3Zu05ftHl1jvxYss8r2T/cx9XS7bl8ycIiAP+J0MALvCgK5UEont2O+1psxHpcvAgZlh6P
+        HZCqeBebw2D7tjm4PfAi0nG/Ffub1VoMNwex2xTrwfbl1e0ddm+i4+5fV+t1dtitNn/KTiDs9Ndv
+        gjPSjcsjP+Ly6H619ThRB5xqhYf6wCfmgOuDAI7Bs3uVNLtX/U3F0g/0QWCUIDwezG95SMv/fVC/
+        VeT8NtC/VRx0yP/w71fUr6j/a5R8yL6JYil28pH58dX9rZ/cDsfxOB7Ns2H21e19dclXtyMbkvG1
+        TS7jszz5kqPgllZGXsd5XIqeT2kVW6nAmU/Baf6poJvhqAzIXsVi9SI2j4TAY8wfY8Kvnhd7FZTN
+        FdrDarPcfuydL6nDr0C15RMFc6wijmM5QxpPywDK1e+7yXVSCiONP8+TyfRawXdYh3Z0z0f4fJ6q
+        4BuljeW1Vxelrn8wTeJ8os7Rv3Zu4kF2vXovnGz7fPgodsK5F7v9artx/Cs1MPmsnzjj+E51HGus
+        bDpoDUTZknxJk+nwLhnndRL4hAE4kf+6Ft8db/mX2Dtv785TsVtsl8JZfBOL/8gO1PluZ0N1dU++
+        WMhCHXUjeKJdz19G3YIC7TIGbLlcLGBJl9Wl6xNF3TiddikBX49WPrzT490D1mPmvjiVPT2Eg7ma
+        nFE2vdnuDmK/L9SYzfPxTCX8m8dAiLnYB3knTR4cOcrJOBtOxqpPckWIGYvJNHdmWTKtB+Nf4n21
+        aTZLlhZ9F3gPaI9ECmySotSbbODE2Y2a16tATUo8yyd9devl01miUo9PRSmlu9XL6vCX019ty5ZR
+        LLGgwjpaU0O/TkbxXHevr0Y11GeNGjKt+pFetRaHRkvdE/OuKGu01F2FUS2zqqvZfUOtuwngivBG
+        S6ObhuxV3UhLbMh1P+DBVdTg8RodBbXMq47mYr3efji3OyE2jfZGj7IK+LTR1Jgi1WM6krdqfS9E
+        vvMgO3W6zr3ztD0cti/qtkpGI0c/BbG+VpWpRY8EBfPk2oCLMOh6Qiy6kQjCbkh8toAnWIbE1Bt5
+        c8kSmJqpVHKWDkeqkP1anvyK+hX1j1GqvqbpaO4MJneprPZxbup9VWvzz9Mk+zwZqWdUlugOJ7p2
+        /pbC2Kjd2Eja6eVSw/OM1lelkprfqlBICCPc6wBuhFv1IF+piBSuh1lqKtJoONZqv7lcSuHuZPWU
+        0prus5EsdBTRUUxHMR1FdNRKR0/pKKJjNd2DkSx0DNExTMcwHUN0THN0Qf9GIJ4CyRqT6FlAPATi
+        YRDvXq/xKgGBeNZh8k6HyUN0vKYzk8gtdBzRcUzHMR1HdNxKx0/pOKLzazozib6Fzkd0PqbzMZ2P
+        6Hw0iT4CCcbVgqe0KSNbYAIEE2CYQMHw6jEPEExwMlSTW61qRKChFhBjWDOWhmxkC2OIGEPMGCpG
+        n4VGQIyhlTHUjJSaMMQYjc2Cr3R9o1oQI4QYYcRID2M1pxFCjKyI0ekdFyFAIBVhuYapZFvdJbjw
+        klblJZoyqJNw7SVWTtn5afUlmBRq0rBBanWIlkW0PUKbhB/VMZgU7KTYJ7BRAK1Iy1VgJdtIsV1A
+        yy+AmjGt7Aw7BlA7KfIMwKYBrCblDVKbcwC2Dmh5B2jz8L2wUjAps5MaVwl9I2BUr0ItV7+VbEPF
+        5gItdwFtLz6NKgWjenZU4zBRYASMqk1GL/Ur1UaKjQZaTgMc10/AXgPcTsqr8mRQseGAb1CbZR5s
+        pgPYdaBlO+C3ULHxgG9HNYbEQ88oGFV7ktkwVbKNFZsStFwJtC0FNSv2JbAbExhnChgzCmYNK9ag
+        Oa42bwJsTtByJzD2RKFSMKvdoMA4lH57IAWMGtWoYQPV5lGATQpaLgWRcVJWKRjVblRgnMpjhhWb
+        FdVmpTfGlWpbhWOvoi2vogTfrRR7FbV7FTVeBSQwCkYFg+o3qhW1mRXFZkVbZkW1WfGoTsKodrOi
+        xqxCagRMSivSxmNFrVub1t6mvbkxZhWySsGkdrOixqwgNIOK7Yoyg9q0AGpzK4rdirbcimq38gK/
+        UjCq3a0ow+s+iu2KehVq46miNrei2K1oy62ocSuvVjCq3a2ocStuBhW7FdVula9eRCXZMLFV0ZZV
+        UW1M1Tu0Y9LprvXUgAZZ7mRJPkudLI/zmWq6iY8fEHRrP4mvM2c0yc1rPcoiUOugwTyf3CV5MnUG
+        k/HN8LZ+Zahf4z4CI4z69uDyHX/iVK/FCftE/U+UAHNI0KN+jzMnvUOUdXTwiYTHaO4A9GjU49SJ
+        6+h+nCVyz9foHsgn4unuZTTvEV4m/HQ77n71t3B7x+8pjHTclyV3e27AvcWSRgERhEfFMniWl/1E
+        SMDD8Fk8RUSmPa/WYqO+wp751HL8Kvv9VeyOTYdh9VXXfw6i50KEx6+68q8IvCcZ+fj47vaI/rrr
+        9n7/4S6+FZvyWL2RkTE7Ufwpjh94N2/rdcddbZbiuyT/2cHBn88G03bww9lgdhqcXcTw2sHnMXg7
+        +DyGfxpc7YrPJgTthHKLejYhPE0w+8Wz8VErvty9nZ8i0k4ILyZAK6Hcy5xPoO0EfjGBtRLKqn4+
+        AU2wXl6fj+c4/vKkAZpms9A8nxC0EoLLZwjbCeHFBDTPeuFz/uEiON6/OKQUWvEXr5hSHH95yihr
+        xV+8Xoqm+OhJ54P5zz86rgzdHorDarvZl0VLV8TXdXE4pr4X8tmTv9tfkdzjqZrRzm770ciI2wGL
+        7frtZdOIIbwd9CFP0+zmGPPHz/8CQ19hIlcjAAA=
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2357-rBY/yiFFuT4ww4TQxesNX+mOj18"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a715b0274749980278e9
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2356-gdTlIlJrBzYVojDHILjknljnE1A"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a716b0274749980278ec
+  response:
+    body:
+      string: !!binary |
+        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
+        5W7z+rRteAhrm97VYZrNHD1//PwveK/q7VcjAAA=
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2357-OzvSFIM+B5b2cdnzmYsloUfVSH4"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a7169fae87499999a756
+  response:
+    body:
+      string: !!binary |
+        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
+        +ePnfwH23KLaVSMAAA==
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2355-AYrIwdMhZ7k7XdT4rX7XwEmVz0Y"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a717b0274749980278f5
+  response:
+    body:
+      string: !!binary |
+        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
+        HfQhT9Ps5hjzx8//AofAjntQIwAA
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2350-nXukKOpX6oKCPfusPboTekFqWy0"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a718b0274749980278f9
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2356-CwdgTCJr8eue4+QXp4qIdRtCriY"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a719b0274749980278fe
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"235e-c+F9LsAudQzDvLCLkxWiRJlIYCw"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a719b027474998027903
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2356-hxp/rty1L3eIt5JTgDIPKjwRQcs"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a71ab027474998027907
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2359-Eub+VyLwRxyZuLpBOqxZc7e79WM"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d38a71bb02747499802790b
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 27 Aug 2019 17:56:19 GMT
+      ETag:
+      - W/"2359-UsV0/CPV/g7rKA2mEFsqsW951p0"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 200
+      message: OK
+version: 1

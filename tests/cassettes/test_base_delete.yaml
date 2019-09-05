@@ -1,0 +1,49 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      Cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: DELETE
+    uri: http://localhost:3000/api/v1/experiments/5d64abe5cbc120134a70e2a3
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Date:
+      - Wed, 28 Aug 2019 15:33:32 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie:
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
+        Path=/
+    status:
+      code: 204
+      message: No Content
+version: 1

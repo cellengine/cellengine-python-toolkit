@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: null
+    body: username=gegnew&password=testpass1
     headers:
       Accept:
       - '*/*'
@@ -8,22 +8,22 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY
+      Content-Length:
+      - '34'
+      Content-Type:
+      - application/x-www-form-urlencoded
       User-Agent:
-      - python-requests/2.22.0
-    method: GET
-    uri: http://localhost:3000/api/v1/experiments/5d38a6f79fae87499999a74b/compensations
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: POST
+    uri: http://localhost:3000/api/v1/signin
   response:
     body:
-      string: '[]'
+      string: '{"token":"s:DrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj+6tlgPrm/3gdHRXcOwUkc","userId":"5d366077a1789f7d6653075c","admin":true,"flags":{}}'
     headers:
-      Cache-Control:
-      - private, no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - '2'
+      - '150'
       Content-Security-Policy:
       - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
         'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
@@ -33,9 +33,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 12 Aug 2019 14:46:48 GMT
+      - Tue, 27 Aug 2019 17:56:17 GMT
       ETag:
-      - W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"
+      - W/"96-cgsYFl+6weYEToIuPTlauBy31NY"
       Strict-Transport-Security:
       - max-age=5184000
       Vary:
@@ -49,7 +49,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       set-cookie:
-      - token=s%3AoWRERaijjA53quYIOE2w7aDZ_ZI2LzUQ.2PDXJ4CxMA03kRvPKLGuJsv0c1IxWRmX8TQKspNWIeY;
+      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
         Path=/
     status:
       code: 200
