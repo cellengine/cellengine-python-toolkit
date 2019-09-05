@@ -8,8 +8,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -34,7 +32,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 04 Sep 2019 17:07:53 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
       - W/"3f5-dI83CsxgNUnppgy4BwF0YDD6oXc"
       Strict-Transport-Security:
@@ -49,9 +47,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -64,8 +60,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -90,7 +84,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 04 Sep 2019 17:07:53 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
       - W/"3f3-VGL473EmokDj8zWJFftqfC204LA"
       Strict-Transport-Security:
@@ -105,9 +99,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK

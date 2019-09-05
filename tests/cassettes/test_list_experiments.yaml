@@ -8,8 +8,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -17,26 +15,29 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA+1Z227jNhD9FUFPLWALJCVSop4KLLJ9axddtw+7WQQUObKF6gaJzq4R7L/0W/pl
-        O3J8v8WJ0RR2LANBJB5yyDlzhiPq84N7lxk3drnxIyXSUKYKojCQ3aXCIHF7bqkKQISF1t7Btxqa
-        rIDSYsO4zitloHHjlVGEIGGoaBjJNDRCcJ+EXHfgFprZSEMYlvAVn0Ghsrx74E2f/DLs7j1dFdiW
-        Zk1rf3vs8Cs0TdZZzNXi2c1sjHSc52swZ95yeEbfe+7d3b0bk56rtM3u4V1V1FC2ymZVOe3IE0Ih
-        gAiEECwBQ7ThgZmu2ygL3eiMUNknUZ+FAxrGnMeceJyTTwhCPxVZ2+JgrRt//tJz26qxWTn8WING
-        h6F5VZaVnZobqCSHj9j+rsrHxbzDsv0vlWdosmrazZ7dyn9vphx0Xawazjqj+fdZvrao9qbs7OC8
-        U5W30HMbuM9WJtiARV7x/kOVZ3rSsTrKWrQ66drRbF7pv1e61xgIqpn8AS2oRo/ONw7qcYILXqzL
-        QA5TekscsruF+s9jGNcNrIHCPgsGNIqDICahx9kjqCo69XQuf3CzEp1hscO//3S/991SHcqcKnWk
-        cFLkr3XSpiqcBB1cGYwex4IelZlWubOUovPTB/wns5Ofb8vb0v2OXC2J4KAE5cKwIDUkSX1OmYxg
-        Ket0XJaTxawuR9Q7ROoPSBTzMCaBR3l0hiJ9wGBsdZPVsxw1W6OzQt80CKvmMG2L2EilYWnoEwMS
-        Y4PRNNUkQkCbDUtlxw08Wi1AlegV7KPGdoQrHGX1DAWnmFIIsBjCrVVFvcUUIXEQeozKTxjSxwJ7
-        mz5Kq+olbpHJumRU+J+5ZcuUPOwWFvvciwh70i3rwGt6f056384Vm+kdQWxAg5iJmElPMv810jtG
-        854/xhi1ej3anP+Q/HFTLhLFbaku5ppqXlnbZMnYdsp8cJMqR55sMwakf8HCKn7z4fU67tpXYJi1
-        zJ6YlQKDCuJT2peizuFbPzAT6NM+vexKY54Y/G5b8s+w0rjuF8/cL7YZP7BfdCAS/T+vA6lSIlov
-        OBK6VOvXzI76OPPh23kdYNyjkl9Fela8nlTU8cALBNsj0jmIMs+nB4q6LWmJQCXAtJImFdQPJJgI
-        wu5tas/50i685IjHeav5SnYfvl3E/qnzqkQFjRsNN8tjxYNHkfPo3+716K2dJ3MkwCq+O6fx/eCq
-        8rMKkReezG0yvkPlO0CvvRVP9c91oinOyg9USIAp/4l8sYHX5Lh8wS46X+zNvKfkC99jkl7zxVmF
-        yGn5AhmP9h317AC9er7gAnyuBVU6oTySoZCM8GXpPkDNOzeX+IFu7wc3Hws1fN86x7P8q0xf9MFt
-        lfGdMt0CHVm8o7i43hBX+KbFFcS+8ASRV3GdFa8niGuV8b3imoGeKy7tb4hLvmlxiZhKz5fXs+Hz
-        4vUEca0yvldcMxB7SlxffgBIQU54uSUAAA==
+        H4sIAAAAAAAAA+1a247bNhD9FUNPLbAWeL/oqUCw6VsbNG4fkg0WlEh6hcqSIclJFov8S7+lX9ah
+        7/fEDpqFvJYXC5sc3ubMmeGQev8U3ec2SiJuqTLCS+2NU5Lp8BjJ0ugmKs3IgUTrmvbefR67Oh+5
+        soWKybiojHV1lKz1IgSS0mCptJdWCE6R5FkQblw972nohqX7BGVuZPIiFMTTkl+G4XecVSOo83nd
+        tL/NGvzq6joPIxZmWXY778NPimJDrLeoOT6jLzfR/f3HKEE3kcna/KN7VY3GrmxMm1fltHgytqZ1
+        oROCsO4j1Sd6gFnCUMJVzIV4B4OAOkZ500CbJkref7iJmqpu83L4duwy0AuMYsqyaqe9DkxauLdQ
+        /6oqJqNFg1X9X6bIYciqbrZbhgX+Xk9VHZq0ZjhvDMO/zouNuTe3ZRgH5u1N0bibqHYf87UJ1q4F
+        +OD3m6rIs8cA3kPewKiPoR6GLars77XmY8Db1I9/uMaZOnvoLtzjSQoLXq7LusJN4S2hy/DTjf88
+        gDgXCcexwiogntVuQ0j2CRtglTCWIBlzgqZC1SiQJKj8KcpLUEYLDf79J3xeh6X2MOlVvqdFzwN+
+        Tc/X1aiXgoIrC9bTa132UOaZKXorxvV+egNf8vbx57vyroy+AFYrILgzAnNhCfMWpZ5yTLRyK/b6
+        SVk+Lmd1OdzdQ1I6QCrhMkEsxlx1kKRPYIxNVufjmStarLG3Bt/UCKv6OGxL2/DaEi8psk6DbRDs
+        fYYUCDT5sDTtpHazUUfOlKAVaGMm7QOs8CEfz6Xc9wxlQKAFE25aMxrvIIVQwmRMsH4HJv2tgjfb
+        OvJVdY5adLpJGSP/N7XsDKWPq4UklMcKka+qZVPw6t5Pce+7vmLbvYMQCTGAiIToWBP6I9w7WPOB
+        f9Zas/7Mxlx8APxJXS4dxV1pLuaZct60bZ2nkzYw8ylKqwJwauuJA/iXKKzLbxden297Dm0w7IZn
+        T+3aBgMLRDHuazEu3Oc+s4+uj/v4sncaC8dAQ1iiHdxpXOPFifFiF/Ej8SIIIfU86YA3RqjNDUeK
+        V2z9lLcPfZj58OWkA4THWPMrSTuF65k5O8EJ1glRsRD4AEkXZoFJTPGRTd0OtQQzqSOZ0dYLTJl2
+        VjkZsql9x0gH5DUHeZi3WaxkrnbQyvRb9wmZFVUJvJnUmbtdnRkePWdc2Pxuq5mOtrkNf9ODF06C
+        p2VCX7ndKRM5ndt7Ed/DbTlADFK6hKOYUvYsAVgIC0vVmgqqsTVScskYWgXgAWTzvdtLPE3fE4LV
+        ALwxRQmRsZbsStNO4XpWCN5FfA9NN4TwKSFYWIV4KjKfUiCX4Ninhr9ocsmE4ZiQ651Ut3D9DnLN
+        EZdHyTUXOml/C+Tybity0ZdMLobDToJrfCVXp3A9n1wbiB8i10LoyIXvLrkUI1gin6bMMKJYyhQz
+        2YHksY/3JolbL2JcxCHrD0gXFwcDhMKeI9aze/ormztjIucfBQHiXMZSHAqVMyHIKXEs8TOli+AX
+        DLLUGWHBL1CbaaPXdrSgo6EJhnkBXD8SbmdI8JARzP3qlaCdwfUQQffDi6epylHartvBQdqyhKlY
+        KH1iEM7UZhB2apts7sLvRRY65iRm6Hp22i1czw+GlCcMxXT29upBVvFweaKUOIFVEiHpuUcpdxlm
+        2AtHFfcvMW/cPKamqovvIF7Jdf7FxBzxbXJtC/GvkevDfwhJXKyeLwAA
     headers:
       Cache-Control:
       - private, no-cache
@@ -53,9 +54,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
-      - W/"25b9-XCatlpl8dewlh0rtXD429dfR+SA"
+      - W/"2f9e-2GEMBp/vMayDZkcljSYB0wXzM5g"
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -70,9 +71,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -85,8 +84,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -94,8 +91,8 @@ interactions:
   response:
     body:
       string: "{\"_id\":\"5d38a6f79fae87499999a74b\",\"name\":\"test_experiment\",\"uploader\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
-        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"__v\":0,\"activeCompensation\":\"5d5b01e4e8e6662bed0cd54d\",\"updated\":\"2019-08-27T17:55:50.550Z\",\"permissions\":[],\"sortingSpec\":{},\"annotationTableSortColumns\":[],\"annotationValidators\":{},\"annotationNameOrder\":[],\"tags\":[],\"perFileCompensationsEnabled\":false,\"revisions\":[],\"retentionPolicy\":{\"history\":[]},\"locked\":false,\"primaryResearcher\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
-        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"public\":false,\"deleted\":null,\"deepUpdated\":\"2019-08-27T17:55:50.550Z\",\"created\":\"2019-07-24T18:44:07.520Z\",\"comments\":[{\"insert\":\"\_\_\_First
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"__v\":0,\"activeCompensation\":0,\"updated\":\"2019-08-29T14:40:58.566Z\",\"permissions\":[],\"sortingSpec\":{},\"annotationTableSortColumns\":[],\"annotationValidators\":{},\"annotationNameOrder\":[],\"tags\":[],\"perFileCompensationsEnabled\":false,\"revisions\":[],\"retentionPolicy\":{\"history\":[]},\"locked\":false,\"primaryResearcher\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"public\":false,\"deleted\":null,\"deepUpdated\":\"2019-08-29T14:56:51.818Z\",\"created\":\"2019-07-24T18:44:07.520Z\",\"comments\":[{\"insert\":\"\_\_\_First
         12 of 96 files from barcoding technical experiment (Primity)\\n\\n\"}]}"
     headers:
       Cache-Control:
@@ -103,7 +100,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '982'
+      - '957'
       Content-Security-Policy:
       - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
         'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
@@ -113,11 +110,11 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
-      - W/"3d6-KVoqlUAK/5Isvijw3sGynHHo0SI"
+      - W/"3bd-2JWLoTlQsCF/XPPRDg13k8ciAuk"
       Last-Modified:
-      - Tue, 27 Aug 2019 17:55:50 GMT
+      - Thu, 29 Aug 2019 14:40:58 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Vary:
@@ -130,9 +127,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -145,8 +140,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -182,7 +175,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
       - W/"ac8-BhvmzOPAHixTDEGGBjOv+qczMPE"
       Last-Modified:
@@ -201,9 +194,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -216,8 +207,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -244,7 +233,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
       - W/"3ad-fIOUmX8k8DeTFq7c9q4O1xgoFRY"
       Last-Modified:
@@ -261,9 +250,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -276,8 +263,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -286,7 +271,7 @@ interactions:
     body:
       string: '{"_id":"5d5faa686d24fd0bf35129b1","name":"with-reagents","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
         Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-23T08:57:25.195Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
-        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-23T08:57:54.462Z","created":"2019-08-23T08:57:12.313Z","comments":[{"insert":"\n"}]}'
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-29T21:19:28.661Z","created":"2019-08-23T08:57:12.313Z","comments":[{"insert":"\n"}]}'
     headers:
       Cache-Control:
       - private, no-cache
@@ -303,9 +288,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
-      - W/"35a-rLhvldu+VOhmaO/wjIAACY63Vy4"
+      - W/"35a-zMcIZV0B8E3Kzrb/JoRNMKpUzJA"
       Last-Modified:
       - Fri, 23 Aug 2019 08:57:25 GMT
       Strict-Transport-Security:
@@ -320,9 +305,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -335,8 +318,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -344,16 +325,16 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA9VSwW7bMAz9FUOnDUgC27Et26cCRbrbVqzZDl2LgpHpRJgsGZLcLQjyL/uWfdmo
-        JE2Wbi12nX2xST4+vkdu2INsWM3ypshggamAqmmLZJpV2JTISzZiILx8xEvT9agdeGn0i/VVTvUN
-        eGC1HpQaMQ0dUrVH5x/we49Wdqj9OKGyoVcGGrSs3hxnmBZFzDkkvKxa3hRFPo15LkKxQ3votcSl
-        xm8Uww6kCoHJLnKxDP8TYTrKtdI6/34PeIfWSk9BBcfY7NCjpSnPyqKnzOsTbUdMKKPxxgxW4Oyo
-        7ExMCUXLqxaw5FkVHuDZgr1kCiWERfAY0GmcVOOYj9NsnpR1ltUxn+RpfBuILT5KR1v4k3vv+dA3
-        Z13KccrnMbXI6jyeTKfZLVERqJMutHGs/nI/Ys5YL/XypkdBIogGtDZ+t+45LBQptf7SqKF7Apzy
-        n0FJojTWPUcGaz/Y3ZIDxMPyACb6K6nOjsrNdOChuVtQDk86DxCLnkTS/7VRUqyD0yvpiHUd8kSr
-        jPj6G7wnV8CuP6JDsGL1/x5aPyxI8FFXgwp3691vu0HsP/3Lxp8f19+LTBdOKVi+YVKTGXRW7OeP
-        8F4FqVGSRqaNqiJqaX8uaq3pogUZbBq6nsijWGkpQEWnw47eXNOH9Ou3d/pOs+399hcSthI7dQQA
-        AA==
+        H4sIAAAAAAAAA9VSTY/TMBD9K5FPILVVmi8nOSGtutxgxRYOy65WU2fSWjh2ZDsLVdX/wm/hlzFO
+        uy1dBOJKkoMzM2+e35vZsUfZsJrlTZHBChMBVdMW8zSrsCmRl2zCQHj5hFem61E78NLoP9ZXOdU3
+        4IHVelBqwjR0SNUav46nCRt6ZaBBy+rdiTktiphzmPOyanlTFHka81yEYof22GGNa2pCMexAqhCY
+        jZE36/A/E6ajXCut8+8OgLdorfQUVHCKLY49WrrbRVn0nPn7jfYTJpTReGsGK3DxrUcrO9T+QkwJ
+        RcurFrDkWRUe4NmKnazw6PwjnqHU0iJ4DOgknlfTmE+TbDkv6yyrYz7Lk/guEFt8ko68/5374PTQ
+        Nxdd6Bu75Emd8llWVHdERaBOutDGsfrzw4Q5Y73U69seBYkgGtDa+HHIS1gpUmr9lVFD9ww45z+B
+        kkRprHuJDNa+t+OQA8TD+ggm+mupLlbJLXTgoXu3oByedR4hFj2JpP8bo6TYBqc30hHrNuSJVhnx
+        5Rd4T66A3X5Ah2DF5v9dtH5YkeCTrgYVjuM9TLtB7D/+y8RfLlc5Tfgyps3K6jyepWk2FpkurFKw
+        fMekJjNordiP7+G9DlKjeRKZNqqKqKX5uai1potWZLBpaHsij2KjpQAVnRc7enVDB+m3r+/1vWb7
+        h/1P9Yfl/2sEAAA=
     headers:
       Cache-Control:
       - private, no-cache
@@ -370,11 +351,11 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
-      - W/"475-JtDMC2pW5auw3sGpJF54Y3A2cuQ"
+      - W/"46b-eNzjG4VKvezkRai1UqTnYhdiw/U"
       Last-Modified:
-      - Tue, 27 Aug 2019 04:04:50 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -389,9 +370,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -404,24 +383,188 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
-    uri: http://localhost:3000/api/v1/experiments/5d64abe5cbc120134a70e2a3
+    uri: http://localhost:3000/api/v1/experiments/5d66d6539936391da7757440
+  response:
+    body:
+      string: '{"_id":"5d66d6539936391da7757440","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-28T19:30:27.974Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-28T19:30:27.974Z","created":"2019-08-28T19:30:27.971Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '860'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 04 Sep 2019 18:52:37 GMT
+      ETag:
+      - W/"35c-VjAXVrTz4VOKuL1wZaSwID+vUzo"
+      Last-Modified:
+      - Wed, 28 Aug 2019 19:30:27 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d66d805b6cfb31da651fba5
+  response:
+    body:
+      string: '{"_id":"5d66d805b6cfb31da651fba5","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-28T19:37:41.226Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-28T19:37:41.227Z","created":"2019-08-28T19:37:41.223Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '860'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 04 Sep 2019 18:52:37 GMT
+      ETag:
+      - W/"35c-nWO3c+9snkqhFPbECpcwoQw+9Zg"
+      Last-Modified:
+      - Wed, 28 Aug 2019 19:37:41 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d66d8fe9936391da7757443
+  response:
+    body:
+      string: '{"_id":"5d66d8fe9936391da7757443","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-28T19:41:50.591Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-28T19:41:50.591Z","created":"2019-08-28T19:41:50.590Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '860'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 04 Sep 2019 18:52:37 GMT
+      ETag:
+      - W/"35c-y2QU9lVVlUApWvXTAEBG1u5y5ZU"
+      Last-Modified:
+      - Wed, 28 Aug 2019 19:41:50 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d6842170fbb4a4284b484ac
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA9VSy27bMBD8FYGnFrANPayXTwECp7c2aNIe3ATBmlzJRClSIKm0huF/6bf0y7q0
-        HTtp4eRcSAdpd2dnZ3Y37EEKNmO5KKawxJwveZLGSTaFMsYUMjZiwL18xEvT9agdeGn02XoeU70A
-        D2ymB6VGTEOHVO3R+Qf82aOVHWo/Tqls6JUBgZbNNscZsqKIyxKSsqqbUhRFnsVlzkOxQ3vo1WKr
-        8QfFsAOpQmCyi1y04X/CTUe5RlrnP+4BH9Ba6Smo4BibH3o0NOWLsugp8/pE2xHjymi8MYPlOD8q
-        ey5mZ1DKoRZNQQbVKCosK3bWlIRS3CJ4DHgytR7H1Tgtb+PpjN48nmTZdBGoLT5KR3v4l33v+tCL
-        s12ySVonC6IiUCddaOPY7Nv9iDljvdTtTY+cZBANaG38buG3sFSk1fpLo4buCXDKfwUlidJY9zcy
-        mPvJ7tYcIB7aA5jor6R6cVZurgMPzd2AcnjSeYBY9CSS/q+NknwdvF5JR6zrkCdaZfj3Z/CeXAG7
-        /owOwfLV/3tq/bAkwUddAhXu1rvftkDsv7y+8apavHFcpyLThVMKlm+Y1GQGnRX7/Ss8V0FqlKSR
-        aaK6iBran4saa7poSQYbQdcTeeQrLTmo6HTa0btr+pB+/f5O32m2vd/+AV5osy53BAAA
+        H4sIAAAAAAAAA9VSwY7TMBD9lcgnkNIoSd04yQlp1eUGK7ZwWHa1cpxJa+HYke0sVFX/hW/hyxin
+        3ZYCy53kksz4zfN783bkUbakJou2KGmesbRrGsppXtKGlpQLEhMuvHyCK9MPoB330mhSz7KYtNxz
+        UutRqZho3gNO8eD8I3wbwMoetJ9lCB8HZXgLltS7E9e8KFLGeMbKqmNtUSzmKVsErtGBPc5aw1rD
+        V6xBz6UKhWSqvFmH/0SYHnudtM6/OwDegrXSY1HxU215nNHhLS+ORc+df99oHxOhjIZbM1oBy5Oy
+        CzElLzpWdRxKRqvwcEYb8pIp2BAWuIeAztOsmqVsltNVVtaU1ilLFnl6F4gtPEmHbv/JffB8HNqL
+        KeUsr1Z5Vufzep4mVZgSEwT10oUxjtSfH2LijPVSr28HECgCabjWxk9rXfFGoVLrr4wa+2fAuf+J
+        K4mUxrrfkcHa93ZacoB4vj6Ckf5aqovwuKUOPHjvjisHZ51HiAWPIvH/xigptsHpjXTIug19pFVG
+        fPkFPqAr3G4/gANuxeb/DdowNij4pKsFBdN6D9tuAYaPL298wRJWsLu/hOt0KK/nWcIyOh0yfYhS
+        sHxHpEYzMFbkx/fwXgepUZZHpouqIupwfy7qrOmjBg02LaYn8iA2WgquonOwo1c3+CH99vW9vtdk
+        /7D/CbD1C/BdBAAA
     headers:
       Cache-Control:
       - private, no-cache
@@ -438,11 +581,11 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
-      - W/"477-S6Z15tSCo9pTnYx0IO8xiqimHPM"
+      - W/"45d-AEEkyCnNb2gKD6h1i3YMQpyX4ao"
       Last-Modified:
-      - Tue, 27 Aug 2019 04:04:53 GMT
+      - Thu, 29 Aug 2019 21:23:30 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -457,9 +600,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
@@ -472,17 +613,125 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
-    uri: http://localhost:3000/api/v1/experiments/5d656e35c61acb1589769205
+    uri: http://localhost:3000/api/v1/experiments/5d6842a0d3ea6d4283dc9a95
   response:
     body:
-      string: '{"_id":"5d656e35c61acb1589769205","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
-        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-27T17:53:57.218Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
-        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-27T17:53:57.218Z","created":"2019-08-27T17:53:57.218Z","comments":[{"insert":"\n"}]}'
+      string: '{"_id":"5d6842a0d3ea6d4283dc9a95","name":"newgating","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-29T21:25:27.590Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":"2019-08-29T21:25:27.516Z","deepUpdated":"2019-08-29T21:25:27.590Z","created":"2019-08-29T21:24:48.689Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '876'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 04 Sep 2019 18:52:37 GMT
+      ETag:
+      - W/"36c-MosRLrnopIWx4IyGqTAnqyUZCi4"
+      Last-Modified:
+      - Thu, 29 Aug 2019 21:25:27 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d6842c80fbb4a4284b484e8
+  response:
+    body:
+      string: '{"_id":"5d6842c80fbb4a4284b484e8","name":"newgates","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-29T21:25:52.409Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-29T21:35:40.366Z","created":"2019-08-29T21:25:28.886Z","comments":[{"insert":"\n"}]}'
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '853'
+      Content-Security-Policy:
+      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
+        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
+        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
+        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        worker-src 'self'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 04 Sep 2019 18:52:37 GMT
+      ETag:
+      - W/"355-GSMmnxqaGkJuL6eD3oKhrB4o8Sk"
+      Last-Modified:
+      - Thu, 29 Aug 2019 21:25:52 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - ''
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: GET
+    uri: http://localhost:3000/api/v1/experiments/5d7007f5f0b5ec141f6e385f
+  response:
+    body:
+      string: '{"_id":"5d7007f5f0b5ec141f6e385f","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-09-04T18:52:37.388Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
+        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-09-04T18:52:37.388Z","created":"2019-09-04T18:52:37.385Z","comments":[{"insert":"\n"}]}'
     headers:
       Cache-Control:
       - private, no-cache
@@ -499,11 +748,11 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
-      - W/"35c-pfSZIyZhrhyrLmpAFLIkyd/8jZw"
+      - W/"35c-1pgFmGzNYtrpB+8tJvmipr/VeJs"
       Last-Modified:
-      - Tue, 27 Aug 2019 17:53:57 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Vary:
@@ -516,127 +765,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
-      User-Agent:
-      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
-    method: GET
-    uri: http://localhost:3000/api/v1/experiments/5d656e5cc61acb1589769207
-  response:
-    body:
-      string: '{"_id":"5d656e5cc61acb1589769207","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
-        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-27T17:54:36.609Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
-        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-27T17:54:36.609Z","created":"2019-08-27T17:54:36.608Z","comments":[{"insert":"\n"}]}'
-    headers:
-      Cache-Control:
-      - private, no-cache
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '860'
-      Content-Security-Policy:
-      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
-        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
-        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
-        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        worker-src 'self'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
-      ETag:
-      - W/"35c-2D0ThauYrcikGh5NFkOpR/Pv8Ug"
-      Last-Modified:
-      - Tue, 27 Aug 2019 17:54:36 GMT
-      Strict-Transport-Security:
-      - max-age=5184000
-      Vary:
-      - Accept-Encoding
-      X-Content-Type-Options:
-      - nosniff
-      X-Current-Release:
-      - ''
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
-      User-Agent:
-      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
-    method: GET
-    uri: http://localhost:3000/api/v1/experiments/5d656ec3c61acb1589769209
-  response:
-    body:
-      string: '{"_id":"5d656ec3c61acb1589769209","name":"Test Experiment","uploader":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
-        Egnew","id":"5d366077a1789f7d6653075c"},"__v":0,"updated":"2019-08-27T17:56:19.393Z","permissions":[],"sortingSpec":{},"annotationTableSortColumns":[],"annotationValidators":{},"annotationNameOrder":[],"tags":[],"perFileCompensationsEnabled":false,"revisions":[],"retentionPolicy":{"history":[]},"locked":false,"primaryResearcher":{"_id":"5d366077a1789f7d6653075c","username":"gegnew","email":"g.egnew@gmail.com","firstName":"Gerrit","lastName":"Egnew","fullName":"Gerrit
-        Egnew","id":"5d366077a1789f7d6653075c"},"public":false,"deleted":null,"deepUpdated":"2019-08-27T17:56:19.393Z","created":"2019-08-27T17:56:19.392Z","comments":[{"insert":"\n"}]}'
-    headers:
-      Cache-Control:
-      - private, no-cache
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '860'
-      Content-Security-Policy:
-      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
-        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
-        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
-        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        worker-src 'self'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
-      ETag:
-      - W/"35c-BbGtUiS58u95eX/sNxy58aOwseE"
-      Last-Modified:
-      - Tue, 27 Aug 2019 17:56:19 GMT
-      Strict-Transport-Security:
-      - max-age=5184000
-      Vary:
-      - Accept-Encoding
-      X-Content-Type-Options:
-      - nosniff
-      X-Current-Release:
-      - ''
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK

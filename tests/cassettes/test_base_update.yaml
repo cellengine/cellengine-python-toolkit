@@ -12,8 +12,6 @@ interactions:
       - '62'
       Content-Type:
       - application/json
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: PATCH
@@ -21,15 +19,15 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA9VSzW7UMBB+lcgnkLarJJvESU5I1ZYbVLRwgFZo4kyyFo4d2U5htdp34Vl4MsbZ
-        7Za2KpyJc7Bn5puf75sd+ypbVrO8LTJoMBVQtV2RrLIK2xJ5yRYMhJd3eG6GEbUDL41+Mb7KKb4F
-        D6zWk1ILpmFAitb4fb4t2DQqAy1aVu9OlVdFEXMOCS+rjrdFka9inosQ7NAeM/TYUxKy4QBSBcNy
-        trzpw3spzEC+Tlrn3x0Ab9Fa6cmo4GRbH3N01NujsOje8/eO9gsmlNF4ZSYrcP1jRCsH1P6AKaHo
-        eNUBljyrwgc8ayinxTvpiLXnqANH00iMYSicxkl1FpdnKb9OyjpJ6jRZVgX/TEkINEgX0jhWf7ld
-        MGesl7q/GlEQl9QZaG38LM81NIp6tP7cqGm4Bzz4P4GSVNJY9xQZSHlvZ3kCxEN/BFP5C6keLYFb
-        61CH+u5AOXyY8wix6GlIel8aJcU2CL6Rjqpug5/KKiO+/QEfiRWw2w/oEKzY/L8rMk4NDXyaq0WF
-        s7wHtVvE8eM/FC+D4sLi86A4q+nP4+Vqlc1BZgirFCjfMamJjLCMv36GcxFGjZI0Ml1UFVFH+rmo
-        s2aIGiLYtLQ9kUex0VKAivC0l9GrS7pIv319o28029/ufwNeGhm1JQQAAA==
+        H4sIAAAAAAAAA9VSS27bMBC9isBVCyiGbH0oaVUgcLprg8btok1QjKiRTZQiBZJKaxi+S8/Sk2Uo
+        O07dIkG3lbggZ+bN573Zsa+yZTXL2yKDBhcCqrYr5mlWYVsiL1nMQHh5j5emH1A78NLoZ+OrnOJb
+        8MBqPSoVMw09UrTG79MtZuOgDLRoWb07VU6LIuEc5rysOt4WRZ4mPBch2KE9ZljjmpKQDXuQKhhm
+        k+XNOrxnwvTk66R1/t0B8BatlZ6MCk625TFHR72dhUWPnpc72sdMKKPxxoxW4PLHgFb2qP0BU0LR
+        8aoDLHlWhQ941lBOi/fSEWt/ow4cjQMxhqHwIplXFwmdbDUv63xRp3yWFdVnSkKgXrqQxrH6y13M
+        nLFe6vXNgIK4pM5Aa+MneVbQKOrR+kujxv4R8OT/BEpSSWPdn8hAyns7yRMgHtZHMJW/kupsCdxS
+        hzrUdwfK4dOcR4hFT0PS+9ooKbZB8I10VHUb/FRWGfHtN/hArIDdfkCHYMXm/12RYWxo4NNcLSqc
+        5D2o3SIOH/9FcWHxLKi8WPBVktV08mSWptkUZPqwSoHyHZOayAjL+Otn+K/CqNF8EZkuqoqoI/1c
+        1FnTRw0RbFransij2GgpQEV42svo1TVdpN++vtW3mu3v9g8rTfcxJQQAAA==
     headers:
       Connection:
       - keep-alive
@@ -44,11 +42,11 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 18:11:21 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       ETag:
-      - W/"425-rZKb70ZkxlXqwXyxNZ7PWZ15viU"
+      - W/"425-kSEm4AhDmqFMC6eqY83R9g7tbEg"
       Last-Modified:
-      - Tue, 27 Aug 2019 18:11:21 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -60,83 +58,12 @@ interactions:
       X-Current-Release:
       - ''
       X-Experiment-Updated:
-      - Tue, 27 Aug 2019 18:11:21 GMT
+      - Wed, 04 Sep 2019 18:52:37 GMT
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
-      User-Agent:
-      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
-    method: GET
-    uri: http://localhost:3000/api/v1/experiments/5d64abe2ca9df61349ed8e78
-  response:
-    body:
-      string: !!binary |
-        H4sIAAAAAAAAA9VSy27bMBD8FYGnFrANSZZESacCgdNbGzRpD26CYE2tbKIUKZBUWsPwv/Rb+mVd
-        yo5d93mudCF3d3a4s7Njj7JhNcubIoMVpgKqpi2SeVZhUyIv2YSB8PIJr0zXo3bgpdF/rK9yqm/A
-        A6v1oNSEaeiQqjV+Hk8TNvTKQIOW1bsT87woYs4h4WXV8qYo8nnMcxGKHdpjhzWuqQnFsAOpQmA2
-        Rl6tw30mTEe5Vlrn3xwAr9Fa6Smo4BRbHHu09LaLsug58/cX7SdMKKPx1gxW4OJLj1Z2qP3FMCUU
-        La9awJJnVfiAZyt2ksKj8494hlJLi+AxoNM4qaYxn6bZXVLWWVbHfJan8TIQW3ySjrT/lfug9NA3
-        F13KacpDlySp02RWFXxJVATqpAttHKs/PkyYM9ZLvb7tUdAQRANaGz8u+Q5Wiia1/sqooXsGnPMf
-        QEmiNNb9jAzSvrXjkgPEw/oIJvprqS6s5BY68NC7W1AOz3MeIRY9DUn3G6Ok2AalN9IR6zbkiVYZ
-        8ekHeE+qgN2+Q4dgxeb/NVo/rGjg01wNKhzXe9h2g9i//8fGy+VvzDUWxeSsrM7j2XyejUWmC1YK
-        ku+Y1CQG2Yp9+xr+6zBqlKSRaaOqiFran4taa7poRQKbhtwTeRQbLQWo6Gzs6MUNHaTfvrzX95rt
-        H/bfAYDQC3trBAAA
-    headers:
-      Cache-Control:
-      - private, no-cache
-      Connection:
-      - keep-alive
-      Content-Encoding:
-      - gzip
-      Content-Security-Policy:
-      - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
-        'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
-        'self'; frame-ancestors 'none'; img-src 'self' data:; report-uri /csp_report;
-        script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        worker-src 'self'
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 27 Aug 2019 18:11:21 GMT
-      ETag:
-      - W/"46b-ncibM9fmeT0eSsQieB8y4WWw3cs"
-      Last-Modified:
-      - Tue, 27 Aug 2019 18:11:21 GMT
-      Strict-Transport-Security:
-      - max-age=5184000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      X-Content-Type-Options:
-      - nosniff
-      X-Current-Release:
-      - ''
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK

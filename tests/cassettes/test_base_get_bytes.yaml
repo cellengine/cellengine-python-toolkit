@@ -8,8 +8,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -3963,7 +3961,7 @@ interactions:
       Content-Type:
       - application/vnd.isac.fcs
       Date:
-      - Wed, 28 Aug 2019 18:07:48 GMT
+      - Wed, 04 Sep 2019 18:52:36 GMT
       Strict-Transport-Security:
       - max-age=5184000
       X-Content-Type-Options:
@@ -3974,9 +3972,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK

@@ -8,8 +8,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      Cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: GET
@@ -17,8 +15,8 @@ interactions:
   response:
     body:
       string: "[{\"_id\":\"5d38a6f79fae87499999a74b\",\"name\":\"test_experiment\",\"uploader\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
-        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"__v\":0,\"activeCompensation\":\"5d5b01e4e8e6662bed0cd54d\",\"updated\":\"2019-08-27T17:55:50.550Z\",\"permissions\":[],\"sortingSpec\":{},\"annotationTableSortColumns\":[],\"annotationValidators\":{},\"annotationNameOrder\":[],\"tags\":[],\"perFileCompensationsEnabled\":false,\"revisions\":[],\"retentionPolicy\":{\"history\":[]},\"locked\":false,\"primaryResearcher\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
-        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"public\":false,\"deleted\":null,\"deepUpdated\":\"2019-08-27T17:55:50.550Z\",\"created\":\"2019-07-24T18:44:07.520Z\",\"comments\":[{\"insert\":\"\_\_\_First
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"__v\":0,\"activeCompensation\":0,\"updated\":\"2019-08-29T14:40:58.566Z\",\"permissions\":[],\"sortingSpec\":{},\"annotationTableSortColumns\":[],\"annotationValidators\":{},\"annotationNameOrder\":[],\"tags\":[],\"perFileCompensationsEnabled\":false,\"revisions\":[],\"retentionPolicy\":{\"history\":[]},\"locked\":false,\"primaryResearcher\":{\"_id\":\"5d366077a1789f7d6653075c\",\"username\":\"gegnew\",\"email\":\"g.egnew@gmail.com\",\"firstName\":\"Gerrit\",\"lastName\":\"Egnew\",\"fullName\":\"Gerrit
+        Egnew\",\"id\":\"5d366077a1789f7d6653075c\"},\"public\":false,\"deleted\":null,\"deepUpdated\":\"2019-08-29T14:56:51.818Z\",\"created\":\"2019-07-24T18:44:07.520Z\",\"comments\":[{\"insert\":\"\_\_\_First
         12 of 96 files from barcoding technical experiment (Primity)\\n\\n\"}]}]"
     headers:
       Cache-Control:
@@ -26,7 +24,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '984'
+      - '959'
       Content-Security-Policy:
       - default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src
         'self' ws://127.0.0.1:35729; font-src 'self' https://fonts.gstatic.com; form-action
@@ -36,9 +34,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 27 Aug 2019 17:56:19 GMT
+      - Wed, 04 Sep 2019 18:52:38 GMT
       ETag:
-      - W/"3d8-HSJeq13NCzXdpWLwUIwRB0Afu+U"
+      - W/"3bf-c1glIHuTiAvKEbvUZnnLt+1JXTQ"
       Strict-Transport-Security:
       - max-age=5184000
       Vary:
@@ -51,9 +49,7 @@ interactions:
       - DENY
       X-XSS-Protection:
       - 1; mode=block
-      set-cookie:
-      - token=s%3ADrZwmEJKwwbDSYnI3i8-D3SQap5n8_x-.Eao3BJNgaOVzsK2jxzo7Qj%2B6tlgPrm%2F3gdHRXcOwUkc;
-        Path=/
+      set-cookie: safetoken
     status:
       code: 200
       message: OK
