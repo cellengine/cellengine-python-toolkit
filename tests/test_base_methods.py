@@ -1,6 +1,8 @@
-import vcr
-import pytest
+import os
 import json
+
+import pytest
+import vcr
 from cellengine import _helpers as h
 
 
@@ -41,7 +43,7 @@ def test_base_create():
     with vcr.use_cassette('tests/cassettes/test_base_create.yaml') as cass:
         res = json.loads(cass.responses[0]['body']['string'])
         assert res['name'] == 'Test Experiment'
-        assert res['_id'] == '5d656ec3c61acb1589769209'
+        assert res['_id'] == '5d7007f5f0b5ec141f6e385f'
 
 
 @pytest.mark.vcr()
@@ -62,10 +64,29 @@ def test_base_update():
 
 @pytest.mark.vcr()
 def test_base_delete(client):
-    h.base_delete('experiments/5d64abe5cbc120134a70e2a3')
+    """Tests the base delete method.
+    This test depends on (a) the client fixture being valid for
+    this experiment and (b) the test existing for that client
+    when the cassette is made. If you delete either client.yaml
+    or test_base_delete.yaml, you must delete the other. Then
+    the two cassettes will save properly.
+    """
+    _id = '5d7007f5f0b5ec141f6e385f'
     with vcr.use_cassette('tests/cassettes/test_base_delete.yaml') as cass:
+        h.base_delete('experiments/{0}'.format(_id))
         req = cass.requests[0]
         res = cass.responses[0]
         assert req.method == 'DELETE'
-        assert req.path == '/api/v1/experiments/5d64abe5cbc120134a70e2a3'
+        assert req.path == '/api/v1/experiments/{0}'.format(_id)
         assert res['status']['code'] == 204
+
+
+def test_base_delete_mock(requests_mock):
+    """Mocked version of test_base_delete"""
+    BASE_URL = os.environ.get('CELLENGINE_DEVELOPMENT', 'https://cellengine.com/api/v1/')
+    requests_mock.delete('http://localhost:3000/api/v1/test-delete',
+                         status_code=204)
+    resp = h.base_delete('test-delete')
+    assert resp.status_code == 204
+    assert resp.request.method == 'DELETE'
+    assert resp.request.url == BASE_URL+'test-delete'

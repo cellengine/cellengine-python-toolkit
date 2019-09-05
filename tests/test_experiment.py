@@ -1,7 +1,5 @@
-import cellengine
 import pytest
-from cellengine import Client
-import vcr
+import cellengine
 
 
 @pytest.mark.vcr()
