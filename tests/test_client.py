@@ -1,7 +1,7 @@
 import cellengine
 import pytest
 from cellengine import Client
-import vcr
+# from conftest import my_vcr
 
 
 @pytest.fixture

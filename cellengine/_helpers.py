@@ -146,7 +146,9 @@ def base_update(url, body=None, **kwargs):
 
 
 def base_delete(url):
-    session.delete(url)
+    res = session.delete(url)
+    res.raise_for_status()
+    return res
 
 
 def created(self):
