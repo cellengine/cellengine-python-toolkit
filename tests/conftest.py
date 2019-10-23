@@ -1,5 +1,5 @@
-import vcr
 import pytest
+import vcr
 
 """
 Run tests with ``python -m pytest``.
@@ -21,11 +21,31 @@ login token. I have opened an issue on ``pytest-vcr``, but for now, if you
 remake "test_base_delete.yaml", delete the two lines with the login token.
 """
 
-
 pytest_plugins = [
-    "fixtures.client",
-    "fixtures.experiment"
+    "fixtures.api-base",
+    "fixtures.api-experiments",
+    "fixtures.api-fcsfiles",
+    "fixtures.api-compensations",
+    "fixtures.api-gates",
+    "fixtures.api-scalesets"
 ]
+
+# ===================================================================
+# Configuration for integration tests:
+# TODO: make these only run with a command-line arg
+
+
+# pytest_plugins = pytest_plugins.append(["integration.fixtures.client",
+#                                         "integration.fixtures.experiment"])
+
+
+def pytest_addoption(parser):
+    parser.addoption('--new_vcr', default=False)
+
+
+@pytest.fixture(scope='session')
+def make_new_cassettes(request):
+    return request.config.getoption('--new_vcr')
 
 
 @pytest.fixture(scope='module')
@@ -35,8 +55,9 @@ def vcr_config():
         'filter_headers': ['Cookie'],
         'before_record_response': scrub_header('set-cookie',
                                                repl='safetoken'),
-        'cassette_library_dir': 'tests/cassettes'
-                        }
+        'cassette_library_dir': 'tests/cassettes',
+        'record_mode': 'once'
+        }
 
 
 def scrub_header(string, repl=''):
@@ -54,13 +75,6 @@ def scrub_client_request():
         return response
     return before_record_response
 
-
-# vcr instance for the client object
-client_vcr = vcr.VCR(
-    before_record_response=scrub_client_request(),
-    filter_headers=['Cookie'],
-    filter_query_parameters=['token']
-)
 
 # vcr instance for all other fixtures
 fixture_vcr = vcr.VCR(
