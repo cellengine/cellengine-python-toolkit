@@ -13,6 +13,9 @@ install:
 test:
 	python -m pytest -sv tests/unit
 
+test_this $(test):
+	python -m pytest -svvk tests/unit/$(test)
+
 test_int:
 	python -m pytest -sv tests/integration --integration
 
