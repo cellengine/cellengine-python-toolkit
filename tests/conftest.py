@@ -27,7 +27,8 @@ pytest_plugins = [
     "fixtures.api-fcsfiles",
     "fixtures.api-compensations",
     "fixtures.api-gates",
-    "fixtures.api-scalesets"
+    "fixtures.api-scalesets",
+    "fixtures.api-populations"
 ]
 
 # ===================================================================

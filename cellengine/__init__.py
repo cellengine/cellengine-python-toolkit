@@ -10,6 +10,7 @@ session.headers.update({'User-Agent': "CellEngine Python API Toolkit/0.1.1 reque
 
 from .client import Client
 from .experiment import Experiment
+from .population import Population
 from .compensation import Compensation
 from .fcsfile import FcsFile
 from .gate import Gate
