@@ -1,47 +1,23 @@
 import attr
-from .client import session
 import pandas
 import fcsparser
 from . import _helpers
 
 
-@attr.s
+@attr.s(repr=False)
 class FcsFile(object):
     """A class representing a CellEngine FCS file."""
-    name = attr.ib(default=None)
-    _id = attr.ib(default=None)
-    _session = attr.ib(default=session, repr=False)
     _properties = attr.ib(default={}, repr=False)
-    _events = attr.ib(default=None, repr=False)
-    experiment_id = attr.ib(kw_only=True)
+    _events = attr.ib(default=None)
 
-    def __attrs_post_init__(self):
-        """Load automatically by name or by id,
-        Load ``name`` property if not yet loaded
-        """
-        _helpers.load(self, self.path, query='filename')  # from _helpers
-        if self.name is None:
-            self.name = self.filename
+    def __repr__(self):
+        return "FcsFile(_id=\'{0}\', name=\'{1}\')".format(self._id, self.name)
 
-    @property
-    def path(self):
-        base_path = "experiments/{0}/fcsfiles".format(self.experiment_id)
-        if self._id is not None:
-            return "{0}/{1}".format(base_path, self._id)
-        else:
-            return "{0}".format(base_path)
+    name = _helpers.GetSet('filename')
 
-    @property
-    def events(self):
-        """A DataFrame containing this file's data. This is fetched
-        from the server on-demand the first time that this property is accessed.
-        """
-        if self._events is None:
-            fresp = _helpers.base_get("experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id))
-            parser = fcsparser.api.FCSParser.from_data(fresp.content)
-            self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+    _id = _helpers.GetSet('_id', read_only=True)
 
-        return self._events
+    experiment_id = _helpers.GetSet('experimentId', read_only=True)
 
     panel_name = _helpers.GetSet('panelName')
 
@@ -77,3 +53,19 @@ class FcsFile(object):
             get_input = input('This will overwrite current annotations. Confirm y/n: ')
             if 'y' in get_input.lower():
                 self._properties['annotations'] = val
+
+    @property
+    def events(self):
+        """A DataFrame containing this file's data. This is fetched
+        from the server on-demand the first time that this property is accessed.
+        """
+        if self._events is None:
+            fresp = _helpers.base_get("experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id,
+                                      self._id))
+            parser = fcsparser.api.FCSParser.from_data(fresp.content)
+            self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+        return self._events
+
+    @events.setter
+    def events(self, val):
+        self.__dict__['_events'] = val

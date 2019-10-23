@@ -1,6 +1,7 @@
 import attr
 from getpass import getpass
 from . import session
+from . import _helpers
 from .experiment import Experiment
 
 
@@ -48,12 +49,20 @@ class Client(object):
                 print('Authentication successful.')
 
         elif self.token is not None:
-            session.headers.update({"Authorization", "Bearer {0}".format(self.token)})
+            session.cookies.update({"token": "{0}".format(self.token)})
 
         else:
             raise RuntimeError("Username or token must be provided")
 
+    def get_experiment(self, _id=None, name=None):
+        if _id:
+            content = _helpers.base_get("experiments/{0}".format(_id))
+            content = Experiment(properties=content)
+        else:
+            content = _helpers.load_experiment_by_name(name)
+        return content
+
     @property
     def experiments(self):
         """Return a list of Experiment objects for all experiments on client"""
-        return Experiment.list_all()
+        return _helpers.base_list('experiments', Experiment)

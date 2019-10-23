@@ -4,9 +4,36 @@ import time
 import binascii
 from .client import session
 from datetime import datetime
+from cellengine import ID_INDEX
 
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
+first_cap_re = re.compile('(.)([A-Z][a-z]+)')
+all_cap_re = re.compile('([a-z0-9])([A-Z])')
+
+
+def camel_to_snake(name):
+    s1 = first_cap_re.sub(r'\1_\2', name)
+    return all_cap_re.sub(r'\1_\2', s1).lower()
+
+
+def snake_to_camel(name):
+    components = name.split('_')
+    converted = components[0] + ''.join(x.title() for x in components[1:])
+    if converted == "Id":
+        converted = "_id"
+    return converted
+
+
+def convert_dict(input_dict, input_style):
+    """Convert a dict from type 'snake' to type 'camel' or vice versa."""
+    if input_style == 'snake_to_camel':
+        convert = snake_to_camel
+    elif input_style == 'camel_to_snake':
+        convert = camel_to_snake
+    else:
+        raise ValueError("Invalid input type")
+    return dict(zip([convert(name) for name in input_dict.keys()], input_dict.values()))
 
 
 class CommentList(list):
@@ -24,13 +51,12 @@ class CommentList(list):
         super(CommentList, self).extend(comment)
 
 
-# TODO: add 'read/write' option
 class GetSet:
-    def __init__(self, name):
+    def __init__(self, name, read_only=False):
         self.name = name
+        self.read_only = read_only
 
     def __get__(self, instance, owner):
-        # print(self, '\n',  instance, '\n', owner)
         if instance is None:
             return self
         elif self.name in instance._properties.keys():
@@ -39,7 +65,10 @@ class GetSet:
             return None
 
     def __set__(self, instance, value):
-        instance._properties[self.name] = value
+        if self.read_only is True:
+            print('Cannnot set read-only property.')
+        else:
+            instance._properties[self.name] = value
 
 
 def timestamp_to_datetime(value):
@@ -56,76 +85,93 @@ def today_timestamp():
     return datetime.today().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
+def created(self):
+    return timestamp_to_datetime(self._properties.get("created"))
+
 def load(self, path, query='name'):
     if self._id is None:
         load_by_name(self, query)
     else:
-        res = session.get(path)
-        res.raise_for_status()
-        content = res.json()
+        content = base_get(path)
         if len(content) == 0:
-            ValueError("Failed to load object from {0}".format(res.url))
+            ValueError("Failed to load object from {0}".format(self.path))
         else:
             self._properties = content
             self.__dict__.update(self._properties)
 
 
+def load_by_id(_id):
+    content = base_get("experiments/{0}".format(_id))
+    return content
+
+
 def load_by_name(self, query):
     # TODO does requests encode URI components for us?
     url = "{0}?query=eq({1},\"{2}\")&limit=2".format(self.path, query, self.name)
-    res = session.get(url)
-    res.raise_for_status()
-    objs = res.json()
-    if len(objs) == 0:
-        err = "No objects found with the name {0}.".format(self.name)
-        raise RuntimeError(err)
-    elif len(objs) > 1:
-        err = "More than one object found with the name {0}, please use _id to query instead.".format(self.name)
-        raise RuntimeError(err)
+    content = base_get(url)
+    if len(content) == 0:
+        raise RuntimeError("No objects found with the name {0}.".format(self.name))
+    elif len(content) > 1:
+        raise RuntimeError("Multiple objects found with the name {0}, use _id to query instead.".format(self.name))
     else:
-        self._properties = objs[0]
+        self._properties = content[0]
         self._id = self._properties.get("_id")
+        self.__dict__.update(self._properties)
 
 
-id_index = 0
+def load_experiment_by_name(name):
+    content = base_get("experiments?query=eq(name, \"{0}\")&limit=2".format(name))
+    return load_object_by_name('__import__("cellengine").Experiment', content)
+
+
+def load_fcsfile_by_name(experiment_id, name=None):
+    content = base_get("experiments/{0}/fcsfiles?query=eq(filename, \"{1}\")&limit=2".format(experiment_id, name))
+    return load_object_by_name('__import__("cellengine").FcsFile', content)
+
+
+def load_object_by_name(classname, content):
+    if len(content) == 0:
+        raise RuntimeError("No objects found.")
+    elif len(content) > 1:
+        raise RuntimeError("Multiple objects found; use _id to query instead.")
+    elif type(content) is list:
+        return make_class(classname, content[0])
+    else:
+        return make_class(classname, content)
+
+
 def generate_id():
     """Generates a hexadecimal ID based on a mongoDB ObjectId"""
-    global id_index
+    global ID_INDEX
     timestamp = '{0:x}'.format(int(time.time()))
     seg1 = binascii.b2a_hex(os.urandom(5)).decode('ascii')
-    seg2 = binascii.b2a_hex(os.urandom(2)+bytes([id_index])).decode('ascii')
-    id_index += 1
-    if id_index == 99:
-        id_index = 0
+    seg2 = binascii.b2a_hex(os.urandom(2)+bytes([ID_INDEX])).decode('ascii')
+    ID_INDEX += 1
+    if ID_INDEX == 99:
+        ID_INDEX = 0
     return timestamp+seg1+seg2
 
 
-def list():
-    """For general list queries.
-    Wrapper around ``base_list`` for users.
-    """
-    pass
-#   TODO
-
-
 # TODO: pass list params to api
-def base_list(url, classname, params=None, **kwargs):
-    """API base list route
-    This accepts queries to the ``params`` arg as a dict, but it will only
-    return a valid object if the ``name`` or ``_id`` is not
-    excluded. You can use the ``params`` arg to limit the number of
-    returned objects, but the returned objects will always be
-    complete; i.e. you can not prevent a property such as 'filename'
-    from being loaded to the object.
-    """
-    res = session.get(url, params=params)
-    res.raise_for_status()
-    items = [classname(**kwargs, id=item['_id'], properties=item) for item in res.json()]
-    return items
+def base_list(url, classname):
+    return make_class(classname, content=base_get(url))
+
+
+def make_class(classname, content):
+    classname = evaluate_classname(classname)
+    if type(content) is dict:
+        return classname(properties=content)
+    elif type(content) is list:
+        return [classname(properties=item) for item in content]
+
+
+def evaluate_classname(classname):
+    if type(classname) is str:
+        classname = eval(classname)
+    return classname
 
 
 def base_get(url):
-    # TODO: add by_name func for this
     res = session.get(url)
     res.raise_for_status()
     if res.apparent_encoding is not None:
@@ -134,22 +180,61 @@ def base_get(url):
         return res
 
 
-def base_create(url, body=None):
-    """Create a new object. Accepts a dict of params for creation."""
-    res = session.post(url, json=body)
+def base_create(classname, url, expected_status, json=None, params=None, **kwargs):
+    """Create a new object.
+
+    Args:
+        classname: Name of the CellEngine class returned by the API.
+        url: Path of object to be created.
+        json: Body of object to be created.
+        params: Extra parameters to send along with http request (i.e.
+        createPopulation=True)
+        **kwargs: Class-specific kwargs for the class to be created.
+
+    Returns:
+        A loaded data class corresponding to the passed classname. Note that
+        the most likely **kwarg to be passed is ``experiment_id``; this is a
+        required init param for Gate, Population, Compensation, and similar
+        objects, but not for Experiment.
+    """
+    res = session.post(url, json=json, params=params)
+    if res.status_code == expected_status:
+        data = parse_response(res)
+        return make_class(classname, data)
+    else:
+        raise Exception(res.content.decode())
+
+
+def parse_response(content):
+    content = content.json()
+    if type(content) is list:
+        return parse_response_list(content)
+    else:
+        return parse_population_from_gate(content)
+
+
+def parse_response_list(content):
+    return [parse_response(item) for item in content]
+
+
+def parse_population_from_gate(content):
+    """Do-nothing for normal responses"""
+    # TODO: return Population as another object
+    if type(content) is dict:
+        if 'populations' in content.keys() or 'population' in content.keys():
+            content = content['gate']
+        return content
+
+
+def base_update(url, body=None, classname=None, **kwargs):
+    res = session.patch(url, json=body, **kwargs)
     res.raise_for_status()
-
-
-#   TODO: 500 error here
-def base_update(url, body=None, **kwargs):
-    session.patch(url, json=body, **kwargs)
+    if classname:
+        return make_class(classname, content=res.json())
+    else:
+        return res.json()
 
 
 def base_delete(url):
     res = session.delete(url)
     res.raise_for_status()
-    return res
-
-
-def created(self):
-    return timestamp_to_datetime(self._properties.get("created"))
