@@ -1,10 +1,9 @@
 cellengine = __import__(__name__.split(".")[0])
 import attr
-from .client import session
-from . import _helpers
+from . import helpers
 
 
-@attr.s(repr=False)
+@attr.s(repr=False, slots=True)
 class Population(object):
     """
     A class representing a CellEngine population.
@@ -18,30 +17,30 @@ class Population(object):
 
     _properties = attr.ib()
 
-    _id = _helpers.GetSet("_id", read_only=True)
+    _id = helpers.GetSet("_id", read_only=True)
 
-    name = _helpers.GetSet("name")
+    name = helpers.GetSet("name")
 
-    experiment_id = _helpers.GetSet("experimentId", read_only=True)
+    experiment_id = helpers.GetSet("experimentId", read_only=True)
 
-    gates = _helpers.GetSet("gates")
+    gates = helpers.GetSet("gates")
 
-    terminal_gate_gid = _helpers.GetSet("terminalGateId")
+    terminal_gate_gid = helpers.GetSet("terminalGateId")
 
-    parent_id = _helpers.GetSet("parentId")
+    parent_id = helpers.GetSet("parentId")
 
-    unique_name = _helpers.GetSet("uniqueName", read_only=True)
+    unique_name = helpers.GetSet("uniqueName", read_only=True)
 
     def update(self):
         """Save any changed data to CellEngine."""
-        return _helpers.base_update(
+        return helpers.base_update(
             "experiments/{0}/populations/{1}".format(self.experiment_id, self._id),
             body=self._properties,
             classname=Population,
         )
 
-    # delete
+
     def delete(self):
-        return _helpers.base_delete(
+        return helpers.base_delete(
             "experiments/{0}/populations/{1}".format(self.experiment_id, self._id)
         )

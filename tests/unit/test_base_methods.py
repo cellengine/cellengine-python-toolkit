@@ -1,7 +1,7 @@
 import os
 import responses
 import cellengine
-from cellengine import _helpers
+from cellengine import helpers
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -28,7 +28,7 @@ def test_base_get(experiments):
         base_url + "experiments/5d38a6f79fae87499999a74b",
         json=experiments[0],
     )
-    res = _helpers.base_get("experiments/5d38a6f79fae87499999a74b")
+    res = helpers.base_get("experiments/5d38a6f79fae87499999a74b")
     method_tester(res)
 
 
@@ -38,7 +38,7 @@ def test_base_create(experiments):
     responses.add(
         responses.POST, base_url + "experiments", status=201, json=experiments[0]
     )
-    res = _helpers.base_create(
+    res = helpers.base_create(
         classname=cellengine.Experiment,
         url="experiments",
         expected_status=201,
@@ -56,7 +56,7 @@ def test_base_update(experiments):
         base_url + "experiments/5d64abe2ca9df61349ed8e78",
         json=experiments[0],
     )
-    res = _helpers.base_update(
+    res = helpers.base_update(
         "experiments/5d64abe2ca9df61349ed8e78",
         body={"name": "newname", "locked": True, "fullName": "Primity Bio"},
         classname=cellengine.Experiment,
@@ -71,7 +71,7 @@ def test_base_list(fcsfiles):
     experiment_id = "5d64abe2ca9df61349ed8e78"
     test_url = "experiments/{0}/{1}".format(experiment_id, "fcsfiles")
     responses.add(responses.GET, base_url + test_url, json=fcsfiles)
-    res_list = _helpers.base_list(test_url, cellengine.FcsFile)
+    res_list = helpers.base_list(test_url, cellengine.FcsFile)
     res = res_list[0]
     assert type(res_list) is list
     assert [type(r) is cellengine.FcsFile for r in res_list]
@@ -89,7 +89,7 @@ def test_base_list_objects(experiments, compensations, fcsfiles, gates):
 
     # experiments
     responses.add(responses.GET, base_url + "experiments", json=experiments)
-    response = _helpers.base_list("experiments", cellengine.Experiment)
+    response = helpers.base_list("experiments", cellengine.Experiment)
     assert type(response) is list
     assert all([type(resp) is cellengine.Experiment for resp in response])
 
@@ -101,7 +101,7 @@ def test_base_list_objects(experiments, compensations, fcsfiles, gates):
         base_url + "experiments/5d38a6f79fae87499999a74b/compensations",
         json=compensations,
     )
-    response = _helpers.base_list(
+    response = helpers.base_list(
         "experiments/5d38a6f79fae87499999a74b/compensations", cellengine.Compensation
     )
     assert type(response) is list
@@ -113,7 +113,7 @@ def test_base_list_objects(experiments, compensations, fcsfiles, gates):
         base_url + "experiments/5d38a6f79fae87499999a74b/fcsfiles",
         json=fcsfiles,
     )
-    response = _helpers.base_list(
+    response = helpers.base_list(
         "experiments/5d38a6f79fae87499999a74b/fcsfiles", cellengine.FcsFile
     )
     assert type(response) is list
@@ -125,7 +125,7 @@ def test_base_list_objects(experiments, compensations, fcsfiles, gates):
         base_url + "experiments/5d38a6f79fae87499999a74b/gates",
         json=gates,
     )
-    response = _helpers.base_list(
+    response = helpers.base_list(
         "experiments/5d38a6f79fae87499999a74b/gates", cellengine.Gate
     )
     assert type(response) is list

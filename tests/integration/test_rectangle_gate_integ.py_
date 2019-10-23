@@ -1,6 +1,6 @@
 import pytest
 import numpy
-from cellengine import _helpers
+from cellengine import helpers
 from test_gates_integ import gate_tester
 
 @pytest.mark.vcr()
@@ -28,7 +28,7 @@ def test_create_rectangle_gate(experiment):
     assert resp.type == 'RectangleGate'
     assert resp.tailored_per_file is False
 
-    _helpers.session.delete(f"experiments/{experiment._id}/gates/{resp._id}")
+    helpers.session.delete(f"experiments/{experiment._id}/gates/{resp._id}")
 
 
 @pytest.mark.vcr()
@@ -45,7 +45,7 @@ def test_create_global_gate(experiment):
     assert resp.x_channel == 'FSC-W'
     assert resp.y_channel == 'FSC-A'
     assert resp.name == 'fcs_global_gate'
-    assert bool(_helpers.ID_REGEX.match(resp.gid)) is True
+    assert bool(helpers.ID_REGEX.match(resp.gid)) is True
     assert resp.model.label == [numpy.mean([60000, 200000]),
                                 numpy.mean([75000, 215000])]
     assert resp.model.rectangle.x1 == 60000

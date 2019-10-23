@@ -1,11 +1,9 @@
 from math import pi
 
-# from custom_inherit import doc_inherit
-from .. import _helpers
-from .gate_util import create_common_gate, gate_style
+from .. import helpers
+from .gate_util import create_common_gate
 
 
-# @doc_inherit(create_common_gate, style=gate_style)
 def create_quadrant_gate(
     experiment_id,
     x_channel,
@@ -52,7 +50,7 @@ def create_quadrant_gate(
     angles = [pi / 2, pi, 3 / 2 * pi, 0.000000]
 
     # set labels based on axis scale
-    r = _helpers.base_get(f"experiments/{experiment_id}/scalesets")[0]
+    r = helpers.base_get(f"experiments/{experiment_id}/scalesets")[0]
     scale_min = min(x["scale"]["minimum"] for x in r["scales"])
     scale_max = max(x["scale"]["minimum"] for x in r["scales"])
 
@@ -70,13 +68,13 @@ def create_quadrant_gate(
         raise ValueError("Labels must be a list of four length-2 lists.")
 
     if gid is None:
-        gid = _helpers.generate_id()
+        gid = helpers.generate_id()
         if gids is None:
             gids = [
-                _helpers.generate_id(),
-                _helpers.generate_id(),
-                _helpers.generate_id(),
-                _helpers.generate_id(),
+                helpers.generate_id(),
+                helpers.generate_id(),
+                helpers.generate_id(),
+                helpers.generate_id(),
             ]
 
     names = [name + append for append in [" (UR)", " (UL)", " (LL)", " (LR)"]]

@@ -3,8 +3,8 @@ import json
 import pytest
 import responses
 import cellengine
-from cellengine import _helpers
-from cellengine import gate
+from cellengine import helpers
+from cellengine import Gate
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -26,7 +26,7 @@ def gate_tester(instance):
 
 def test_init_gate(polygon_gate):
     """Test instantiating a gate object a correct dict of properties"""
-    g = cellengine.PolygonGate(properties=polygon_gate)
+    g = cellengine.Gate.create(polygon_gate)
     gate_tester(g)
     assert g.experiment_id == "5d38a6f79fae87499999a74b"
     assert g.x_channel == "FSC-A"
@@ -58,7 +58,8 @@ def test_create_one_gate(rectangle_gate):
         status=201,
         json=rectangle_gate,
     )
-    g = gate.Gate.create(rectangle_gate)
+    g = Gate.create(rectangle_gate)
+    g.post()
     gate_tester(g)
 
 
@@ -70,7 +71,8 @@ def test_create_multiple_gates(rectangle_gate):
         status=201,
         json=[rectangle_gate, rectangle_gate],
     )
-    gates = gate.Gate.create([rectangle_gate, rectangle_gate])
+    gates = Gate.create([rectangle_gate, rectangle_gate])
+    gates.post()
     gate_tester(gates[0])
     gate_tester(gates[1])
 
@@ -108,7 +110,7 @@ def test_create_gate_with_bad_params(bad_gate):
         json={"error": '"gid" is required.'},
     )
     with pytest.raises(RuntimeError):
-        g = gate.Gate.create(bad_gate)
+        g = Gate.create(bad_gate)
         g.post()
 
 

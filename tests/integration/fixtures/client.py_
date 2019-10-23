@@ -3,7 +3,7 @@ import vcr
 import pytest
 import cellengine
 from conftest import scrub_client_request
-from cellengine import _helpers
+from cellengine import helpers
 
 # vcr instance for the client object
 client_vcr = vcr.VCR(
@@ -18,7 +18,7 @@ def setup_teardown(request, make_new_cassettes):
 
     def fin():
         print('\n Tearing down test experiment.')
-        _helpers.session.delete('experiments/{0}'.format(_id))
+        helpers.session.delete('experiments/{0}'.format(_id))
 
     if make_new_cassettes is False:
         pass
@@ -27,9 +27,9 @@ def setup_teardown(request, make_new_cassettes):
         for file in os.listdir('tests/cassettes'):
             os.remove(os.path.join('tests/cassettes', file))
         print('Setting up experiment.')
-        res = _helpers.session.post('experiments', json={'name': 'pytest'})
+        res = helpers.session.post('experiments', json={'name': 'pytest'})
         _id = res.json()['_id']
-        _helpers.session.post('experiments/{0}/fcsfiles'.format(_id),
+        helpers.session.post('experiments/{0}/fcsfiles'.format(_id),
                               files={'Acea - Novocyte.fcs':
                                      open('tests/fcsfiles/Acea - Novocyte.fcs',
                                           'rb')})

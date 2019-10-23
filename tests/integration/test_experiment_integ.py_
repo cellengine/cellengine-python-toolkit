@@ -1,6 +1,6 @@
 import pytest
 import cellengine
-from cellengine._helpers import ID_REGEX
+from cellengine.helpers import ID_REGEX
 
 
 @pytest.mark.vcr()

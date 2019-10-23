@@ -1,11 +1,9 @@
 import numpy
 
-# from custom_inherit import doc_inherit
-from .gate_util import create_common_gate, gate_style
-from .. import _helpers
+from .. import helpers
+from .gate_util import create_common_gate
 
 
-# @doc_inherit(create_common_gate, style=gate_style)
 def create_polygon_gate(
     experiment_id,
     x_channel,
@@ -42,7 +40,7 @@ def create_polygon_gate(
     if label == []:
         label = [numpy.mean(x_vertices), numpy.mean(y_vertices)]
     if gid is None:
-        gid = _helpers.generate_id()
+        gid = helpers.generate_id()
 
     model = {
         "locked": locked,

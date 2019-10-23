@@ -2,10 +2,10 @@ import attr
 import pandas
 import numpy
 from .client import session
-from . import _helpers
+from . import helpers
 
 
-@attr.s(repr=False)
+@attr.s(repr=False, slots=True)
 class Compensation(object):
     """A class representing a CellEngine compensation matrix. Can be applied to
     FCS files to compensate them.
@@ -16,13 +16,15 @@ class Compensation(object):
 
     _properties = attr.ib(default={}, repr=False)
 
-    _id = _helpers.GetSet("_id", read_only=True)
+    _dataframe = attr.ib(default=None, repr=False)
 
-    name = _helpers.GetSet("name")
+    _id = helpers.GetSet("_id", read_only=True)
 
-    experiment_id = _helpers.GetSet("experimentId")
+    name = helpers.GetSet("name")
 
-    channels = _helpers.GetSet("channels")
+    experiment_id = helpers.GetSet("experimentId")
+
+    channels = helpers.GetSet("channels")
 
     @property
     def N(self):
@@ -30,7 +32,7 @@ class Compensation(object):
 
     @property
     def dataframe(self):
-        if hasattr(self, "_dataframe"):
+        if getattr(self, "_dataframe") is not None:
             return self._dataframe
         else:
             self._dataframe = pandas.DataFrame(
@@ -42,7 +44,7 @@ class Compensation(object):
             )
             return self._dataframe
 
-    def _repr_html_(self):
+    def dataframe_as_html(self):
         return self.dataframe._repr_html_()
 
     def apply(self, file, inplace=True):

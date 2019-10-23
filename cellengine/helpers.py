@@ -2,14 +2,24 @@ import os
 import re
 import time
 import binascii
+from functools import lru_cache
 from .client import session
 from datetime import datetime
 from cellengine import ID_INDEX
+
+cellengine = __import__(__name__.split(".")[0])
 
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
 first_cap_re = re.compile("(.)([A-Z][a-z]+)")
 all_cap_re = re.compile("([a-z0-9])([A-Z])")
+
+
+def check_id(_id):
+    try:
+        assert bool(ID_REGEX.match(_id)) is True
+    except ValueError:
+        print("Object has an invalid ID.")
 
 
 def check_id(_id):
@@ -95,66 +105,6 @@ def today_timestamp():
 
 def created(self):
     return timestamp_to_datetime(self._properties.get("created"))
-
-
-def load(self, path, query="name"):
-    if self._id is None:
-        load_by_name(self, query)
-    else:
-        content = base_get(path)
-        if len(content) == 0:
-            ValueError("Failed to load object from {0}".format(self.path))
-        else:
-            self._properties = content
-            self.__dict__.update(self._properties)
-
-
-def load_by_id(_id):
-    content = base_get("experiments/{0}".format(_id))
-    return content
-
-
-def load_by_name(self, query):
-    # TODO does requests encode URI components for us?
-    url = '{0}?query=eq({1},"{2}")&limit=2'.format(self.path, query, self.name)
-    content = base_get(url)
-    if len(content) == 0:
-        raise RuntimeError("No objects found with the name {0}.".format(self.name))
-    elif len(content) > 1:
-        raise RuntimeError(
-            "Multiple objects found with the name {0}, use _id to query instead.".format(
-                self.name
-            )
-        )
-    else:
-        self._properties = content[0]
-        self._id = self._properties.get("_id")
-        self.__dict__.update(self._properties)
-
-
-def load_experiment_by_name(name):
-    content = base_get('experiments?query=eq(name, "{0}")&limit=2'.format(name))
-    return load_object_by_name('__import__("cellengine").Experiment', content)
-
-
-def load_fcsfile_by_name(experiment_id, name=None):
-    content = base_get(
-        'experiments/{0}/fcsfiles?query=eq(filename, "{1}")&limit=2'.format(
-            experiment_id, name
-        )
-    )
-    return load_object_by_name('__import__("cellengine").FcsFile', content)
-
-
-def load_object_by_name(classname, content):
-    if len(content) == 0:
-        raise RuntimeError("No objects found.")
-    elif len(content) > 1:
-        raise RuntimeError("Multiple objects found; use _id to query instead.")
-    elif type(content) is list:
-        return make_class(classname, content[0])
-    else:
-        return make_class(classname, content)
 
 
 def generate_id():
