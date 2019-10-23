@@ -1,15 +1,26 @@
 import numpy
-from custom_inherit import doc_inherit
-from .. import _helpers
-from .gate_util import common_gate_create, gate_style
+
+from .. import helpers
+from .gate_util import create_common_gate
 
 
-@doc_inherit(common_gate_create, style=gate_style)
-def create_range_gate(experiment_id, x_channel, name,
-                      x1, x2, y=0.5, label=[], gid=None, locked=False,
-                      parent_population_id=None, parent_population=None,
-                      tailored_per_file=False, fcs_file_id=None,
-                      fcs_file=None, create_population=True):
+def create_range_gate(
+    experiment_id,
+    x_channel,
+    name,
+    x1,
+    x2,
+    y=0.5,
+    label=[],
+    gid=None,
+    locked=False,
+    parent_population_id=None,
+    parent_population=None,
+    tailored_per_file=False,
+    fcs_file_id=None,
+    fcs_file=None,
+    create_population=True,
+):
     """Creates a range gate.
 
     Args:
@@ -32,7 +43,7 @@ def create_range_gate(experiment_id, x_channel, name,
     if label == []:
         label = [numpy.mean([x1, x2]), y]
     if gid is None:
-        gid = _helpers.generate_id()
+        gid = helpers.generate_id()
 
     model = {
         'locked': locked,

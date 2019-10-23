@@ -53,11 +53,19 @@ def test_list_gates(experiment, gates):
 @responses.activate
 def test_all_experiment_properties(experiment):
     assert type(experiment._properties) is dict
-    assert experiment._id == '5d38a6f79fae87499999a74b'
-    assert experiment.name == 'pytest_experiment'
-    assert experiment.comments == [{'insert': '\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n'}]
-    assert experiment.updated == cellengine._helpers.timestamp_to_datetime('2019-08-29T14:40:58.566Z')
-    assert experiment.deep_updated == cellengine._helpers.timestamp_to_datetime('2019-10-15T09:58:38.224Z')
+    assert experiment._id == "5d38a6f79fae87499999a74b"
+    assert experiment.name == "pytest_experiment"
+    assert experiment.comments == [
+        {
+            "insert": "\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n"
+        }
+    ]
+    assert experiment.updated == cellengine.helpers.timestamp_to_datetime(
+        "2019-08-29T14:40:58.566Z"
+    )
+    assert experiment.deep_updated == cellengine.helpers.timestamp_to_datetime(
+        "2019-10-15T09:58:38.224Z"
+    )
     assert experiment.deleted is None
     assert experiment.public is False
     assert experiment.uploader == {'_id': '5d366077a1789f7d6653075c',
@@ -84,4 +92,6 @@ def test_all_experiment_properties(experiment):
     assert experiment.annotation_name_order == []
     assert experiment.annotation_table_sort_columns == []
     assert experiment.permissions == []
-    assert experiment.created == cellengine._helpers.timestamp_to_datetime('2019-07-24T18:44:07.520Z')
+    assert experiment.created == cellengine.helpers.timestamp_to_datetime(
+        "2019-07-24T18:44:07.520Z"
+    )

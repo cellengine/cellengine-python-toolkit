@@ -12,4 +12,18 @@ from .client import Client
 from .experiment import Experiment
 from .compensation import Compensation
 from .fcsfile import FcsFile
-from .gate import Gate
+from .gate import (
+    Gate,
+    RectangleGate,
+    PolygonGate,
+    EllipseGate,
+    QuadrantGate,
+    SplitGate,
+    RangeGate,
+)
+
+
+from .loader import by_name
+
+cache_info = by_name.cache_info
+clear_cache = by_name.cache_clear

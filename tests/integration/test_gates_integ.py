@@ -2,7 +2,7 @@ import vcr
 import numpy
 import pytest
 import cellengine
-from cellengine import _helpers
+from cellengine import helpers
 
 
 def gate_tester(instance):
@@ -55,7 +55,7 @@ def test_parse_fcs_file_args():
             assert resp.fcs_file_id is None
 
             # create global tailored gate
-            global_gid = _helpers.generate_id()
+            global_gid = helpers.generate_id()
             # global_gid = '5d8e68ccda9be554bc83b903'
             resp = cellengine.Gate.create_rectangle_gate('5d38a6f79fae87499999a74b',
                                                          'FSC-A', 'FSC-W', 'fcs_rect_gate',
@@ -87,10 +87,10 @@ def test_parse_fcs_file_args():
             assert resp.name == 'Specimen_001_A2_A02.fcs'
 
             # # delete all created gates
-            # for item in _helpers.session.get(f"experiments/5d38a6f79fae87499999a74b/gates").json():
+            # for item in helpers.session.get(f"experiments/5d38a6f79fae87499999a74b/gates").json():
             #     _id = item['_id']
             #     name = item['name']
             #     if 'fcs_rect_gate' in name:
-            #         cellengine._helpers.session.delete(f"experiments/5d38a6f79fae87499999a74b/gates/{_id}")
+            #         cellengine.helpers.session.delete(f"experiments/5d38a6f79fae87499999a74b/gates/{_id}")
 
 

@@ -1,8 +1,8 @@
 import re
+from .. import helpers
+from ..loader import Loader
 
-from ..fcsfile import FcsFile
-from .. import gate  # circular import here
-from .. import _helpers
+cellengine = __import__(__name__.split(".")[0])
 
 
 def common_gate_create(experiment_id, body, tailored_per_file, fcs_file_id,
@@ -49,14 +49,7 @@ def common_gate_create(experiment_id, body, tailored_per_file, fcs_file_id,
     body = parse_fcs_file_args(experiment_id, body, tailored_per_file,
                                fcs_file_id, fcs_file)
 
-    body = _helpers.convert_dict(body, 'snake_to_camel')
-    res = _helpers.base_create(gate.Gate,
-                               url="experiments/{0}/gates".format(experiment_id),
-                               expected_status=201,
-                               json=body, params={'createPopulation':
-                                                  create_population}
-                               )
-    return res
+    body = helpers.convert_dict(body, "snake_to_camel")
 
 
 def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id,
@@ -66,20 +59,11 @@ def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id,
     if fcs_file is not None and fcs_file_id is not None:
         raise ValueError("Please specify only 'fcs_file' or 'fcs_file_id'.")
     if fcs_file is not None and tailored_per_file is True:  # lookup by name
-        _file = get_fcsfile(experiment_id, name=fcs_file)
+        _file = Loader.get_fcsfile(experiment_id=experiment_id, name=fcs_file, _id=None)
         fcs_file_id = _file._id
     body['tailoredPerFile'] = tailored_per_file
     body['fcsFileId'] = fcs_file_id
     return body
-
-
-def get_fcsfile(experiment_id, _id=None, name=None):
-    if _id:
-        content = _helpers.base_get("experiments/{0}/fcsfiles/{1}".format(experiment_id, _id))
-        content = FcsFile(properties=content)
-    else:
-        content = _helpers.load_fcsfile_by_name(experiment_id, name)
-    return content
 
 
 def create_gates(experiment_id=None, gates=None, create_all_populations=True):
@@ -108,8 +92,10 @@ def create_gates(experiment_id=None, gates=None, create_all_populations=True):
                     ``help(cellengine.Gate.<Gate Type>)``.
             fcs_file_id (optional): ``str``: ID of FCS file, if tailored per file. Use
                 ``None`` for the global gate in the tailored gate group.
-            tailored_per_file (optional): ``bool``: Whether this gate is tailored per FCS file.
-            names (optional): ``list(str)``: For compound gates, a list of gate names.
+            tailored_per_file (optional): ``bool``: Whether this gate is
+                tailored per FCS file.
+                names (optional): ``list(str)``: For
+                compound gates, a list of gate names.
             create_population (optional): Whether to create populations for each gate.
         create_populations: Whether to create populations for all gates. If set
         to False, ``create_population`` may be specified for each gate.
@@ -119,9 +105,9 @@ def create_gates(experiment_id=None, gates=None, create_all_populations=True):
     """
     prepared_gates = []
     for g in gates:
-        g.update({'_id': _helpers.generate_id()})
-        if 'gid' not in g.keys():
-            g.update({'gid': _helpers.generate_id()})
+        g.update({"_id": helpers.generate_id()})
+        if "gid" not in g.keys():
+            g.update({"gid": helpers.generate_id()})
         prepared_gates.append(g)
 
     new_gates = []
@@ -139,39 +125,6 @@ def create_gates(experiment_id=None, gates=None, create_all_populations=True):
         new_gates.append(new_gate)
 
     return new_gates
-
-
-def delete_gates(experiment_id, _id=None, gid=None, exclude=None):
-    """
-    Deletes a gate or a tailored gate family.
-
-    Works for compound gates if you specify the top-level gid. Specifying
-    the gid of a sector (i.e. one listed in model.gids) will result in no
-    gates being deleted.  If gateId is specified, only that gate will be
-    deleted, regardless of the other parameters specified. May be called as
-    a static method from cellengine.Gate or from an Experiment instance.
-
-    Args:
-        experimentId: ID of experiment.
-        _id: ID of gate family.
-        gateId: ID of gate.
-        exclude: Gate ID to exclude from deletion.
-
-    Examples:
-        cellengine.Gate.delete_gate(experiment_id, gid = [gate family ID])
-        experiment.delete_gate(_id = [gate ID])
-
-    """
-    if (_id and gid) or (not _id and not gid):
-        raise ValueError("Either the gid or the gateId must be specified")
-    if _id:
-        url = "experiments/{0}/gates/{1}".format(experiment_id, _id)
-    elif gid:
-        url = "experiments/{0}/gates?gid={1}".format(experiment_id, gid)
-        if exclude:
-            url = "{0}%exclude={1}".format(url, exclude)
-
-    _helpers.base_delete(url)
 
 
 def gate_style(prnt_doc, child_doc):

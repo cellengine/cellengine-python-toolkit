@@ -1,15 +1,26 @@
 import numpy
-from custom_inherit import doc_inherit
-from .gate_util import common_gate_create, gate_style
-from .. import _helpers
+
+from .. import helpers
+from .gate_util import create_common_gate
 
 
-@doc_inherit(common_gate_create, style=gate_style)
-def create_polygon_gate(experiment_id, x_channel, y_channel, name,
-                        x_vertices,  y_vertices, label=[], gid=None, locked=False,
-                        parent_population_id=None, parent_population=None,
-                        tailored_per_file=False, fcs_file_id=None,
-                        fcs_file=None, create_population=True):
+def create_polygon_gate(
+    experiment_id,
+    x_channel,
+    y_channel,
+    name,
+    x_vertices,
+    y_vertices,
+    label=[],
+    gid=None,
+    locked=False,
+    parent_population_id=None,
+    parent_population=None,
+    tailored_per_file=False,
+    fcs_file_id=None,
+    fcs_file=None,
+    create_population=True,
+):
     """Creates a polygon gate.
 
     Args:
@@ -29,7 +40,7 @@ def create_polygon_gate(experiment_id, x_channel, y_channel, name,
     if label == []:
         label = [numpy.mean(x_vertices), numpy.mean(y_vertices)]
     if gid is None:
-        gid = _helpers.generate_id()
+        gid = helpers.generate_id()
 
     model = {
         'locked': locked,

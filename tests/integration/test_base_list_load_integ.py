@@ -1,6 +1,6 @@
 import pytest
 import cellengine
-from cellengine import _helpers as h
+from cellengine import helpers as h
 
 
 @pytest.mark.vcr()

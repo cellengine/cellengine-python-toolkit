@@ -1,15 +1,27 @@
 import numpy
-from custom_inherit import doc_inherit
-from .. import _helpers
-from .gate_util import common_gate_create, gate_style
+from .. import helpers
+from .gate_util import create_common_gate
 
 
-@doc_inherit(common_gate_create, style=gate_style)
-def create_rectangle_gate(experiment_id, x_channel, y_channel, name,
-                          x1, x2, y1, y2, label=[], gid=None, locked=False,
-                          parent_population_id=None, parent_population=None,
-                          tailored_per_file=False, fcs_file_id=None,
-                          fcs_file=None, create_population=True):
+def create_rectangle_gate(
+    experiment_id,
+    x_channel,
+    y_channel,
+    name,
+    x1,
+    x2,
+    y1,
+    y2,
+    label=[],
+    gid=None,
+    locked=False,
+    parent_population_id=None,
+    parent_population=None,
+    tailored_per_file=False,
+    fcs_file_id=None,
+    fcs_file=None,
+    create_population=True,
+):
     """Creates a rectangle gate.
 
     Args:
@@ -33,7 +45,7 @@ def create_rectangle_gate(experiment_id, x_channel, y_channel, name,
     if label == []:
         label = [numpy.mean([x1, x2]), numpy.mean([y1, y2])]
     if gid is None:
-        gid = _helpers.generate_id()
+        gid = helpers.generate_id()
 
     model = {
         'locked': locked,

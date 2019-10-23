@@ -3,7 +3,7 @@ import json
 import pytest
 import responses
 import cellengine
-from cellengine import _helpers
+from cellengine import helpers
 
 
 base_url = os.environ.get('CELLENGINE_DEVELOPMENT',
@@ -49,18 +49,27 @@ def test_fcs_file_id_is_None_and_fcs_file_is_None(experiment, gates):
 
 @responses.activate
 def test_create_global_tailored_gate(experiment, gates):
-    global_gid = _helpers.generate_id()
-    responses.add(responses.POST,
-              base_url+"experiments/5d38a6f79fae87499999a74b/gates",
-              status=201,
-              json=gates[0])
-    res = cellengine.Gate.create_rectangle_gate('5d38a6f79fae87499999a74b',
-                                                'FSC-A', 'FSC-W', 'fcs_rect_gate',
-                                                x1=1, x2=2, y1=3, y2=4,
-                                                tailored_per_file=True,
-                                                gid=global_gid)
-    assert json.loads(responses.calls[0].request.body)['tailoredPerFile'] == True
-    assert json.loads(responses.calls[0].request.body)['gid'] == global_gid
+    global_gid = helpers.generate_id()
+    responses.add(
+        responses.POST,
+        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        status=201,
+        json=gates[0],
+    )
+    res = experiment.create_rectangle_gate(
+        x_channel="FSC-A",
+        y_channel="FSC-W",
+        name="fcs_rect_gate",
+        x1=1,
+        x2=2,
+        y1=3,
+        y2=4,
+        tailored_per_file=True,
+        gid=global_gid,
+    )
+    res.post()
+    assert json.loads(responses.calls[0].request.body)["tailoredPerFile"] == True
+    assert json.loads(responses.calls[0].request.body)["gid"] == global_gid
 
 
 @responses.activate
@@ -79,16 +88,37 @@ def test_specify_fcs_file_id(experiment, gates):
 
 @responses.activate
 def test_fcs_file_called_by_name(experiment, fcsfiles, gates):
-    responses.add(responses.GET,
-              base_url+"experiments/5d38a6f79fae87499999a74b/fcsfiles",
-              json=[fcsfiles[3]])
-    responses.add(responses.POST,
-              base_url+"experiments/5d38a6f79fae87499999a74b/gates",
-              status=201,
-              json=gates[0])
-    res = experiment.create_rectangle_gate('FSC-A', 'FSC-W', 'fcs_rect_gate',
-                                           x1=1, x2=2, y1=3, y2=4,
-                                           fcs_file='Specimen_001_A1_A01.fcs',
-                                           tailored_per_file=True)
-    assert json.loads(responses.calls[1].request.body)['tailoredPerFile'] == True
-    assert json.loads(responses.calls[1].request.body)['fcsFileId'] == '5d64abe2ca9df61349ed8e7c'
+    responses.add(
+        responses.GET,
+        base_url + "experiments/5d38a6f79fae87499999a74b/fcsfiles",
+        json=[fcsfiles[3]],
+    )
+    responses.add(
+        responses.GET,
+        base_url
+        + "experiments/5d38a6f79fae87499999a74b/fcsfiles/5d64abe2ca9df61349ed8e7c",
+        json=fcsfiles[3],
+    )
+    responses.add(
+        responses.POST,
+        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        status=201,
+        json=gates[0],
+    )
+    res = experiment.create_rectangle_gate(
+        "FSC-A",
+        "FSC-W",
+        "fcs_rect_gate",
+        x1=1,
+        x2=2,
+        y1=3,
+        y2=4,
+        fcs_file="Specimen_001_A1_A01.fcs",
+        tailored_per_file=True,
+    )
+    res.post()
+    assert json.loads(responses.calls[2].request.body)["tailoredPerFile"] == True
+    assert (
+        json.loads(responses.calls[2].request.body)["fcsFileId"]
+        == "5d64abe2ca9df61349ed8e7c"
+    )
