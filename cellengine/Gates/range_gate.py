@@ -1,11 +1,9 @@
 import numpy
 
-# from custom_inherit import doc_inherit
-from .. import _helpers
-from .gate_util import create_common_gate, gate_style
+from .. import helpers
+from .gate_util import create_common_gate
 
 
-# @doc_inherit(create_common_gate, style=gate_style)
 def create_range_gate(
     experiment_id,
     x_channel,
@@ -45,7 +43,7 @@ def create_range_gate(
     if label == []:
         label = [numpy.mean([x1, x2]), y]
     if gid is None:
-        gid = _helpers.generate_id()
+        gid = helpers.generate_id()
 
     model = {"locked": locked, "label": label, "range": {"x1": x1, "x2": x2, "y": y}}
 

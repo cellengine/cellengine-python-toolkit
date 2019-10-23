@@ -1,7 +1,8 @@
 import attr
 from getpass import getpass
 from . import session
-from . import _helpers
+from . import helpers
+from .loader import Loader
 from .experiment import Experiment
 
 
@@ -28,6 +29,7 @@ class Client(object):
     Returns:
         client: Authenticated client object
     """
+
     username = attr.ib(default=None)
     password = attr.ib(default=None, repr=False)
     token = attr.ib(default=None, repr=False)
@@ -39,14 +41,13 @@ class Client(object):
             if self.password is None:
                 self.password = getpass()
 
-            req = session.post("signin", {
-                "username": self.username,
-                "password": self.password
-            })
+            req = session.post(
+                "signin", {"username": self.username, "password": self.password}
+            )
             req.raise_for_status()
 
             if req.status_code == 200:
-                print('Authentication successful.')
+                print("Authentication successful.")
 
         elif self.token is not None:
             session.cookies.update({"token": "{0}".format(self.token)})
@@ -55,14 +56,9 @@ class Client(object):
             raise RuntimeError("Username or token must be provided")
 
     def get_experiment(self, _id=None, name=None):
-        if _id:
-            content = _helpers.base_get("experiments/{0}".format(_id))
-            content = Experiment(properties=content)
-        else:
-            content = _helpers.load_experiment_by_name(name)
-        return content
+        return Loader.get_experiment(_id=_id, name=name)
 
     @property
     def experiments(self):
         """Return a list of Experiment objects for all experiments on client"""
-        return _helpers.base_list('experiments', Experiment)
+        return helpers.base_list("experiments", Experiment)

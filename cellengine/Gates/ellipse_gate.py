@@ -1,8 +1,7 @@
-# from custom_inherit import doc_inherit
-from .gate_util import create_common_gate, gate_style
-from .. import _helpers
+from .gate_util import create_common_gate
+from .. import helpers
 
-# @doc_inherit(create_common_gate, style=gate_style)
+
 def create_ellipse_gate(
     experiment_id,
     x_channel,
@@ -45,7 +44,7 @@ def create_ellipse_gate(
     if label == []:
         label = [x, y]
     if gid is None:
-        gid = _helpers.generate_id()
+        gid = helpers.generate_id()
 
     model = {
         "locked": locked,

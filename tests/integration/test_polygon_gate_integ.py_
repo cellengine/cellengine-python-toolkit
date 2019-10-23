@@ -1,6 +1,6 @@
 import pytest
 import numpy
-from cellengine import _helpers
+from cellengine import helpers
 from test_gates_integ import gate_tester
 
 

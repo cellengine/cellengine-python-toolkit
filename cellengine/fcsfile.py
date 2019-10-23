@@ -1,10 +1,10 @@
 import attr
 import pandas
 import fcsparser
-from . import _helpers
+from . import helpers
 
 
-@attr.s(repr=False)
+@attr.s(repr=False, slots=True)
 class FcsFile(object):
     """A class representing a CellEngine FCS file."""
 
@@ -15,27 +15,27 @@ class FcsFile(object):
 
     _events = attr.ib(default=None)
 
-    name = _helpers.GetSet("filename")
+    name = helpers.GetSet("filename")
 
-    _id = _helpers.GetSet("_id", read_only=True)
+    _id = helpers.GetSet("_id", read_only=True)
 
-    experiment_id = _helpers.GetSet("experimentId", read_only=True)
+    experiment_id = helpers.GetSet("experimentId", read_only=True)
 
-    panel_name = _helpers.GetSet("panelName")
+    panel_name = helpers.GetSet("panelName")
 
-    event_count = _helpers.GetSet("eventCount")
+    event_count = helpers.GetSet("eventCount")
 
-    has_file_internal_comp = _helpers.GetSet("hasFileInternalComp")
+    has_file_internal_comp = helpers.GetSet("hasFileInternalComp")
 
-    size = _helpers.GetSet("size")
+    size = helpers.GetSet("size")
 
-    md5 = _helpers.GetSet("md5")
+    md5 = helpers.GetSet("md5")
 
-    filename = _helpers.GetSet("filename")
+    filename = helpers.GetSet("filename")
 
-    panel = _helpers.GetSet("panel")
+    panel = helpers.GetSet("panel")
 
-    compensation = _helpers.GetSet("compensation")
+    compensation = helpers.GetSet("compensation")
 
     @property
     def annotations(self):
@@ -62,7 +62,7 @@ class FcsFile(object):
         from the server on-demand the first time that this property is accessed.
         """
         if self._events is None:
-            fresp = _helpers.base_get(
+            fresp = helpers.base_get(
                 "experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id)
             )
             parser = fcsparser.api.FCSParser.from_data(fresp.content)

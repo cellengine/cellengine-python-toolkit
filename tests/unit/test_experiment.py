@@ -19,15 +19,14 @@ def test_list_fcsfile(experiment, fcsfiles):
     assert all([type(file) is cellengine.FcsFile for file in all_files])
 
 
-# TODO: for when Populations are added (next PR)
-# @responses.activate
-# def test_list_populations(experiment, populations):
-#     """Tests listing files in an experiment"""
-#     responses.add(responses.GET, base_url+"experiments/5d38a6f79fae87499999a74b/populations",
-#                   json=populations)
-#     all_populations = experiment.populations
-#     assert type(all_populations) is list
-#     assert all([type(population) is cellengine.Population for population in all_populations])
+@responses.activate
+def test_list_populations(experiment, populations):
+    """Tests listing files in an experiment"""
+    responses.add(responses.GET, base_url+"experiments/5d38a6f79fae87499999a74b/populations",
+                  json=populations)
+    all_populations = experiment.populations
+    assert type(all_populations) is list
+    assert all([type(population) is cellengine.Population for population in all_populations])
 
 
 @responses.activate
@@ -71,10 +70,10 @@ def test_all_experiment_properties(experiment):
             "insert": "\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n"
         }
     ]
-    assert experiment.updated == cellengine._helpers.timestamp_to_datetime(
+    assert experiment.updated == cellengine.helpers.timestamp_to_datetime(
         "2019-08-29T14:40:58.566Z"
     )
-    assert experiment.deep_updated == cellengine._helpers.timestamp_to_datetime(
+    assert experiment.deep_updated == cellengine.helpers.timestamp_to_datetime(
         "2019-10-15T09:58:38.224Z"
     )
     assert experiment.deleted is None
@@ -107,6 +106,6 @@ def test_all_experiment_properties(experiment):
     assert experiment.annotation_name_order == []
     assert experiment.annotation_table_sort_columns == []
     assert experiment.permissions == []
-    assert experiment.created == cellengine._helpers.timestamp_to_datetime(
+    assert experiment.created == cellengine.helpers.timestamp_to_datetime(
         "2019-07-24T18:44:07.520Z"
     )

@@ -1,4 +1,3 @@
-from .gate_util import delete_gates, get_fcsfile
 from .rectangle_gate import create_rectangle_gate
 from .polygon_gate import create_polygon_gate
 from .ellipse_gate import create_ellipse_gate

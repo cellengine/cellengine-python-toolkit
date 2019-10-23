@@ -2,7 +2,7 @@ import os
 import pytest
 import cellengine
 from conftest import fixture_vcr
-from cellengine import _helpers
+from cellengine import helpers
 
 
 @pytest.fixture(scope='session')
@@ -12,7 +12,7 @@ def gate_experiment(request, client):
     with fixture_vcr.use_cassette('tests/cassettes/spinup_experiment.yaml'):
         res = client._session.post('experiments', json={'name': 'sdk'})
         _id = res.json()['_id']
-        file_res = _helpers.session.post(f'experiments/{_id}/fcsfiles', files={'Acea - Novocyte.fcs': open('tests/fcsfiles/Acea - Novocyte.fcs', 'rb')})
+        file_res = helpers.session.post(f'experiments/{_id}/fcsfiles', files={'Acea - Novocyte.fcs': open('tests/fcsfiles/Acea - Novocyte.fcs', 'rb')})
         gate_experiment = cellengine.Experiment(id=_id)
 
     # TODO: figure out some logic about when to make this request

@@ -19,5 +19,18 @@ from .experiment import Experiment
 from .population import Population
 from .compensation import Compensation
 from .fcsfile import FcsFile
+from .gate import (
+    Gate,
+    RectangleGate,
+    PolygonGate,
+    EllipseGate,
+    QuadrantGate,
+    SplitGate,
+    RangeGate,
+)
 
-from .gate import *
+
+from .loader import by_name
+
+cache_info = by_name.cache_info
+clear_cache = by_name.cache_clear
