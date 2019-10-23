@@ -5,45 +5,27 @@ from .client import session
 from . import _helpers
 
 
-@attr.s
+@attr.s(repr=False)
 class Compensation(object):
     """A class representing a CellEngine compensation matrix. Can be applied to
     FCS files to compensate them.
     """
-    _session = attr.ib(default=session, repr=False)
-    name = attr.ib(default=None)
-    _id = attr.ib(default=None)
     _properties = attr.ib(default={}, repr=False)
-    experiment_id = attr.ib(kw_only=True)
 
-    def __attrs_post_init__(self):
-        """Load automatically by name or by id"""
-        _helpers.load(self, self.path)  # from _helpers
+    def __repr__(self):
+        return "Compensation(_id=\'{0}\', name=\'{1}\')".format(self._id, self.name)
 
-    @staticmethod
-    def list(experiment_id, query=None):
-        if query is not None:
-            res = session.get("experiments/{0}/compensations".format(experiment_id),
-                              params=query)
-        res = session.get("experiments/{0}/compensations".format(experiment_id))
-        res.raise_for_status()
-        comps = [Compensation(id=item['_id'], experiment_id=experiment_id) for item in res.json()]
-        return comps
+    _id = _helpers.GetSet('_id', read_only=True)
+
+    name = _helpers.GetSet('name')
+
+    experiment_id = _helpers.GetSet('experimentId')
 
     channels = _helpers.GetSet('channels')
 
     @property
     def N(self):
-        N = len(self.channels)
-        return N
-
-    @property
-    def path(self):
-        base_path = "experiments/{0}/compensations".format(self.experiment_id)
-        if self._id is not None:
-            return "{0}/{1}".format(base_path, self._id)
-        else:
-            return "{0}".format(base_path)
+        return len(self.channels)
 
     @property
     def dataframe(self):

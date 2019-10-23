@@ -1,41 +1,37 @@
 import attr
+from custom_inherit import doc_inherit
 from .client import session
 from . import _helpers
 from .fcsfile import FcsFile
 from .compensation import Compensation
+from .gate import Gate
+from . import Gates
 
 
-@attr.s
+@attr.s(repr=False)
 class Experiment(object):
     """A class representing a CellEngine experiment.
 
     Attributes
-        name (:obj:`str`, optional):   Name of the experiment; can be queried
-        _id (:obj:`str`, optional):    Experiment ID; can be queried in place of `name`
-        _properties (:obj:`dict`, optional): Experiment properties; loaded automatically.
+        _properties (:obj:`dict`): Experiment properties; reqired.
     """
-    name = attr.ib(default=None)
-    _id = attr.ib(default=None)
-    _properties = attr.ib(default={}, repr=False)
-    _session = attr.ib(default=session, repr=False)
+    _properties = attr.ib()
 
-    def __attrs_post_init__(self):
-        """Load automatically by name or by id"""
-        _helpers.load(self, self.path)  # from _helpers
+    def __repr__(self):
+        return "Experiment(_id=\'{0}\', name=\'{1}\')".format(self._id, self.name)
 
-    @staticmethod
-    def list_all():
-        """Returns a list of all accesible experiments"""
-        res = session.get('experiments')
-        res.raise_for_status()
-        exps = [Experiment(id=item['_id'], properties=item) for item in res.json()]
-        return exps
+    _id = _helpers.GetSet('_id', read_only=True)
+
+    name = _helpers.GetSet('name')
 
     @property
     def files(self):
         """List all files on the experiment"""
         url = "experiments/{0}/fcsfiles".format(self._id)
-        return _helpers.base_list(url, FcsFile, experiment_id=self._id)
+        return _helpers.base_list(url, FcsFile)
+
+    def get_fcsfile(self, _id=None, name=None):
+        return Gates.get_fcsfile(self._id, _id=_id, name=name)
 
     @property
     def populations(self):
@@ -47,21 +43,12 @@ class Experiment(object):
     @property
     def compensations(self):
         url = "experiments/{0}/compensations".format(self._id)
-        return _helpers.base_list(url, Compensation, experiment_id=self._id)
+        return _helpers.base_list(url, Compensation)
 
     @property
     def gates(self):
-        pass
-        # url = "experiments/{0}/gates".format(self._id)
-        # return _helpers.base_list(url, Gate, experiment_id=self._id)
-
-    @property
-    def path(self):
-        base_path = 'experiments'
-        if self._id is not None:
-            return "{0}/{1}".format(base_path, self._id)
-        else:
-            return "{0}".format(base_path)
+        url = "experiments/{0}/gates".format(self._id)
+        return _helpers.base_list(url, Gate)
 
     @property
     def comments(self):
@@ -85,7 +72,7 @@ class Experiment(object):
 
     @property
     def updated(self):
-        return timestamp_to_datetime(self._properties.get('updated'))
+        return _helpers.timestamp_to_datetime(self._properties.get('updated'))
 
     @property
     def deep_updated(self):
@@ -97,13 +84,16 @@ class Experiment(object):
             return _helpers.timestamp_to_datetime(self._properties.get('deleted'))
 
     @property
-    def delete(self):
+    def delete(self, confirm=True):
         """Marks the experiment as deleted.
 
         Deleted experiments are permanently deleted after approximately
         7 days. Until then, deleted experiments can be recovered.
         """
-        self._properties['deleted'] = _helpers.today_timestamp()
+        if confirm:
+            self._properties['deleted'] = _helpers.today_timestamp()
+        else:
+            pass
 
     public = _helpers.GetSet('public')
 
@@ -127,8 +117,40 @@ class Experiment(object):
 
     annotation_name_order = _helpers.GetSet('annotationNameOrder')
 
-    annotation_tabe_sort_columns = _helpers.GetSet('annotationTableSortColumns')
+    annotation_table_sort_columns = _helpers.GetSet('annotationTableSortColumns')
 
     permissions = _helpers.GetSet('permissions')
 
-    created = _helpers.GetSet('created')
+    @property
+    def created(self):
+        return _helpers.timestamp_to_datetime(self._properties.get('created'))
+
+    # Gate Methods:
+
+    @doc_inherit(Gates.delete_gates)
+    def delete_gates(self, *args, **kwargs):
+        return getattr(Gates, 'delete_gates')(self._id, *args, **kwargs)
+
+    @doc_inherit(Gates.create_rectangle_gate)
+    def create_rectangle_gate(self, *args, **kwargs):
+        return getattr(Gates, 'create_rectangle_gate')(self._id, *args, **kwargs)
+
+    @doc_inherit(Gates.create_polygon_gate)
+    def create_polygon_gate(self, *args, **kwargs):
+        return getattr(Gates, 'create_polygon_gate')(self._id, *args, **kwargs)
+
+    @doc_inherit(Gates.create_ellipse_gate)
+    def create_ellipse_gate(self, *args, **kwargs):
+        return getattr(Gates, 'create_ellipse_gate')(self._id, *args, **kwargs)
+
+    @doc_inherit(Gates.create_range_gate)
+    def create_range_gate(self, *args, **kwargs):
+        return getattr(Gates, 'create_range_gate')(self._id, *args, **kwargs)
+
+    @doc_inherit(Gates.create_split_gate)
+    def create_split_gate(self, *args, **kwargs):
+        return getattr(Gates, 'create_split_gate')(self._id, *args, **kwargs)
+
+    @doc_inherit(Gates.create_quadrant_gate)
+    def create_quadrant_gate(self, *args, **kwargs):
+        return getattr(Gates, 'create_quadrant_gate')(self._id, *args, **kwargs)
