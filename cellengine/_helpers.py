@@ -8,25 +8,25 @@ from cellengine import ID_INDEX
 
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
-first_cap_re = re.compile('(.)([A-Z][a-z]+)')
-all_cap_re = re.compile('([a-z0-9])([A-Z])')
+first_cap_re = re.compile("(.)([A-Z][a-z]+)")
+all_cap_re = re.compile("([a-z0-9])([A-Z])")
 
 
 def check_id(_id):
     try:
         assert bool(ID_REGEX.match(_id)) is True
     except ValueError:
-        print('Object has an invalid ID.')
+        print("Object has an invalid ID.")
 
 
 def camel_to_snake(name):
-    s1 = first_cap_re.sub(r'\1_\2', name)
-    return all_cap_re.sub(r'\1_\2', s1).lower()
+    s1 = first_cap_re.sub(r"\1_\2", name)
+    return all_cap_re.sub(r"\1_\2", s1).lower()
 
 
 def snake_to_camel(name):
-    components = name.split('_')
-    converted = components[0] + ''.join(x.title() for x in components[1:])
+    components = name.split("_")
+    converted = components[0] + "".join(x.title() for x in components[1:])
     if converted == "Id":
         converted = "_id"
     return converted
@@ -34,9 +34,9 @@ def snake_to_camel(name):
 
 def convert_dict(input_dict, input_style):
     """Convert a dict from type 'snake' to type 'camel' or vice versa."""
-    if input_style == 'snake_to_camel':
+    if input_style == "snake_to_camel":
         convert = snake_to_camel
-    elif input_style == 'camel_to_snake':
+    elif input_style == "camel_to_snake":
         convert = camel_to_snake
     else:
         raise ValueError("Invalid input type")
@@ -49,12 +49,13 @@ class CommentList(list):
     Ensures that an appended comment dict has a newline after
     the last `insert` key.
     """
+
     def __init__(self, *args, **kwargs):
         super(CommentList, self).__init__(args[0])
 
     def append(self, comment):
-        if comment[-1].get('insert').endswith('\n') is False:
-            comment[-1].update(insert=comment[-1].get('insert')+'\n')
+        if comment[-1].get("insert").endswith("\n") is False:
+            comment[-1].update(insert=comment[-1].get("insert") + "\n")
         super(CommentList, self).extend(comment)
 
 
@@ -73,7 +74,7 @@ class GetSet:
 
     def __set__(self, instance, value):
         if self.read_only is True:
-            print('Cannnot set read-only property.')
+            print("Cannnot set read-only property.")
         else:
             instance._properties[self.name] = value
 
@@ -95,7 +96,8 @@ def today_timestamp():
 def created(self):
     return timestamp_to_datetime(self._properties.get("created"))
 
-def load(self, path, query='name'):
+
+def load(self, path, query="name"):
     if self._id is None:
         load_by_name(self, query)
     else:
@@ -114,12 +116,16 @@ def load_by_id(_id):
 
 def load_by_name(self, query):
     # TODO does requests encode URI components for us?
-    url = "{0}?query=eq({1},\"{2}\")&limit=2".format(self.path, query, self.name)
+    url = '{0}?query=eq({1},"{2}")&limit=2'.format(self.path, query, self.name)
     content = base_get(url)
     if len(content) == 0:
         raise RuntimeError("No objects found with the name {0}.".format(self.name))
     elif len(content) > 1:
-        raise RuntimeError("Multiple objects found with the name {0}, use _id to query instead.".format(self.name))
+        raise RuntimeError(
+            "Multiple objects found with the name {0}, use _id to query instead.".format(
+                self.name
+            )
+        )
     else:
         self._properties = content[0]
         self._id = self._properties.get("_id")
@@ -127,12 +133,16 @@ def load_by_name(self, query):
 
 
 def load_experiment_by_name(name):
-    content = base_get("experiments?query=eq(name, \"{0}\")&limit=2".format(name))
+    content = base_get('experiments?query=eq(name, "{0}")&limit=2'.format(name))
     return load_object_by_name('__import__("cellengine").Experiment', content)
 
 
 def load_fcsfile_by_name(experiment_id, name=None):
-    content = base_get("experiments/{0}/fcsfiles?query=eq(filename, \"{1}\")&limit=2".format(experiment_id, name))
+    content = base_get(
+        'experiments/{0}/fcsfiles?query=eq(filename, "{1}")&limit=2'.format(
+            experiment_id, name
+        )
+    )
     return load_object_by_name('__import__("cellengine").FcsFile', content)
 
 
@@ -150,13 +160,13 @@ def load_object_by_name(classname, content):
 def generate_id():
     """Generates a hexadecimal ID based on a mongoDB ObjectId"""
     global ID_INDEX
-    timestamp = '{0:x}'.format(int(time.time()))
-    seg1 = binascii.b2a_hex(os.urandom(5)).decode('ascii')
-    seg2 = binascii.b2a_hex(os.urandom(2)+bytes([ID_INDEX])).decode('ascii')
+    timestamp = "{0:x}".format(int(time.time()))
+    seg1 = binascii.b2a_hex(os.urandom(5)).decode("ascii")
+    seg2 = binascii.b2a_hex(os.urandom(2) + bytes([ID_INDEX])).decode("ascii")
     ID_INDEX += 1
     if ID_INDEX == 99:
         ID_INDEX = 0
-    return timestamp+seg1+seg2
+    return timestamp + seg1 + seg2
 
 
 # TODO: pass list params to api
@@ -190,7 +200,9 @@ def base_get(url, params=None):
         return res
 
 
-def base_create(classname, url, expected_status, json=None, params=None, **kwargs):
+def base_create(
+    url: str, expected_status: int, classname=None, json=None, params=None, **kwargs
+):
     """Create a new object.
 
     Args:
@@ -210,13 +222,20 @@ def base_create(classname, url, expected_status, json=None, params=None, **kwarg
     res = session.post(url, json=json, params=params)
     if res.status_code == expected_status:
         data = parse_response(res)
-        return make_class(classname, data)
+        if classname:
+            return make_class(classname, data)
+        else:
+            return data
     else:
-        raise Exception(res.content.decode())
+        raise RuntimeError(res.content.decode())
 
 
 def parse_response(content):
     content = content.json()
+    return parse_list_or_single(content)
+
+
+def parse_list_or_single(content):
     if type(content) is list:
         return parse_response_list(content)
     else:
@@ -224,16 +243,19 @@ def parse_response(content):
 
 
 def parse_response_list(content):
-    return [parse_response(item) for item in content]
+    return [parse_list_or_single(item) for item in content]
 
 
 def parse_population_from_gate(content):
     """Do-nothing for normal responses"""
     # TODO: return Population as another object
     if type(content) is dict:
-        if 'populations' in content.keys() or 'population' in content.keys():
-            content = content['gate']
-        return content
+        if "populations" in content.keys() or "population" in content.keys():
+            # pop = content["population"] or content["populations"]
+            content = content["gate"]
+            return content
+        else:
+            return content
 
 
 def base_update(url, body=None, classname=None, **kwargs):
@@ -248,7 +270,7 @@ def base_update(url, body=None, classname=None, **kwargs):
 def base_delete(url):
     res = session.delete(url)
     res.raise_for_status()
-    if res.content == b'':
+    if res.content == b"":
         pass
     else:
         return res.json()

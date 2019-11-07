@@ -1,15 +1,22 @@
 import attr
-from custom_inherit import doc_inherit
+
+# from custom_inherit import doc_inherit
 
 cellengine = __import__(__name__.split(".")[0])
 from . import _helpers
 from .population import Population
 from .fcsfile import FcsFile
 from .compensation import Compensation
-from .gate import Gate
-from . import Gates
+from .gate import (
+    Gate,
+    RectangleGate,
+    PolygonGate,
+    EllipseGate,
+    QuadrantGate,
+    SplitGate,
+    RangeGate,
+)
 
-# from .complex_population_creator import ComplexPopulationRequest
 from .complex_population_creator import create_complex_population
 
 
@@ -132,48 +139,35 @@ class Experiment(object):
 
     # Gate Methods:
 
-    @doc_inherit(Gates.delete_gates)
+    # @doc_inherit(Gates.delete_gates)
+    # TODO
     def delete_gates(self, *args, **kwargs):
         return getattr(Gates, "delete_gates")(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_rectangle_gate)
+    # @doc_inherit(Gates.create_rectangle_gate)
     def create_rectangle_gate(self, *args, **kwargs):
-        return getattr(Gates, "create_rectangle_gate")(self._id, *args, **kwargs)
+        return RectangleGate.create(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_polygon_gate)
+    # @doc_inherit(Gates.create_polygon_gate)
     def create_polygon_gate(self, *args, **kwargs):
-        return getattr(Gates, "create_polygon_gate")(self._id, *args, **kwargs)
+        return PolygonGate.create(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_ellipse_gate)
+    # @doc_inherit(Gates.create_ellipse_gate)
     def create_ellipse_gate(self, *args, **kwargs):
-        return getattr(Gates, "create_ellipse_gate")(self._id, *args, **kwargs)
+        return EllipseGate.create(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_range_gate)
+    # @doc_inherit(Gates.create_range_gate)
     def create_range_gate(self, *args, **kwargs):
-        return getattr(Gates, "create_range_gate")(self._id, *args, **kwargs)
+        return RangeGate.create(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_split_gate)
+    # @doc_inherit(Gates.create_split_gate)
     def create_split_gate(self, *args, **kwargs):
-        return getattr(Gates, "create_split_gate")(self._id, *args, **kwargs)
+        return SplitGate.create(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_quadrant_gate)
+    # @doc_inherit(Gates.create_quadrant_gate)
     def create_quadrant_gate(self, *args, **kwargs):
-        return getattr(Gates, "create_quadrant_gate")(self._id, *args, **kwargs)
+        return QuadrantGate.create(self._id, *args, **kwargs)
 
-    def create_complex_population(self, base_gate, name, gates):
-        return create_complex_population(self._id, base_gate, name, gates)
-
-
-#     def create_complex_population(
-#         self,
-#         name,
-#         base_gate,
-#         and_gates=None,
-#         or_gates=None,
-#         not_gates=None,
-#         xor_gates=None,
-#     ):
-#         """Create a complex population. Pass Gate objects to the logical args."""
-#         return Complex_Population_Request().create_complex_population(
-#             self._id, name, base_gate, and_gates, or_gates, not_gates, xor_gates
-#         )
+    def create_complex_population(self, name, base_gate, gates):
+        """Create a complex population. Pass Gate objects to the logical args."""
+        return create_complex_population(self._id, name, base_gate, gates)

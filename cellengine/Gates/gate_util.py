@@ -5,7 +5,7 @@ from .. import gate  # circular import here
 from .. import _helpers
 
 
-def common_gate_create(
+def create_common_gate(
     experiment_id, body, tailored_per_file, fcs_file_id, fcs_file, create_population
 ):
     """
@@ -52,14 +52,8 @@ def common_gate_create(
     )
 
     body = _helpers.convert_dict(body, "snake_to_camel")
-    res = _helpers.base_create(
-        gate.Gate,
-        url="experiments/{0}/gates".format(experiment_id),
-        expected_status=201,
-        json=body,
-        params={"createPopulation": create_population},
-    )
-    return res
+
+    return body
 
 
 def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id, fcs_file):
@@ -134,7 +128,7 @@ def create_gates(experiment_id=None, gates=None, create_all_populations=True):
             create_populations = each_gate.get("create_population", False)
         else:
             create_populations = create_all_populations
-        new_gate = common_gate_create(
+        new_gate = create_common_gate(
             experiment_id=each_gate.get("experiment_id", experiment_id),
             body=each_gate,
             tailored_per_file=each_gate.get("tailored_per_file", False),

@@ -1,15 +1,28 @@
 import numpy
-from custom_inherit import doc_inherit
-from .gate_util import common_gate_create, gate_style
+
+# from custom_inherit import doc_inherit
+from .gate_util import create_common_gate, gate_style
 from .. import _helpers
 
 
-@doc_inherit(common_gate_create, style=gate_style)
-def create_polygon_gate(experiment_id, x_channel, y_channel, name,
-                        x_vertices,  y_vertices, label=[], gid=None, locked=False,
-                        parent_population_id=None, parent_population=None,
-                        tailored_per_file=False, fcs_file_id=None,
-                        fcs_file=None, create_population=True):
+# @doc_inherit(create_common_gate, style=gate_style)
+def create_polygon_gate(
+    experiment_id,
+    x_channel,
+    y_channel,
+    name,
+    x_vertices,
+    y_vertices,
+    label=[],
+    gid=None,
+    locked=False,
+    parent_population_id=None,
+    parent_population=None,
+    tailored_per_file=False,
+    fcs_file_id=None,
+    fcs_file=None,
+    create_population=True,
+):
     """Creates a polygon gate.
 
     Args:
@@ -22,7 +35,7 @@ def create_polygon_gate(experiment_id, x_channel, y_channel, name,
         A PolygonGate object.
 
     Example:
-        experiment.create_polygon_gate(experiment_id, x_channel="FSC-A",
+        experiment.create_polygon_gate(x_channel="FSC-A",
         y_channel="FSC-W", name="my gate", x_vertices=[1, 2, 3], y_vertices=[4,
         5, 6])
     """
@@ -32,23 +45,27 @@ def create_polygon_gate(experiment_id, x_channel, y_channel, name,
         gid = _helpers.generate_id()
 
     model = {
-        'locked': locked,
-        'label': label,
-        'polygon': {'vertices': [[a, b] for (a, b) in zip(x_vertices, y_vertices)]}
+        "locked": locked,
+        "label": label,
+        "polygon": {"vertices": [[a, b] for (a, b) in zip(x_vertices, y_vertices)]},
     }
 
     body = {
-        'experimentId': experiment_id,
-        'name': name,
-        'type': 'PolygonGate',
-        'gid': gid,
-        'xChannel': x_channel,
-        'yChannel': y_channel,
-        'parentPopulationId': parent_population_id,
-        'model': model
+        "experimentId": experiment_id,
+        "name": name,
+        "type": "PolygonGate",
+        "gid": gid,
+        "xChannel": x_channel,
+        "yChannel": y_channel,
+        "parentPopulationId": parent_population_id,
+        "model": model,
     }
 
-    return common_gate_create(experiment_id, body=body,
-                              tailored_per_file=tailored_per_file,
-                              fcs_file_id=fcs_file_id, fcs_file=fcs_file,
-                              create_population=create_population)
+    return create_common_gate(
+        experiment_id,
+        body=body,
+        tailored_per_file=tailored_per_file,
+        fcs_file_id=fcs_file_id,
+        fcs_file=fcs_file,
+        create_population=create_population,
+    )
