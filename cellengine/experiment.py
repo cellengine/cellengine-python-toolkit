@@ -1,5 +1,6 @@
 import attr
-from custom_inherit import doc_inherit
+
+# from custom_inherit import doc_inherit
 
 cellengine = __import__(__name__.split(".")[0])
 from . import _helpers
@@ -7,7 +8,8 @@ from .population import Population
 from .fcsfile import FcsFile
 from .compensation import Compensation
 from .gate import Gate
-from . import Gates
+
+# from . import Gates
 
 # from .complex_population_creator import ComplexPopulationRequest
 from .complex_population_creator import create_complex_population
@@ -132,31 +134,31 @@ class Experiment(object):
 
     # Gate Methods:
 
-    @doc_inherit(Gates.delete_gates)
+    # @doc_inherit(Gates.delete_gates)
     def delete_gates(self, *args, **kwargs):
         return getattr(Gates, "delete_gates")(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_rectangle_gate)
+    # @doc_inherit(Gates.create_rectangle_gate)
     def create_rectangle_gate(self, *args, **kwargs):
         return getattr(Gates, "create_rectangle_gate")(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_polygon_gate)
+    # @doc_inherit(Gates.create_polygon_gate)
     def create_polygon_gate(self, *args, **kwargs):
         return getattr(Gates, "create_polygon_gate")(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_ellipse_gate)
+    # @doc_inherit(Gates.create_ellipse_gate)
     def create_ellipse_gate(self, *args, **kwargs):
         return getattr(Gates, "create_ellipse_gate")(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_range_gate)
+    # @doc_inherit(Gates.create_range_gate)
     def create_range_gate(self, *args, **kwargs):
         return getattr(Gates, "create_range_gate")(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_split_gate)
+    # @doc_inherit(Gates.create_split_gate)
     def create_split_gate(self, *args, **kwargs):
         return getattr(Gates, "create_split_gate")(self._id, *args, **kwargs)
 
-    @doc_inherit(Gates.create_quadrant_gate)
+    # @doc_inherit(Gates.create_quadrant_gate)
     def create_quadrant_gate(self, *args, **kwargs):
         return getattr(Gates, "create_quadrant_gate")(self._id, *args, **kwargs)
 
