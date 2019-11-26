@@ -2,10 +2,10 @@ import numpy
 
 # from custom_inherit import doc_inherit
 from .. import _helpers
-from .gate_util import common_gate_create, gate_style
+from .gate_util import create_common_gate, gate_style
 
 
-# @doc_inherit(common_gate_create, style=gate_style)
+# @doc_inherit(create_common_gate, style=gate_style)
 def create_rectangle_gate(
     experiment_id,
     x_channel,
@@ -67,7 +67,7 @@ def create_rectangle_gate(
         "model": model,
     }
 
-    return common_gate_create(
+    return create_common_gate(
         experiment_id,
         body=body,
         tailored_per_file=tailored_per_file,
