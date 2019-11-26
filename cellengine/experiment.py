@@ -33,6 +33,16 @@ class Experiment(object):
 
     _properties = attr.ib()
 
+from . import Gates
+from .complex_population_creator import Complex_Population_Request
+
+
+@attr.s(repr=False)
+class ExperimentData(object):
+    _properties = attr.ib()
+
+    _id = _helpers.GetSet('_id', read_only=True)
+
     _id = _helpers.GetSet("_id", read_only=True)
 
     name = _helpers.GetSet("name")
@@ -117,6 +127,37 @@ class Experiment(object):
     @property
     def created(self):
         return _helpers.timestamp_to_datetime(self._properties.get("created"))
+
+    def get_fcsfile(self, _id=None, name=None):
+        return Gates.get_fcsfile(self._id, _id=_id, name=name)
+
+    @property
+    def populations(self):
+        """List all populations in the experiment"""
+        url = "experiments/{0}/populations".format(self._id)
+        return _helpers.base_list(url, Population)
+
+    @property
+    def compensations(self):
+        url = "experiments/{0}/compensations".format(self._id)
+        return _helpers.base_list(url, Compensation)
+
+    @property
+    def gates(self):
+        url = "experiments/{0}/gates".format(self._id)
+        return _helpers.base_list(url, Gate)
+
+
+@attr.s(repr=False)
+class Experiment(ExperimentData):
+    """A class representing a CellEngine experiment.
+
+    Attributes
+        _properties (:obj:`dict`): Experiment properties; reqired.
+    """
+
+    def __repr__(self):
+        return "Experiment(_id=\'{0}\', name=\'{1}\')".format(self._id, self.name)
 
     def get_fcsfile(self, _id=None, name=None):
         return Gates.get_fcsfile(self._id, _id=_id, name=name)

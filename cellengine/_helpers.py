@@ -19,6 +19,13 @@ def check_id(_id):
         print("Object has an invalid ID.")
 
 
+def check_id(_id):
+    try:
+        assert bool(ID_REGEX.match(_id)) is True
+    except ValueError:
+        print('Object has an invalid ID.')
+
+
 def camel_to_snake(name):
     s1 = first_cap_re.sub(r"\1_\2", name)
     return all_cap_re.sub(r"\1_\2", s1).lower()
