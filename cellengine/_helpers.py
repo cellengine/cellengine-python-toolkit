@@ -200,7 +200,9 @@ def base_get(url, params=None):
         return res
 
 
-def base_create(url, expected_status, classname=None, json=None, params=None, **kwargs):
+def base_create(
+    url: str, expected_status: int, classname=None, json=None, params=None, **kwargs
+):
     """Create a new object.
 
     Args:

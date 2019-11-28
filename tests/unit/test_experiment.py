@@ -3,15 +3,17 @@ import responses
 import cellengine
 
 
-base_url = os.environ.get('CELLENGINE_DEVELOPMENT',
-                          'https://cellengine.com/api/v1/')
+base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
 
 
 @responses.activate
 def test_list_fcsfile(experiment, fcsfiles):
     """Tests listing fcs files in an experiment"""
-    responses.add(responses.GET, base_url+"experiments/5d38a6f79fae87499999a74b/fcsfiles",
-                  json=fcsfiles)
+    responses.add(
+        responses.GET,
+        base_url + "experiments/5d38a6f79fae87499999a74b/fcsfiles",
+        json=fcsfiles,
+    )
     all_files = experiment.files
     assert type(all_files) is list
     assert all([type(file) is cellengine.FcsFile for file in all_files])
@@ -31,20 +33,29 @@ def test_list_fcsfile(experiment, fcsfiles):
 @responses.activate
 def test_list_compensations(experiment, compensations):
     """Tests listing compensations in an experiment"""
-    responses.add(responses.GET,
-                  base_url+"experiments/5d38a6f79fae87499999a74b/compensations",
-                  json=compensations)
+    responses.add(
+        responses.GET,
+        base_url + "experiments/5d38a6f79fae87499999a74b/compensations",
+        json=compensations,
+    )
     all_compensations = experiment.compensations
     assert type(all_compensations) is list
-    assert all([type(compensation) is cellengine.Compensation for compensation in all_compensations])
+    assert all(
+        [
+            type(compensation) is cellengine.Compensation
+            for compensation in all_compensations
+        ]
+    )
 
 
 @responses.activate
 def test_list_gates(experiment, gates):
     """Tests listing gates in an experiment"""
-    responses.add(responses.GET,
-                  base_url+"experiments/5d38a6f79fae87499999a74b/gates",
-                  json=gates)
+    responses.add(
+        responses.GET,
+        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        json=gates,
+    )
     all_gates = experiment.gates
     assert type(all_gates) is list
     assert all([type(gate) is cellengine.Gate for gate in all_gates])
@@ -53,27 +64,39 @@ def test_list_gates(experiment, gates):
 @responses.activate
 def test_all_experiment_properties(experiment):
     assert type(experiment._properties) is dict
-    assert experiment._id == '5d38a6f79fae87499999a74b'
-    assert experiment.name == 'pytest_experiment'
-    assert experiment.comments == [{'insert': '\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n'}]
-    assert experiment.updated == cellengine._helpers.timestamp_to_datetime('2019-08-29T14:40:58.566Z')
-    assert experiment.deep_updated == cellengine._helpers.timestamp_to_datetime('2019-10-15T09:58:38.224Z')
+    assert experiment._id == "5d38a6f79fae87499999a74b"
+    assert experiment.name == "pytest_experiment"
+    assert experiment.comments == [
+        {
+            "insert": "\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n"
+        }
+    ]
+    assert experiment.updated == cellengine._helpers.timestamp_to_datetime(
+        "2019-08-29T14:40:58.566Z"
+    )
+    assert experiment.deep_updated == cellengine._helpers.timestamp_to_datetime(
+        "2019-10-15T09:58:38.224Z"
+    )
     assert experiment.deleted is None
     assert experiment.public is False
-    assert experiment.uploader == {'_id': '5d366077a1789f7d6653075c',
-                                   'username': 'gegnew',
-                                   'email': 'g.egnew@gmail.com',
-                                   'firstName': 'Gerrit',
-                                   'lastName': 'Egnew',
-                                   'fullName': 'Gerrit Egnew',
-                                   'id': '5d366077a1789f7d6653075c'}
-    assert experiment.primary_researcher == {'_id': '5d366077a1789f7d6653075c',
-                                             'username': 'gegnew',
-                                             'email': 'g.egnew@gmail.com',
-                                             'firstName': 'Gerrit',
-                                             'lastName': 'Egnew',
-                                             'fullName': 'Gerrit Egnew',
-                                             'id': '5d366077a1789f7d6653075c'}
+    assert experiment.uploader == {
+        "_id": "5d366077a1789f7d6653075c",
+        "username": "gegnew",
+        "email": "g.egnew@gmail.com",
+        "firstName": "Gerrit",
+        "lastName": "Egnew",
+        "fullName": "Gerrit Egnew",
+        "id": "5d366077a1789f7d6653075c",
+    }
+    assert experiment.primary_researcher == {
+        "_id": "5d366077a1789f7d6653075c",
+        "username": "gegnew",
+        "email": "g.egnew@gmail.com",
+        "firstName": "Gerrit",
+        "lastName": "Egnew",
+        "fullName": "Gerrit Egnew",
+        "id": "5d366077a1789f7d6653075c",
+    }
     assert experiment.active_compensation == 0
     assert experiment.locked is False
     # assert experiment.clone_source_experiment  # does not exist for this exp
@@ -84,4 +107,6 @@ def test_all_experiment_properties(experiment):
     assert experiment.annotation_name_order == []
     assert experiment.annotation_table_sort_columns == []
     assert experiment.permissions == []
-    assert experiment.created == cellengine._helpers.timestamp_to_datetime('2019-07-24T18:44:07.520Z')
+    assert experiment.created == cellengine._helpers.timestamp_to_datetime(
+        "2019-07-24T18:44:07.520Z"
+    )

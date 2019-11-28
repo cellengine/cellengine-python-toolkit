@@ -259,7 +259,7 @@ class EllipseGate(Gate):
         return Gate.create(formatted_gate)
 
 
-class RangeGange(Gate):
+class RangeGate(Gate):
     """Basic concrete class for range gates"""
 
     def create(
@@ -299,7 +299,7 @@ class RangeGange(Gate):
         return Gate.create(formatted_gate)
 
 
-class QuadrantGange(Gate):
+class QuadrantGate(Gate):
     """Basic concrete class for quadrant gates"""
 
     def create(
@@ -341,7 +341,7 @@ class QuadrantGange(Gate):
         return Gate.create(formatted_gate)
 
 
-class SplitGange(Gate):
+class SplitGate(Gate):
     """Basic concrete class for split gates"""
 
     def create(
