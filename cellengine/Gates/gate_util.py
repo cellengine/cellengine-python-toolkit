@@ -5,9 +5,8 @@ from .. import gate  # circular import here
 from .. import _helpers
 
 
-def common_gate_create(
-    experiment_id, body, tailored_per_file, fcs_file_id, fcs_file, create_population
-):
+def common_gate_create(experiment_id, body, tailored_per_file, fcs_file_id,
+                       fcs_file, create_population):
     """
     <Description>
 
@@ -47,22 +46,21 @@ def common_gate_create(
         Example:
             <Example>
     """
-    body = parse_fcs_file_args(
-        experiment_id, body, tailored_per_file, fcs_file_id, fcs_file
-    )
+    body = parse_fcs_file_args(experiment_id, body, tailored_per_file,
+                               fcs_file_id, fcs_file)
 
-    body = _helpers.convert_dict(body, "snake_to_camel")
-    res = _helpers.base_create(
-        gate.Gate,
-        url="experiments/{0}/gates".format(experiment_id),
-        expected_status=201,
-        json=body,
-        params={"createPopulation": create_population},
-    )
+    body = _helpers.convert_dict(body, 'snake_to_camel')
+    res = _helpers.base_create(gate.Gate,
+                               url="experiments/{0}/gates".format(experiment_id),
+                               expected_status=201,
+                               json=body, params={'createPopulation':
+                                                  create_population}
+                               )
     return res
 
 
-def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id, fcs_file):
+def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id,
+                        fcs_file):
     """Find the fcs file ID if 'tailored_per_file' and either 'fcs_file' or
     'fcs_file_id' are specified."""
     if fcs_file is not None and fcs_file_id is not None:
@@ -70,16 +68,14 @@ def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id, fcs
     if fcs_file is not None and tailored_per_file is True:  # lookup by name
         _file = get_fcsfile(experiment_id, name=fcs_file)
         fcs_file_id = _file._id
-    body["tailoredPerFile"] = tailored_per_file
-    body["fcsFileId"] = fcs_file_id
+    body['tailoredPerFile'] = tailored_per_file
+    body['fcsFileId'] = fcs_file_id
     return body
 
 
 def get_fcsfile(experiment_id, _id=None, name=None):
     if _id:
-        content = _helpers.base_get(
-            "experiments/{0}/fcsfiles/{1}".format(experiment_id, _id)
-        )
+        content = _helpers.base_get("experiments/{0}/fcsfiles/{1}".format(experiment_id, _id))
         content = FcsFile(properties=content)
     else:
         content = _helpers.load_fcsfile_by_name(experiment_id, name)
@@ -123,25 +119,23 @@ def create_gates(experiment_id=None, gates=None, create_all_populations=True):
     """
     prepared_gates = []
     for g in gates:
-        g.update({"_id": _helpers.generate_id()})
-        if "gid" not in g.keys():
-            g.update({"gid": _helpers.generate_id()})
+        g.update({'_id': _helpers.generate_id()})
+        if 'gid' not in g.keys():
+            g.update({'gid': _helpers.generate_id()})
         prepared_gates.append(g)
 
     new_gates = []
     for each_gate in prepared_gates:
         if create_all_populations is False:
-            create_populations = each_gate.get("create_population", False)
+            create_populations = each_gate.get('create_population', False)
         else:
             create_populations = create_all_populations
-        new_gate = common_gate_create(
-            experiment_id=each_gate.get("experiment_id", experiment_id),
-            body=each_gate,
-            tailored_per_file=each_gate.get("tailored_per_file", False),
-            fcs_file_id=each_gate.get("fcs_file_id", None),
-            fcs_file=each_gate.get("fcs_file", None),
-            create_population=create_populations,
-        )
+        new_gate = common_gate_create(experiment_id=each_gate.get('experiment_id', experiment_id),
+                                 body=each_gate,
+                                 tailored_per_file=each_gate.get('tailored_per_file', False),
+                                 fcs_file_id=each_gate.get('fcs_file_id', None),
+                                 fcs_file=each_gate.get('fcs_file', None),
+                                 create_population=create_populations)
         new_gates.append(new_gate)
 
     return new_gates
@@ -181,14 +175,12 @@ def delete_gates(experiment_id, _id=None, gid=None, exclude=None):
 
 
 def gate_style(prnt_doc, child_doc):
-    desc = child_doc[: child_doc.index("Args")].strip()
-    args = child_doc[child_doc.index("Args") + 5 : child_doc.index("Returns")].strip()
-    args = re.sub("\n", "\n    ", args)
-    returns = child_doc[
-        child_doc.index("Returns") + 10 : child_doc.index("Example")
-    ].strip()
-    example = child_doc[child_doc.index("Example") + 10 :].strip()
-    keys = ["<Description>", "<Gate Args>", "<Returns>", "<Example>"]
+    desc = child_doc[:child_doc.index('Args')].strip()
+    args = child_doc[child_doc.index('Args')+5:child_doc.index('Returns')].strip()
+    args = re.sub('\n', '\n    ', args)
+    returns = child_doc[child_doc.index('Returns')+10:child_doc.index('Example')].strip()
+    example = child_doc[child_doc.index('Example')+10:].strip()
+    keys = ['<Description>', '<Gate Args>', '<Returns>', '<Example>']
     sections = [desc, args, returns, example]
     docs = prnt_doc
     for key, section in zip(keys, sections):

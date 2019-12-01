@@ -1,14 +1,9 @@
 import attr
 import munch
 from . import _helpers
-from .Gates import (
-    create_rectangle_gate,
-    create_ellipse_gate,
-    create_polygon_gate,
-    create_range_gate,
-    create_split_gate,
-    create_quadrant_gate,
-)
+from .Gates import (create_rectangle_gate, create_ellipse_gate,
+                    create_polygon_gate, create_range_gate, create_split_gate,
+                    create_quadrant_gate)
 from .Gates.gate_util import create_gates
 
 
@@ -42,36 +37,33 @@ class Gate(object):
     above. Populations using compound gates must reference these sector GIDs;
     referencing the top-level GID of a compound gate is meaningless.
     """
-
-    def __repr__(self):
-        return "Gate(_id='{0}', name='{1}', type={2})".format(
-            self._id, self.name, self.type
-        )
-
     _properties = attr.ib(default={}, repr=False)
 
-    _id = _helpers.GetSet("_id", read_only=True)
+    def __repr__(self):
+        return "Gate(_id=\'{0}\', name=\'{1}\', type={2})".format(self._id, self.name, self.type)
 
-    name = _helpers.GetSet("name")
+    _id = _helpers.GetSet('_id', read_only=True)
+
+    name = _helpers.GetSet('name')
 
     # TODO: bad usage of a Python builtin; can we change this? (is functional)
-    type = _helpers.GetSet("type")
+    type = _helpers.GetSet('type')
 
-    experiment_id = _helpers.GetSet("experimentId", read_only=True)
+    experiment_id = _helpers.GetSet('experimentId', read_only=True)
 
-    gid = _helpers.GetSet("gid")
+    gid = _helpers.GetSet('gid')
 
-    x_channel = _helpers.GetSet("xChannel")
+    x_channel = _helpers.GetSet('xChannel')
 
-    y_channel = _helpers.GetSet("yChannel")
+    y_channel = _helpers.GetSet('yChannel')
 
-    tailored_per_file = _helpers.GetSet("tailoredPerFile")
+    tailored_per_file = _helpers.GetSet('tailoredPerFile')
 
-    fcs_file_id = _helpers.GetSet("fcsFileId")
+    fcs_file_id = _helpers.GetSet('fcsFileId')
 
-    parent_population_id = _helpers.GetSet("parentPopulationId")
+    parent_population_id = _helpers.GetSet('parentPopulationId')
 
-    names = _helpers.GetSet("names")
+    names = _helpers.GetSet('names')
 
     @property
     def model(self):
@@ -87,21 +79,20 @@ class Gate(object):
         As it is, this relies on the API to validate the model. If necessary, I
         can write validators in here as well.
         """
-        model = self._properties["model"]
+        model = self._properties['model']
         if type(model) is not Gate._Munch:
-            self._properties["model"] = munch.munchify(model, factory=self._Munch)
+            self._properties['model'] = munch.munchify(model, factory=self._Munch)
         return model
 
     @model.setter
     def model(self, val):
-        model = self._properties["model"]
+        model = self._properties['model']
         model.update(val)
 
     class _Munch(munch.Munch):
         """Extend the Munch class for a dict-like __repr__"""
-
         def __repr__(self):
-            return "{0}".format(dict.__repr__(self))
+            return '{0}'.format(dict.__repr__(self))
 
     # gate creation methods
 

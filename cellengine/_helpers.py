@@ -12,13 +12,6 @@ first_cap_re = re.compile('(.)([A-Z][a-z]+)')
 all_cap_re = re.compile('([a-z0-9])([A-Z])')
 
 
-def check_id(_id):
-    try:
-        assert bool(ID_REGEX.match(_id)) is True
-    except ValueError:
-        print('Object has an invalid ID.')
-
-
 def camel_to_snake(name):
     s1 = first_cap_re.sub(r'\1_\2', name)
     return all_cap_re.sub(r'\1_\2', s1).lower()
@@ -165,9 +158,6 @@ def base_list(url, classname):
 
 
 def make_class(classname, content):
-    """Instantiate an object with data from the CE API.
-    Accepts the class name as a string or type.
-    """
     classname = evaluate_classname(classname)
     if type(content) is dict:
         return classname(properties=content)
@@ -181,8 +171,8 @@ def evaluate_classname(classname):
     return classname
 
 
-def base_get(url, params=None):
-    res = session.get(url, params=params)
+def base_get(url):
+    res = session.get(url)
     res.raise_for_status()
     if res.apparent_encoding is not None:
         return res.json()
@@ -248,7 +238,3 @@ def base_update(url, body=None, classname=None, **kwargs):
 def base_delete(url):
     res = session.delete(url)
     res.raise_for_status()
-    if res.content == b'':
-        pass
-    else:
-        return res.json()

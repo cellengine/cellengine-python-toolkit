@@ -6,10 +6,10 @@ from .gate_util import common_gate_create, gate_style
 
 @doc_inherit(common_gate_create, style=gate_style)
 def create_quadrant_gate(experiment_id, x_channel, y_channel, name,
-                         x, y, labels=[], gid=None, gids=None, locked=False,
-                         parent_population_id=None, parent_population=None,
-                         tailored_per_file=False, fcs_file_id=None,
-                         fcs_file=None, create_population=True):
+                      x, y, labels=[], gid=None, gids=None, locked=False,
+                      parent_population_id=None, parent_population=None,
+                      tailored_per_file=False, fcs_file_id=None,
+                      fcs_file=None, create_population=True):
     """
     Creates a quadrant gate. Quadrant gates have four sectors (upper-right,
     upper-left, lower-left, lower-right), each with a unique gid and name.
