@@ -4,6 +4,7 @@ from cellengine import _helpers
 from ._helpers import convert_dict
 from . import Gates
 
+# from cellengine import Population
 import importlib
 from abc import ABC
 import munch
@@ -94,6 +95,12 @@ class Gate(ABC):
     names = _helpers.GetSet("names")
 
     # TODO: create_population()
+
+    # @property
+    # def population(self):
+    #     """If the gate is associated with a population, it can be accessed here."""
+    #     if self._population is not None:
+    #         return Population(self._population)
 
     @property
     def model(self):

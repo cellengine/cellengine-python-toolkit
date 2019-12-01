@@ -1,5 +1,5 @@
 import pytest
-
+import vcr
 
 """
 Run tests with ``python -m pytest``.
@@ -28,5 +28,58 @@ pytest_plugins = [
     "fixtures.api-compensations",
     "fixtures.api-gates",
     "fixtures.api-scalesets",
-    "fixtures.api-populations",
+    "fixtures.api-populations"
 ]
+
+# ===================================================================
+# Configuration for integration tests:
+# TODO: make these only run with a command-line arg
+
+
+# pytest_plugins = pytest_plugins.append(["integration.fixtures.client",
+#                                         "integration.fixtures.experiment"])
+
+
+def pytest_addoption(parser):
+    parser.addoption('--new_vcr', default=False)
+
+
+@pytest.fixture(scope='session')
+def make_new_cassettes(request):
+    return request.config.getoption('--new_vcr')
+
+
+@pytest.fixture(scope='module')
+def vcr_config():
+    """Pytest hook for vcr config"""
+    return {
+        'filter_headers': ['Cookie'],
+        'before_record_response': scrub_header('set-cookie',
+                                               repl='safetoken'),
+        'cassette_library_dir': 'tests/cassettes',
+        'record_mode': 'once'
+        }
+
+
+def scrub_header(string, repl=''):
+    """Remove secrets from stored vcr cassettes"""
+    def before_record_response(response):
+        response['headers'][string] = repl
+        return response
+    return before_record_response
+
+
+def scrub_client_request():
+    def before_record_response(response):
+        response['headers']['set-cookie'] = 'safetoken'
+        response['body']['string'] = None
+        return response
+    return before_record_response
+
+
+# vcr instance for all other fixtures
+fixture_vcr = vcr.VCR(
+    before_record_response=scrub_header('set-cookie', repl='safetoken'),
+    filter_headers=['Cookie'],
+    filter_query_parameters=['token']
+)
