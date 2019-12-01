@@ -1,30 +1,15 @@
 import numpy
-
-# from custom_inherit import doc_inherit
+from custom_inherit import doc_inherit
 from .. import _helpers
 from .gate_util import common_gate_create, gate_style
 
 
-# @doc_inherit(common_gate_create, style=gate_style)
-def create_rectangle_gate(
-    experiment_id,
-    x_channel,
-    y_channel,
-    name,
-    x1,
-    x2,
-    y1,
-    y2,
-    label=[],
-    gid=None,
-    locked=False,
-    parent_population_id=None,
-    parent_population=None,
-    tailored_per_file=False,
-    fcs_file_id=None,
-    fcs_file=None,
-    create_population=True,
-):
+@doc_inherit(common_gate_create, style=gate_style)
+def create_rectangle_gate(experiment_id, x_channel, y_channel, name,
+                          x1, x2, y1, y2, label=[], gid=None, locked=False,
+                          parent_population_id=None, parent_population=None,
+                          tailored_per_file=False, fcs_file_id=None,
+                          fcs_file=None, create_population=True):
     """Creates a rectangle gate.
 
     Args:
@@ -51,27 +36,23 @@ def create_rectangle_gate(
         gid = _helpers.generate_id()
 
     model = {
-        "locked": locked,
-        "label": label,
-        "rectangle": {"x1": x1, "x2": x2, "y1": y1, "y2": y2},
+        'locked': locked,
+        'label': label,
+        'rectangle': {'x1': x1, 'x2': x2, 'y1': y1, 'y2': y2}
     }
 
     body = {
-        "experimentId": experiment_id,
-        "name": name,
-        "type": "RectangleGate",
-        "gid": gid,
-        "xChannel": x_channel,
-        "yChannel": y_channel,
-        "parentPopulationId": parent_population_id,
-        "model": model,
+        'experimentId': experiment_id,
+        'name': name,
+        'type': 'RectangleGate',
+        'gid': gid,
+        'xChannel': x_channel,
+        'yChannel': y_channel,
+        'parentPopulationId': parent_population_id,
+        'model': model
     }
 
-    return common_gate_create(
-        experiment_id,
-        body=body,
-        tailored_per_file=tailored_per_file,
-        fcs_file_id=fcs_file_id,
-        fcs_file=fcs_file,
-        create_population=create_population,
-    )
+    return common_gate_create(experiment_id, body=body,
+                              tailored_per_file=tailored_per_file,
+                              fcs_file_id=fcs_file_id,
+                              fcs_file=fcs_file, create_population=create_population)
