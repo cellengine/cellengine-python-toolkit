@@ -1,8 +1,8 @@
 # from custom_inherit import doc_inherit
-from .gate_util import create_common_gate, gate_style
+from .gate_util import common_gate_create, gate_style
 from .. import _helpers
 
-# @doc_inherit(create_common_gate, style=gate_style)
+# @doc_inherit(common_gate_create, style=gate_style)
 def create_ellipse_gate(
     experiment_id,
     x_channel,
@@ -64,7 +64,7 @@ def create_ellipse_gate(
         "model": model,
     }
 
-    return create_common_gate(
+    return common_gate_create(
         experiment_id,
         body=body,
         tailored_per_file=tailored_per_file,
