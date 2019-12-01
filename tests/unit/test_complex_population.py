@@ -37,20 +37,20 @@ base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/
 
 
 # @responses.activate
-def test_create_complex_population_basic(experiment, gates):
-    complex_pop = experiment.create_complex_population(
-        base_gate=gates[0]["_id"],
-        name="complex",
-        gates={
-            "$and": [
-                gates[1]["_id"],
-                gates[2]["_id"],
-                {"$or": [gates[3]["_id"], gates[4]["_id"]]},
-            ]
-        },
-    )
+# def test_create_complex_population_basic(experiment, gates):
+#     complex_pop = experiment.create_complex_population(
+#         base_gate=gates[0]["_id"],
+#         name="complex",
+#         gates={
+#             "$and": [
+#                 gates[1]["_id"],
+#                 gates[2]["_id"],
+#                 {"$or": [gates[3]["_id"], gates[4]["_id"]]},
+#             ]
+#         },
+#     )
 
-    test_all_population_properties(complex_pop)
+#     test_all_population_properties(complex_pop)
 
 
 # def test_create_complex_population_with_and_builder(experiment, gates):
