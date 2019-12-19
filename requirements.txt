@@ -1,13 +1,9 @@
-certifi==2019.9.11
-chardet==3.0.4
 -e git+git@github.com:gegnew/fcsparser.git@710e8e31d4b09ff6e73d47d86770be6ca2f4282c#egg=fcsparser
-idna==2.8
 munch==2.5.0
 numpy==1.17.4
 pandas==0.25.3
 python-dateutil==2.8.1
-pytz==2019.3
 requests==2.22.0
 requests-toolbelt==0.9.1
-six==1.13.0
 urllib3==1.25.7
+custom_inherit==2.2.2
