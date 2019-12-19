@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/primitybio/cellengine-python-toolkit/tree/ge%2Fcircleci.svg?style=svg&circle-token=759714479ab360ce3fda49fa8658d02df8164d0a)](https://circleci.com/gh/primitybio/cellengine-python-toolkit/tree/ge%2Fcircleci)
+[![CircleCI](https://circleci.com/gh/primitybio/cellengine-python-toolkit/tree/master.svg?style=svg&circle-token=759714479ab360ce3fda49fa8658d02df8164d0a)](https://circleci.com/gh/primitybio/cellengine-python-toolkit/tree/master)
 
 CellEngine Python API Toolkit
 -----
