@@ -3,6 +3,7 @@ import re
 import time
 import binascii
 from functools import lru_cache
+from typing import Dict, List, Union
 from .client import session
 from datetime import datetime
 from cellengine import ID_INDEX
@@ -22,19 +23,12 @@ def check_id(_id):
         print("Object has an invalid ID.")
 
 
-def check_id(_id):
-    try:
-        assert bool(ID_REGEX.match(_id)) is True
-    except ValueError:
-        print("Object has an invalid ID.")
-
-
-def camel_to_snake(name):
+def camel_to_snake(name: str) -> str:
     s1 = first_cap_re.sub(r"\1_\2", name)
     return all_cap_re.sub(r"\1_\2", s1).lower()
 
 
-def snake_to_camel(name):
+def snake_to_camel(name: str) -> str:
     components = name.split("_")
     converted = components[0] + "".join(x.title() for x in components[1:])
     if converted == "Id":
@@ -42,7 +36,7 @@ def snake_to_camel(name):
     return converted
 
 
-def convert_dict(input_dict, input_style):
+def convert_dict(input_dict: Dict, input_style: str):
     """Convert a dict from type 'snake' to type 'camel' or vice versa."""
     if input_style == "snake_to_camel":
         convert = snake_to_camel
@@ -70,6 +64,24 @@ class CommentList(list):
 
 
 class GetSet:
+    """ Generator class for getters and setters of API objects.
+
+    Allows for much less verbose declaration of object properties from the
+    underlying ``_properties`` dict, i.e.:
+
+    ``name = helpers.GetSet("name")``
+
+    instead of:
+
+    ```
+    @property
+    def name(self):
+        name = self._properties["name"]
+
+    @name.setter
+    def name(self, name):
+    ```
+    """
     def __init__(self, name, read_only=False):
         self.name = name
         self.read_only = read_only
@@ -89,26 +101,23 @@ class GetSet:
             instance._properties[self.name] = value
 
 
-def timestamp_to_datetime(value):
+def timestamp_to_datetime(value: str) -> datetime:
     """Converts ISO 8601 date+time UTC timestamps as returned by CellEngine to
     ``datetime`` objects.
     """
     return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 
-def today_timestamp():
+def today_timestamp() -> str:
     """Converts today's date to a ISO 8601 date+time UTC timestamp for deleting
     experiments.
     """
     return datetime.today().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
-def created(self):
-    return timestamp_to_datetime(self._properties.get("created"))
-
-
-def generate_id():
+def generate_id() -> str:
     """Generates a hexadecimal ID based on a mongoDB ObjectId"""
+    # TODO: return ID object
     global ID_INDEX
     timestamp = "{0:x}".format(int(time.time()))
     seg1 = binascii.b2a_hex(os.urandom(5)).decode("ascii")
@@ -124,7 +133,7 @@ def base_list(url, classname):
     return make_class(classname, content=base_get(url))
 
 
-def make_class(classname, content):
+def make_class(classname: Union[str, 'APIObject'], content: Union[Dict, List]):
     """Instantiate an object with data from the CE API.
     Accepts the class name as a string or type.
     """
@@ -141,7 +150,7 @@ def evaluate_classname(classname):
     return classname
 
 
-def base_get(url, params=None):
+def base_get(url, params: dict = None) -> 'Response':
     res = session.get(url, params=params)
     res.raise_for_status()
     if res.apparent_encoding is not None:
@@ -151,8 +160,8 @@ def base_get(url, params=None):
 
 
 def base_create(
-    url: str, expected_status: int, classname=None, json=None, params=None, **kwargs
-):
+        url: str, expected_status: int, classname: Union[str, 'APIObject'] = None, json: Dict = None, params: Dict = None, **kwargs
+) -> Union['Response', str]:
     """Create a new object.
 
     Args:
@@ -168,6 +177,7 @@ def base_create(
         the most likely **kwarg to be passed is ``experiment_id``; this is a
         required init param for Gate, Population, Compensation, and similar
         objects, but not for Experiment.
+        If classname is not specified, returns a Response object.
     """
     res = session.post(url, json=json, params=params)
     if res.status_code == expected_status:
@@ -180,23 +190,24 @@ def base_create(
         raise RuntimeError(res.content.decode())
 
 
-def parse_response(content):
+def parse_response(content: 'Response') -> Union[List, str]:
     content = content.json()
     return parse_list_or_single(content)
 
 
-def parse_list_or_single(content):
+def parse_list_or_single(content: Union[List, str]) -> str:
     if type(content) is list:
         return parse_response_list(content)
     else:
         return parse_population_from_gate(content)
 
 
-def parse_response_list(content):
+def parse_response_list(content: List[List]) -> List:
+    """Parse sublists"""
     return [parse_list_or_single(item) for item in content]
 
 
-def parse_population_from_gate(content):
+def parse_population_from_gate(content: Dict) -> str:
     """Do-nothing for normal responses"""
     # TODO: return Population as another object
     if type(content) is dict:
@@ -208,7 +219,7 @@ def parse_population_from_gate(content):
             return content
 
 
-def base_update(url, body=None, classname=None, **kwargs):
+def base_update(url, body: Dict = None, classname: Union[str, 'APIObject'] = None, **kwargs) -> str:
     res = session.patch(url, json=body, **kwargs)
     res.raise_for_status()
     if classname:
@@ -217,7 +228,7 @@ def base_update(url, body=None, classname=None, **kwargs):
         return res.json()
 
 
-def base_delete(url):
+def base_delete(url: str) -> str:
     res = session.delete(url)
     res.raise_for_status()
     if res.content == b"":

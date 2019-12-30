@@ -18,3 +18,21 @@ experiments = client.experiments
 # or:
 exp = cellengine.Experiment(name="160311-96plex-4dye")
 ```
+
+### Import new experiments:
+# TODO
+
+List resources:
+```
+experiment.files
+experiment.populations
+experiment.compensations
+experiment.gates
+```
+
+### Create a complex population
+There must already be a gate to base the population on.
+```
+# TODO
+exp.create_complex_population()
+```

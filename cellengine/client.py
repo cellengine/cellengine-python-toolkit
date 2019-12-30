@@ -1,3 +1,4 @@
+from typing import List, Optional
 import attr
 from getpass import getpass
 from . import session
@@ -41,7 +42,7 @@ class Client(object):
             if self.password is None:
                 self.password = getpass()
 
-            req = session.post(
+            req = self._session.post(
                 "signin", {"username": self.username, "password": self.password}
             )
             req.raise_for_status()
@@ -50,15 +51,15 @@ class Client(object):
                 print("Authentication successful.")
 
         elif self.token is not None:
-            session.cookies.update({"token": "{0}".format(self.token)})
+            self._session.cookies.update({"token": "{0}".format(self.token)})
 
         else:
             raise RuntimeError("Username or token must be provided")
 
-    def get_experiment(self, _id=None, name=None):
+    def get_experiment(self, _id: Optional[str] = None, name: Optional[str] = None) -> Experiment:
         return Loader.get_experiment(_id=_id, name=name)
 
     @property
-    def experiments(self):
+    def experiments(self) -> List[Experiment]:
         """Return a list of Experiment objects for all experiments on client"""
         return helpers.base_list("experiments", Experiment)
