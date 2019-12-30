@@ -1,10 +1,11 @@
 import attr
-
+from typing import Optional
 from custom_inherit import doc_inherit
 
 cellengine = __import__(__name__.split(".")[0])
 from . import helpers
 from .population import Population
+from .complex_population_creator import create_complex_population
 from .fcsfile import FcsFile
 from .compensation import Compensation
 from .loader import Loader
@@ -18,7 +19,6 @@ from .gate import (
     RangeGate,
 )
 
-from .complex_population_creator import create_complex_population
 
 
 @attr.s(repr=False, slots=True)
@@ -30,8 +30,6 @@ class Experiment(object):
     """
 
     _properties = attr.ib()
-
-    _id = helpers.GetSet("_id", read_only=True)
 
     _id = helpers.GetSet("_id", read_only=True)
 
@@ -121,30 +119,14 @@ class Experiment(object):
     def created(self):
         return helpers.timestamp_to_datetime(self._properties.get("created"))
 
-    def get_fcsfile(self, _id=None, name=None):
-        return Loader.get_fcsfile(experiment_id=self._id, _id=_id, name=name)
-
     @property
     def files(self):
         """List all files on the experiment"""
         url = "experiments/{0}/fcsfiles".format(self._id)
         return helpers.base_list(url, FcsFile)
 
-    @property
-    def populations(self):
-        """List all populations in the experiment"""
-        url = "experiments/{0}/populations".format(self._id)
-        return helpers.base_list(url, Population)
-
-    @property
-    def compensations(self):
-        url = "experiments/{0}/compensations".format(self._id)
-        return helpers.base_list(url, Compensation)
-
-    @property
-    def gates(self):
-        url = "experiments/{0}/gates".format(self._id)
-        return helpers.base_list(url, Gate)
+    def get_fcsfile(self, _id: Optional[str] = None, name: Optional[str] = None):
+        return Loader.get_fcsfile(experiment_id=self._id, _id=_id, name=name)
 
     @property
     def populations(self):

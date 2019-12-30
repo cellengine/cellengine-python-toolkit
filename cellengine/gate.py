@@ -1,3 +1,4 @@
+from typing import Dict, List
 import attr
 import numpy
 from cellengine import helpers
@@ -56,7 +57,7 @@ class Gate(ABC):
         return "{}(_id={}, name={})".format(self.type, self._id, self.name)
 
     @classmethod
-    def create(cls, gates):
+    def create(cls, gates: Dict) -> List['Gate']:
         """Build a Gate object from a dict of properties."""
         if type(gates) is list:
             return cls._create_multiple_gates(gates)
@@ -82,7 +83,6 @@ class Gate(ABC):
             print("All gates must be posted to the same experiment")
         res = cls._post_gate(gates, experiment_id, create_population=False)
         return res
-        # return [cls._create_gate(gate) for gate in res]
 
     @classmethod
     def _post_gate(cls, gate, experiment_id, create_population):
@@ -158,7 +158,7 @@ class Gate(ABC):
             return "{0}".format(dict.__repr__(self))
 
     @staticmethod
-    def delete_gates(experiment_id, _id=None, gid=None, exclude=None):
+    def delete_gates(experiment_id, _id=None, gid=None, exclude: bool = None):
         """
         Deletes a gate or a tailored gate family.
 
@@ -196,27 +196,27 @@ class RectangleGate(Gate):
 
     @staticmethod
     def create(
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        x1,
-        x2,
-        y1,
-        y2,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        x1: int,
+        x2: int,
+        y1: int,
+        y2: int,
+        label: List[str] = [],
+        gid: str = None,
+        locked: bool =False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True,
     ):
         """Creates a rectangle gate.
 
-        Required Args: ``(refer to help(cellengine.Gate)`` for optional args.
+        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
             x1: The first x coordinate (after the channel's scale has been applied).
             x2: The second x coordinate (after the channel's scale has been applied).
             y1: The first y coordinate (after the channel's scale has been applied).
@@ -260,26 +260,26 @@ class PolygonGate(Gate):
 
     @staticmethod
     def create(
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        x_vertices,
-        y_vertices,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        x_vertices: int,
+        y_vertices: int,
+        label: List[str] = [],
+        gid: str = None,
+        locked: bool =False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True
     ):
 
         """Creates a polygon gate.
 
-        Required Args: ``(refer to help(cellengine.Gate)`` for optional args.
+        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
             y_channel: The name of the y channel to which the gate applies.
             x_vertices: List of x coordinates for the polygon's vertices.
             y_vertices List of y coordinates for the polygon's vertices.
@@ -318,28 +318,28 @@ class EllipseGate(Gate):
 
     @staticmethod
     def create(
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        x,
-        y,
-        angle,
-        major,
-        minor,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        x: int,
+        y: int,
+        angle: int,
+        major: int,
+        minor: int,
+        label: List[str] = [],
+        gid: str = None,
+        locked: bool =False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True
     ):
         """Creates an ellipse gate.
 
-        Required Args: ``(refer to help(cellengine.Gate)`` for optional args.
+        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
             y_channel: The name of the y channel to which the gate applies.
             x: The x centerpoint of the gate.
             y: The y centerpoint of the gate.
@@ -383,25 +383,25 @@ class RangeGate(Gate):
     """Basic concrete class for range gates"""
 
     def create(
-        experiment_id,
-        x_channel,
-        name,
-        x1,
-        x2,
-        y=0.5,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        name: str,
+        x1: int,
+        x2: int,
+        y: int = 0.5,
+        label: List[str] = [],
+        gid: str = None,
+        locked: bool =False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True
     ):
         """Creates a range gate.
 
-        Required Args: ``(refer to help(cellengine.Gate)`` for optional args.
+        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
             y_channel: The name of the y channel to which the gate applies.
             x1: The first x coordinate (after the channel's scale has been applied).
             x2: The second x coordinate (after the channel's scale has been applied).
@@ -442,28 +442,28 @@ class QuadrantGate(Gate):
     """Basic concrete class for quadrant gates"""
 
     def create(
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        x,
-        y,
-        labels=[],
-        gid=None,
-        gids=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        x: int,
+        y: int,
+        labels: List[str] = [],
+        gid: str = None,
+        gids: List[str] = None,
+        locked: bool =False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True
     ):
         """
         Creates a quadrant gate. Quadrant gates have four sectors (upper-right,
         upper-left, lower-left, lower-right), each with a unique gid and name.
 
-        Required Args: ``(refer to help(cellengine.Gate)`` for optional args.
+        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
             x: The x coordinate of the center point (after the channel's scale has
                 been applied).
             y: The y coordinate (after the channel's scale has been applied).
@@ -506,27 +506,27 @@ class SplitGate(Gate):
     """Basic concrete class for split gates"""
 
     def create(
-        experiment_id,
-        x_channel,
-        name,
-        x,
-        y,
-        labels=[],
-        gid=None,
-        gids=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        name: str,
+        x: int,
+        y: int,
+        labels: List[str] = [],
+        gid: str = None,
+        gids: List[str] = None,
+        locked: bool =False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True
     ):
         """
         Creates a split gate. Split gates have two sectors (right and left),
         each with a unique gid and name.
 
-        Required Args: ``(refer to help(cellengine.Gate)`` for optional args.
+        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
             x: The x coordinate of the center point (after the channel's scale has
                 been applied).  y: The y coordinate of the dashed line extending from
                 the center point (after the channel's scale has been applied).

@@ -1,4 +1,5 @@
 import attr
+from typing import List, Union, Optional
 
 cellengine = __import__(__name__.split(".")[0])
 from functools import lru_cache
@@ -6,14 +7,15 @@ from cellengine import helpers
 
 
 @lru_cache(maxsize=None)
-def by_name(path, query, name):
+def by_name(path: str, query: str, name:str) -> str:
     """Look up an item by name and cache it's ID for future requests."""
+    # TODO return ID object
     url = '{0}?query=eq({1},"{2}")&limit=2'.format(path, query, name)
     content = handle_response(helpers.base_get(url))
     return content["_id"]
 
 
-def handle_response(response):
+def handle_response(response: Union['Response', List]) -> 'Response':
     if type(response) is list:
         handle_list(response)
     else:
@@ -21,7 +23,7 @@ def handle_response(response):
     return response[0]
 
 
-def handle_list(response):
+def handle_list(response: List) -> RuntimeError:
     if len(response) == 0:
         raise RuntimeError("No objects found.")
     elif len(response) > 1:
@@ -75,7 +77,7 @@ class Loader(object):
         return helpers.base_get(url)
 
     @staticmethod
-    def get_fcsfile(experiment_id, _id, name):
+    def get_fcsfile(experiment_id: str, _id: str, name: str) -> 'FcsFile':
         fcs_loader = Loader(
             id=_id,
             name=name,
@@ -86,6 +88,6 @@ class Loader(object):
         return fcs_loader.load()
 
     @staticmethod
-    def get_experiment(_id, name):
+    def get_experiment(_id: Optional[str], name: Optional[str]):
         loader = Loader(id=_id, name=name, classname="cellengine.Experiment")
         return loader.load()
