@@ -1,8 +1,8 @@
 import attr
 import pandas
 import numpy
-from .client import session
-from . import helpers
+from cellengine.client import session
+from cellengine.utils import helpers
 
 
 @attr.s(repr=False, slots=True)

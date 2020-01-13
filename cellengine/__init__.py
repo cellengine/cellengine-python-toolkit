@@ -3,7 +3,9 @@ import requests
 from requests_toolbelt import sessions
 
 BASE_URL = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
+global ID_INDEX
 ID_INDEX = 0
+
 
 session = sessions.BaseUrlSession(base_url=BASE_URL)
 session.headers.update(
@@ -15,11 +17,11 @@ session.headers.update(
 )
 
 from .client import Client
-from .experiment import Experiment
-from .population import Population
-from .compensation import Compensation
-from .fcsfile import FcsFile
-from .gate import (
+from .resources.experiment import Experiment
+from .resources.population import Population
+from .resources.compensation import Compensation
+from .resources.fcsfile import FcsFile
+from .resources.gate import (
     Gate,
     RectangleGate,
     PolygonGate,
@@ -30,7 +32,7 @@ from .gate import (
 )
 
 
-from .loader import by_name
+from .utils.loader import by_name
 
 cache_info = by_name.cache_info
 clear_cache = by_name.cache_clear

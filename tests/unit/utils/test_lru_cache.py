@@ -1,7 +1,7 @@
 import os
 import responses
 import cellengine
-from cellengine import loader
+from cellengine.utils import loader
 
 # TODO: pull the double-responses from a name request into a fixture
 #       see the `responses` documentation on pytest fixtures

@@ -1,7 +1,7 @@
 cellengine = __import__(__name__.split(".")[0])
 import attr
-from . import helpers
-from .population import Population
+from cellengine.utils import helpers
+from cellengine.resources.population import Population
 
 
 def create_complex_population(experiment_id, base_gate, name, gates):

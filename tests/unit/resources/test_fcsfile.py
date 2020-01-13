@@ -1,6 +1,6 @@
 import os
 import responses
-from cellengine.loader import Loader
+from cellengine.utils.loader import Loader
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")

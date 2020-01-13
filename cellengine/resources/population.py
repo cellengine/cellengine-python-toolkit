@@ -1,6 +1,6 @@
 cellengine = __import__(__name__.split(".")[0])
 import attr
-from . import helpers
+from cellengine.utils import helpers
 
 
 @attr.s(repr=False, slots=True)

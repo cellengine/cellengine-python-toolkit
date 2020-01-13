@@ -1,5 +1,6 @@
 import numpy
-from .. import helpers
+from cellengine.utils import helpers
+from cellengine.utils.generate_id import generate_id
 from .gate_util import create_common_gate
 
 
@@ -45,7 +46,7 @@ def create_rectangle_gate(
     if label == []:
         label = [numpy.mean([x1, x2]), numpy.mean([y1, y2])]
     if gid is None:
-        gid = helpers.generate_id()
+        gid = generate_id()
 
     model = {
         "locked": locked,

@@ -1,6 +1,7 @@
 import os
 import responses
 import cellengine
+from cellengine.utils import helpers
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -70,10 +71,10 @@ def test_all_experiment_properties(experiment):
             "insert": "\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n"
         }
     ]
-    assert experiment.updated == cellengine.helpers.timestamp_to_datetime(
+    assert experiment.updated == helpers.timestamp_to_datetime(
         "2019-08-29T14:40:58.566Z"
     )
-    assert experiment.deep_updated == cellengine.helpers.timestamp_to_datetime(
+    assert experiment.deep_updated == helpers.timestamp_to_datetime(
         "2019-10-15T09:58:38.224Z"
     )
     assert experiment.deleted is None
@@ -106,6 +107,6 @@ def test_all_experiment_properties(experiment):
     assert experiment.annotation_name_order == []
     assert experiment.annotation_table_sort_columns == []
     assert experiment.permissions == []
-    assert experiment.created == cellengine.helpers.timestamp_to_datetime(
+    assert experiment.created == helpers.timestamp_to_datetime(
         "2019-07-24T18:44:07.520Z"
     )

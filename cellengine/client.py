@@ -1,10 +1,10 @@
 from typing import List, Optional
 import attr
 from getpass import getpass
-from . import session
-from . import helpers
-from .loader import Loader
-from .experiment import Experiment
+from cellengine import session
+from cellengine.utils import helpers
+from cellengine.utils.loader import Loader
+from cellengine.resources.experiment import Experiment
 
 
 @attr.s(repr=True)
