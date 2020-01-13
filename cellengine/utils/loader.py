@@ -3,7 +3,7 @@ from typing import List, Union, Optional
 
 cellengine = __import__(__name__.split(".")[0])
 from functools import lru_cache
-from cellengine import helpers
+from cellengine.utils import helpers
 
 
 @lru_cache(maxsize=None)

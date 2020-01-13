@@ -3,8 +3,8 @@ import json
 import pytest
 import responses
 import cellengine
-from cellengine import helpers
-from cellengine import Gate
+from cellengine.utils import helpers
+from cellengine.resources.gate import Gate
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")

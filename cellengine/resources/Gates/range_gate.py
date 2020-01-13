@@ -1,17 +1,17 @@
+import numpy
+
+from cellengine.utils import helpers
+from cellengine.utils.generate_id import generate_id
 from .gate_util import create_common_gate
-from .. import helpers
 
 
-def create_ellipse_gate(
+def create_range_gate(
     experiment_id,
     x_channel,
-    y_channel,
     name,
-    x,
-    y,
-    angle,
-    major,
-    minor,
+    x1,
+    x2,
+    y=0.5,
     label=[],
     gid=None,
     locked=False,
@@ -22,43 +22,39 @@ def create_ellipse_gate(
     fcs_file=None,
     create_population=True,
 ):
-    """Creates an ellipse gate.
+    """Creates a range gate.
 
     Args:
         y_channel: The name of the y channel to which the gate applies.
-        x: The x centerpoint of the gate.
-        y: The y centerpoint of the gate.
-        angle: The angle of the ellipse in radians.
-        major: The major radius of the ellipse.
-        minor: The minor radius of the ellipse.
+        x1: The first x coordinate (after the channel's scale has been applied).
+        x2: The second x coordinate (after the channel's scale has been applied).
+        y: Position of the horizontal line between the vertical lines, in the
         label: Position of the label. Defaults to the midpoint of the gate.
 
     Returns:
-        An EllipseGate object.
+        A RangeGate object.
 
     Example:
-        cellengine.Gate.create_ellipse_gate(experiment_id, x_channel="FSC-A",
-        y_channel="FSC-W", name="my gate", x=260000, y=64000, angle=0,
-        major=120000, minor=70000)
-    """
+        experiment.create_range_gate(x_channel="FSC-A", name="my gate",
+        x1=12.502, x2=95.102)
+        cellengine.Gate.create_range_gate(experiment_id,
+        x_channel="FSC-A", name="my gate",
+        12.502, 95.102)
+        """
     if label == []:
-        label = [x, y]
+        label = [numpy.mean([x1, x2]), y]
     if gid is None:
-        gid = helpers.generate_id()
+        gid = generate_id()
 
-    model = {
-        "locked": locked,
-        "label": label,
-        "ellipse": {"angle": angle, "major": major, "minor": minor, "center": [x, y]},
-    }
+
+    model = {"locked": locked, "label": label, "range": {"x1": x1, "x2": x2, "y": y}}
 
     body = {
         "experimentId": experiment_id,
         "name": name,
-        "type": "EllipseGate",
+        "type": "RangeGate",
         "gid": gid,
         "xChannel": x_channel,
-        "yChannel": y_channel,
         "parentPopulationId": parent_population_id,
         "model": model,
     }

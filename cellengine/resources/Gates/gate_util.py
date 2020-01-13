@@ -1,8 +1,8 @@
 import re
-from .. import helpers
-from ..loader import Loader
+from cellengine.utils import helpers
+from cellengine.utils.generate_id import generate_id
+from cellengine.utils.loader import Loader
 
-cellengine = __import__(__name__.split(".")[0])
 
 
 def create_common_gate(

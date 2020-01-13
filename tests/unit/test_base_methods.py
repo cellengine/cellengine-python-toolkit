@@ -1,7 +1,7 @@
 import os
 import responses
 import cellengine
-from cellengine import helpers
+from cellengine.utils import helpers
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")

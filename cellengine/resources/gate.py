@@ -1,9 +1,9 @@
 from typing import Dict, List
 import attr
 import numpy
-from cellengine import helpers
-from .helpers import convert_dict
-from . import Gates
+from cellengine.utils import helpers
+from cellengine.utils.helpers import convert_dict
+from cellengine.resources import Gates
 from custom_inherit import doc_inherit
 
 import importlib

@@ -1,7 +1,7 @@
 import attr
 import pandas
 import fcsparser
-from . import helpers
+from cellengine.utils import helpers
 
 
 @attr.s(repr=False, slots=True)

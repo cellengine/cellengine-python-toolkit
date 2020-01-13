@@ -1,6 +1,7 @@
 from math import pi
 
-from .. import helpers
+from cellengine.utils import helpers
+from cellengine.utils.generate_id import generate_id
 from .gate_util import create_common_gate
 
 
@@ -68,13 +69,13 @@ def create_quadrant_gate(
         raise ValueError("Labels must be a list of four length-2 lists.")
 
     if gid is None:
-        gid = helpers.generate_id()
+        gid = generate_id()
         if gids is None:
             gids = [
-                helpers.generate_id(),
-                helpers.generate_id(),
-                helpers.generate_id(),
-                helpers.generate_id(),
+                generate_id(),
+                generate_id(),
+                generate_id(),
+                generate_id(),
             ]
 
     names = [name + append for append in [" (UR)", " (UL)", " (LL)", " (LR)"]]

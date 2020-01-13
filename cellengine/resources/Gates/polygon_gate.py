@@ -1,6 +1,7 @@
 import numpy
 
-from .. import helpers
+from cellengine.utils import helpers
+from cellengine.utils.generate_id import generate_id
 from .gate_util import create_common_gate
 
 
@@ -40,7 +41,7 @@ def create_polygon_gate(
     if label == []:
         label = [numpy.mean(x_vertices), numpy.mean(y_vertices)]
     if gid is None:
-        gid = helpers.generate_id()
+        gid = generate_id()
 
     model = {
         "locked": locked,

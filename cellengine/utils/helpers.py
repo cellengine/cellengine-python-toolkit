@@ -1,20 +1,15 @@
 import os
 import re
-import time
-import binascii
 from functools import lru_cache
 from typing import Dict, List, Union
-from .client import session
+from cellengine.client import session
 from datetime import datetime
-from cellengine import ID_INDEX
 
 cellengine = __import__(__name__.split(".")[0])
-
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
 first_cap_re = re.compile("(.)([A-Z][a-z]+)")
 all_cap_re = re.compile("([a-z0-9])([A-Z])")
-
 
 def check_id(_id):
     try:
@@ -113,19 +108,6 @@ def today_timestamp() -> str:
     experiments.
     """
     return datetime.today().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-
-
-def generate_id() -> str:
-    """Generates a hexadecimal ID based on a mongoDB ObjectId"""
-    # TODO: return ID object
-    global ID_INDEX
-    timestamp = "{0:x}".format(int(time.time()))
-    seg1 = binascii.b2a_hex(os.urandom(5)).decode("ascii")
-    seg2 = binascii.b2a_hex(os.urandom(2) + bytes([ID_INDEX])).decode("ascii")
-    ID_INDEX += 1
-    if ID_INDEX == 99:
-        ID_INDEX = 0
-    return timestamp + seg1 + seg2
 
 
 # TODO: pass list params to api

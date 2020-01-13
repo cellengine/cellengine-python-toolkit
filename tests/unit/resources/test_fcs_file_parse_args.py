@@ -3,7 +3,8 @@ import json
 import pytest
 import responses
 import cellengine
-from cellengine import helpers
+from cellengine.utils import helpers
+from cellengine.utils.generate_id import generate_id
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -71,7 +72,7 @@ def test_fcs_file_id_is_None_and_fcs_file_is_None(experiment, gates):
 
 @responses.activate
 def test_create_global_tailored_gate(experiment, gates):
-    global_gid = helpers.generate_id()
+    global_gid = generate_id()
     responses.add(
         responses.POST,
         base_url + "experiments/5d38a6f79fae87499999a74b/gates",

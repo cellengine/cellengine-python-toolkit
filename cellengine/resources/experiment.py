@@ -2,14 +2,13 @@ import attr
 from typing import Optional
 from custom_inherit import doc_inherit
 
-cellengine = __import__(__name__.split(".")[0])
-from . import helpers
-from .population import Population
-from .complex_population_creator import create_complex_population
-from .fcsfile import FcsFile
-from .compensation import Compensation
-from .loader import Loader
-from .gate import (
+from cellengine.utils import helpers
+from cellengine.utils.loader import Loader
+from cellengine.utils.complex_population_creator import create_complex_population
+from cellengine.resources.population import Population
+from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.compensation import Compensation
+from cellengine.resources.gate import (
     Gate,
     RectangleGate,
     PolygonGate,
@@ -18,7 +17,6 @@ from .gate import (
     SplitGate,
     RangeGate,
 )
-
 
 
 @attr.s(repr=False, slots=True)
@@ -78,7 +76,7 @@ class Experiment(object):
             return helpers.timestamp_to_datetime(self._properties.get("deleted"))
 
     @property
-    def delete(self, confirm=True):
+    def deleted(self, confirm=True):
         """Marks the experiment as deleted.
 
         Deleted experiments are permanently deleted after approximately
@@ -143,6 +141,10 @@ class Experiment(object):
     def gates(self):
         url = "experiments/{0}/gates".format(self._id)
         return helpers.base_list(url, Gate)
+
+    # API methods
+    def update(self):
+        res = base_update("experiments/{0}", body = self._properties, classname = 'Experiment')
 
     # Gate Methods:
 
