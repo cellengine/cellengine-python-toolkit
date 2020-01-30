@@ -2,6 +2,7 @@ import attr
 import pandas
 import fcsparser
 from cellengine.utils import helpers
+from cellengine.utils.helpers import GetSet
 
 
 @attr.s(repr=False, slots=True)
@@ -15,27 +16,27 @@ class FcsFile(object):
 
     _events = attr.ib(default=None)
 
-    name = helpers.GetSet("filename")
+    name = GetSet("filename")
 
-    _id = helpers.GetSet("_id", read_only=True)
+    _id = GetSet("_id", read_only=True)
 
-    experiment_id = helpers.GetSet("experimentId", read_only=True)
+    experiment_id = GetSet("experimentId", read_only=True)
 
-    panel_name = helpers.GetSet("panelName")
+    panel_name = GetSet("panelName")
 
-    event_count = helpers.GetSet("eventCount")
+    event_count = GetSet("eventCount")
 
-    has_file_internal_comp = helpers.GetSet("hasFileInternalComp")
+    has_file_internal_comp = GetSet("hasFileInternalComp")
 
-    size = helpers.GetSet("size")
+    size = GetSet("size")
 
-    md5 = helpers.GetSet("md5")
+    md5 = GetSet("md5")
 
-    filename = helpers.GetSet("filename")
+    filename = GetSet("filename")
 
-    panel = helpers.GetSet("panel")
+    panel = GetSet("panel")
 
-    compensation = helpers.GetSet("compensation")
+    compensation = GetSet("compensation")
 
     @property
     def annotations(self):

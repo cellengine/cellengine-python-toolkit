@@ -3,6 +3,7 @@ from typing import Optional
 from custom_inherit import doc_inherit
 
 from cellengine.utils import helpers
+from cellengine.utils.helpers import GetSet, CommentList
 from cellengine.utils.loader import Loader
 from cellengine.utils.complex_population_creator import create_complex_population
 from cellengine.resources.population import Population
@@ -29,9 +30,9 @@ class Experiment(object):
 
     _properties = attr.ib()
 
-    _id = helpers.GetSet("_id", read_only=True)
+    _id = GetSet("_id", read_only=True)
 
-    name = helpers.GetSet("name")
+    name = GetSet("name")
 
     def __repr__(self):
         return "Experiment(_id='{0}', name='{1}')".format(self._id, self.name)
@@ -45,8 +46,8 @@ class Experiment(object):
     @property
     def comments(self):
         comments = self._properties["comments"]
-        if type(comments) is not helpers.CommentList:
-            self._properties["comments"] = helpers.CommentList(comments)
+        if type(comments) is not CommentList:
+            self._properties["comments"] = CommentList(comments)
         return comments
 
     @comments.setter
@@ -87,31 +88,31 @@ class Experiment(object):
         else:
             pass
 
-    public = helpers.GetSet("public")
+    public = GetSet("public")
 
-    uploader = helpers.GetSet("uploader")
+    uploader = GetSet("uploader")
 
-    primary_researcher = helpers.GetSet("primaryResearcher")
+    primary_researcher = GetSet("primaryResearcher")
 
-    active_compensation = helpers.GetSet("activeCompensation")
+    active_compensation = GetSet("activeCompensation")
 
-    locked = helpers.GetSet("locked")
+    locked = GetSet("locked")
 
-    clone_source_experiment = helpers.GetSet("cloneSourceExperiment")
+    clone_source_experiment = GetSet("cloneSourceExperiment")
 
-    revision_source_experiment = helpers.GetSet("revisionSourceExperiment")
+    revision_source_experiment = GetSet("revisionSourceExperiment")
 
-    revisions = helpers.GetSet("revisions")
+    revisions = GetSet("revisions")
 
-    per_file_compensations_enabled = helpers.GetSet("perFileCompensationsEnabled")
+    per_file_compensations_enabled = GetSet("perFileCompensationsEnabled")
 
-    tags = helpers.GetSet("tags")
+    tags = GetSet("tags")
 
-    annotation_name_order = helpers.GetSet("annotationNameOrder")
+    annotation_name_order = GetSet("annotationNameOrder")
 
-    annotation_table_sort_columns = helpers.GetSet("annotationTableSortColumns")
+    annotation_table_sort_columns = GetSet("annotationTableSortColumns")
 
-    permissions = helpers.GetSet("permissions")
+    permissions = GetSet("permissions")
 
     @property
     def created(self):
