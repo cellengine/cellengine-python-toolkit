@@ -2,6 +2,7 @@ from typing import Dict, List
 import attr
 import numpy
 from cellengine.utils import helpers
+from cellengine.utils.helpers import GetSet, convert_dict
 from cellengine.utils.helpers import convert_dict
 from cellengine.resources import Gates
 from custom_inherit import doc_inherit
@@ -104,27 +105,27 @@ class Gate(ABC):
         self._posted = True
         self._properties = res._properties
 
-    _id = helpers.GetSet("_id", read_only=True)
+    _id = GetSet("_id", read_only=True)
 
-    name = helpers.GetSet("name")
+    name = GetSet("name")
 
-    type = helpers.GetSet("type", read_only=True)
+    type = GetSet("type", read_only=True)
 
-    experiment_id = helpers.GetSet("experimentId", read_only=True)
+    experiment_id = GetSet("experimentId", read_only=True)
 
-    gid = helpers.GetSet("gid")
+    gid = GetSet("gid")
 
-    x_channel = helpers.GetSet("xChannel")
+    x_channel = GetSet("xChannel")
 
-    y_channel = helpers.GetSet("yChannel")
+    y_channel = GetSet("yChannel")
 
-    tailored_per_file = helpers.GetSet("tailoredPerFile")
+    tailored_per_file = GetSet("tailoredPerFile")
 
-    fcs_file_id = helpers.GetSet("fcsFileId")
+    fcs_file_id = GetSet("fcsFileId")
 
-    parent_population_id = helpers.GetSet("parentPopulationId")
+    parent_population_id = GetSet("parentPopulationId")
 
-    names = helpers.GetSet("names")
+    names = GetSet("names")
 
     # TODO: create_population()
 

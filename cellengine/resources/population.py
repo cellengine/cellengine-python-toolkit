@@ -1,6 +1,7 @@
 cellengine = __import__(__name__.split(".")[0])
 import attr
 from cellengine.utils import helpers
+from cellengine.utils.helpers import GetSet
 
 
 @attr.s(repr=False, slots=True)
@@ -17,19 +18,19 @@ class Population(object):
 
     _properties = attr.ib()
 
-    _id = helpers.GetSet("_id", read_only=True)
+    _id = GetSet("_id", read_only=True)
 
-    name = helpers.GetSet("name")
+    name = GetSet("name")
 
-    experiment_id = helpers.GetSet("experimentId", read_only=True)
+    experiment_id = GetSet("experimentId", read_only=True)
 
-    gates = helpers.GetSet("gates")
+    gates = GetSet("gates")
 
-    terminal_gate_gid = helpers.GetSet("terminalGateId")
+    terminal_gate_gid = GetSet("terminalGateId")
 
-    parent_id = helpers.GetSet("parentId")
+    parent_id = GetSet("parentId")
 
-    unique_name = helpers.GetSet("uniqueName", read_only=True)
+    unique_name = GetSet("uniqueName", read_only=True)
 
     def update(self):
         """Save any changed data to CellEngine."""

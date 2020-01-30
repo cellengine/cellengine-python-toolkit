@@ -3,6 +3,7 @@ import pandas
 import numpy
 from cellengine.client import session
 from cellengine.utils import helpers
+from cellengine.utils.helpers import GetSet
 
 
 @attr.s(repr=False, slots=True)
@@ -18,13 +19,13 @@ class Compensation(object):
 
     _dataframe = attr.ib(default=None, repr=False)
 
-    _id = helpers.GetSet("_id", read_only=True)
+    _id = GetSet("_id", read_only=True)
 
-    name = helpers.GetSet("name")
+    name = GetSet("name")
 
-    experiment_id = helpers.GetSet("experimentId")
+    experiment_id = GetSet("experimentId")
 
-    channels = helpers.GetSet("channels")
+    channels = GetSet("channels")
 
     @property
     def N(self):
