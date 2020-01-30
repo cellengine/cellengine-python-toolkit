@@ -32,14 +32,14 @@ class Population(object):
 
     unique_name = GetSet("uniqueName", read_only=True)
 
+    # API methods
     def update(self):
         """Save any changed data to CellEngine."""
-        return helpers.base_update(
+        res = helpers.base_update(
             "experiments/{0}/populations/{1}".format(self.experiment_id, self._id),
             body=self._properties,
-            classname=Population,
         )
-
+        self._properties.update(res)
 
     def delete(self):
         return helpers.base_delete(

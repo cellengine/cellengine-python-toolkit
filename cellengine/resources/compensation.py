@@ -48,12 +48,12 @@ class Compensation(object):
     def dataframe_as_html(self):
         return self.dataframe._repr_html_()
 
-    def apply(self, file, inplace=True):
+    def apply(self, file, inplace: bool = True):
         """
         Compensates the file's data.
 
-        :type parser: :class:`cellengine.FcsFile`
-        :param parser: The FCS file to compensate.
+        :type file: :class:`cellengine.FcsFile`
+        :param file: The FCS file to compensate.
 
         :type inplace: bool
         :param inplace: Compensate the file's data in-place.
@@ -75,3 +75,9 @@ class Compensation(object):
             file._events = data
         else:
             return data
+
+    # API methods
+    def update(self):
+        res = helpers.base_update("experiments/{0}/compensations/{1}".format(self.experiment_id, self._id), body = self._properties)
+        self._properties.update(res)
+

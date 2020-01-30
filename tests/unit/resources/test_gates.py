@@ -127,8 +127,28 @@ def test_create_multiple_gates(gates):
     assert type(all_gates) is list
 
 
-# def test_update_gate():
-#     pass
+@responses.activate
+def test_update_gate(experiment, rectangle_gate):
+    """Test that the .update() method makes the correct call. Does not test
+    that the correct response is made; this should be done with an integration
+    test.
+    """
+    gate = cellengine.Gate.create(rectangle_gate)
+    # patch the mocked response with the correct values
+    response = rectangle_gate.copy()
+    response.update({"name": "newname"})
+    responses.add(
+        responses.PATCH,
+        base_url
+        + "experiments/5d38a6f79fae87499999a74b/gates/{0}".format(
+            gate._id
+        ),
+        json=response,
+    )
+    gate.name = "newname"
+    gate.update()
+    gate_tester(gate)
+    assert json.loads(responses.calls[0].request.body) == gate._properties
 
 
 # def test_update_gate_family():
