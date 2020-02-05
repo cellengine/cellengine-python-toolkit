@@ -1,4 +1,6 @@
 import attr
+from cellengine.utils import helpers
+from cellengine.utils.helpers import GetSet
 
 @attr.s(repr=False, slots=True)
 class Attachment(object):
@@ -7,9 +9,11 @@ class Attachment(object):
     """
 
     def __repr__(self):
-        return "Attachment(_id='{0}', name='{1}')".format(self._id, self.name)
+        return "Attachment(_id='{0}, filename='{1}')".format(self._id, self.filename)
 
     _properties = attr.ib(default={}, repr=False)
+
+    _id = GetSet("_id", read_only=True)
 
     crc32c = GetSet("crc32c", read_only=True)
 
@@ -23,12 +27,58 @@ class Attachment(object):
 
     # API Methods
 
+    @classmethod
+    def list(cls, experiment_id):
+        url = "experiments/{0}/attachments".format(experiment_id)
+        return helpers.base_list(url, Attachment)
+
     # upload
+    @classmethod
+    def create(cls, experiment_id: str, filepath: str):
+        files = {'upload_file': open(filepath,'rb')}
+        res = helpers.session.post("experiments/{0}/attachments".format(experiment_id), files=files)
+        if res.ok:
+            return cls(res.json())
 
-    # list
+    @classmethod
+    def create2(cls, experiment_id: str, filepath: str):
+        files = {'upload_file': open(filepath,'rb')}
+        res = helpers.base_create("experiments/{0}/attachments".format(experiment_id), files=files, expected_status=201, classname='cellengine.Attachment')
+        return res
 
-    # delete
 
-    # update
+    def delete(self):
+        return helpers.base_delete(
+            "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id)
+        )
 
-    # download
+    def update(self):
+        """Save any changed data to CellEngine."""
+        res = helpers.base_update(
+            "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id),
+            body=self._properties,
+        )
+        self._properties.update(res)
+
+    def download(self, to_file: str = None):
+        """Download the attachment.
+
+        Defaults to returning the file. If ``to_file`` is specified, the file
+        will be downloaded.
+
+        Args:
+            to_file: Filepath to save the file. Accepts relative or absolute path.
+
+        Returns:
+            content: JSON-serializable if possible, otherwise the raw response content.
+        """
+        res = helpers.base_get("experiments/{0}/attachments/{1}".format(self.experiment_id,
+        self._id))
+        if to_file:
+            with open(to_file, "wb") as f:
+                f.write(res)
+        else:
+            return res
+
+
+
