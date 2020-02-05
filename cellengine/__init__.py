@@ -21,6 +21,7 @@ from .resources.experiment import Experiment
 from .resources.population import Population
 from .resources.compensation import Compensation
 from .resources.fcsfile import FcsFile
+from .resources.attachments import Attachment
 from .resources.gate import (
     Gate,
     RectangleGate,

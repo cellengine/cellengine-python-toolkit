@@ -29,4 +29,5 @@ pytest_plugins = [
     "fixtures.api-gates",
     "fixtures.api-scalesets",
     "fixtures.api-populations",
+    "fixtures.api-attachments",
 ]
