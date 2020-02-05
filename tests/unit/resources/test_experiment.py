@@ -1,10 +1,29 @@
 import os
+import json
 import responses
 import cellengine
 from cellengine.utils import helpers
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
+
+
+@responses.activate
+def test_update_experiment(experiments):
+    """Tests updating experiment params"""
+    experiment = cellengine.Experiment(experiments[0])
+    response = experiments[0].copy()
+    response.update({"name": "new name"})
+    responses.add(
+        responses.PATCH,
+        base_url + "experiments/5d38a6f79fae87499999a74b",
+        json=response
+    )
+    assert experiment.name == "pytest_experiment"
+    experiment.name = "new name"
+    experiment.update()
+    assert experiment.name == "new name"
+    assert json.loads(responses.calls[0].request.body) == experiment._properties
 
 
 @responses.activate

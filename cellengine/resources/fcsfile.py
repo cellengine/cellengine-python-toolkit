@@ -10,7 +10,7 @@ class FcsFile(object):
     """A class representing a CellEngine FCS file."""
 
     def __repr__(self):
-        return "FcsFile(_id='{0}', name='{1}')".format(self._id, self.name)
+        return "FcsFile(_id={0}, name='{1}')".format(self._id, self.name)
 
     _properties = attr.ib(default={}, repr=False)
 
@@ -73,3 +73,13 @@ class FcsFile(object):
     @events.setter
     def events(self, val):
         self.__dict__["_events"] = val
+
+    # API methods
+    def update(self):
+        """Save any changed data to CellEngine."""
+        res = helpers.base_update(
+            "experiments/{0}/compensations/{1}".format(self.experiment_id, self._id),
+            body=self._properties,
+        )
+        self._properties.update(res)
+

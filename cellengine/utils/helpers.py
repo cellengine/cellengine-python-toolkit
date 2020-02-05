@@ -201,13 +201,10 @@ def parse_population_from_gate(content: Dict) -> str:
             return content
 
 
-def base_update(url, body: Dict = None, classname: Union[str, 'APIObject'] = None, **kwargs) -> str:
+def base_update(url, body: Dict = None, **kwargs) -> str:
     res = session.patch(url, json=body, **kwargs)
     res.raise_for_status()
-    if classname:
-        return make_class(classname, content=res.json())
-    else:
-        return res.json()
+    return res.json()
 
 
 def base_delete(url: str) -> str:

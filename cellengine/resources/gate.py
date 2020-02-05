@@ -191,6 +191,11 @@ class Gate(ABC):
 
         helpers.base_delete(url)
 
+    # API methods
+    def update(self):
+        res = helpers.base_update("experiments/{0}/gates/{1}".format(self.experiment_id, self._id), body = self._properties)
+        self._properties.update(res)
+
 
 class RectangleGate(Gate):
     """Basic concrete class for polygon gates"""

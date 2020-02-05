@@ -3,7 +3,6 @@ import json
 import pytest
 import responses
 import cellengine
-from tests.unit.resources.test_gates import gate_tester
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -34,15 +33,23 @@ def test_all_population_properties(population):
 
 @responses.activate
 def test_update_population(experiment, population, populations):
+    """Test that the .update() method makes the correct call. Does not test
+    that the correct response is made; this should be done with an integration
+    test.
+    """
+    # patch the mocked response with the correct values
+    response = population._properties.copy()
+    response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
         base_url
         + "experiments/5d38a6f79fae87499999a74b/populations/{0}".format(population._id),
-        json=populations[0],
+        json=response,
     )
     population.name = "newname"
-    update_population = population.update()
-    test_all_population_properties(update_population)
+    population.update()
+    test_all_population_properties(population)
+    assert json.loads(responses.calls[0].request.body) == population._properties
 
 
 @responses.activate

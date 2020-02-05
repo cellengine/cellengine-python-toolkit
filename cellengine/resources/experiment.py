@@ -1,5 +1,5 @@
 import attr
-from typing import Optional
+from typing import Optional, Dict
 from custom_inherit import doc_inherit
 
 from cellengine.utils import helpers
@@ -51,7 +51,7 @@ class Experiment(object):
         return comments
 
     @comments.setter
-    def comments(self, comments):
+    def comments(self, comments: Dict):
         """Sets comments for experiment.
 
         Defaults to overwrite; append new comments with
@@ -77,7 +77,7 @@ class Experiment(object):
             return helpers.timestamp_to_datetime(self._properties.get("deleted"))
 
     @property
-    def deleted(self, confirm=True):
+    def delete(self, confirm=True):
         """Marks the experiment as deleted.
 
         Deleted experiments are permanently deleted after approximately
@@ -145,7 +145,8 @@ class Experiment(object):
 
     # API methods
     def update(self):
-        res = base_update("experiments/{0}", body = self._properties, classname = 'Experiment')
+        res = helpers.base_update("experiments/{0}".format(self._id), body = self._properties)
+        self._properties.update(res)
 
     # Gate Methods:
 
