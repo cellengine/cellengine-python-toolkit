@@ -136,13 +136,16 @@ def base_get(url, params: dict = None) -> 'Response':
     res = session.get(url, params=params)
     res.raise_for_status()
     if res.apparent_encoding is not None:
-        return res.json()
+        try:
+            return res.json()
+        except:
+            return res.content
     else:
         return res
 
 
 def base_create(
-        url: str, expected_status: int, classname: Union[str, 'APIObject'] = None, json: Dict = None, params: Dict = None, **kwargs
+        url: str, expected_status: int, classname: Union[str, 'APIObject'] = None, json: Dict = None, params: Dict = None, files: Dict = None, **kwargs
 ) -> Union['Response', str]:
     """Create a new object.
 
@@ -161,7 +164,7 @@ def base_create(
         objects, but not for Experiment.
         If classname is not specified, returns a Response object.
     """
-    res = session.post(url, json=json, params=params)
+    res = session.post(url, json=json, params=params, **kwargs)
     if res.status_code == expected_status:
         data = parse_response(res)
         if classname:

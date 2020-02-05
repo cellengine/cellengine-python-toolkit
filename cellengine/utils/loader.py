@@ -7,7 +7,7 @@ from cellengine.utils import helpers
 
 
 @lru_cache(maxsize=None)
-def by_name(path: str, query: str, name:str) -> str:
+def by_name(path: str, query: str, name: str) -> str:
     """Look up an item by name and cache it's ID for future requests."""
     # TODO return ID object
     url = '{0}?query=eq({1},"{2}")&limit=2'.format(path, query, name)
@@ -77,6 +77,11 @@ class Loader(object):
         return helpers.base_get(url)
 
     @staticmethod
+    def get_experiment(_id: Optional[str], name: Optional[str]):
+        loader = Loader(id=_id, name=name, classname="cellengine.Experiment")
+        return loader.load()
+
+    @staticmethod
     def get_fcsfile(experiment_id: str, _id: str, name: str) -> 'FcsFile':
         fcs_loader = Loader(
             id=_id,
@@ -86,8 +91,3 @@ class Loader(object):
             classname="cellengine.FcsFile",
         )
         return fcs_loader.load()
-
-    @staticmethod
-    def get_experiment(_id: Optional[str], name: Optional[str]):
-        loader = Loader(id=_id, name=name, classname="cellengine.Experiment")
-        return loader.load()
