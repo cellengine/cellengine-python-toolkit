@@ -1,7 +1,6 @@
 import attr
 import pandas
 import numpy
-from cellengine.client import session
 from cellengine.utils import helpers
 from cellengine.utils.helpers import GetSet
 
@@ -23,7 +22,7 @@ class Compensation(object):
 
     name = GetSet("name")
 
-    experiment_id = GetSet("experimentId")
+    experiment_id = GetSet("experimentId", read_only=True)
 
     channels = GetSet("channels")
 
