@@ -9,6 +9,7 @@ from cellengine.utils.complex_population_creator import create_complex_populatio
 from cellengine.resources.population import Population
 from cellengine.resources.fcsfile import FcsFile
 from cellengine.resources.compensation import Compensation
+from cellengine.resources.attachments import Attachment
 from cellengine.resources.gate import (
     Gate,
     RectangleGate,
@@ -85,8 +86,6 @@ class Experiment(object):
         """
         if confirm:
             self._properties["deleted"] = helpers.today_timestamp()
-        else:
-            pass
 
     public = GetSet("public")
 
@@ -142,6 +141,11 @@ class Experiment(object):
     def gates(self):
         url = "experiments/{0}/gates".format(self._id)
         return helpers.base_list(url, Gate)
+
+    @property
+    def attachments(self):
+        url = "experiments/{0}/attachments".format(self._id)
+        return helpers.base_list(url, Attachment)
 
     # API methods
     def update(self):
