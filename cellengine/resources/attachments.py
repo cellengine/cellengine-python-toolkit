@@ -9,7 +9,7 @@ class Attachment(object):
     """
 
     def __repr__(self):
-        return "Attachment(_id='{0}, filename='{1}')".format(self._id, self.filename)
+        return "Attachment(_id='{}', filename='{}')".format(self._id, self.filename)
 
     _properties = attr.ib(default={}, repr=False)
 
@@ -40,13 +40,6 @@ class Attachment(object):
         if res.ok:
             return cls(res.json())
 
-    @classmethod
-    def create2(cls, experiment_id: str, filepath: str):
-        files = {'upload_file': open(filepath,'rb')}
-        res = helpers.base_create("experiments/{0}/attachments".format(experiment_id), files=files, expected_status=201, classname='cellengine.Attachment')
-        return res
-
-
     def delete(self):
         return helpers.base_delete(
             "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id)
@@ -64,16 +57,17 @@ class Attachment(object):
         """Download the attachment.
 
         Defaults to returning the file. If ``to_file`` is specified, the file
-        will be downloaded.
+        will be saved to disk.
 
         Args:
-            to_file: Filepath to save the file. Accepts relative or absolute path.
+            to_file: Filepath at which to save the file. Accepts relative or
+            absolute path.
 
         Returns:
             content: JSON-serializable if possible, otherwise the raw response content.
         """
         res = helpers.base_get("experiments/{0}/attachments/{1}".format(self.experiment_id,
-        self._id))
+            self._id))
         if to_file:
             with open(to_file, "wb") as f:
                 f.write(res)
