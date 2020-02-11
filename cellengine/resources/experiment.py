@@ -36,7 +36,7 @@ class Experiment(object):
     name = GetSet("name")
 
     def __repr__(self):
-        return "Experiment(_id='{0}', name='{1}')".format(self._id, self.name)
+        return "Experiment(_id='{}', name='{}')".format(self._id, self.name)
 
     @property
     def files(self):

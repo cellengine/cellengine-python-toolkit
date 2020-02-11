@@ -14,7 +14,7 @@ class Population(object):
     """
 
     def __repr__(self):
-        return "Population(_id='{0}', name='{1}')".format(self._id, self.name)
+        return "Population(_id='{}', name='{}')".format(self._id, self.name)
 
     _properties = attr.ib()
 

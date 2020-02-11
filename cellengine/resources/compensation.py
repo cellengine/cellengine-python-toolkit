@@ -12,7 +12,7 @@ class Compensation(object):
     """
 
     def __repr__(self):
-        return "Compensation(_id='{0}', name='{1}')".format(self._id, self.name)
+        return "Compensation(_id='{}', name='{}')".format(self._id, self.name)
 
     _properties = attr.ib(default={}, repr=False)
 

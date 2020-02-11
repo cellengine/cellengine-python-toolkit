@@ -55,7 +55,7 @@ class Gate(ABC):
     _properties = attr.ib(default={})
 
     def __repr__(self):
-        return "{}(_id={}, name={})".format(self.type, self._id, self.name)
+        return "{}(_id='{}', name='{}')".format(self.type, self._id, self.name)
 
     @classmethod
     def create(cls, gates: Dict) -> List['Gate']:
