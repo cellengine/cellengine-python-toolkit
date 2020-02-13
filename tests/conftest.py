@@ -30,6 +30,7 @@ pytest_plugins = [
     "fixtures.api-scalesets",
     "fixtures.api-populations",
     "fixtures.api-attachments",
+    "fixtures.api-statistics",
 ]
 
 @pytest.fixture(scope='module')

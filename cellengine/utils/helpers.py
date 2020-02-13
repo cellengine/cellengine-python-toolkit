@@ -1,5 +1,6 @@
 import os
 import re
+from requests.exceptions import RequestException
 from functools import lru_cache
 from typing import Dict, List, Union
 from cellengine.client import session
@@ -144,6 +145,14 @@ def base_get(url, params: dict = None) -> 'Response':
         return res
 
 
+def base_post(url: str, json: Dict = None, params: Dict = None, **kwargs):
+    res = session.post(url, json=json, params=params, **kwargs)
+    try:
+        res.raise_for_status()
+        return res
+    except:
+        raise RequestException(res.content)
+
 def base_create(
         url: str, expected_status: int, classname: Union[str, 'APIObject'] = None, json: Dict = None, params: Dict = None, files: Dict = None, **kwargs
 ) -> Union['Response', str]:
@@ -164,7 +173,7 @@ def base_create(
         objects, but not for Experiment.
         If classname is not specified, returns a Response object.
     """
-    res = session.post(url, json=json, params=params, **kwargs)
+    res = base_post(url, json=json, params=params, **kwargs)
     if res.status_code == expected_status:
         data = parse_response(res)
         if classname:
