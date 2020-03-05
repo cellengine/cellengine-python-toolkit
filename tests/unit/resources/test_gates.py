@@ -5,6 +5,7 @@ import responses
 import cellengine
 from cellengine.utils import helpers
 from cellengine.resources.gate import Gate
+from requests.exceptions import RequestException
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -109,7 +110,7 @@ def test_create_gate_with_bad_params(bad_gate):
         status=400,
         json={"error": '"gid" is required.'},
     )
-    with pytest.raises(RuntimeError):
+    with pytest.raises(RequestException):
         g = Gate.create(bad_gate)
         g.post()
 
