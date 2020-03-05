@@ -41,7 +41,7 @@ def vcr_config():
         'before_record_response': scrub_header('set-cookie',
                                                repl='safetoken'),
         'cassette_library_dir': 'tests/cassettes',
-        'record_mode': 'once'
+        'record_mode': 'overwrite'
         }
 
 
