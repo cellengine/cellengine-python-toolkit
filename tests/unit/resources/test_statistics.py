@@ -10,9 +10,6 @@ from cellengine.utils.helpers import snake_to_camel
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
 
-client = cellengine.Client("gegnew", "^w^A7kpB$2sezF")
-
-
 @pytest.fixture(scope="module")
 def statistic_response(experiment, statistics):
     # with responses.RequestsMock() as resps:
@@ -74,6 +71,7 @@ def test_object_should_request_all_properties(experiment, statistic_response):
     s.cache_clear()
 
 
+@pytest.mark.vcr()
 def test_should_get_list_of_stats(statistic_response):
     s = StatisticRequest("5e4fcb98bdd7ea051d703652")
     s.channels = ['FSC-A']
@@ -83,6 +81,7 @@ def test_should_get_list_of_stats(statistic_response):
     s.cache_clear()
 
 
+@pytest.mark.vcr()
 def test_should_get_stats_when_called_second_time_without_method(statistic_response):
     s = StatisticRequest("5e4fcb98bdd7ea051d703652")
     s.get("mean")

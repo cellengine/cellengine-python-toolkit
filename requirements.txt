@@ -7,3 +7,4 @@ requests==2.22.0
 requests-toolbelt==0.9.1
 urllib3==1.25.7
 custom_inherit==2.2.2
+cachetools==4.0.0
