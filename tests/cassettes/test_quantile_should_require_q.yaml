@@ -1,0 +1,141 @@
+interactions:
+- request:
+    body: statistics=quantile&channels=FSC-A&annotations=False&format=json
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '64'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: POST
+    uri: https://cellengine.com/api/v1/experiments/5e4fcb98bdd7ea051d703652/bulkstatistics
+  response:
+    body:
+      string: '{"error":"\"q\" is required."}'
+    headers:
+      Alt-Svc:
+      - clear
+      Content-Length:
+      - '30'
+      Content-Security-Policy:
+      - 'default-src ''none''; base-uri ''self''; block-all-mixed-content; connect-src
+        ''self''; font-src ''self'' https://fonts.gstatic.com; form-action ''self'';
+        frame-ancestors ''none''; img-src ''self'' data: blob:; report-uri /csp_report;
+        script-src ''self'' ''unsafe-eval''; style-src ''self'' ''unsafe-inline''
+        https://fonts.googleapis.com; worker-src ''self'''
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 10 Mar 2020 08:55:38 GMT
+      ETag:
+      - W/"1e-ohTW2RFdRbzyhP9NcPdAAfKsd88"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 google
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - /a2ad47e
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 400
+      message: Bad Request
+- request:
+    body: statistics=quantile&q=0.5&channels=FSC-A&annotations=False&format=json
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '70'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: POST
+    uri: https://cellengine.com/api/v1/experiments/5e4fcb98bdd7ea051d703652/bulkstatistics
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      Alt-Svc:
+      - clear
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''none''; base-uri ''self''; block-all-mixed-content; connect-src
+        ''self''; font-src ''self'' https://fonts.gstatic.com; form-action ''self'';
+        frame-ancestors ''none''; img-src ''self'' data: blob:; report-uri /csp_report;
+        script-src ''self'' ''unsafe-eval''; style-src ''self'' ''unsafe-inline''
+        https://fonts.googleapis.com; worker-src ''self'''
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 10 Mar 2020 08:55:39 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 google
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - /a2ad47e
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+version: 1
