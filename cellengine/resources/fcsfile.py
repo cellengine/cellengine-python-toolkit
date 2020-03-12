@@ -1,10 +1,12 @@
 import attr
 import pandas
 import fcsparser
-from typing import List
+from typing import List, Dict
+from custom_inherit import doc_inherit
 
 from cellengine.utils import helpers
 from cellengine.utils.helpers import GetSet
+from cellengine.resources.plot import Plot
 
 
 @attr.s(repr=False, slots=True)
@@ -92,6 +94,11 @@ class FcsFile(object):
     @events.setter
     def events(self, val):
         self.__dict__["_events"] = val
+
+    @doc_inherit(Plot.get)
+    def plot(self, x_channel: str, y_channel: str, plot_type: str, properties: Dict = None) -> Plot:
+        plot = Plot.get(self.experiment_id, self._id, x_channel, y_channel, plot_type, properties)
+        return plot
 
     # API methods
     def update(self):
