@@ -1,6 +1,8 @@
 import attr
 import pandas
 import fcsparser
+from typing import List
+
 from cellengine.utils import helpers
 from cellengine.utils.helpers import GetSet
 
@@ -80,6 +82,12 @@ class FcsFile(object):
             parser = fcsparser.api.FCSParser.from_data(fresp.content)
             self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
         return self._events
+
+    @property
+    def channels(self) -> List:
+        """Return all channels in the file"""
+        return [f["channel"] for f in self.panel]
+
 
     @events.setter
     def events(self, val):
