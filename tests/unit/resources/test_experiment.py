@@ -129,3 +129,17 @@ def test_all_experiment_properties(experiment):
     assert experiment.created == helpers.timestamp_to_datetime(
         "2019-07-24T18:44:07.520Z"
     )
+
+@responses.activate
+def test_get_statistics(experiment):
+    """Tests listing gates in an experiment"""
+    responses.add(
+        responses.POST,
+        base_url + "experiments/{}/bulkstatistics".format(experiment._id),
+        json={"some": "json"},
+    )
+    body = "statistics=mean&channels=FSC-A&annotations=False&format=json"
+    stats = experiment.get_statistics(
+        "mean",
+        "FSC-A")
+    assert responses.calls[0].request.body == body
