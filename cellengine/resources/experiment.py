@@ -1,5 +1,5 @@
 import attr
-from typing import Optional, Dict
+from typing import Optional, Dict, Union, List
 from custom_inherit import doc_inherit
 
 from cellengine.utils import helpers
@@ -10,6 +10,7 @@ from cellengine.resources.population import Population
 from cellengine.resources.fcsfile import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachments import Attachment
+from cellengine.resources.statistics import get_statistics
 from cellengine.resources.gate import (
     Gate,
     RectangleGate,
@@ -147,9 +148,38 @@ class Experiment(object):
         url = "experiments/{0}/attachments".format(self._id)
         return helpers.base_list(url, Attachment)
 
+    def get_statistics(
+        self,
+        statistics: Union[str, List[str]],
+        channels: List[str],
+        q: float = None,
+        annotations: bool = False,
+        compensation_id: str = None,
+        fcs_file_ids: List[str] = None,
+        format: str = "json",
+        layout: str = None,
+        percent_of: Union[str, List[str]] = None,
+        population_ids: List[str] = None,
+    ):
+        return get_statistics(
+            self._id,
+            statistics,
+            channels,
+            q,
+            annotations,
+            compensation_id,
+            fcs_file_ids,
+            format,
+            layout,
+            percent_of,
+            population_ids,
+        )
+
     # API methods
     def update(self):
-        res = helpers.base_update("experiments/{0}".format(self._id), body = self._properties)
+        res = helpers.base_update(
+            "experiments/{0}".format(self._id), body=self._properties
+        )
         self._properties.update(res)
 
     # Gate Methods:
