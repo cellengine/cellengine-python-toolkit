@@ -1,5 +1,12 @@
 import attr
-from cellengine.utils.helpers import GetSet, base_list, session, base_delete, base_update, base_get
+from cellengine.utils.helpers import (
+    GetSet,
+    base_list,
+    session,
+    base_delete,
+    base_update,
+    base_get,
+)
 
 
 @attr.s(repr=False, slots=True)
@@ -37,7 +44,7 @@ class Attachment(object):
     @classmethod
     def create(cls, experiment_id: str, filepath: str):
         files = {"upload_file": open(filepath, "rb")}
-        res = helpers.session.post(
+        res = session.post(
             "experiments/{0}/attachments".format(experiment_id), files=files
         )
         if res.ok:
@@ -69,13 +76,9 @@ class Attachment(object):
         Returns:
             content: JSON-serializable if possible, otherwise the raw response content.
         """
-<<<<<<< HEAD
-        res = helpers.base_get(
+        res = base_get(
             "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id)
         )
-=======
-        res = base_get("experiments/{0}/attachments/{1}".format(self.experiment_id,
-            self._id))
         if to_file:
             with open(to_file, "wb") as f:
                 f.write(res)

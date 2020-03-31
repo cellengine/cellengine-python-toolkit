@@ -13,7 +13,7 @@ class WrappedImage(Borg):
             self.imager = imager
         else:
             raise ImportError(
-                "You must install extras for this functionality. Try `pip install cellengine-python-toolkit[interactive]` or `pip install -e .[interactive]`."
+                "Try installing Pillow with `pip install pillow` or run in a Jupyter Notebook."
             )
 
     def open(self, data):
