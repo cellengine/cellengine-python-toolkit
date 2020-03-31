@@ -1,10 +1,12 @@
-cellengine = __import__(__name__.split(".")[0])
 import attr
 from cellengine.utils import helpers
 from cellengine.resources.population import Population
+from typing import List
 
 
-def create_complex_population(experiment_id, base_gate, name, gates):
+def create_complex_population(
+    experiment_id: str, base_gate: str, name: str, gates: List[str]
+):
     body = {"name": name, "gates": base_gate}
     body.update(gates)
     res = helpers.base_create(

@@ -34,6 +34,7 @@ class Attachment(object):
         return helpers.base_list(url, Attachment)
 
     # upload
+
     @classmethod
     def create(cls, experiment_id: str, filepath: str):
         files = {"upload_file": open(filepath, "rb")}
@@ -63,8 +64,8 @@ class Attachment(object):
         will be saved to disk.
 
         Args:
-            to_file: Filepath at which to save the file. Accepts relative or
-            absolute path.
+            to_file (str): Filepath at which to save the file. Accepts relative or
+                absolute path.
 
         Returns:
             content: JSON-serializable if possible, otherwise the raw response content.

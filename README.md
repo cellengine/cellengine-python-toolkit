@@ -6,26 +6,33 @@
 CellEngine Python API Toolkit
 -----
 
-Installing:
+A Python wrapper around the CellEngine API that enables you to securely,
+reproducibly and easily interact with your data from a Python or Jupyter
+environment.
+
+[Documentation]()
+[API Documentation](https://docs.cellengine.com/api/)
+
+## Installing:
 ```
 pip install cellengine
 ```
 
 Quick start:
 
+Most operations are performed on the `Experiment` object. 
+
+#### Authentication
 ```
 import cellengine
-client = cellengine.Client(username='gegnew', password='testpass1')
+client = cellengine.Client(username='your username', password='your password')
 
 experiments = client.experiments
 # or:
 exp = cellengine.Experiment(name="160311-96plex-4dye")
 ```
 
-### Import new experiments:
-# TODO
-
-List resources:
+#### List resources:
 ```
 experiment.files
 experiment.populations

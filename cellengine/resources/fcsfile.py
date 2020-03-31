@@ -24,16 +24,27 @@ class FcsFile(object):
 
     panel_name = GetSet("panelName")
 
-    event_count = GetSet("eventCount")
+    event_count = GetSet("eventCount", read_only=True)
 
-    has_file_internal_comp = GetSet("hasFileInternalComp")
+    has_file_internal_comp = GetSet("hasFileInternalComp", read_only=True)
+
+    header = GetSet("header", read_only=True)
+
+    is_control = GetSet("isControl")
 
     size = GetSet("size")
 
+    sample_name = GetSet("sampleName", read_only=True)
+
+    spill_string = GetSet("spillString", read_only=True)
+
     md5 = GetSet("md5")
+
+    crc32c = GetSet("crc32c", read_only=True)
 
     filename = GetSet("filename")
 
+    # TODO: make this a Munch class
     panel = GetSet("panel")
 
     compensation = GetSet("compensation")
