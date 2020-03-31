@@ -1,10 +1,8 @@
 import attr
 from typing import Dict
-from PIL import Image
-from io import BytesIO
+from cellengine.utils.wrapped_image import WrappedImage
 
 from cellengine.utils.helpers import GetSet, base_get, convert_dict
-from cellengine.utils import helpers
 
 
 @attr.s
@@ -90,7 +88,7 @@ class Plot:
         return cls(experiment_id, fcs_file, x_channel, y_channel, plot_type, res.content)
 
     def display(self):
-        return Image.open(BytesIO(self.data))
+        return WrappedImage().open(self.data)
 
     def save(self, filepath: str):
         with open(filepath, "wb") as f:
