@@ -1,6 +1,5 @@
 import attr
-from cellengine.utils import helpers
-from cellengine.utils.helpers import GetSet
+from cellengine.utils.helpers import GetSet, base_list, session, base_delete, base_update, base_get
 
 
 @attr.s(repr=False, slots=True)
@@ -31,7 +30,7 @@ class Attachment(object):
     @classmethod
     def list(cls, experiment_id):
         url = "experiments/{0}/attachments".format(experiment_id)
-        return helpers.base_list(url, Attachment)
+        return base_list(url, Attachment)
 
     # upload
 
@@ -45,13 +44,13 @@ class Attachment(object):
             return cls(res.json())
 
     def delete(self):
-        return helpers.base_delete(
+        return base_delete(
             "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id)
         )
 
     def update(self):
         """Save any changed data to CellEngine."""
-        res = helpers.base_update(
+        res = base_update(
             "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id),
             body=self._properties,
         )
@@ -70,9 +69,13 @@ class Attachment(object):
         Returns:
             content: JSON-serializable if possible, otherwise the raw response content.
         """
+<<<<<<< HEAD
         res = helpers.base_get(
             "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id)
         )
+=======
+        res = base_get("experiments/{0}/attachments/{1}".format(self.experiment_id,
+            self._id))
         if to_file:
             with open(to_file, "wb") as f:
                 f.write(res)
