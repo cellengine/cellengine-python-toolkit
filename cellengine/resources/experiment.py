@@ -27,8 +27,11 @@ class Experiment(object):
     """A class representing a CellEngine experiment.
 
     Attributes
-        _properties (:obj:`dict`): Experiment properties; reqired.
+        _properties (dict): Experiment properties; required for initialization.
     """
+
+    def __repr__(self):
+        return "Experiment(_id='{}', name='{}')".format(self._id, self.name)
 
     _properties = attr.ib()
 
@@ -36,11 +39,15 @@ class Experiment(object):
 
     name = GetSet("name")
 
-    def __repr__(self):
-        return "Experiment(_id='{}', name='{}')".format(self._id, self.name)
-
     @property
     def comments(self):
+        """Set comments for experiment.
+
+        Defaults to overwrite; append new comments with
+        experiment.comments.append(dict) with the form:
+         dict = {"insert": "some text",
+        "attributes": {"bold": False, "italic": False, "underline": False}}.
+        """
         comments = self._properties["comments"]
         if type(comments) is not CommentList:
             self._properties["comments"] = CommentList(comments)
@@ -48,32 +55,43 @@ class Experiment(object):
 
     @comments.setter
     def comments(self, comments: Dict):
-        """Sets comments for experiment.
-
-        Defaults to overwrite; append new comments with
-        experiment.comments.append(dict) with the form:
-         dict = {"insert": "some text",
-        "attributes": {"bold": False, "italic": False, "underline": False}}.
-        """
         if comments.get("insert").endswith("\n") is False:
             comments.update(insert=comments.get("insert") + "\n")
         self._properties["comments"] = comments
 
     @property
     def updated(self):
+        """
+        The last time that the experiment was modified.
+        This value is a shallow timestamp; it is not updated when descendant
+        resources such as gates are modified. (See deepUpdated.)
+        """
         return helpers.timestamp_to_datetime(self._properties.get("updated"))
 
     @property
-    def deep_updated(self):
+    def deep_updated(self) -> str:
+        """
+        The last time that the experiment or any of its descendant
+        resources (e.g. gates, scales) were modified. This property is
+        eventually consistent; its value may not be updated instantaneously
+        after a descendant resource is modified.
+        """
         return helpers.timestamp_to_datetime(self._properties.get("deepUpdated"))
 
     @property
-    def deleted(self):
+    def deleted(self) -> str:
+        """
+        The time when the experiment was moved to the trash. Experiments
+        are permanently deleted approximately seven days after this time. Only
+        modifiable by the primary_researcher. Cannot be set on revision
+        experiments, experiments that are locked or experiments with an active
+        retention policy.
+        """
         if self._properties.get("deleted") is not None:
             return helpers.timestamp_to_datetime(self._properties.get("deleted"))
 
     @property
-    def delete(self, confirm=True):
+    def delete(self, confirm=False):
         """Marks the experiment as deleted.
 
         Deleted experiments are permanently deleted after approximately
@@ -82,63 +100,111 @@ class Experiment(object):
         if confirm:
             self._properties["deleted"] = helpers.today_timestamp()
 
-    public = GetSet("public")
+    @property
+    def undelete(self):
+        """Remove a scheduled deletion."""
+        if self._properties.get("deleted") is not None:
+            self._properties["delete"] = None
 
-    uploader = GetSet("uploader")
+    public = GetSet("public")
 
     primary_researcher = GetSet("primaryResearcher")
 
+    # TODO: make this return a compensation
     active_compensation = GetSet("activeCompensation")
 
-    locked = GetSet("locked")
+    locked = GetSet("locked", read_only=True)
 
-    clone_source_experiment = GetSet("cloneSourceExperiment")
+    clone_source_experiment = GetSet("cloneSourceExperiment", read_only=True)
 
-    revision_source_experiment = GetSet("revisionSourceExperiment")
+    # TODO: retention_policy (Munch object, read_only=True)
+
+    revision_source_experiment = GetSet("revisionSourceExperiment", read_only=True)
 
     revisions = GetSet("revisions")
 
     per_file_compensations_enabled = GetSet("perFileCompensationsEnabled")
 
-    tags = GetSet("tags")
+    per_file_compensation_enabled = GetSet("perFileCompensationEnabled")
+
+    # TODO: sorting_spec
+
+    tags = GetSet("tags", read_only=True)
 
     annotation_name_order = GetSet("annotationNameOrder")
 
     annotation_table_sort_columns = GetSet("annotationTableSortColumns")
 
+    # TODO: annotationValidators
+
+    # TODO: make this a Munch class:
     permissions = GetSet("permissions")
+
+    data = GetSet("data", read_only=True)
+
+    uploader = GetSet("uploader", read_only=True)
 
     @property
     def created(self):
         return helpers.timestamp_to_datetime(self._properties.get("created"))
 
+    # Methods:
+
     @property
     def files(self):
-        """List all files on the experiment"""
+        """List all files on the experiment
+
+        Returns:
+            List[FcsFile]: A list of fcsfiles on this experiment.
+        """
         url = "experiments/{0}/fcsfiles".format(self._id)
         return helpers.base_list(url, FcsFile)
 
     def get_fcsfile(self, _id: Optional[str] = None, name: Optional[str] = None):
+        """Get a single fcsfile
+
+        Returns:
+            FcsFile
+        """
         return Loader.get_fcsfile(experiment_id=self._id, _id=_id, name=name)
 
     @property
     def populations(self):
-        """List all populations in the experiment"""
+        """List all populations in the experiment
+
+        Returns:
+            List[Population]: A list of populations on this experiment.
+        """
         url = "experiments/{0}/populations".format(self._id)
         return helpers.base_list(url, Population)
 
     @property
     def compensations(self):
+        """List all compensations on the experiment
+
+        Returns:
+            List[Compensation]: A list of compensations on this experiment.
+        """
         url = "experiments/{0}/compensations".format(self._id)
         return helpers.base_list(url, Compensation)
 
     @property
     def gates(self):
+        """List all gates on the experiment
+
+        Returns:
+            List[Gate]: A list of gates on this experiment.
+        """
         url = "experiments/{0}/gates".format(self._id)
         return helpers.base_list(url, Gate)
 
     @property
     def attachments(self):
+        """List all attachments on the experiment
+
+        Returns:
+            List[Attachment]: A list of attachments on this experiment.
+        """
         url = "experiments/{0}/attachments".format(self._id)
         return helpers.base_list(url, Attachment)
 
@@ -169,8 +235,16 @@ class Experiment(object):
             population_ids,
         )
 
-    # API methods
+    # API Methods:
+
     def update(self):
+        """Save changes to this Experiment object to CellEngine.
+
+        Returns:
+            None: Updates the Experiment on CellEngine and then
+                  synchronizes the properties with the current Experiment object.
+
+        """
         res = helpers.base_update(
             "experiments/{0}".format(self._id), body=self._properties
         )
@@ -206,6 +280,15 @@ class Experiment(object):
     def create_quadrant_gate(self, *args, **kwargs):
         return QuadrantGate.create(self._id, *args, **kwargs)
 
-    def create_complex_population(self, name, base_gate, gates):
-        """Create a complex population. Pass Gate objects to the logical args."""
+    def create_complex_population(self, name, base_gate, gates=None):
+        """Create a complex population
+
+        Args:
+            name (str): Name of the population to create.
+            base_gate (str): ID of the gate to build a complex population from.
+            gates (str): IDs of other gates to include in the complex population.
+
+        Returns:
+            Population: A created complex population.
+        """
         return create_complex_population(self._id, name, base_gate, gates)

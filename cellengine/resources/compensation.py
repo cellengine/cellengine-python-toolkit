@@ -32,6 +32,7 @@ class Compensation(object):
 
     @property
     def dataframe(self):
+        """Get the compensation matrix as a Pandas DataFrame."""
         if getattr(self, "_dataframe") is not None:
             return self._dataframe
         else:
@@ -45,19 +46,19 @@ class Compensation(object):
             return self._dataframe
 
     def dataframe_as_html(self):
+        """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
     def apply(self, file, inplace: bool = True):
         """
         Compensates the file's data.
 
-        :type file: :class:`cellengine.FcsFile`
-        :param file: The FCS file to compensate.
+        Args:
+            file (FcsFile): The FCS file to compensate.
+            inplace (bool): Compensate the file's data in-place.
 
-        :type inplace: bool
-        :param inplace: Compensate the file's data in-place.
-
-        :returns: If :attr:`inplace` is True, nothing, else a DataFrame.
+        Returns:
+            DataFrame or None: if ``inplace=True``, returns nothing.
         """
         data = file.events
 

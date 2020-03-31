@@ -1,0 +1,71 @@
+# Project Information
+site_name: 'CellEngine Python Toolkit'
+site_description: 'Python API toolkit for CellEngine'
+site_author: 'Zach Bjornson, Gerrit Egnew'
+#site_url: ''
+
+# Repository
+repo_name: 'primitybio/cellengine-pythoon-toolkit'
+repo_url: 'https://github.com/primitybio/cellengine-python-toolkit'
+
+# Site Layout
+nav:
+  - Home: index.md
+  - Resources:
+    - Experiments: experiment.md
+    - Attachments: attachment.md
+    - Compensations: compensation.md
+    - FcsFiles: fcsfile.md
+    - Gates: gate.md
+  - Cookbook: recipes.md
+  - Development: contributing.md
+  - About: about.md
+
+# Build information
+docs_dir: 'docs/src'
+
+# Theme Customization
+theme: 
+  name: material
+  language: en
+  direction: ltr
+  feature:
+    tabs: false
+  palette:
+    primary: indigo
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: 'images/favicon.ico'
+  logo: 'images/logo.svg'
+
+# Plugins
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          rendering:
+            show_root_heading: true
+            show_source: false
+            show_if_no_docstring: true
+          selection:
+            filters: 
+              - "!^__[^__]"
+        watch:
+          - cellengine
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences
+  
+## Options
+# use_directory_urls: true # default
+# extra:
+#   logo: 'docs/src/images/logo.svg'
+  
+# extra_css:
+#   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-beta/katex.min.css
+#   - ./styles.css

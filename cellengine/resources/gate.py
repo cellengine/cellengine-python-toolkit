@@ -11,39 +11,7 @@ import munch
 
 @attr.s(repr=False, slots=True)
 class Gate(ABC):
-    """
-    Args: (In all gate types, refer to help for each gate for args specific to
-        that gate.)
-
-        experiment_id: The ID of the experiment to which to add the
-        gate.
-            Use when calling this as a static method; not needed when calling
-            from an Experiment object
-        name: The name of the gate
-        x_channel: The name of the x channel to which the gate applies.
-        gid: Group ID of the gate, used for tailoring. If this is not
-            specified, then a new Group ID will be created. If you wish you
-            create a tailored gate, you must specify the gid of the global
-            tailored gate.
-        parent_population_id: ID of the parent population. Use ``None`` for
-            the "ungated" population. If specified, do not specify
-            ``parent_population``.
-        parent_population: Name of the parent population. An attempt will
-            be made to find the population by name.  If zero or more than
-            one population exists with the name, an error will be thrown.
-            If specified, do not specify ``parent_population_id``.
-        tailored_per_file: Whether or not this gate is tailored per FCS file.
-        fcs_file_id: ID of FCS file, if tailored per file. Use ``None`` for
-            the global gate in a tailored gate group. If specified, do not
-            specify ``fcs_file``.
-        fcs_file: Name of FCS file, if tailored per file. An attempt will be made
-            to find the file by name. If zero or more than one file exists with
-            the name, an error will be thrown. Looking up files by name is
-            slower than using the ID, as this requires additional requests
-            to the server. If specified, do not specify ``fcs_file_id``.
-        locked: Prevents modification of the gate via the web interface.
-        create_population: Automatically create corresponding population.
-    """
+    """An abstract base class for gates."""
 
     _posted = attr.ib(default=False)
 
@@ -56,7 +24,36 @@ class Gate(ABC):
 
     @classmethod
     def create(cls, gates: Dict) -> List["Gate"]:
-        """Build a Gate object from a dict of properties."""
+        """Build a Gate object from a dict of properties.
+
+    Args:
+        experiment_id (str): The ID of the experiment to which to add the gate. Use
+            when calling this as a static method; not needed when calling from an
+            Experiment object.
+        name (str): The name of the gate
+        x_channel (str): The name of the x channel to which the gate applies.
+        gid (str): Group ID of the gate, used for tailoring. If this is not specified,
+            then a new Group ID will be created. If you wish you create a tailored
+            gate, you must specify the gid of the global tailored gate.
+        parent_population_id (str): ID of the parent population. Use ``None`` for
+            the 'ungated' population. If specified, do not specify
+            ``parent_population``.
+        parent_population (str): Name of the parent population. An attempt will
+            be made to find the population by name.  If zero or more than
+            one population exists with the name, an error will be thrown.
+            If specified, do not specify ``parent_population_id``.
+        tailored_per_file (bool): Whether or not this gate is tailored per FCS file.
+        fcs_file_id (str): ID of FCS file, if tailored per file. Use ``None`` for
+            the global gate in a tailored gate group. If specified, do not
+            specify ``fcs_file``.
+        fcs_file (str): Name of FCS file, if tailored per file. An attempt will be made
+            to find the file by name. If zero or more than one file exists with
+            the name, an error will be thrown. Looking up files by name is
+            slower than using the ID, as this requires additional requests
+            to the server. If specified, do not specify ``fcs_file_id``.
+        locked (bool): Prevents modification of the gate via the web interface.
+        create_population (bool): Automatically create corresponding population.
+        """
         if type(gates) is list:
             return cls._create_multiple_gates(gates)
         else:
@@ -131,7 +128,7 @@ class Gate(ABC):
     def model(self):
         """Return an attribute-style dict of the model.
 
-        NOTE: This approach does allow users to change the model properties to
+        NOTE: This approach allows users to change the model properties to
         invalid values (i.e. 'rectangle' to a str from a dict). We could
         prevent this by making Gate.model return a __slot__ class "Model", where each
         attr of Model was built dynamically. I wrote it this way at first, but
@@ -157,25 +154,32 @@ class Gate(ABC):
             return "{0}".format(dict.__repr__(self))
 
     @staticmethod
-    def delete_gates(experiment_id, _id=None, gid=None, exclude: bool = None):
-        """
-        Deletes a gate or a tailored gate family.
+    def delete_gates(
+        experiment_id, _id: str = None, gid: str = None, exclude: str = None
+    ):
+        """Deletes a gate or a tailored gate family.
 
         Works for compound gates if you specify the top-level gid. Specifying
-        the gid of a sector (i.e. one listed in model.gids) will result in no
+        the gid of a sector (i.e. one listed in ``model.gids``) will result in no
         gates being deleted.  If gateId is specified, only that gate will be
         deleted, regardless of the other parameters specified. May be called as
         a static method from cellengine.Gate or from an Experiment instance.
 
         Args:
-            experimentId: ID of experiment.
-            _id: ID of gate family.
-            gateId: ID of gate.
-            exclude: Gate ID to exclude from deletion.
+            experimentId (str): ID of experiment.
+            _id (str): ID of gate family.
+            gateId (str): ID of gate.
+            exclude (str): Gate ID to exclude from deletion.
 
-        Examples:
+        Example:
+            ```python
             cellengine.Gate.delete_gate(experiment_id, gid = [gate family ID])
+            # or
             experiment.delete_gate(_id = [gate ID])
+            ```
+
+        Returns:
+            None
 
         """
         if (_id and gid) or (not _id and not gid):
@@ -199,7 +203,7 @@ class Gate(ABC):
 
 
 class RectangleGate(Gate):
-    """Basic concrete class for polygon gates"""
+    """Basic concrete class for rectangle gates"""
 
     @staticmethod
     def create(
@@ -207,10 +211,10 @@ class RectangleGate(Gate):
         x_channel: str,
         y_channel: str,
         name: str,
-        x1: int,
-        x2: int,
-        y1: int,
-        y2: int,
+        x1: float,
+        x2: float,
+        y1: float,
+        y2: float,
         label: List[str] = [],
         gid: str = None,
         locked: bool = False,
@@ -223,21 +227,26 @@ class RectangleGate(Gate):
     ):
         """Creates a rectangle gate.
 
-        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
-            x1: The first x coordinate (after the channel's scale has been applied).
-            x2: The second x coordinate (after the channel's scale has been applied).
-            y1: The first y coordinate (after the channel's scale has been applied).
-            y2: The second y coordinate (after the channel's scale has been applied).
+        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+
+        Args:
+            x1 (float): The first x coordinate (after the channel's scale has been applied).
+            x2 (float): The second x coordinate (after the channel's scale has been applied).
+            y1 (float): The first y coordinate (after the channel's scale has been applied).
+            y2 (float): The second y coordinate (after the channel's scale has been applied).
 
         Returns:
-            A RectangleGate object.
+            RectangleGate: A RectangleGate object.
 
         Example:
+            ```python
             experiment.create_rectangle_gate(x_channel="FSC-A", y_channel="FSC-W",
             name="my gate", 12.502, 95.102, 1020, 32021.2)
+            # or:
             cellengine.Gate.create_rectangle_gate(experiment_id, x_channel="FSC-A",
             y_channel="FSC-W", name="my gate", x1=12.5, x2=95.1, y1=1020, y2=32021.2,
             gid=global_gate.gid)
+            ```
         """
 
         formatted_gate = Gates.create_rectangle_gate(
@@ -271,9 +280,9 @@ class PolygonGate(Gate):
         x_channel: str,
         y_channel: str,
         name: str,
-        x_vertices: int,
-        y_vertices: int,
-        label: List[str] = [],
+        x_vertices: List[float],
+        y_vertices: List[float],
+        label: List[float] = [],
         gid: str = None,
         locked: bool = False,
         parent_population_id: str = None,
@@ -286,19 +295,23 @@ class PolygonGate(Gate):
 
         """Creates a polygon gate.
 
-        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
-            y_channel: The name of the y channel to which the gate applies.
-            x_vertices: List of x coordinates for the polygon's vertices.
-            y_vertices List of y coordinates for the polygon's vertices.
-            label: Position of the label. Defaults to the midpoint of the gate.
+        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+
+        Args:
+            y_channel (str): The name of the y channel to which the gate applies.
+            x_vertices (List[float]): List of x coordinates for the polygon's vertices.
+            y_vertices (List[float]): List of y coordinates for the polygon's vertices.
+            label (List[float]): [x, y] position of the label. Defaults to the midpoint of the gate.
 
         Returns:
-            A PolygonGate object.
+            PolygonGate: A PolygonGate object.
 
         Example:
+            ```python
             experiment.create_polygon_gate(x_channel="FSC-A",
             y_channel="FSC-W", name="my gate", x_vertices=[1, 2, 3], y_vertices=[4,
             5, 6])
+            ```
         """
         formatted_gate = Gates.create_polygon_gate(
             experiment_id,
@@ -329,12 +342,12 @@ class EllipseGate(Gate):
         x_channel: str,
         y_channel: str,
         name: str,
-        x: int,
-        y: int,
-        angle: int,
-        major: int,
-        minor: int,
-        label: List[str] = [],
+        x: float,
+        y: float,
+        angle: float,
+        major: float,
+        minor: float,
+        label: List[float] = [],
         gid: str = None,
         locked: bool = False,
         parent_population_id: str = None,
@@ -346,22 +359,26 @@ class EllipseGate(Gate):
     ):
         """Creates an ellipse gate.
 
-        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
-            y_channel: The name of the y channel to which the gate applies.
-            x: The x centerpoint of the gate.
-            y: The y centerpoint of the gate.
-            angle: The angle of the ellipse in radians.
-            major: The major radius of the ellipse.
-            minor: The minor radius of the ellipse.
-            label: Position of the label. Defaults to the midpoint of the gate.
+        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+
+        Args:
+            y_channel (str): The name of the y channel to which the gate applies.
+            x (float): The x centerpoint of the gate.
+            y (float): The y centerpoint of the gate.
+            angle (float): The angle of the ellipse in radians.
+            major (float): The major radius of the ellipse.
+            minor (float): The minor radius of the ellipse.
+            label (List[float]): [x, y] position of the label. Defaults to the midpoint of the gate.
 
         Returns:
-            An EllipseGate object.
+            EllipseGate: An EllipseGate object.
 
         Example:
+            ```python
             cellengine.Gate.create_ellipse_gate(experiment_id, x_channel="FSC-A",
             y_channel="FSC-W", name="my gate", x=260000, y=64000, angle=0,
             major=120000, minor=70000)
+            ```
         """
         formatted_gate = Gates.create_ellipse_gate(
             experiment_id,
@@ -393,10 +410,10 @@ class RangeGate(Gate):
         experiment_id: str,
         x_channel: str,
         name: str,
-        x1: int,
-        x2: int,
-        y: int = 0.5,
-        label: List[str] = [],
+        x1: float,
+        x2: float,
+        y: float = 0.5,
+        label: List[float] = [],
         gid: str = None,
         locked: bool = False,
         parent_population_id: str = None,
@@ -408,22 +425,26 @@ class RangeGate(Gate):
     ):
         """Creates a range gate.
 
-        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
-            y_channel: The name of the y channel to which the gate applies.
-            x1: The first x coordinate (after the channel's scale has been applied).
-            x2: The second x coordinate (after the channel's scale has been applied).
-            y: Position of the horizontal line between the vertical lines, in the
-            label: Position of the label. Defaults to the midpoint of the gate.
+        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+
+        Args:
+            y_channel (str): The name of the y channel to which the gate applies.
+            x1 (float): The first x coordinate (after the channel's scale has been applied).
+            x2 (float): The second x coordinate (after the channel's scale has been applied).
+            y (float): Position of the horizontal line between the vertical lines, in the
+            label (List[float]): [x, y] position of the label. Defaults to the midpoint of the gate.
 
         Returns:
-            A RangeGate object.
+            RangeGate: A RangeGate object.
 
         Example:
+            ```python
             experiment.create_range_gate(x_channel="FSC-A", name="my gate",
             x1=12.502, x2=95.102)
             cellengine.Gate.create_range_gate(experiment_id,
             x_channel="FSC-A", name="my gate",
             12.502, 95.102)
+            ```
             """
         formatted_gate = Gates.create_range_gate(
             experiment_id,
@@ -453,9 +474,9 @@ class QuadrantGate(Gate):
         x_channel: str,
         y_channel: str,
         name: str,
-        x: int,
-        y: int,
-        labels: List[str] = [],
+        x: float,
+        y: float,
+        labels: List[float] = [],
         gid: str = None,
         gids: List[str] = None,
         locked: bool = False,
@@ -470,23 +491,28 @@ class QuadrantGate(Gate):
         Creates a quadrant gate. Quadrant gates have four sectors (upper-right,
         upper-left, lower-left, lower-right), each with a unique gid and name.
 
-        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
-            x: The x coordinate of the center point (after the channel's scale has
+        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+
+        Args:
+            x (float): The x coordinate of the center point (after the channel's scale has
                 been applied).
-            y: The y coordinate (after the channel's scale has been applied).
-            labels: Positions of the quadrant labels. A list of four length-2
-                vectors in the order: UR, UL, LL, LR. These are set automatically to
+            y (float): The y coordinate (after the channel's scale has been applied).
+            labels (List[float]): Positions of the quadrant labels. A list of four length-2
+                lists in the order: UR, UL, LL, LR. These are set automatically to
                 the plot corners.
-            gids: Group IDs of each sector, assigned to ``model.gids``.
+            gids (List[str]): Group IDs of each sector, assigned to ``model.gids``.
 
         Returns:
-            A QuadrantGate object.
+            QuadrantGate: A QuadrantGate object.
 
         Example:
+            ```python
             cellengine.Gate.create_quadrant_gate(experimentId, x_channel="FSC-A",
                 y_channel="FSC-W", name="my gate", x=160000, y=200000)
             experiment.create_quadrant_gate(x_channel="FSC-A",
-                y_channel="FSC-W", name="my gate", x=160000, y=200000)
+                y_channel="FSC-W", name="my gate", x=160000, y=200000,
+                labels=[[1, 2] [3, 4], [5, 6], [7, 8]])
+            ```
         """
         formatted_gate = Gates.create_quadrant_gate(
             experiment_id,
@@ -516,9 +542,9 @@ class SplitGate(Gate):
         experiment_id: str,
         x_channel: str,
         name: str,
-        x: int,
-        y: int,
-        labels: List[str] = [],
+        x: float,
+        y: float,
+        labels: List[float] = [],
         gid: str = None,
         gids: List[str] = None,
         locked: bool = False,
@@ -533,22 +559,26 @@ class SplitGate(Gate):
         Creates a split gate. Split gates have two sectors (right and left),
         each with a unique gid and name.
 
-        Required Args: (refer to ``help(cellengine.Gate``) for optional args.
-            x: The x coordinate of the center point (after the channel's scale has
+        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+
+        Args:
+            x (float): The x coordinate of the center point (after the channel's scale has
                 been applied).  y: The y coordinate of the dashed line extending from
                 the center point (after the channel's scale has been applied).
-            labels: Positions of the quadrant labels. A list of two length-2 lists in
+            labels (List[float]): Positions of the quadrant labels. A list of two length-2 lists in
                 the order: L, R. These are set automatically to the top corners.
-            gids: Group IDs of each sector, assigned to model.gids.
+            gids (List[str]): Group IDs of each sector, assigned to model.gids.
 
         Returns:
-            A SplitGate object.
+            SplitGate: A SplitGate object.
 
         Example:
+            ```python
             cellengine.Gate.create_split_gate(experiment_id, x_channel="FSC-A",
             name="my gate", x=144000, y=100000)
             experiment.create_split_gate(x_channel="FSC-A", name="my gate", x=144000,
                 y=100000)
+            ```
             """
         formatted_gate = Gates.create_split_gate(
             experiment_id,
