@@ -15,34 +15,34 @@ class Plot:
         x_channel (str): X channel name.
         y_channel (str): (for 2D plots) Y channel name.
         plot_type (str): "dot", "density" or "histogram" (case-insensitive)
-        properties (dict): Other optional attributes in dict form: {"property": value}
+        properties (dict): Other optional attributes in dict form (camelCase): {"property": value}
             compensation (ID): Compensation to use for gating and display.
-            population_id (ID): Defaults to ungated.
+        population_id (ID): Defaults to ungated.
             width (int): Image width. Defaults to 228.
             height (int): Image height. Defaults to 228.
-            axes_q (bool): Display axes lines. Defaults to true.
-            ticks_q (bool): Display ticks. Defaults to true.
-            tick_labels_q (bool): Display tick labels. Defaults to false.
-            axis_labels_q (bool): Display axis labels. Defaults to true.
-            x_axis_q (bool): Display x axis line. Overrides axes_q.
-            y_axis_q (bool): Display y axis line. Overrides axes_q.
-            x_ticks_q (bool): Display x ticks. Overrides ticks_q.
-            y_ticks_q (bool): Display y ticks. Overrides ticks_q.
-            x_tick_labels_q (bool): Display x tick labels. Overrides tick_labels_q.
-            y_tick_labels_q (bool): Display y tick labels. Overrides tick_labels_q.
-            x_axis_label_q (bool): Display x axis label. Overrides axis_labels_q.
-            y_axis_label_q (bool): Display y axis label. Overrides axis_labels_q.
+            axesQ (bool): Display axes lines. Defaults to true.
+            ticksQ (bool): Display ticks. Defaults to true.
+            tickLabelsQ (bool): Display tick labels. Defaults to false.
+            axisLabelsQ (bool): Display axis labels. Defaults to true.
+            xAxisQ (bool): Display x axis line. Overrides axes_q.
+            yAxisQ (bool): Display y axis line. Overrides axes_q.
+            xTicksQ (bool): Display x ticks. Overrides ticks_q.
+            yTicksQ (bool): Display y ticks. Overrides ticks_q.
+            xTickLabelsQ (bool): Display x tick labels. Overrides tick_labels_q.
+            yTickLabelsQ (bool): Display y tick labels. Overrides tick_labels_q.
+            xAxisLabelQ (bool): Display x axis label. Overrides axis_labels_q.
+            yAxisLabelQ (bool): Display y axis label. Overrides axis_labels_q.
             color (str): Case-insensitive string in the format
                 #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e. color
                 of curve in "histogram" plots and dots in "dot" plots.
-            render_gates (bool): Render gates into the image.
-            pre_subsample_n (int): Randomly subsample the file to contain this
+            renderGates (bool): Render gates into the image.
+            preSubsampleN (int): Randomly subsample the file to contain this
                 many events before gating.
-            pre_subsample_p (float): Randomly subsample the file to contain this percent of
+            preSubsampleP (float): Randomly subsample the file to contain this percent of
                 events (0 to 1) before gating.
-            post_subsample_n (int): Randomly subsample the file to contain
+            postSubsampleN (int): Randomly subsample the file to contain
                 this many events after gating.
-            post_subsample_p (float): Randomly subsample the file to contain this
+            postSubsampleP (float): Randomly subsample the file to contain this
                 percent of events (0 to 1) after gating.
             seed (float): Seed for random number generator used for
                 subsampling. Use for deterministic (reproducible) subsampling. If
@@ -81,7 +81,6 @@ class Plot:
         }
 
         if properties:
-            properties = convert_dict(properties, 'snake_to_camel')
             req_params.update(properties)
 
         res = base_get(url, params=req_params)

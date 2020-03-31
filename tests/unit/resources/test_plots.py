@@ -64,27 +64,27 @@ def test_should_get_plot_for_each_query_parameter(
     )
     parameters = {
         "compensation": compensations[0]["_id"],
-        "population_id": populations[0]["_id"],
+        "populationId": populations[0]["_id"],
         "width": 400,
         "height": 400,
-        "axes_q": False,
-        "ticks_q": False,
-        "tick_labels_q": True,
-        "axis_labels_q": False,
-        "x_axis_q": True,
-        "y_axis_q": True,
-        "x_ticks_q": True,
-        "y_ticks_q": True,
-        "x_tick_labels_q": True,
-        "y_tick_labels_q": True,
-        "x_axis_label_q": True,
-        "y_axis_label_q": True,
+        "axesQ": False,
+        "ticksQ": False,
+        "tickLabelsQ": True,
+        "axisLabelsQ": False,
+        "xAxisQ": True,
+        "yAxisQ": True,
+        "xTicksQ": True,
+        "yTicksQ": True,
+        "xTickLabelsQ": True,
+        "yTickLabelsQ": True,
+        "xAxisLabelQ": True,
+        "yAxisLabelQ": True,
         "color": "#ff0000",
-        "render_gates": True,
-        "pre_subsample_n": 4,
-        "pre_subsample_p": 0.5,
-        "post_subsample_n": 4,
-        "post_subsample_p": 0.5,
+        "renderGates": True,
+        "preSubsampleN": 4,
+        "preSubsampleP": 0.5,
+        "postSubsampleN": 4,
+        "postSubsampleP": 0.5,
         "seed": 9,
         "smoothing": 0.75,
     }
@@ -103,7 +103,7 @@ def test_should_get_plot_for_each_query_parameter(
         if item[1] == "#ff0000":
             item = ("color", "%23ff0000")
 
-        assert snake_to_camel(item[0]) in responses.calls[i].request.url
+        assert item[0] in responses.calls[i].request.url
         assert str(item[1]) in responses.calls[i].request.url
         plot_tester(plot)
         i += 1
