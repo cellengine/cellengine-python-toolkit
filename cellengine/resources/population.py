@@ -1,6 +1,5 @@
 import attr
-from cellengine.utils import helpers
-from cellengine.utils.helpers import GetSet
+from cellengine.utils.helpers import GetSet, base_update, base_delete
 
 
 @attr.s(repr=False, slots=True)
@@ -34,13 +33,13 @@ class Population(object):
     # API methods
     def update(self):
         """Save any changed data to CellEngine."""
-        res = helpers.base_update(
+        res = base_update(
             "experiments/{0}/populations/{1}".format(self.experiment_id, self._id),
             body=self._properties,
         )
         self._properties.update(res)
 
     def delete(self):
-        return helpers.base_delete(
+        return base_delete(
             "experiments/{0}/populations/{1}".format(self.experiment_id, self._id)
         )

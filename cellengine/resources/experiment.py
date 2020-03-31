@@ -2,8 +2,14 @@ import attr
 from typing import Optional, Dict, Union, List
 from custom_inherit import doc_inherit
 
-from cellengine.utils import helpers
-from cellengine.utils.helpers import GetSet, CommentList
+from cellengine.utils.helpers import (
+    GetSet,
+    CommentList,
+    base_list,
+    timestamp_to_datetime,
+    today_timestamp,
+    base_update,
+)
 from cellengine.utils.loader import Loader
 from cellengine.utils.complex_population_creator import create_complex_population
 from cellengine.resources.population import Population
@@ -30,14 +36,20 @@ class Experiment(object):
         _properties (dict): Experiment properties; required for initialization.
     """
 
-    def __repr__(self):
-        return "Experiment(_id='{}', name='{}')".format(self._id, self.name)
-
     _properties = attr.ib()
 
     _id = GetSet("_id", read_only=True)
 
     name = GetSet("name")
+
+    def __repr__(self):
+        return "Experiment(_id='{}', name='{}')".format(self._id, self.name)
+
+    @property
+    def files(self):
+        """List all files on the experiment"""
+        url = "experiments/{0}/fcsfiles".format(self._id)
+        return base_list(url, FcsFile)
 
     @property
     def comments(self):
@@ -55,6 +67,13 @@ class Experiment(object):
 
     @comments.setter
     def comments(self, comments: Dict):
+        """Sets comments for experiment.
+
+        Defaults to overwrite; append new comments with
+        experiment.comments.append(dict) with the form:
+         dict = {"insert": "some text",
+        "attributes": {"bold": False, "italic": False, "underline": False}}.
+        """
         if comments.get("insert").endswith("\n") is False:
             comments.update(insert=comments.get("insert") + "\n")
         self._properties["comments"] = comments
@@ -88,7 +107,7 @@ class Experiment(object):
         retention policy.
         """
         if self._properties.get("deleted") is not None:
-            return helpers.timestamp_to_datetime(self._properties.get("deleted"))
+            return timestamp_to_datetime(self._properties.get("deleted"))
 
     @property
     def delete(self, confirm=False):
@@ -98,7 +117,7 @@ class Experiment(object):
         7 days. Until then, deleted experiments can be recovered.
         """
         if confirm:
-            self._properties["deleted"] = helpers.today_timestamp()
+            self._properties["deleted"] = today_timestamp()
 
     @property
     def undelete(self):
@@ -146,7 +165,7 @@ class Experiment(object):
 
     @property
     def created(self):
-        return helpers.timestamp_to_datetime(self._properties.get("created"))
+        return timestamp_to_datetime(self._properties.get("created"))
 
     # Methods:
 
@@ -158,7 +177,7 @@ class Experiment(object):
             List[FcsFile]: A list of fcsfiles on this experiment.
         """
         url = "experiments/{0}/fcsfiles".format(self._id)
-        return helpers.base_list(url, FcsFile)
+        return base_list(url, FcsFile)
 
     def get_fcsfile(self, _id: Optional[str] = None, name: Optional[str] = None):
         """Get a single fcsfile
@@ -176,7 +195,7 @@ class Experiment(object):
             List[Population]: A list of populations on this experiment.
         """
         url = "experiments/{0}/populations".format(self._id)
-        return helpers.base_list(url, Population)
+        return base_list(url, Population)
 
     @property
     def compensations(self):
@@ -186,7 +205,7 @@ class Experiment(object):
             List[Compensation]: A list of compensations on this experiment.
         """
         url = "experiments/{0}/compensations".format(self._id)
-        return helpers.base_list(url, Compensation)
+        return base_list(url, Compensation)
 
     @property
     def gates(self):
@@ -196,7 +215,7 @@ class Experiment(object):
             List[Gate]: A list of gates on this experiment.
         """
         url = "experiments/{0}/gates".format(self._id)
-        return helpers.base_list(url, Gate)
+        return base_list(url, Gate)
 
     @property
     def attachments(self):
@@ -206,7 +225,7 @@ class Experiment(object):
             List[Attachment]: A list of attachments on this experiment.
         """
         url = "experiments/{0}/attachments".format(self._id)
-        return helpers.base_list(url, Attachment)
+        return base_list(url, Attachment)
 
     def get_statistics(
         self,
@@ -245,7 +264,7 @@ class Experiment(object):
                   synchronizes the properties with the current Experiment object.
 
         """
-        res = helpers.base_update(
+        res = base_update(
             "experiments/{0}".format(self._id), body=self._properties
         )
         self._properties.update(res)

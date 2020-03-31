@@ -1,7 +1,13 @@
 from typing import Dict, List
 import attr
-from cellengine.utils import helpers
-from cellengine.utils.helpers import GetSet
+import numpy
+from cellengine.utils.helpers import (
+    GetSet,
+    convert_dict,
+    base_create,
+    base_delete,
+    base_update,
+)
 from cellengine.resources import Gates
 
 import importlib
@@ -11,7 +17,39 @@ import munch
 
 @attr.s(repr=False, slots=True)
 class Gate(ABC):
-    """An abstract base class for gates."""
+    """
+    Args: (In all gate types, refer to help for each gate for args specific to
+        that gate.)
+
+        experiment_id: The ID of the experiment to which to add the
+        gate.
+            Use when calling this as a static method; not needed when calling
+            from an Experiment object
+        name: The name of the gate
+        x_channel: The name of the x channel to which the gate applies.
+        gid: Group ID of the gate, used for tailoring. If this is not
+            specified, then a new Group ID will be created. If you wish you
+            create a tailored gate, you must specify the gid of the global
+            tailored gate.
+        parent_population_id: ID of the parent population. Use ``None`` for
+            the "ungated" population. If specified, do not specify
+            ``parent_population``.
+        parent_population: Name of the parent population. An attempt will
+            be made to find the population by name.  If zero or more than
+            one population exists with the name, an error will be thrown.
+            If specified, do not specify ``parent_population_id``.
+        tailored_per_file: Whether or not this gate is tailored per FCS file.
+        fcs_file_id: ID of FCS file, if tailored per file. Use ``None`` for
+            the global gate in a tailored gate group. If specified, do not
+            specify ``fcs_file``.
+        fcs_file: Name of FCS file, if tailored per file. An attempt will be made
+            to find the file by name. If zero or more than one file exists with
+            the name, an error will be thrown. Looking up files by name is
+            slower than using the ID, as this requires additional requests
+            to the server. If specified, do not specify ``fcs_file_id``.
+        locked: Prevents modification of the gate via the web interface.
+        create_population: Automatically create corresponding population.
+    """
 
     _posted = attr.ib(default=False)
 
@@ -26,34 +64,34 @@ class Gate(ABC):
     def create(cls, gates: Dict) -> List["Gate"]:
         """Build a Gate object from a dict of properties.
 
-    Args:
-        experiment_id (str): The ID of the experiment to which to add the gate. Use
-            when calling this as a static method; not needed when calling from an
-            Experiment object.
-        name (str): The name of the gate
-        x_channel (str): The name of the x channel to which the gate applies.
-        gid (str): Group ID of the gate, used for tailoring. If this is not specified,
-            then a new Group ID will be created. If you wish you create a tailored
-            gate, you must specify the gid of the global tailored gate.
-        parent_population_id (str): ID of the parent population. Use ``None`` for
-            the 'ungated' population. If specified, do not specify
-            ``parent_population``.
-        parent_population (str): Name of the parent population. An attempt will
-            be made to find the population by name.  If zero or more than
-            one population exists with the name, an error will be thrown.
-            If specified, do not specify ``parent_population_id``.
-        tailored_per_file (bool): Whether or not this gate is tailored per FCS file.
-        fcs_file_id (str): ID of FCS file, if tailored per file. Use ``None`` for
-            the global gate in a tailored gate group. If specified, do not
-            specify ``fcs_file``.
-        fcs_file (str): Name of FCS file, if tailored per file. An attempt will be made
-            to find the file by name. If zero or more than one file exists with
-            the name, an error will be thrown. Looking up files by name is
-            slower than using the ID, as this requires additional requests
-            to the server. If specified, do not specify ``fcs_file_id``.
-        locked (bool): Prevents modification of the gate via the web interface.
-        create_population (bool): Automatically create corresponding population.
-        """
+        Args:
+            experiment_id (str): The ID of the experiment to which to add the gate. Use
+                when calling this as a static method; not needed when calling from an
+                Experiment object.
+            name (str): The name of the gate
+            x_channel (str): The name of the x channel to which the gate applies.
+            gid (str): Group ID of the gate, used for tailoring. If this is not specified,
+                then a new Group ID will be created. If you wish you create a tailored
+                gate, you must specify the gid of the global tailored gate.
+            parent_population_id (str): ID of the parent population. Use ``None`` for
+                the 'ungated' population. If specified, do not specify
+                ``parent_population``.
+            parent_population (str): Name of the parent population. An attempt will
+                be made to find the population by name.  If zero or more than
+                one population exists with the name, an error will be thrown.
+                If specified, do not specify ``parent_population_id``.
+            tailored_per_file (bool): Whether or not this gate is tailored per FCS file.
+            fcs_file_id (str): ID of FCS file, if tailored per file. Use ``None`` for
+                the global gate in a tailored gate group. If specified, do not
+                specify ``fcs_file``.
+            fcs_file (str): Name of FCS file, if tailored per file. An attempt will be made
+                to find the file by name. If zero or more than one file exists with
+                the name, an error will be thrown. Looking up files by name is
+                slower than using the ID, as this requires additional requests
+                to the server. If specified, do not specify ``fcs_file_id``.
+            locked (bool): Prevents modification of the gate via the web interface.
+            create_population (bool): Automatically create corresponding population.
+            """
         if type(gates) is list:
             return cls._create_multiple_gates(gates)
         else:
@@ -81,9 +119,8 @@ class Gate(ABC):
 
     @classmethod
     def _post_gate(cls, gate, experiment_id, create_population):
-        """Post the gate
-        Passes the factory as the class, returning the correct subclass."""
-        res = helpers.base_create(
+        """Post the gate, passing the factory as the class, which returns the correct subclass."""
+        res = base_create(
             "experiments/{}/gates".format(experiment_id),
             json=gate,
             expected_status=201,
@@ -191,11 +228,11 @@ class Gate(ABC):
             if exclude:
                 url = "{0}%exclude={1}".format(url, exclude)
 
-        helpers.base_delete(url)
+        base_delete(url)
 
     # API methods
     def update(self):
-        res = helpers.base_update(
+        res = base_update(
             "experiments/{0}/gates/{1}".format(self.experiment_id, self._id),
             body=self._properties,
         )

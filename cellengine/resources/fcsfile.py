@@ -4,8 +4,7 @@ import fcsparser
 from typing import List, Dict
 from custom_inherit import doc_inherit
 
-from cellengine.utils import helpers
-from cellengine.utils.helpers import GetSet
+from cellengine.utils.helpers import GetSet, base_get, base_update
 from cellengine.resources.plot import Plot
 
 
@@ -78,7 +77,7 @@ class FcsFile(object):
         from the server on-demand the first time that this property is accessed.
         """
         if self._events is None:
-            fresp = helpers.base_get(
+            fresp = base_get(
                 "experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id)
             )
             parser = fcsparser.api.FCSParser.from_data(fresp.content)
@@ -103,7 +102,7 @@ class FcsFile(object):
     # API methods
     def update(self):
         """Save any changed data to CellEngine."""
-        res = helpers.base_update(
+        res = base_update(
             "experiments/{0}/compensations/{1}".format(self.experiment_id, self._id),
             body=self._properties,
         )

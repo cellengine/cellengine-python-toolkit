@@ -1,8 +1,7 @@
 import attr
 import pandas
 import numpy
-from cellengine.utils import helpers
-from cellengine.utils.helpers import GetSet
+from cellengine.utils.helpers import GetSet, base_update
 
 
 @attr.s(repr=False, slots=True)
@@ -78,7 +77,7 @@ class Compensation(object):
 
     # API methods
     def update(self):
-        res = helpers.base_update(
+        res = base_update(
             "experiments/{0}/compensations/{1}".format(self.experiment_id, self._id),
             body=self._properties,
         )
