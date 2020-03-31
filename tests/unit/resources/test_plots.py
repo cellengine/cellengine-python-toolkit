@@ -1,10 +1,6 @@
 import os
-import attr
-import pytest
 import responses
-import cellengine
 from cellengine.resources.plot import Plot
-from cellengine.utils.helpers import snake_to_camel
 from cellengine import FcsFile
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -16,6 +12,7 @@ def plot_tester(plot):
     assert hasattr(plot, "x_channel")
     assert hasattr(plot, "y_channel")
     assert hasattr(plot, "plot_type")
+    assert hasattr(plot, "population_id")
     assert hasattr(plot, "data")
     assert type(plot.data) == bytes
 
@@ -48,7 +45,7 @@ def test_should_get_each_plot_type(experiment, fcsfiles):
     responses.add(
         responses.GET, base_url + "experiments/{}/plot".format(experiment._id),
     )
-    for plot in ["dot", "density", "histogram"]:
+    for plot in ["contour", "dot", "density", "histogram"]:
         plot = Plot.get(
             experiment._id, fcsfile._id, fcsfile.channels[0], fcsfile.channels[1], plot
         )
@@ -64,7 +61,6 @@ def test_should_get_plot_for_each_query_parameter(
     )
     parameters = {
         "compensation": compensations[0]["_id"],
-        "populationId": populations[0]["_id"],
         "width": 400,
         "height": 400,
         "axesQ": False,
@@ -98,6 +94,7 @@ def test_should_get_plot_for_each_query_parameter(
             fcsfile.channels[1],
             "dot",
             properties=param_dict,
+            population_id=populations[0]["_id"]
         )
 
         if item[1] == "#ff0000":

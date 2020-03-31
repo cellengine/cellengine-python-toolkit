@@ -85,7 +85,7 @@ class Experiment(object):
         This value is a shallow timestamp; it is not updated when descendant
         resources such as gates are modified. (See deepUpdated.)
         """
-        return helpers.timestamp_to_datetime(self._properties.get("updated"))
+        return timestamp_to_datetime(self._properties.get("updated"))
 
     @property
     def deep_updated(self) -> str:
@@ -95,7 +95,7 @@ class Experiment(object):
         eventually consistent; its value may not be updated instantaneously
         after a descendant resource is modified.
         """
-        return helpers.timestamp_to_datetime(self._properties.get("deepUpdated"))
+        return timestamp_to_datetime(self._properties.get("deepUpdated"))
 
     @property
     def deleted(self) -> str:
