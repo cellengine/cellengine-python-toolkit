@@ -132,7 +132,7 @@ def test_all_experiment_properties(experiment):
 
 @responses.activate
 def test_get_statistics(experiment):
-    """Tests listing gates in an experiment"""
+    """Tests getting statistics for an experiment"""
     responses.add(
         responses.POST,
         base_url + "experiments/{}/bulkstatistics".format(experiment._id),

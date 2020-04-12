@@ -21,7 +21,7 @@ def get_statistics(
     Required Args:
         experiment_id: ID of experiment to request statistics for.
         statistics: Statistical method to request. Any of "mean", "median", "quantile",
-            "mad" (median absolute deviation), "geometric_mean", "eventcount",
+            "mad" (median absolute deviation), "geometricmean", "eventcount",
             "cv", "stddev" or "percent" (case-insensitive).
         q: int: quantile (required for "quantile" statistic)
         channels: str or List[str]: for "mean", "median", "geometricMean", "cv",

@@ -49,7 +49,7 @@ def test_should_get_list_of_stats():
 
 
 @pytest.mark.vcr()
-def test_should_get_list_of_stats():
+def test_should_get_list_of_channels():
     channels_to_get = ["FSC-A", "FSC-H"]
     stats = get_statistics("5e4fcb98bdd7ea051d703652", "mean", channels_to_get)
     assert any([channels_to_get[0] in stat["channel"] for stat in stats])
