@@ -1,4 +1,4 @@
--e git+git@github.com:gegnew/fcsparser.git@710e8e31d4b09ff6e73d47d86770be6ca2f4282c#egg=fcsparser
+fcsparser==0.2.0
 munch==2.5.0
 numpy==1.17.4
 pandas==0.25.3
