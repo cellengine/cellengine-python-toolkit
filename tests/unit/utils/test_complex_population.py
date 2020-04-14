@@ -1,6 +1,9 @@
 import os
 import responses
-from tests.unit.resources.test_population import test_all_population_properties, population
+from tests.unit.resources.test_population import (
+    test_all_population_properties,
+    population,
+)
 from cellengine.utils.complex_population_creator import And
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")

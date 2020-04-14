@@ -33,29 +33,32 @@ pytest_plugins = [
     "fixtures.api-statistics",
 ]
 
-@pytest.fixture(scope='module')
+
+@pytest.fixture(scope="module")
 def vcr_config():
     """Pytest hook for vcr config"""
     return {
-        'filter_headers': ['Cookie'],
-        'before_record_response': scrub_header('set-cookie',
-                                               repl='safetoken'),
-        'cassette_library_dir': 'tests/cassettes',
-        'record_mode': 'overwrite'
-        }
+        "filter_headers": ["Cookie"],
+        "before_record_response": scrub_header("set-cookie", repl="safetoken"),
+        "cassette_library_dir": "tests/cassettes",
+        "record_mode": "overwrite",
+    }
 
 
-def scrub_header(string, repl=''):
+def scrub_header(string, repl=""):
     """Remove secrets from stored vcr cassettes"""
+
     def before_record_response(response):
-        response['headers'][string] = repl
+        response["headers"][string] = repl
         return response
+
     return before_record_response
 
 
 def scrub_client_request():
     def before_record_response(response):
-        response['headers']['set-cookie'] = 'safetoken'
-        response['body']['string'] = None
+        response["headers"]["set-cookie"] = "safetoken"
+        response["body"]["string"] = None
         return response
+
     return before_record_response

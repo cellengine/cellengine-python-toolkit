@@ -6,7 +6,10 @@ from datetime import datetime
 from random import SystemRandom
 
 
-class OID: pass
+class OID:
+    pass
+
+
 OID._pid = os.getpid()
 OID._max_counter_value = 0xFFFFFF
 OID._inc = SystemRandom().randint(0, OID._max_counter_value)

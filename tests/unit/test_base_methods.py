@@ -58,9 +58,9 @@ def test_base_update(experiments):
     )
     res = helpers.base_update(
         "experiments/5d64abe2ca9df61349ed8e78",
-        body={"name": "newname", "locked": True, "fullName": "Primity Bio"}
+        body={"name": "newname", "locked": True, "fullName": "Primity Bio"},
     )
-    assert res['name'] == "pytest_experiment"
+    assert res["name"] == "pytest_experiment"
 
 
 @responses.activate

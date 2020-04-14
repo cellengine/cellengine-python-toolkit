@@ -36,7 +36,7 @@ setup(
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3 :: Only",
-        "Topic :: Scientific/Engineering :: Bio-Informatics"
+        "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
@@ -45,8 +45,8 @@ setup(
         "requests",
         "requests_toolbelt",
         "numpy",
-        "pandas"
+        "pandas",
     ],
     python_requires=">=3.0",
-    test_suite="tests.test_all"
+    test_suite="tests.test_all",
 )

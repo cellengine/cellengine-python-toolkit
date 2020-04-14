@@ -35,8 +35,10 @@ def properties_tester(comp):
     assert hasattr(comp, "apply")
     assert hasattr(comp, "dataframe_as_html")
 
+
 def test_compensation_properties(compensation):
     properties_tester(compensation)
+
 
 @responses.activate
 def test_update_compensation(experiment, compensation):

@@ -15,7 +15,7 @@ def by_name(path: str, query: str, name: str) -> str:
     return content["_id"]
 
 
-def handle_response(response: Union['Response', List]) -> 'Response':
+def handle_response(response: Union["Response", List]) -> "Response":
     if type(response) is list:
         handle_list(response)
     else:
@@ -82,7 +82,7 @@ class Loader(object):
         return loader.load()
 
     @staticmethod
-    def get_fcsfile(experiment_id: str, _id: str, name: str) -> 'FcsFile':
+    def get_fcsfile(experiment_id: str, _id: str, name: str) -> "FcsFile":
         fcs_loader = Loader(
             id=_id,
             name=name,

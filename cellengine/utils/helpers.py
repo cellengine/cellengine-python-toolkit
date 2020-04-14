@@ -12,6 +12,7 @@ ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
 first_cap_re = re.compile("(.)([A-Z][a-z]+)")
 all_cap_re = re.compile("([a-z0-9])([A-Z])")
 
+
 def check_id(_id):
     try:
         assert bool(ID_REGEX.match(_id)) is True
@@ -78,6 +79,7 @@ class GetSet:
     def name(self, name):
     ```
     """
+
     def __init__(self, name, read_only=False):
         self.name = name
         self.read_only = read_only
@@ -116,7 +118,7 @@ def base_list(url, classname):
     return make_class(classname, content=base_get(url))
 
 
-def make_class(classname: Union[str, 'APIObject'], content: Union[Dict, List]):
+def make_class(classname: Union[str, "APIObject"], content: Union[Dict, List]):
     """Instantiate an object with data from the CE API.
     Accepts the class name as a string or type.
     """
@@ -133,7 +135,7 @@ def evaluate_classname(classname):
     return classname
 
 
-def base_get(url, params: dict = None) -> 'Response':
+def base_get(url, params: dict = None) -> "Response":
     res = session.get(url, params=params)
     res.raise_for_status()
     if res.apparent_encoding is not None:
@@ -153,9 +155,16 @@ def base_post(url: str, json: Dict = None, params: Dict = None, **kwargs):
     except:
         raise RequestException(res.content)
 
+
 def base_create(
-        url: str, expected_status: int, classname: Union[str, 'APIObject'] = None, json: Dict = None, params: Dict = None, files: Dict = None, **kwargs
-) -> Union['Response', str]:
+    url: str,
+    expected_status: int,
+    classname: Union[str, "APIObject"] = None,
+    json: Dict = None,
+    params: Dict = None,
+    files: Dict = None,
+    **kwargs
+) -> Union["Response", str]:
     """Create a new object.
 
     Args:
@@ -184,7 +193,7 @@ def base_create(
         raise RuntimeError(res.content.decode())
 
 
-def parse_response(content: 'Response') -> Union[List, str]:
+def parse_response(content: "Response") -> Union[List, str]:
     content = content.json()
     return parse_list_or_single(content)
 

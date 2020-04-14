@@ -2,6 +2,7 @@ import pandas
 from typing import Union, List
 from cellengine.utils.helpers import GetSet, base_post
 
+
 def get_statistics(
     experiment_id: str,
     statistics: Union[str, List[str]],
@@ -51,6 +52,7 @@ def get_statistics(
     Returns:
         statistics: Dict, String, or pandas.Dataframe
     """
+
     def determine_format(f):
         if f == "pandas":
             return "json"
@@ -71,12 +73,14 @@ def get_statistics(
     }
     req_params = {key: val for key, val in params.items() if val is not None}
 
-    res = base_post("experiments/{}/bulkstatistics".format(experiment_id), data=req_params)
+    res = base_post(
+        "experiments/{}/bulkstatistics".format(experiment_id), data=req_params
+    )
 
     format = format.lower()
     if format == "json":
         return res.json()
-    elif ("sv" in format):
+    elif "sv" in format:
         try:
             return res.content.decode()
         except ValueError as e:

@@ -140,10 +140,7 @@ def test_update_gate(experiment, rectangle_gate):
     response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
-        base_url
-        + "experiments/5d38a6f79fae87499999a74b/gates/{0}".format(
-            gate._id
-        ),
+        base_url + "experiments/5d38a6f79fae87499999a74b/gates/{0}".format(gate._id),
         json=response,
     )
     gate.name = "newname"

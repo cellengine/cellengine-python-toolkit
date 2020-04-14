@@ -77,6 +77,8 @@ class Compensation(object):
 
     # API methods
     def update(self):
-        res = helpers.base_update("experiments/{0}/compensations/{1}".format(self.experiment_id, self._id), body = self._properties)
+        res = helpers.base_update(
+            "experiments/{0}/compensations/{1}".format(self.experiment_id, self._id),
+            body=self._properties,
+        )
         self._properties.update(res)
-

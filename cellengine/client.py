@@ -56,7 +56,9 @@ class Client(object):
         else:
             raise RuntimeError("Username or token must be provided")
 
-    def get_experiment(self, _id: Optional[str] = None, name: Optional[str] = None) -> Experiment:
+    def get_experiment(
+        self, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Experiment:
         return Loader.get_experiment(_id=_id, name=name)
 
     @property

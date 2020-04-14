@@ -17,7 +17,7 @@ def test_update_experiment(experiments):
     responses.add(
         responses.PATCH,
         base_url + "experiments/5d38a6f79fae87499999a74b",
-        json=response
+        json=response,
     )
     assert experiment.name == "pytest_experiment"
     experiment.name = "new name"
@@ -42,11 +42,16 @@ def test_list_fcsfile(experiment, fcsfiles):
 @responses.activate
 def test_list_populations(experiment, populations):
     """Tests listing files in an experiment"""
-    responses.add(responses.GET, base_url+"experiments/5d38a6f79fae87499999a74b/populations",
-                  json=populations)
+    responses.add(
+        responses.GET,
+        base_url + "experiments/5d38a6f79fae87499999a74b/populations",
+        json=populations,
+    )
     all_populations = experiment.populations
     assert type(all_populations) is list
-    assert all([type(population) is cellengine.Population for population in all_populations])
+    assert all(
+        [type(population) is cellengine.Population for population in all_populations]
+    )
 
 
 @responses.activate
@@ -130,6 +135,7 @@ def test_all_experiment_properties(experiment):
         "2019-07-24T18:44:07.520Z"
     )
 
+
 @responses.activate
 def test_get_statistics(experiment):
     """Tests getting statistics for an experiment"""
@@ -139,7 +145,5 @@ def test_get_statistics(experiment):
         json={"some": "json"},
     )
     body = "statistics=mean&channels=FSC-A&annotations=False&format=json"
-    stats = experiment.get_statistics(
-        "mean",
-        "FSC-A")
+    stats = experiment.get_statistics("mean", "FSC-A")
     assert responses.calls[0].request.body == body
