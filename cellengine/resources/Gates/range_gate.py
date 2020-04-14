@@ -46,7 +46,6 @@ def create_range_gate(
     if gid is None:
         gid = generate_id()
 
-
     model = {"locked": locked, "label": label, "range": {"x1": x1, "x2": x2, "y": y}}
 
     body = {

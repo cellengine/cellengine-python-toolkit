@@ -58,7 +58,7 @@ class Gate(ABC):
         return "{}(_id='{}', name='{}')".format(self.type, self._id, self.name)
 
     @classmethod
-    def create(cls, gates: Dict) -> List['Gate']:
+    def create(cls, gates: Dict) -> List["Gate"]:
         """Build a Gate object from a dict of properties."""
         if type(gates) is list:
             return cls._create_multiple_gates(gates)
@@ -193,7 +193,10 @@ class Gate(ABC):
 
     # API methods
     def update(self):
-        res = helpers.base_update("experiments/{0}/gates/{1}".format(self.experiment_id, self._id), body = self._properties)
+        res = helpers.base_update(
+            "experiments/{0}/gates/{1}".format(self.experiment_id, self._id),
+            body=self._properties,
+        )
         self._properties.update(res)
 
 
@@ -212,7 +215,7 @@ class RectangleGate(Gate):
         y2: int,
         label: List[str] = [],
         gid: str = None,
-        locked: bool =False,
+        locked: bool = False,
         parent_population_id: str = None,
         parent_population: str = None,
         tailored_per_file: bool = False,
@@ -274,13 +277,13 @@ class PolygonGate(Gate):
         y_vertices: int,
         label: List[str] = [],
         gid: str = None,
-        locked: bool =False,
+        locked: bool = False,
         parent_population_id: str = None,
         parent_population: str = None,
         tailored_per_file: bool = False,
         fcs_file_id: str = None,
         fcs_file: str = None,
-        create_population: bool = True
+        create_population: bool = True,
     ):
 
         """Creates a polygon gate.
@@ -335,13 +338,13 @@ class EllipseGate(Gate):
         minor: int,
         label: List[str] = [],
         gid: str = None,
-        locked: bool =False,
+        locked: bool = False,
         parent_population_id: str = None,
         parent_population: str = None,
         tailored_per_file: bool = False,
         fcs_file_id: str = None,
         fcs_file: str = None,
-        create_population: bool = True
+        create_population: bool = True,
     ):
         """Creates an ellipse gate.
 
@@ -397,13 +400,13 @@ class RangeGate(Gate):
         y: int = 0.5,
         label: List[str] = [],
         gid: str = None,
-        locked: bool =False,
+        locked: bool = False,
         parent_population_id: str = None,
         parent_population: str = None,
         tailored_per_file: bool = False,
         fcs_file_id: str = None,
         fcs_file: str = None,
-        create_population: bool = True
+        create_population: bool = True,
     ):
         """Creates a range gate.
 
@@ -457,13 +460,13 @@ class QuadrantGate(Gate):
         labels: List[str] = [],
         gid: str = None,
         gids: List[str] = None,
-        locked: bool =False,
+        locked: bool = False,
         parent_population_id: str = None,
         parent_population: str = None,
         tailored_per_file: bool = False,
         fcs_file_id: str = None,
         fcs_file: str = None,
-        create_population: bool = True
+        create_population: bool = True,
     ):
         """
         Creates a quadrant gate. Quadrant gates have four sectors (upper-right,
@@ -520,13 +523,13 @@ class SplitGate(Gate):
         labels: List[str] = [],
         gid: str = None,
         gids: List[str] = None,
-        locked: bool =False,
+        locked: bool = False,
         parent_population_id: str = None,
         parent_population: str = None,
         tailored_per_file: bool = False,
         fcs_file_id: str = None,
         fcs_file: str = None,
-        create_population: bool = True
+        create_population: bool = True,
     ):
         """
         Creates a split gate. Split gates have two sectors (right and left),

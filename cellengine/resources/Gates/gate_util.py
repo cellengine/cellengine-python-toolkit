@@ -4,7 +4,6 @@ from cellengine.utils.generate_id import generate_id
 from cellengine.utils.loader import Loader
 
 
-
 def create_common_gate(
     experiment_id, body, tailored_per_file, fcs_file_id, fcs_file, create_population
 ):

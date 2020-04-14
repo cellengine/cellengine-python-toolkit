@@ -49,7 +49,7 @@ def test_get_attachment(experiment, attachments):
         base_url + "experiments/5d64abe2ca9df61349ed8e78/attachments",
         json=attachments,
     )
-    att = cellengine.Attachment.list('5d64abe2ca9df61349ed8e78')
+    att = cellengine.Attachment.list("5d64abe2ca9df61349ed8e78")
     assert type(att) is list
     [attachments_tester(item) for item in att]
 

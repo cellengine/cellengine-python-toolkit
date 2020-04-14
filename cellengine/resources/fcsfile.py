@@ -82,4 +82,3 @@ class FcsFile(object):
             body=self._properties,
         )
         self._properties.update(res)
-

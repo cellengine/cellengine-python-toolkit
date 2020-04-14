@@ -2,6 +2,7 @@ import attr
 from cellengine.utils import helpers
 from cellengine.utils.helpers import GetSet
 
+
 @attr.s(repr=False, slots=True)
 class Attachment(object):
     """A class representing a CellEngine attachment.
@@ -35,8 +36,10 @@ class Attachment(object):
     # upload
     @classmethod
     def create(cls, experiment_id: str, filepath: str):
-        files = {'upload_file': open(filepath,'rb')}
-        res = helpers.session.post("experiments/{0}/attachments".format(experiment_id), files=files)
+        files = {"upload_file": open(filepath, "rb")}
+        res = helpers.session.post(
+            "experiments/{0}/attachments".format(experiment_id), files=files
+        )
         if res.ok:
             return cls(res.json())
 
@@ -66,13 +69,11 @@ class Attachment(object):
         Returns:
             content: JSON-serializable if possible, otherwise the raw response content.
         """
-        res = helpers.base_get("experiments/{0}/attachments/{1}".format(self.experiment_id,
-            self._id))
+        res = helpers.base_get(
+            "experiments/{0}/attachments/{1}".format(self.experiment_id, self._id)
+        )
         if to_file:
             with open(to_file, "wb") as f:
                 f.write(res)
         else:
             return res
-
-
-
