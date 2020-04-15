@@ -157,7 +157,7 @@ def test_different_item_cache_accessor(client, experiments, fcsfiles):
 @responses.activate
 def test_global_cache_accessor(client, experiments):
     loader.by_name.cache_clear()
-    assert cellengine.cache_info().misses == 0
+    assert client.cache_info().misses == 0
     assert loader.by_name.cache_info().misses == 0
 
     responses.add(responses.GET, base_url + "experiments", json=experiments[0])
@@ -167,9 +167,9 @@ def test_global_cache_accessor(client, experiments):
         json=experiments[0],
     )
     exp1 = client.get_experiment(name="test_experiment")
-    assert cellengine.cache_info().misses == 1
+    assert client.cache_info().misses == 1
     assert loader.by_name.cache_info().misses == 1
 
-    cellengine.clear_cache()
-    assert cellengine.cache_info().misses == 0
+    client.cache_clear()
+    assert client.cache_info().misses == 0
     assert loader.by_name.cache_info().misses == 0
