@@ -185,8 +185,8 @@ class Experiment(object):
     # Gate Methods:
 
     @doc_inherit(Gate.delete_gates)
-    def delete_gates(experiment_id, _id=None, gid=None, exclude=None):
-        return Gate.delete_gates(self._id, **kwargs)
+    def delete_gates(self, experiment_id, _id=None, gid=None, exclude=None):
+        return Gate.delete_gates(self._id, _id, gid, exclude)
 
     @doc_inherit(RectangleGate.create)
     def create_rectangle_gate(self, *args, **kwargs):
