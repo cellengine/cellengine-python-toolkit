@@ -1,11 +1,8 @@
 import os
-import json
 import pytest
-import pandas
 import responses
 from requests.exceptions import RequestException
 
-import cellengine
 from cellengine.resources.statistics import get_statistics
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
@@ -24,8 +21,12 @@ def test_object_should_request_all_properties(experiment, statistic_response):
         json=statistic_response,
     )
 
-    body = "statistics=mean&q=1&channels=FSC-A&annotations=False&compensationId=some+id&fcsFileIds=some+file+id&format=json&layout=medium&percentOf=PARENT&populationIds=some+population+id"
-    stats = get_statistics(
+    body = (
+        "statistics=mean&q=1&channels=FSC-A&annotations=False"
+        "&compensationId=some+id&fcsFileIds=some+file+id&format=json"
+        "&layout=medium&percentOf=PARENT&populationIds=some+population+id"
+    )
+    get_statistics(
         experiment._id,
         "mean",
         "FSC-A",

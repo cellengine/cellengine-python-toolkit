@@ -1,9 +1,10 @@
 import re
-from requests.exceptions import RequestException
+from requests.exceptions import RequestException, HTTPError
 from requests import Response
 from typing import Dict, List, Union
 from cellengine.client import session
 from datetime import datetime
+
 cellengine = __import__(__name__.split(".")[0])
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
@@ -14,8 +15,8 @@ all_cap_re = re.compile("([a-z0-9])([A-Z])")
 def check_id(_id):
     try:
         assert bool(ID_REGEX.match(_id)) is True
-    except ValueError:
-        print("Object has an invalid ID.")
+    except Exception as e:
+        ValueError("Object has an invalid ID.", e)
 
 
 def camel_to_snake(name: str) -> str:
@@ -139,7 +140,8 @@ def base_get(url, params: dict = None) -> Response:
     if res.apparent_encoding is not None:
         try:
             return res.json()
-        except:
+        except Exception:
+            # Return the non-JSON content
             return res.content
     else:
         return res
@@ -150,8 +152,8 @@ def base_post(url: str, json: Dict = None, params: Dict = None, **kwargs):
     try:
         res.raise_for_status()
         return res
-    except:
-        raise RequestException(res.content)
+    except HTTPError as e:
+        raise RequestException(res.content, e)
 
 
 def base_create(

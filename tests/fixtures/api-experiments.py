@@ -42,11 +42,7 @@ def experiments():
             "deleted": None,
             "deepUpdated": "2019-10-15T09:58:38.224Z",
             "created": "2019-07-24T18:44:07.520Z",
-            "comments": [
-                {
-                    "insert": "\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n"
-                }
-            ],
+            "comments": [{"insert": "\xa0\xa0\xa0First 12 of 96 files\n\n"}],
         },
         {
             "_id": "5d5faa686d24fd0bf35129b1",

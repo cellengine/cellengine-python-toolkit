@@ -1,3 +1,4 @@
+# flake8: noqa
 import os
 import requests
 from requests_toolbelt import sessions
@@ -31,5 +32,3 @@ from .resources.gate import (
     SplitGate,
     RangeGate,
 )
-
-

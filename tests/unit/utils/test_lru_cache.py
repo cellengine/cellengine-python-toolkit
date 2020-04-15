@@ -1,6 +1,5 @@
 import os
 import responses
-import cellengine
 from cellengine.utils import loader
 
 # TODO: pull the double-responses from a name request into a fixture
@@ -22,7 +21,7 @@ def test_lru_cache(client, experiments):
         base_url + "experiments/5d38a6f79fae87499999a74b",
         json=experiments[0],
     )
-    exp1 = client.get_experiment(name="test_experiment")
+    client.get_experiment(name="test_experiment")
     assert loader.by_name.cache_info().misses == 1
 
     responses.add(responses.GET, base_url + "experiments", json=experiments[0])
@@ -31,7 +30,7 @@ def test_lru_cache(client, experiments):
         base_url + "experiments/5d38a6f79fae87499999a74b",
         json=experiments[0],
     )
-    exp1 = client.get_experiment(name="test_experiment")
+    client.get_experiment(name="test_experiment")
     assert loader.by_name.cache_info().misses == 1
     assert loader.by_name.cache_info().hits == 1
 
@@ -41,7 +40,7 @@ def test_lru_cache(client, experiments):
         base_url + "experiments/5d38a6f79fae87499999a74b",
         json=experiments[1],
     )
-    exp2 = client.get_experiment(name="test_experiment-1")
+    client.get_experiment(name="test_experiment-1")
     assert loader.by_name.cache_info().misses == 2
 
 
@@ -58,14 +57,14 @@ def test_lru_cache_paths(client, experiments, fcsfiles, experiment):
         json=experiments[0],
     )
 
-    exp = client.get_experiment(name="test_experiment")
+    client.get_experiment(name="test_experiment")
     assert (
         responses.calls[0].request.url
         == base_url + "experiments?query=eq(name,%22test_experiment%22)&limit=2"
     )
 
     responses.add(responses.GET, base_url + "experiments", json=experiments[0])
-    exp_copy = client.get_experiment(name="test_experiment")
+    client.get_experiment(name="test_experiment")
     assert (
         responses.calls[1].request.url
         == base_url + "experiments/5d38a6f79fae87499999a74b"
@@ -77,7 +76,7 @@ def test_lru_cache_paths(client, experiments, fcsfiles, experiment):
         base_url + "experiments/5d5faa686d24fd0bf35129b1",
         json=experiments[1],
     )
-    different_exp = client.get_experiment(name="pytest_experiment")
+    client.get_experiment(name="pytest_experiment")
     assert (
         responses.calls[2].request.url
         == base_url + "experiments/5d38a6f79fae87499999a74b"
@@ -166,7 +165,7 @@ def test_global_cache_accessor(client, experiments):
         base_url + "experiments/5d38a6f79fae87499999a74b",
         json=experiments[0],
     )
-    exp1 = client.get_experiment(name="test_experiment")
+    client.get_experiment(name="test_experiment")
     assert client.cache_info().misses == 1
     assert loader.by_name.cache_info().misses == 1
 

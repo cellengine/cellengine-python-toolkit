@@ -90,11 +90,7 @@ def test_all_experiment_properties(experiment):
     assert type(experiment._properties) is dict
     assert experiment._id == "5d38a6f79fae87499999a74b"
     assert experiment.name == "pytest_experiment"
-    assert experiment.comments == [
-        {
-            "insert": "\xa0\xa0\xa0First 12 of 96 files from barcoding technical experiment (Primity)\n\n"
-        }
-    ]
+    assert experiment.comments == [{"insert": "\xa0\xa0\xa0First 12 of 96 files\n\n"}]
     assert experiment.updated == helpers.timestamp_to_datetime(
         "2019-08-29T14:40:58.566Z"
     )
@@ -145,5 +141,5 @@ def test_get_statistics(experiment):
         json={"some": "json"},
     )
     body = "statistics=mean&channels=FSC-A&annotations=False&format=json"
-    stats = experiment.get_statistics("mean", "FSC-A")
+    experiment.get_statistics("mean", "FSC-A")
     assert responses.calls[0].request.body == body

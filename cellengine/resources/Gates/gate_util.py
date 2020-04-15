@@ -1,6 +1,4 @@
-import re
 from cellengine.utils import helpers
-from cellengine.utils.generate_id import generate_id
 from cellengine.utils.loader import Loader
 
 

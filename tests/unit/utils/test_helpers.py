@@ -1,5 +1,4 @@
 import os
-import responses
 import cellengine
 from cellengine.utils import helpers
 

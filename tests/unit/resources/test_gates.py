@@ -3,7 +3,6 @@ import json
 import pytest
 import responses
 import cellengine
-from cellengine.utils import helpers
 from cellengine.resources.gate import Gate
 from requests.exceptions import RequestException
 
@@ -73,7 +72,6 @@ def test_create_multiple_gates(rectangle_gate):
         json=[rectangle_gate, rectangle_gate],
     )
     gates = Gate.create([rectangle_gate, rectangle_gate])
-    gates.post()
     gate_tester(gates[0])
     gate_tester(gates[1])
 
@@ -113,19 +111,6 @@ def test_create_gate_with_bad_params(bad_gate):
     with pytest.raises(RequestException):
         g = Gate.create(bad_gate)
         g.post()
-
-
-@responses.activate
-def test_create_multiple_gates(gates):
-    responses.add(
-        responses.POST,
-        base_url + "experiments/5d64abe2ca9df61349ed8e78/gates",
-        status=201,
-        json=gates[0:4],
-    )
-    gates = gates[0:4]
-    all_gates = cellengine.Gate.create(gates)
-    assert type(all_gates) is list
 
 
 @responses.activate

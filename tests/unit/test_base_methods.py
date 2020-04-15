@@ -5,13 +5,6 @@ from cellengine.utils import helpers
 
 
 base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
-# @responses.activate
-# def test_list_fcsfile(experiment, files):
-#     """Tests listing fcs files in an experiment"""
-#     responses.add(responses.GET, base_url+"experiments/5d38a6f79fae87499999a74b/fcsfiles",
-#                   json=files)
-#     all_files = experiment.files
-#     assert type(all_files) is list
 
 
 def method_tester(res):

@@ -1,6 +1,6 @@
 import pandas
 from typing import Union, List
-from cellengine.utils.helpers import GetSet, base_post
+from cellengine.utils.helpers import base_post
 
 
 def get_statistics(
@@ -83,10 +83,10 @@ def get_statistics(
     elif "sv" in format:
         try:
             return res.content.decode()
-        except ValueError as e:
-            raise e("Invalid output format {}".format(format))
+        except Exception as e:
+            raise ValueError("Invalid output format {}".format(format), e)
     elif format == "pandas":
         try:
             return pandas.DataFrame.from_dict(res.json())
-        except:
-            raise ValueError("Invalid data format {} for pandas".format(format))
+        except Exception as e:
+            raise ValueError("Invalid data format {} for pandas".format(format), e)
