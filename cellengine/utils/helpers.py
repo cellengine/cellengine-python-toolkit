@@ -1,11 +1,9 @@
-import os
 import re
 from requests.exceptions import RequestException
-from functools import lru_cache
+from requests import Response
 from typing import Dict, List, Union
 from cellengine.client import session
 from datetime import datetime
-
 cellengine = __import__(__name__.split(".")[0])
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
@@ -135,7 +133,7 @@ def evaluate_classname(classname):
     return classname
 
 
-def base_get(url, params: dict = None) -> "Response":
+def base_get(url, params: dict = None) -> Response:
     res = session.get(url, params=params)
     res.raise_for_status()
     if res.apparent_encoding is not None:
@@ -164,7 +162,7 @@ def base_create(
     params: Dict = None,
     files: Dict = None,
     **kwargs
-) -> Union["Response", str]:
+) -> Union[Response, str]:
     """Create a new object.
 
     Args:
@@ -193,7 +191,7 @@ def base_create(
         raise RuntimeError(res.content.decode())
 
 
-def parse_response(content: "Response") -> Union[List, str]:
+def parse_response(content: Response) -> Union[List, str]:
     content = content.json()
     return parse_list_or_single(content)
 

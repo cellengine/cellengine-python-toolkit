@@ -33,7 +33,3 @@ from .resources.gate import (
 )
 
 
-from .utils.loader import by_name
-
-cache_info = by_name.cache_info
-clear_cache = by_name.cache_clear

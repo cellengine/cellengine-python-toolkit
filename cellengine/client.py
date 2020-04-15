@@ -5,6 +5,7 @@ from cellengine import session
 from cellengine.utils import helpers
 from cellengine.utils.loader import Loader
 from cellengine.resources.experiment import Experiment
+from cellengine.utils.loader import by_name
 
 
 @attr.s(repr=True)
@@ -35,6 +36,12 @@ class Client(object):
     password = attr.ib(default=None, repr=False)
     token = attr.ib(default=None, repr=False)
     _session = attr.ib(session, repr=False)
+
+    def cache_info(self):
+        return by_name.cache_info()
+
+    def cache_clear(self):
+        return by_name.cache_clear()
 
     def __attrs_post_init__(self):
         """Automatically send authentication"""
