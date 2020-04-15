@@ -1,6 +1,5 @@
 import numpy
 
-from cellengine.utils import helpers
 from cellengine.utils.generate_id import generate_id
 from .gate_util import create_common_gate
 

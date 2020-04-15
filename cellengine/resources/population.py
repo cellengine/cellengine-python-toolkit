@@ -1,4 +1,3 @@
-cellengine = __import__(__name__.split(".")[0])
 import attr
 from cellengine.utils import helpers
 from cellengine.utils.helpers import GetSet

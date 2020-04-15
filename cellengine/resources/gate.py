@@ -1,11 +1,8 @@
 from typing import Dict, List
 import attr
-import numpy
 from cellengine.utils import helpers
-from cellengine.utils.helpers import GetSet, convert_dict
-from cellengine.utils.helpers import convert_dict
+from cellengine.utils.helpers import GetSet
 from cellengine.resources import Gates
-from custom_inherit import doc_inherit
 
 import importlib
 from abc import ABC
@@ -80,14 +77,15 @@ class Gate(ABC):
         experiment_id = gates[0]["experimentId"]
         try:
             assert all([gate["experimentId"] == experiment_id for gate in gates])
-        except ValueError:
-            print("All gates must be posted to the same experiment")
+        except Exception as e:
+            raise ValueError("All gates must be posted to the same experiment", e)
         res = cls._post_gate(gates, experiment_id, create_population=False)
         return res
 
     @classmethod
     def _post_gate(cls, gate, experiment_id, create_population):
-        """Post the gate, passing the factory as the class, which returns the correct subclass."""
+        """Post the gate
+        Passes the factory as the class, returning the correct subclass."""
         res = helpers.base_create(
             "experiments/{}/gates".format(experiment_id),
             json=gate,
@@ -238,7 +236,7 @@ class RectangleGate(Gate):
             experiment.create_rectangle_gate(x_channel="FSC-A", y_channel="FSC-W",
             name="my gate", 12.502, 95.102, 1020, 32021.2)
             cellengine.Gate.create_rectangle_gate(experiment_id, x_channel="FSC-A",
-            y_channel="FSC-W", name="my gate", x1=12.502, x2=95.102, y1=1020, y2=32021.2,
+            y_channel="FSC-W", name="my gate", x1=12.5, x2=95.1, y1=1020, y2=32021.2,
             gid=global_gate.gid)
         """
 

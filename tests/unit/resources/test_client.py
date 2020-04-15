@@ -1,5 +1,4 @@
 import os
-import pytest
 import responses
 import cellengine
 

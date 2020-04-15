@@ -40,12 +40,6 @@ class Experiment(object):
         return "Experiment(_id='{}', name='{}')".format(self._id, self.name)
 
     @property
-    def files(self):
-        """List all files on the experiment"""
-        url = "experiments/{0}/fcsfiles".format(self._id)
-        return helpers.base_list(url, FcsFile)
-
-    @property
     def comments(self):
         comments = self._properties["comments"]
         if type(comments) is not CommentList:

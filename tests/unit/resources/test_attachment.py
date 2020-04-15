@@ -1,6 +1,5 @@
 import os
 import json
-from pathlib import Path
 import pytest
 import responses
 import cellengine

@@ -2,8 +2,6 @@ import os
 import json
 import pytest
 import responses
-import cellengine
-from cellengine.utils import helpers
 from cellengine.utils.generate_id import generate_id
 
 
@@ -52,7 +50,7 @@ def test_tailored_per_file_true(experiment, gates):
         tailored_per_file=True,
     )
     res.post()
-    assert json.loads(responses.calls[0].request.body)["tailoredPerFile"] == True
+    assert json.loads(responses.calls[0].request.body)["tailoredPerFile"] is True
 
 
 @responses.activate
@@ -67,7 +65,7 @@ def test_fcs_file_id_is_None_and_fcs_file_is_None(experiment, gates):
         "FSC-A", "FSC-W", "fcs_rect_gate", x1=1, x2=2, y1=3, y2=4
     )
     res.post()
-    assert json.loads(responses.calls[0].request.body)["fcsFileId"] == None
+    assert json.loads(responses.calls[0].request.body)["fcsFileId"] is None
 
 
 @responses.activate
@@ -91,7 +89,7 @@ def test_create_global_tailored_gate(experiment, gates):
         gid=global_gid,
     )
     res.post()
-    assert json.loads(responses.calls[0].request.body)["tailoredPerFile"] == True
+    assert json.loads(responses.calls[0].request.body)["tailoredPerFile"] is True
     assert json.loads(responses.calls[0].request.body)["gid"] == global_gid
 
 
@@ -152,7 +150,7 @@ def test_fcs_file_called_by_name(experiment, fcsfiles, gates):
         tailored_per_file=True,
     )
     res.post()
-    assert json.loads(responses.calls[2].request.body)["tailoredPerFile"] == True
+    assert json.loads(responses.calls[2].request.body)["tailoredPerFile"] is True
     assert (
         json.loads(responses.calls[2].request.body)["fcsFileId"]
         == "5d64abe2ca9df61349ed8e7c"
