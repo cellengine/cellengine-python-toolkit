@@ -1,0 +1,19 @@
+name: Build and Deploy Docs
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+      - name: Deploy docs
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          pip install -r requirements.txt
+          mkdocs gh-deploy --config-file "${GITHUB_WORKSPACE}/mkdocs.yml" --force
