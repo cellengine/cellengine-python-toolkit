@@ -2,7 +2,9 @@ params.py
 .envrc
 venv/
 tags/
+tags
 .vim
+.bumpversion.cfg
 
 # for Mkdocs build
 site/

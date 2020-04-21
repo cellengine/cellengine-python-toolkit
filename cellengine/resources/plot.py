@@ -2,10 +2,10 @@ import attr
 from typing import Dict
 from cellengine.utils.wrapped_image import WrappedImage
 
-from cellengine.utils.helpers import GetSet, base_get, convert_dict
+from cellengine.utils.helpers import base_get
 
 
-@attr.s
+@attr.s(frozen=True)
 class Plot:
     """A class representing a CellEngine plot.
 
@@ -16,7 +16,7 @@ class Plot:
         y_channel (str): (for 2D plots) Y channel name.
         plot_type (str): "contour", "dot", "density" or "histogram" (case-insensitive)
         population_id (ID): Defaults to ungated.
-        properties (dict): Other optional attributes in dict form (camelCase): {"property": value}
+        properties (dict): Optional attributes in camelCase dict: {"property": value}
             compensation (ID): Compensation to use for gating and display.
             width (int): Image width. Defaults to 228.
             height (int): Image height. Defaults to 228.
@@ -78,14 +78,22 @@ class Plot:
             "xChannel": x_channel,
             "yChannel": y_channel,
             "plotType": plot_type,
-            "populationId": population_id
+            "populationId": population_id,
         }
 
         if properties:
             req_params.update(properties)
 
         res = base_get(url, params=req_params)
-        return cls(experiment_id, fcs_file, x_channel, y_channel, plot_type, population_id, res.content)
+        return cls(
+            experiment_id,
+            fcs_file,
+            x_channel,
+            y_channel,
+            plot_type,
+            population_id,
+            res.content,
+        )
 
     def display(self):
         return WrappedImage().open(self.data)
