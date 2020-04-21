@@ -94,7 +94,7 @@ def test_should_get_plot_for_each_query_parameter(
             fcsfile.channels[1],
             "dot",
             properties=param_dict,
-            population_id=populations[0]["_id"]
+            population_id=populations[0]["_id"],
         )
 
         if item[1] == "#ff0000":
@@ -112,10 +112,16 @@ def test_should_save_plot(experiment, fcsfiles):
     responses.add(
         responses.GET, base_url + "experiments/{}/plot".format(experiment._id),
     )
-    plot = Plot.get(
-        experiment._id, fcsfile._id, fcsfile.channels[1], fcsfile.channels[1], "dot"
+    # instantiate Plot directly instead of using .get because the attrs are frozen
+    plot = Plot(
+        experiment._id,
+        fcsfile._id,
+        fcsfile.channels[1],
+        fcsfile.channels[1],
+        "dot",
+        population_id=None,
+        data=b"some bytes",
     )
-    plot.data = b"some bytes"
     plot.save("test_file.png")
     with open("test_file.png", "r") as f:
         assert f.readline() == "some bytes"
