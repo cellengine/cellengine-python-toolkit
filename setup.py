@@ -21,8 +21,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="cellengine",
-    version="0.2.0",
+    name="cellengine-python-toolkit",
+    version="0.1.0",
     description="CellEngine API toolkit for Python",
     url="https://github.com/primitybio/cellengine-python-toolkit",
     author="Primity Bio",
