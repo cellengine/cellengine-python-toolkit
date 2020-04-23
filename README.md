@@ -1,4 +1,7 @@
-[![CircleCI](https://circleci.com/gh/primitybio/cellengine-python-toolkit/tree/master.svg?style=svg&circle-token=759714479ab360ce3fda49fa8658d02df8164d0a)](https://circleci.com/gh/primitybio/cellengine-python-toolkit/tree/master)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![Lint](https://github.com/primitybio/cellengine-python-toolkit/workflows/Lint/badge.svg)
+![Test](https://github.com/primitybio/cellengine-python-toolkit/workflows/Test/badge.svg)
+[![codecov](https://codecov.io/gh/primitybio/cellengine-python-toolkit/branch/master/graph/badge.svg)](https://codecov.io/gh/primitybio/cellengine-python-toolkit)
 
 CellEngine Python API Toolkit
 -----
