@@ -1,19 +1,35 @@
-name: Build and Deploy Docs
-on:
+name: Deploy mkdocs to Github pages
+on: 
   push:
     branches:
       - master
 
 jobs:
-  build:
+  deploy:
     name: Deploy docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
-        uses: actions/checkout@v1
-      - name: Deploy docs
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies
         run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           pip install -r requirements.txt
-          mkdocs gh-deploy --config-file "${GITHUB_WORKSPACE}/mkdocs.yml" --force
+          pip install -r requirements-dev.txt
+      - name: Install mkdocs dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs
+          pip install mkdocstrings
+          pip install mkdocs-material
+      - name: Build site
+        run: mkdocs build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site
+
