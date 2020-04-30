@@ -1,9 +1,7 @@
 from typing import Dict, List
 import attr
-import numpy
 from cellengine.utils.helpers import (
     GetSet,
-    convert_dict,
     base_create,
     base_delete,
     base_update,
@@ -70,9 +68,9 @@ class Gate(ABC):
                 Experiment object.
             name (str): The name of the gate
             x_channel (str): The name of the x channel to which the gate applies.
-            gid (str): Group ID of the gate, used for tailoring. If this is not specified,
-                then a new Group ID will be created. If you wish you create a tailored
-                gate, you must specify the gid of the global tailored gate.
+            gid (str): Group ID of the gate, used for tailoring. If this is not
+                specified, then a new Group ID will be created. If you wish you create
+                a tailored gate, you must specify the gid of the global tailored gate.
             parent_population_id (str): ID of the parent population. Use ``None`` for
                 the 'ungated' population. If specified, do not specify
                 ``parent_population``.
@@ -84,9 +82,9 @@ class Gate(ABC):
             fcs_file_id (str): ID of FCS file, if tailored per file. Use ``None`` for
                 the global gate in a tailored gate group. If specified, do not
                 specify ``fcs_file``.
-            fcs_file (str): Name of FCS file, if tailored per file. An attempt will be made
-                to find the file by name. If zero or more than one file exists with
-                the name, an error will be thrown. Looking up files by name is
+            fcs_file (str): Name of FCS file, if tailored per file. An attempt will
+                be made to find the file by name. If zero or more than one file exists
+                with the name, an error will be thrown. Looking up files by name is
                 slower than using the ID, as this requires additional requests
                 to the server. If specified, do not specify ``fcs_file_id``.
             locked (bool): Prevents modification of the gate via the web interface.
@@ -119,7 +117,11 @@ class Gate(ABC):
 
     @classmethod
     def _post_gate(cls, gate, experiment_id, create_population):
-        """Post the gate, passing the factory as the class, which returns the correct subclass."""
+        """Post the gate, passing the factory as the class.
+
+        Returns:
+            The correct Gate subclass.
+        """
         res = base_create(
             "experiments/{}/gates".format(experiment_id),
             json=gate,
@@ -264,7 +266,7 @@ class RectangleGate(Gate):
     ):
         """Creates a rectangle gate.
 
-        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+        Refer to the [Gate][cellengine.resources.gate.Gate] class for optional args.
 
         Args:
             x1 (float): The first x coordinate (after the channel's scale has been applied).
@@ -332,7 +334,7 @@ class PolygonGate(Gate):
 
         """Creates a polygon gate.
 
-        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+        Refer to the [Gate][cellengine.resources.gate.Gate] class for optional args.
 
         Args:
             y_channel (str): The name of the y channel to which the gate applies.
@@ -396,7 +398,7 @@ class EllipseGate(Gate):
     ):
         """Creates an ellipse gate.
 
-        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+        Refer to the [Gate][cellengine.resources.gate.Gate] class for optional args.
 
         Args:
             y_channel (str): The name of the y channel to which the gate applies.
@@ -462,7 +464,7 @@ class RangeGate(Gate):
     ):
         """Creates a range gate.
 
-        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+        Refer to the [Gate][cellengine.resources.gate.Gate] class for optional args.
 
         Args:
             y_channel (str): The name of the y channel to which the gate applies.
@@ -528,7 +530,7 @@ class QuadrantGate(Gate):
         Creates a quadrant gate. Quadrant gates have four sectors (upper-right,
         upper-left, lower-left, lower-right), each with a unique gid and name.
 
-        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+        Refer to the [Gate][cellengine.resources.gate.Gate] class for optional args.
 
         Args:
             x (float): The x coordinate of the center point (after the channel's scale has
@@ -596,7 +598,7 @@ class SplitGate(Gate):
         Creates a split gate. Split gates have two sectors (right and left),
         each with a unique gid and name.
 
-        Refer to the base [Gate][cellengine.resources.gate.Gate] class for optional args.
+        Refer to the [Gate][cellengine.resources.gate.Gate] class for optional args.
 
         Args:
             x (float): The x coordinate of the center point (after the channel's scale has
