@@ -7,6 +7,7 @@ site_author: 'Zach Bjornson, Gerrit Egnew'
 # Repository
 repo_name: 'primitybio/cellengine-pythoon-toolkit'
 repo_url: 'https://github.com/primitybio/cellengine-python-toolkit'
+site_url: 'https://primitybio.github.io/cellengine-python-toolkit/'
 
 # Site Layout
 nav:
@@ -20,6 +21,7 @@ nav:
   - Cookbook: recipes.md
   - Development: contributing.md
   - About: about.md
+  - Legal: licenseagreement.md
 
 # Build information
 docs_dir: 'docs/src'
@@ -60,12 +62,3 @@ markdown_extensions:
   - admonition
   - codehilite
   - pymdownx.superfences
-  
-## Options
-# use_directory_urls: true # default
-# extra:
-#   logo: 'docs/src/images/logo.svg'
-  
-# extra_css:
-#   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-beta/katex.min.css
-#   - ./styles.css

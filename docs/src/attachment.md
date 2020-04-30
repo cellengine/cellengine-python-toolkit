@@ -9,7 +9,7 @@ Methods are available for common access and transformations on the Attachment.
 
 ## Methods
 
-::: cellengine.resources.attachment.Attachment
+::: cellengine.resources.attachments.Attachment
     rendering:
       show_root_heading: true
       show_source: false
