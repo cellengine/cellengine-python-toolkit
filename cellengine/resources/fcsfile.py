@@ -89,14 +89,17 @@ class FcsFile(object):
         """Return all channels in the file"""
         return [f["channel"] for f in self.panel]
 
-
     @events.setter
     def events(self, val):
         self.__dict__["_events"] = val
 
     @doc_inherit(Plot.get)
-    def plot(self, x_channel: str, y_channel: str, plot_type: str, properties: Dict = None) -> Plot:
-        plot = Plot.get(self.experiment_id, self._id, x_channel, y_channel, plot_type, properties)
+    def plot(
+        self, x_channel: str, y_channel: str, plot_type: str, properties: Dict = None
+    ) -> Plot:
+        plot = Plot.get(
+            self.experiment_id, self._id, x_channel, y_channel, plot_type, properties
+        )
         return plot
 
     # API methods

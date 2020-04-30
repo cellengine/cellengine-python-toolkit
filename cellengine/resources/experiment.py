@@ -264,9 +264,7 @@ class Experiment(object):
                   synchronizes the properties with the current Experiment object.
 
         """
-        res = base_update(
-            "experiments/{0}".format(self._id), body=self._properties
-        )
+        res = base_update("experiments/{0}".format(self._id), body=self._properties)
         self._properties.update(res)
 
     # Gate Methods:
