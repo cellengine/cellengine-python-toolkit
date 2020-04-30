@@ -1,5 +1,5 @@
 name: Build and Deploy Docs
-on:
+on: 
   push:
     branches:
       - master
@@ -11,9 +11,15 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
       - name: Deploy docs
         run: |
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          pip install -r requirements.txt
           mkdocs gh-deploy --config-file "${GITHUB_WORKSPACE}/mkdocs.yml" --force
