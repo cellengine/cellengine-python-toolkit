@@ -4,7 +4,7 @@ For full API documentation visit [CellEngine](https://docs.cellengine.com/api/).
 
 ## Quickstart
 
-Install `cellengine` using `pip`:
+Install `cellengine-python-toolkit` using `pip`:
 
 ```bash
 $ pip install git+https://github.com/primitybio/cellengine-python-toolkit.git
