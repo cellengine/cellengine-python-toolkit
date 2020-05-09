@@ -3,6 +3,7 @@ from requests.exceptions import RequestException, HTTPError
 from requests import Response
 from typing import Dict, List, Union
 from cellengine.client import session
+from cellengine.utils.classes import ResourceFactory
 from datetime import datetime
 
 cellengine = __import__(__name__.split(".")[0])
@@ -114,7 +115,7 @@ def today_timestamp() -> str:
 
 # TODO: pass list params to api
 def base_list(url, classname):
-    return make_class(classname, content=base_get(url))
+    return ResourceFactory.load(base_get(url))
 
 
 def make_class(classname: Union[str, "APIObject"], content: Union[Dict, List]):

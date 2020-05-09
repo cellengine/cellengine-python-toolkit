@@ -45,6 +45,7 @@ def test_should_instantiate_experiment(fcsfiles, experiments):
     exp = ResourceFactory.load(experiments[0])
     assert type(exp) == Experiment
 
+
 def test_should_instantiate_class(fcsfiles):
     file = ResourceFactory.load(fcsfiles[0])
     assert type(file) is FcsFile
