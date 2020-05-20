@@ -1,13 +1,14 @@
-import os
 import json
 import pytest
 import responses
-import cellengine
+
 from cellengine.resources.gate import Gate
-from requests.exceptions import RequestException
+from cellengine.utils.api_client.APIError import APIError
 
 
-base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
+EXP_ID = "5d38a6f79fae87499999a74b"
+
+# TODO: test create_population True or False
 
 
 def gate_tester(instance):
@@ -24,11 +25,11 @@ def gate_tester(instance):
     assert hasattr(instance, "model")
 
 
-def test_init_gate(polygon_gate):
+def test_init_gate(ENDPOINT_BASE, client, polygon_gate):
     """Test instantiating a gate object a correct dict of properties"""
-    g = cellengine.Gate.create(polygon_gate)
+    g = Gate.build(polygon_gate)
     gate_tester(g)
-    assert g.experiment_id == "5d38a6f79fae87499999a74b"
+    assert g.experiment_id == EXP_ID
     assert g.x_channel == "FSC-A"
     assert g.y_channel == "FSC-H"
     assert g.name == "poly_gate"
@@ -51,27 +52,27 @@ def test_init_gate(polygon_gate):
 
 
 @responses.activate
-def test_create_one_gate(rectangle_gate):
+def test_create_one_gate(ENDPOINT_BASE, client, rectangle_gate):
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=rectangle_gate,
     )
-    g = Gate.create(rectangle_gate)
+    g = Gate.build(rectangle_gate)
     g.post()
     gate_tester(g)
 
 
 @responses.activate
-def test_create_multiple_gates(rectangle_gate):
+def test_create_multiple_gates(ENDPOINT_BASE, rectangle_gate):
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=[rectangle_gate, rectangle_gate],
     )
-    gates = Gate.create([rectangle_gate, rectangle_gate])
+    gates = Gate.build([rectangle_gate, rectangle_gate])
     gate_tester(gates[0])
     gate_tester(gates[1])
 
@@ -101,35 +102,36 @@ def bad_gate():
 
 
 @responses.activate
-def test_create_gate_with_bad_params(bad_gate):
+def test_create_gate_with_bad_params(ENDPOINT_BASE, client, bad_gate):
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=400,
         json={"error": '"gid" is required.'},
     )
-    with pytest.raises(RequestException):
-        g = Gate.create(bad_gate)
+    with pytest.raises(APIError):
+        g = Gate.build(bad_gate)
         g.post()
 
 
 @responses.activate
-def test_update_gate(experiment, rectangle_gate):
+def test_update_gate(ENDPOINT_BASE, client, experiment, rectangle_gate):
     """Test that the .update() method makes the correct call. Does not test
     that the correct response is made; this should be done with an integration
     test.
     """
-    gate = cellengine.Gate.create(rectangle_gate)
+    gate = Gate.build(rectangle_gate)
     # patch the mocked response with the correct values
     response = rectangle_gate.copy()
     response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates/{0}".format(gate._id),
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates/{rectangle_gate['_id']}",
         json=response,
     )
     gate.name = "newname"
     gate.update()
+
     gate_tester(gate)
     assert json.loads(responses.calls[0].request.body) == gate._properties
 
@@ -138,12 +140,26 @@ def test_update_gate(experiment, rectangle_gate):
 #     pass
 
 
-# def test_delete_gate():
-#     pass
+@responses.activate
+def test_delete_gate(ENDPOINT_BASE, client, rectangle_gate):
+    responses.add(
+        responses.POST,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
+        status=201,
+        json=rectangle_gate,
+    )
+    responses.add(
+        responses.DELETE,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates/{rectangle_gate['_id']}",
+    )
+    g = Gate.build(rectangle_gate)
+    g.post()
+    gate_tester(g)
+    g.delete()
 
 
 @responses.activate
-def test_create_rectangle_gate(experiment, rectangle_gate):
+def test_create_rectangle_gate(ENDPOINT_BASE, client, experiment, rectangle_gate):
     """Test rectangle gate creation.
 
     Note that the returned object may not have values that match the request.
@@ -152,7 +168,7 @@ def test_create_rectangle_gate(experiment, rectangle_gate):
     """
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=rectangle_gate,
     )
@@ -174,10 +190,10 @@ def test_create_rectangle_gate(experiment, rectangle_gate):
 
 
 @responses.activate
-def test_create_ellipse_gate(experiment, ellipse_gate):
+def test_create_ellipse_gate(ENDPOINT_BASE, client, experiment, ellipse_gate):
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=ellipse_gate,
     )
@@ -200,10 +216,10 @@ def test_create_ellipse_gate(experiment, ellipse_gate):
 
 
 @responses.activate
-def test_create_polygon_gate(experiment, polygon_gate):
+def test_create_polygon_gate(ENDPOINT_BASE, client, experiment, polygon_gate):
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=polygon_gate,
     )
@@ -229,10 +245,10 @@ def test_create_polygon_gate(experiment, polygon_gate):
 
 
 @responses.activate
-def test_create_range_gate(experiment, range_gate):
+def test_create_range_gate(ENDPOINT_BASE, experiment, range_gate):
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=range_gate,
     )
@@ -247,15 +263,15 @@ def test_create_range_gate(experiment, range_gate):
 
 
 @responses.activate
-def test_create_quadrant_gate(experiment, scalesets, quadrant_gate):
+def test_create_quadrant_gate(ENDPOINT_BASE, experiment, scalesets, quadrant_gate):
     responses.add(
         responses.GET,
-        base_url + "experiments/5d38a6f79fae87499999a74b/scalesets",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/scalesets",
         json=[scalesets],
     )
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=quadrant_gate,
     )
@@ -292,15 +308,15 @@ def test_create_quadrant_gate(experiment, scalesets, quadrant_gate):
 
 
 @responses.activate
-def test_create_split_gate(experiment, scalesets, split_gate):
+def test_create_split_gate(ENDPOINT_BASE, experiment, scalesets, split_gate):
     responses.add(
         responses.GET,
-        base_url + "experiments/5d38a6f79fae87499999a74b/scalesets",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/scalesets",
         json=[scalesets],
     )
     responses.add(
         responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=split_gate,
     )

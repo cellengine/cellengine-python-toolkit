@@ -13,7 +13,8 @@ class WrappedImage(Borg):
             self.imager = imager
         else:
             raise ImportError(
-                "Try installing Pillow with `pip install pillow` or run in a Jupyter Notebook."
+                "Try installing Pillow with `pip install pillow` \
+                or run in a Jupyter Notebook."
             )
 
     def open(self, data):

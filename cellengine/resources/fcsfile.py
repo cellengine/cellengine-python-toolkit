@@ -1,97 +1,105 @@
-import attr
-import pandas
-import fcsparser
 from typing import List, Dict
 from custom_inherit import doc_inherit
 
-from cellengine.utils.helpers import GetSet, base_get, base_update
+import cellengine as ce
+from cellengine.payloads.fcsfile import _FcsFile
 from cellengine.resources.plot import Plot
 
 
-@attr.s(repr=False, slots=True)
-class FcsFile(object):
-    """A class representing a CellEngine FCS file."""
+class FcsFile(_FcsFile):
+    @classmethod
+    def get(cls, experiment_id: str, _id: str = None, name: str = None):
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_fcsfile(experiment_id=experiment_id, **kwargs)
 
-    def __repr__(self):
-        return "FcsFile(_id='{}', name='{}')".format(self._id, self.name)
-
-    _properties = attr.ib(default={}, repr=False)
-
-    _events = attr.ib(default=None)
-
-    name = GetSet("filename")
-
-    _id = GetSet("_id", read_only=True)
-
-    experiment_id = GetSet("experimentId", read_only=True)
-
-    panel_name = GetSet("panelName")
-
-    event_count = GetSet("eventCount", read_only=True)
-
-    has_file_internal_comp = GetSet("hasFileInternalComp", read_only=True)
-
-    header = GetSet("header", read_only=True)
-
-    is_control = GetSet("isControl")
-
-    size = GetSet("size")
-
-    sample_name = GetSet("sampleName", read_only=True)
-
-    spill_string = GetSet("spillString", read_only=True)
-
-    md5 = GetSet("md5")
-
-    crc32c = GetSet("crc32c", read_only=True)
-
-    filename = GetSet("filename")
-
-    # TODO: make this a Munch class
-    panel = GetSet("panel")
-
-    compensation = GetSet("compensation")
-
-    @property
-    def annotations(self):
-        """Return file annotations.
-        New annotations may be added with file.annotations.append or
-        redefined by setting file.annotations to a dict with a 'name'
-        and 'value' key (i.e. {'name': 'plate row', 'value': 'A'}) or
-        a list of such dicts.
+    @classmethod
+    def upload(cls, experiment_id: str, filepath: str):
         """
-        return self._properties["annotations"]
+        Uploads a file. The maximum file size is approximately 2.3 GB.
+        Contact us if you need to work with larger files.
 
-    @annotations.setter
-    def annotations(self, val):
-        if type(val) is not dict or "name" and "value" not in val:
-            raise TypeError('Input must be a dict with a "name" and a "value" item.')
-        else:
-            get_input = input("This will overwrite current annotations. Confirm y/n: ")
-            if "y" in get_input.lower():
-                self._properties["annotations"] = val
+        Automatically parses panels and annotations and updates ScaleSets to
+        include all channels in the file.
 
-    @property
-    def events(self):
-        """A DataFrame containing this file's data. This is fetched
-        from the server on-demand the first time that this property is accessed.
+        The authenticated user must have write-access to the experiment.
+
+        Args:
+            experiment_id: ID of the experiment to which the file belongs
+            file: The file contents.
         """
-        if self._events is None:
-            fresp = base_get(
-                "experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id)
-            )
-            parser = fcsparser.api.FCSParser.from_data(fresp.content)
-            self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
-        return self._events
+        file = {"upload_file": open(filepath, "rb")}
+        return ce.APIClient().upload_fcsfile(experiment_id, file)
 
-    @property
-    def channels(self) -> List:
-        """Return all channels in the file"""
-        return [f["channel"] for f in self.panel]
+    @classmethod
+    def create(
+        cls,
+        experiment_id: str,
+        fcsfiles: List[str],
+        filename: str,
+        add_file_number: bool = False,
+        add_event_number: bool = False,
+        pre_subsample_n: int = None,
+        pre_subsample_p: int = None,
+        seed: int = None,
+    ):
+        """Creates an FCS file by copying, concatenating and/or subsampling
+        existing file(s) from this or other experiments.
 
-    @events.setter
-    def events(self, val):
-        self.__dict__["_events"] = val
+        This endpoint can be used to import files from other experiments.
+
+        Args:
+            experiment_id: ID of the experiment to which the file belongs
+            fcsfiles: ID of file or list of IDs of files or objects to process.
+                If more than one file is provided, they will be concatenated in
+                order. To import files from other experiments, pass a list of dicts
+                with _id and experimentId properties.
+            add_file_number (optional): If
+                concatenating files, adds a file number channel to the
+                resulting file.
+            add_event_number (optional): Add an event number column to the
+                exported file. This number corresponds to the index of the event in
+                the original file; when concatenating files, the same event number
+                will appear more than once.
+            pre_subsample_n (optional): Randomly subsample the file to contain
+                this many events.
+            pre_subsample_p (optional): Randomly subsample the file to contain
+                this percent of events (0 to 1).
+            seed (optional): Seed for random number generator used for subsampling.
+                Use for deterministic (reproducible) subsampling. If omitted, a
+                pseudo-random value is used.
+
+        Returns:
+            FcsFile
+        """
+
+        def _parse_fcsfile_args(args):
+            if type(args) is list:
+                return args
+            else:
+                return [args]
+
+        body = {"fcsFiles": _parse_fcsfile_args(fcsfiles), "filename": filename}
+        optional_params = {
+            "addFileNumber": add_file_number,
+            "addEventNumber": add_event_number,
+            "preSubsampleN": pre_subsample_n,
+            "preSubsampleP": pre_subsample_p,
+            "seed": seed,
+        }
+        body.update(
+            {key: val for key, val in optional_params.items() if optional_params[key]}
+        )
+        return ce.APIClient().create_fcsfile(experiment_id, body)
+
+    def update(self):
+        """Save any changed data to CellEngine."""
+        res = ce.APIClient().update_entity(
+            self.experiment_id, self._id, "fcsfiles", self._properties
+        )
+        self._properties.update(res)
+
+    def delete(self):
+        return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
 
     @doc_inherit(Plot.get)
     def plot(
@@ -101,12 +109,3 @@ class FcsFile(object):
             self.experiment_id, self._id, x_channel, y_channel, plot_type, properties
         )
         return plot
-
-    # API methods
-    def update(self):
-        """Save any changed data to CellEngine."""
-        res = base_update(
-            "experiments/{0}/compensations/{1}".format(self.experiment_id, self._id),
-            body=self._properties,
-        )
-        self._properties.update(res)

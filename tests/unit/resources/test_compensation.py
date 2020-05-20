@@ -1,28 +1,23 @@
-import os
 import json
 import pytest
 import responses
 import pandas
-import cellengine
+from cellengine.resources.compensation import Compensation
 
 
-base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
+EXP_ID = "5d38a6f79fae87499999a74b"
 
 
 @pytest.fixture(scope="module")
-def compensation(experiment, compensations):
-    with responses.RequestsMock() as resps:
-        resps.add(
-            responses.GET,
-            base_url + "experiments/5d38a6f79fae87499999a74b/compensations",
-            json=compensations,
-        )
-        return experiment.compensations[0]
+def compensation(ENDPOINT_BASE, client, compensations):
+    comp = compensations[0]
+    comp.update({"experimentId": EXP_ID})
+    return Compensation(comp)
 
 
 def properties_tester(comp):
     assert type(comp._properties) is dict
-    assert type(comp) is cellengine.Compensation
+    assert type(comp) is Compensation
     assert hasattr(comp, "_id")
     assert hasattr(comp, "name")
     assert hasattr(comp, "experiment_id")
@@ -36,12 +31,36 @@ def properties_tester(comp):
     assert hasattr(comp, "dataframe_as_html")
 
 
-def test_compensation_properties(compensation):
+def test_compensation_properties(ENDPOINT_BASE, compensation):
     properties_tester(compensation)
 
 
 @responses.activate
-def test_update_compensation(experiment, compensation):
+def test_should_post_compensation(
+    ENDPOINT_BASE, experiment, compensation, compensations
+):
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
+        json=compensations[0],
+    )
+    payload = compensations[0].copy()
+    att = Compensation.create(experiment._id, payload)
+    properties_tester(att)
+
+
+@responses.activate
+def test_should_delete_compensation(ENDPOINT_BASE, compensation):
+    responses.add(
+        responses.DELETE,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations/{compensation._id}",
+    )
+    deleted = compensation.delete()
+    assert deleted is None
+
+
+@responses.activate
+def test_should_update_compensation(ENDPOINT_BASE, experiment, compensation):
     """Test that the .update() method makes the correct call. Does not test
     that the correct response is made; this should be done with an integration
     test.
@@ -51,10 +70,7 @@ def test_update_compensation(experiment, compensation):
     response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
-        base_url
-        + "experiments/5d64abe2ca9df61349ed8e78/compensations/{0}".format(
-            compensation._id
-        ),
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations/{compensation._id}",
         json=response,
     )
     compensation.name = "newname"

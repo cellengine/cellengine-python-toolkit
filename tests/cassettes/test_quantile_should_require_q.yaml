@@ -1,6 +1,7 @@
 interactions:
 - request:
-    body: statistics=quantile&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "quantile", "q": 0.75, "channels": "FSC-A", "annotations":
+      false, "format": "json"}'
     headers:
       Accept:
       - '*/*'
@@ -9,64 +10,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '64'
+      - '98'
       Content-Type:
-      - application/x-www-form-urlencoded
-      User-Agent:
-      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
-    method: POST
-    uri: https://cellengine.com/api/v1/experiments/5e4fcb98bdd7ea051d703652/bulkstatistics
-  response:
-    body:
-      string: '{"error":"\"q\" is required."}'
-    headers:
-      Alt-Svc:
-      - clear
-      Content-Length:
-      - '30'
-      Content-Security-Policy:
-      - 'default-src ''none''; base-uri ''self''; block-all-mixed-content; connect-src
-        ''self''; font-src ''self'' https://fonts.gstatic.com; form-action ''self'';
-        frame-ancestors ''none''; img-src ''self'' data: blob:; report-uri /csp_report;
-        script-src ''self'' ''unsafe-eval''; style-src ''self'' ''unsafe-inline''
-        https://fonts.googleapis.com; worker-src ''self'''
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 26 Mar 2020 03:08:28 GMT
-      ETag:
-      - W/"1e-ohTW2RFdRbzyhP9NcPdAAfKsd88"
-      Strict-Transport-Security:
-      - max-age=5184000
-      Vary:
-      - Accept-Encoding
-      Via:
-      - 1.1 google
-      X-Content-Type-Options:
-      - nosniff
-      X-Current-Release:
-      - /e88e93c
-      X-Frame-Options:
-      - DENY
-      X-XSS-Protection:
-      - 1; mode=block
-      set-cookie: safetoken
-    status:
-      code: 400
-      message: Bad Request
-- request:
-    body: statistics=quantile&q=0.75&channels=FSC-A&annotations=False&format=json
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '71'
-      Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -120,7 +66,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:29 GMT
+      - Tue, 09 Jun 2020 15:56:01 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -132,7 +78,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:

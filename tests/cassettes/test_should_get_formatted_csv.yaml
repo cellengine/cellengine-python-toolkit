@@ -1,6 +1,7 @@
 interactions:
 - request:
-    body: statistics=mean&channels=FSC-A&annotations=False&format=csv&layout=short-wide
+    body: '{"statistics": "mean", "channels": "FSC-A", "annotations": false, "format":
+      "csv", "layout": "short-wide"}'
     headers:
       Accept:
       - '*/*'
@@ -9,9 +10,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '77'
+      - '106'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -68,7 +69,7 @@ interactions:
       Content-Type:
       - text/csv; charset=utf-8
       Date:
-      - Thu, 26 Mar 2020 03:08:33 GMT
+      - Tue, 09 Jun 2020 15:56:04 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -80,7 +81,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:

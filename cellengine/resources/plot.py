@@ -1,12 +1,13 @@
 import attr
 from typing import Dict
-from cellengine.utils.wrapped_image import WrappedImage
 
-from cellengine.utils.helpers import base_get
+import cellengine as ce
+from cellengine.utils.wrapped_image import WrappedImage
+from cellengine.payloads.plot import _Plot
 
 
 @attr.s(frozen=True)
-class Plot:
+class Plot(_Plot):
     """A class representing a CellEngine plot.
 
     Attributes:
@@ -38,8 +39,8 @@ class Plot:
             renderGates (bool): Render gates into the image.
             preSubsampleN (int): Randomly subsample the file to contain this
                 many events before gating.
-            preSubsampleP (float): Randomly subsample the file to contain this percent of
-                events (0 to 1) before gating.
+            preSubsampleP (float): Randomly subsample the file to contain this percent
+                of events (0 to 1) before gating.
             postSubsampleN (int): Randomly subsample the file to contain
                 this many events after gating.
             postSubsampleP (float): Randomly subsample the file to contain this
@@ -52,47 +53,27 @@ class Plot:
                 smoothing. Higher values increase smoothing.
     """
 
-    experiment_id = attr.ib()
-    fcs_file_id = attr.ib()
-    x_channel = attr.ib()
-    y_channel = attr.ib()
-    plot_type = attr.ib()
-    population_id = attr.ib()
-    data = attr.ib(repr=False)
-
     @classmethod
     def get(
         cls,
         experiment_id,
-        fcs_file: str,
+        fcsfile_id: str,
         x_channel: str,
         y_channel: str,
         plot_type: str,
         population_id: str = None,
         properties: Dict = None,
+        as_dict=False,
     ):
-        url = "experiments/{0}/plot".format(experiment_id)
-
-        req_params = {
-            "fcsFileId": fcs_file,
-            "xChannel": x_channel,
-            "yChannel": y_channel,
-            "plotType": plot_type,
-            "populationId": population_id,
-        }
-
-        if properties:
-            req_params.update(properties)
-
-        res = base_get(url, params=req_params)
-        return cls(
+        return ce.APIClient().get_plot(
             experiment_id,
-            fcs_file,
+            fcsfile_id,
             x_channel,
             y_channel,
             plot_type,
             population_id,
-            res.content,
+            properties,
+            as_dict,
         )
 
     def display(self):

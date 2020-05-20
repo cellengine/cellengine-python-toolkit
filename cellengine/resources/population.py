@@ -1,45 +1,23 @@
-import attr
-from cellengine.utils.helpers import GetSet, base_update, base_delete
+import cellengine as ce
+from cellengine.payloads.population import _Population
 
 
-@attr.s(repr=False, slots=True)
-class Population(object):
-    """
-    A class representing a CellEngine population.
+class Population(_Population):
+    @classmethod
+    def get(cls, experiment_id: str, _id: str = None, name: str = None):
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_population(experiment_id, **kwargs)
 
-    Attributes
-        _properties (:obj:`dict`): Population properties; reqired.
-    """
+    @classmethod
+    def create(cls, experiment_id: str, compensation: dict):
+        return ce.APIClient().post_population(experiment_id, compensation)
 
-    def __repr__(self):
-        return "Population(_id='{}', name='{}')".format(self._id, self.name)
-
-    _properties = attr.ib()
-
-    _id = GetSet("_id", read_only=True)
-
-    name = GetSet("name")
-
-    experiment_id = GetSet("experimentId", read_only=True)
-
-    gates = GetSet("gates")
-
-    terminal_gate_gid = GetSet("terminalGateId")
-
-    parent_id = GetSet("parentId")
-
-    unique_name = GetSet("uniqueName", read_only=True)
-
-    # API methods
     def update(self):
         """Save any changed data to CellEngine."""
-        res = base_update(
-            "experiments/{0}/populations/{1}".format(self.experiment_id, self._id),
-            body=self._properties,
+        res = ce.APIClient().update_entity(
+            self.experiment_id, self._id, "populations", self._properties
         )
         self._properties.update(res)
 
     def delete(self):
-        return base_delete(
-            "experiments/{0}/populations/{1}".format(self.experiment_id, self._id)
-        )
+        ce.APIClient().delete_entity(self.experiment_id, "populations", self._id)
