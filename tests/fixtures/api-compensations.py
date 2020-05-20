@@ -28,7 +28,7 @@ def compensations():
                 "YG780-A",
             ],
             "experimentId": "5d64abe2ca9df61349ed8e78",
-            "name": "Copy of File-Internal (Specimen_001_A1_A01.fcs)",
+            "name": "some compensation",
             "spillMatrix": [
                 1,
                 0,

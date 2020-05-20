@@ -1,27 +1,22 @@
-import os
 import json
 import pytest
 import responses
-import cellengine
+from cellengine.resources.attachment import Attachment
 
 
-base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
+EXP_ID = "5d38a6f79fae87499999a74b"
 
 
 @pytest.fixture(scope="module")
-def attachment(experiment, attachments):
-    with responses.RequestsMock() as resps:
-        resps.add(
-            responses.GET,
-            base_url + "experiments/5d38a6f79fae87499999a74b/attachments",
-            json=attachments,
-        )
-        return experiment.attachments[0]
+def attachment(ENDPOINT_BASE, client, attachments):
+    att = attachments[0]
+    att.update({"experimentId": EXP_ID})
+    return Attachment(att)
 
 
 def attachments_tester(attachment):
     assert type(attachment._properties) is dict
-    assert type(attachment) is cellengine.Attachment
+    assert type(attachment) is Attachment
     assert hasattr(attachment, "experiment_id")
     assert hasattr(attachment, "filename")
     assert hasattr(attachment, "md5")
@@ -30,55 +25,52 @@ def attachments_tester(attachment):
 
 
 @responses.activate
-def test_list_attachments(experiment, attachments):
+def test_should_get_attachment(ENDPOINT_BASE, attachment):
     responses.add(
         responses.GET,
-        base_url + "experiments/5d38a6f79fae87499999a74b/attachments",
-        json=attachments,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments/{attachment._id}",
+        json=attachment._properties,
     )
-    att = experiment.attachments
-    assert type(att) is list
-    [attachments_tester(item) for item in att]
+    att = Attachment.get(EXP_ID, attachment._id)
+    attachments_tester(att)
 
 
 @responses.activate
-def test_get_attachment(experiment, attachments):
+def test_should_create_attachment(ENDPOINT_BASE, experiment, attachments):
+    """Test creation of a new attachment.
+    This test must be run from the project root directory"""
     responses.add(
-        responses.GET,
-        base_url + "experiments/5d64abe2ca9df61349ed8e78/attachments",
-        json=attachments,
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments",
+        json=attachments[0],
     )
-    att = cellengine.Attachment.list("5d64abe2ca9df61349ed8e78")
-    assert type(att) is list
-    [attachments_tester(item) for item in att]
+    att = Attachment.create(experiment._id, "tests/data/text.txt")
+    attachments_tester(att)
 
 
 @responses.activate
-def test_delete_attachment(experiment, attachment, attachments):
+def test_should_delete_attachment(ENDPOINT_BASE, attachment):
     responses.add(
         responses.DELETE,
-        base_url
-        + "experiments/5e26b3f94b14014f02b1ecda/attachments/{0}".format(attachment._id),
-        status=204,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments/{attachment._id}",
     )
     delete_attachment = attachment.delete()
     assert delete_attachment is None
 
 
 @responses.activate
-def test_update_attachment(experiment, attachment, attachments):
+def test_update_attachment(ENDPOINT_BASE, experiment, attachment, attachments):
     """Test that the .update() method makes the correct call. Does not test
     that the correct response is made; this should be done with an integration
     test.
     """
     # patch the mocked response with the correct values
-    response = attachment._properties.copy()
-    response.update({"filename": "newname.file"})
+    expected_resp = attachment._properties.copy()
+    expected_resp.update({"filename": "newname.file"})
     responses.add(
         responses.PATCH,
-        base_url
-        + "experiments/5e26b3f94b14014f02b1ecda/attachments/{0}".format(attachment._id),
-        json=response,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments/{attachment._id}",
+        json=expected_resp,
     )
     attachment.filename = "newname.file"
     attachment.update()
@@ -87,25 +79,11 @@ def test_update_attachment(experiment, attachment, attachments):
 
 
 @responses.activate
-def test_download_attachment(experiment, attachment):
+def test_download_attachment(ENDPOINT_BASE, experiment, attachment):
     responses.add(
         responses.GET,
-        base_url
-        + "experiments/5e26b3f94b14014f02b1ecda/attachments/{0}".format(attachment._id),
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments/{attachment._id}",
         json="some file content",
     )
     _file = attachment.download()
     assert _file == "some file content"
-
-
-@responses.activate
-def test_create_attachment(experiment, attachments):
-    """Test creation of a new attachment.
-    This test must be run from the project root directory"""
-    responses.add(
-        responses.POST,
-        base_url + "experiments/5d38a6f79fae87499999a74b/attachments",
-        json=attachments[0],
-    )
-    att = cellengine.Attachment.create(experiment._id, "tests/data/text.txt")
-    attachments_tester(att)

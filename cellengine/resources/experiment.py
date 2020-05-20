@@ -1,113 +1,79 @@
-import attr
-from typing import Optional, Dict, Union, List
 from custom_inherit import doc_inherit
+from typing import Optional, Dict, Union, List
 
-from cellengine.utils.helpers import (
-    GetSet,
-    CommentList,
-    base_list,
-    timestamp_to_datetime,
-    today_timestamp,
-    base_update,
-)
-from cellengine.utils.loader import Loader
+import cellengine as ce
+from cellengine.payloads.experiment import _Experiment
 from cellengine.utils.complex_population_creator import create_complex_population
 from cellengine.resources.population import Population
 from cellengine.resources.fcsfile import FcsFile
 from cellengine.resources.compensation import Compensation
-from cellengine.resources.attachments import Attachment
-from cellengine.resources.statistics import get_statistics
-from cellengine.resources.gate import (
-    Gate,
-    RectangleGate,
-    PolygonGate,
-    EllipseGate,
-    QuadrantGate,
-    SplitGate,
-    RangeGate,
+from cellengine.resources.attachment import Attachment
+from cellengine.resources.gate import Gate
+from cellengine.payloads.gate_utils import (
+    format_rectangle_gate,
+    format_polygon_gate,
+    format_ellipse_gate,
+    format_range_gate,
+    format_split_gate,
+    format_quadrant_gate,
+)
+from cellengine.utils.helpers import (
+    GetSet,
+    today_timestamp,
 )
 
 
-@attr.s(repr=False, slots=True)
-class Experiment(object):
-    """A class representing a CellEngine experiment.
+class Experiment(_Experiment):
+    @classmethod
+    def get(cls, _id: str, name: str = None):
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_experiment(**kwargs)
 
-    Attributes
-        _properties (dict): Experiment properties; required for initialization.
-    """
+    @classmethod
+    def create(
+        cls,
+        name: str = None,
+        comments: str = None,
+        uploader: str = None,
+        primary_researcher: str = None,
+        public: bool = False,
+        tags: List[str] = None,
+        as_dict=False,
+    ):
+        """Post a new experiment to CellEngine.
 
-    _properties = attr.ib()
+        Args:
+            name: Defaults to "Untitled Experiment".
+            comments: Defaults to None.
+            uploader: Defaults to user making request.
+            primary_researcher: Defaults to user making request.
+            public: Defaults to false.
+            tags: Defaults to empty list.
+            as_dict: Whether to return the experiment as an Experiment object or a dict.
 
-    _id = GetSet("_id", read_only=True)
-
-    name = GetSet("name")
-
-    def __repr__(self):
-        return "Experiment(_id='{}', name='{}')".format(self._id, self.name)
-
-    @property
-    def files(self):
-        """List all files on the experiment"""
-        url = "experiments/{0}/fcsfiles".format(self._id)
-        return base_list(url, FcsFile)
-
-    @property
-    def comments(self):
-        """Set comments for experiment.
-
-        Defaults to overwrite; append new comments with
-        experiment.comments.append(dict) with the form:
-         dict = {"insert": "some text",
-        "attributes": {"bold": False, "italic": False, "underline": False}}.
+        Returns:
+            Experiment: Creates the Experiment on CellEngine and returns it.
         """
-        comments = self._properties["comments"]
-        if type(comments) is not CommentList:
-            self._properties["comments"] = CommentList(comments)
-        return comments
+        experiment_body = {
+            "name": name,
+            "comments": comments,
+            "uploader": uploader,
+            "primaryResearcher": primary_researcher,
+            "public": public,
+            "tags": tags,
+        }
+        return ce.APIClient().post_experiment(experiment_body, as_dict=as_dict)
 
-    @comments.setter
-    def comments(self, comments: Dict):
-        """Sets comments for experiment.
+    def update(self):
+        """Save changes to this Experiment object to CellEngine.
 
-        Defaults to overwrite; append new comments with
-        experiment.comments.append(dict) with the form:
-         dict = {"insert": "some text",
-        "attributes": {"bold": False, "italic": False, "underline": False}}.
-        """
-        if comments.get("insert").endswith("\n") is False:
-            comments.update(insert=comments.get("insert") + "\n")
-        self._properties["comments"] = comments
+        Returns:
+            None: Updates the Experiment on CellEngine and then
+                  synchronizes the properties with the current Experiment object.
 
-    @property
-    def updated(self):
         """
-        The last time that the experiment was modified.
-        This value is a shallow timestamp; it is not updated when descendant
-        resources such as gates are modified. (See deepUpdated.)
-        """
-        return timestamp_to_datetime(self._properties.get("updated"))
-
-    @property
-    def deep_updated(self) -> str:
-        """
-        The last time that the experiment or any of its descendant
-        resources (e.g. gates, scales) were modified. This property is
-        eventually consistent; its value may not be updated instantaneously
-        after a descendant resource is modified.
-        """
-        return timestamp_to_datetime(self._properties.get("deepUpdated"))
-
-    @property
-    def deleted(self) -> str:
-        """
-        The time when the experiment was moved to the trash. Experiments
-        are permanently deleted approximately seven days after this time. Only
-        modifiable by the primary_researcher. Cannot be set on revision
-        experiments, experiments that are locked or experiments with an active
-        retention policy.
-        """
-        if self._properties.get("deleted") is not None:
-            return timestamp_to_datetime(self._properties.get("deleted"))
+        res = ce.APIClient().update_experiment(self._id, self._properties)
+        self._properties.update(res)
 
     @property
     def delete(self, confirm=False):
@@ -125,107 +91,66 @@ class Experiment(object):
         if self._properties.get("deleted") is not None:
             self._properties["delete"] = None
 
-    public = GetSet("public")
-
-    primary_researcher = GetSet("primaryResearcher")
-
-    # TODO: make this return a compensation
+    # TODO: make this override _Experimen to return a compensation
     active_compensation = GetSet("activeCompensation")
 
-    locked = GetSet("locked", read_only=True)
+    @property
+    def attachments(self) -> List[Attachment]:
+        """List all attachments on the experiment."""
+        return ce.APIClient().get_attachments(self._id)
 
-    clone_source_experiment = GetSet("cloneSourceExperiment", read_only=True)
-
-    # TODO: retention_policy (Munch object, read_only=True)
-
-    revision_source_experiment = GetSet("revisionSourceExperiment", read_only=True)
-
-    revisions = GetSet("revisions")
-
-    per_file_compensations_enabled = GetSet("perFileCompensationsEnabled")
-
-    per_file_compensation_enabled = GetSet("perFileCompensationEnabled")
-
-    # TODO: sorting_spec
-
-    tags = GetSet("tags", read_only=True)
-
-    annotation_name_order = GetSet("annotationNameOrder")
-
-    annotation_table_sort_columns = GetSet("annotationTableSortColumns")
-
-    # TODO: annotationValidators
-
-    # TODO: make this a Munch class:
-    permissions = GetSet("permissions")
-
-    data = GetSet("data", read_only=True)
-
-    uploader = GetSet("uploader", read_only=True)
+    def get_attachment(
+        self, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Attachment:
+        """Get a specific attachment."""
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_attachment(self._id, **kwargs)
 
     @property
-    def created(self):
-        return timestamp_to_datetime(self._properties.get("created"))
+    def compensations(self) -> List[Compensation]:
+        """List all compensations on the experiment."""
+        return ce.APIClient().get_compensations(self._id)
 
-    # Methods:
-
-    @property
-    def files(self):
-        """List all files on the experiment
-
-        Returns:
-            List[FcsFile]: A list of fcsfiles on this experiment.
-        """
-        url = "experiments/{0}/fcsfiles".format(self._id)
-        return base_list(url, FcsFile)
-
-    def get_fcsfile(self, _id: Optional[str] = None, name: Optional[str] = None):
-        """Get a single fcsfile
-
-        Returns:
-            FcsFile
-        """
-        return Loader.get_fcsfile(experiment_id=self._id, _id=_id, name=name)
+    def get_compensation(
+        self, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Compensation:
+        """Get a specific compensation."""
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_compensation(self._id, **kwargs)
 
     @property
-    def populations(self):
-        """List all populations in the experiment
+    def fcsfiles(self) -> List[FcsFile]:
+        """List all files on the experiment."""
+        return ce.APIClient().get_fcsfiles(self._id)
 
-        Returns:
-            List[Population]: A list of populations on this experiment.
-        """
-        url = "experiments/{0}/populations".format(self._id)
-        return base_list(url, Population)
-
-    @property
-    def compensations(self):
-        """List all compensations on the experiment
-
-        Returns:
-            List[Compensation]: A list of compensations on this experiment.
-        """
-        url = "experiments/{0}/compensations".format(self._id)
-        return base_list(url, Compensation)
+    def get_fcsfile(
+        self, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> FcsFile:
+        """Get a specific fcsfile."""
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_fcsfile(self._id, **kwargs)
 
     @property
-    def gates(self):
-        """List all gates on the experiment
+    def gates(self) -> List[Gate]:
+        """List all gates on the experiment."""
+        return ce.APIClient().get_gates(self._id)
 
-        Returns:
-            List[Gate]: A list of gates on this experiment.
-        """
-        url = "experiments/{0}/gates".format(self._id)
-        return base_list(url, Gate)
+    def get_gate(self, _id: Optional[str] = None, name: Optional[str] = None) -> Gate:
+        """Get a specific gate."""
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_gate(self._id, **kwargs)
 
     @property
-    def attachments(self):
-        """List all attachments on the experiment
+    def populations(self) -> List[Population]:
+        """List all populations in the experiment."""
+        return ce.APIClient().get_populations(self._id)
 
-        Returns:
-            List[Attachment]: A list of attachments on this experiment.
-        """
-        url = "experiments/{0}/attachments".format(self._id)
-        return base_list(url, Attachment)
+    def get_population(
+        self, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Population:
+        """Get a specific population."""
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_population(self._id, **kwargs)
 
     def get_statistics(
         self,
@@ -240,7 +165,7 @@ class Experiment(object):
         percent_of: Union[str, List[str]] = None,
         population_ids: List[str] = None,
     ):
-        return get_statistics(
+        return ce.APIClient().get_statistics(
             self._id,
             statistics,
             channels,
@@ -254,48 +179,42 @@ class Experiment(object):
             population_ids,
         )
 
-    # API Methods:
-
-    def update(self):
-        """Save changes to this Experiment object to CellEngine.
-
-        Returns:
-            None: Updates the Experiment on CellEngine and then
-                  synchronizes the properties with the current Experiment object.
-
-        """
-        res = base_update("experiments/{0}".format(self._id), body=self._properties)
-        self._properties.update(res)
-
     # Gate Methods:
 
-    @doc_inherit(Gate.delete_gates)
+    # @doc_inherit(_Gate.delete_gates)
     def delete_gates(self, experiment_id, _id=None, gid=None, exclude=None):
-        return Gate.delete_gates(self._id, _id, gid, exclude)
+        raise NotImplementedError
+        # return _Gate.delete_gates(self._id, _id, gid, exclude)
 
-    @doc_inherit(RectangleGate.create)
+    # @doc_inherit(_RectangleGate.create)
     def create_rectangle_gate(self, *args, **kwargs):
-        return RectangleGate.create(self._id, *args, **kwargs)
+        post_body = format_rectangle_gate(self._id, *args, **kwargs)
+        return ce.APIClient().post_gate(self._id, post_body)
 
-    @doc_inherit(PolygonGate.create)
+    # @doc_inherit(_PolygonGate.create)
     def create_polygon_gate(self, *args, **kwargs):
-        return PolygonGate.create(self._id, *args, **kwargs)
+        post_body = format_polygon_gate(self._id, *args, **kwargs)
+        return ce.APIClient().post_gate(self._id, post_body)
 
-    @doc_inherit(EllipseGate.create)
+    # @doc_inherit(_EllipseGate.create)
     def create_ellipse_gate(self, *args, **kwargs):
-        return EllipseGate.create(self._id, *args, **kwargs)
+        post_body = format_ellipse_gate(self._id, *args, **kwargs)
+        return ce.APIClient().post_gate(self._id, post_body)
 
-    @doc_inherit(RangeGate.create)
+    # @doc_inherit(_RangeGate.create)
     def create_range_gate(self, *args, **kwargs):
-        return RangeGate.create(self._id, *args, **kwargs)
+        post_body = format_range_gate(self._id, *args, **kwargs)
+        return ce.APIClient().post_gate(self._id, post_body)
 
-    @doc_inherit(SplitGate.create)
+    # @doc_inherit(_SplitGate.create)
     def create_split_gate(self, *args, **kwargs):
-        return SplitGate.create(self._id, *args, **kwargs)
+        post_body = format_split_gate(self._id, *args, **kwargs)
+        return ce.APIClient().post_gate(self._id, post_body)
 
-    @doc_inherit(QuadrantGate.create)
+    # @doc_inherit(_QuadrantGate.create)
     def create_quadrant_gate(self, *args, **kwargs):
-        return QuadrantGate.create(self._id, *args, **kwargs)
+        post_body = format_quadrant_gate(self._id, *args, **kwargs)
+        return ce.APIClient().post_gate(self._id, post_body)
 
     def create_complex_population(self, name, base_gate, gates=None):
         """Create a complex population
@@ -308,4 +227,5 @@ class Experiment(object):
         Returns:
             Population: A created complex population.
         """
-        return create_complex_population(self._id, name, base_gate, gates)
+        raise NotImplementedError
+        # return create_complex_population(self._id, name, base_gate, gates)

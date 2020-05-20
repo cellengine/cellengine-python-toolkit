@@ -1,4 +1,7 @@
+import os
 import pytest
+import responses
+from cellengine.utils.api_client.APIClient import APIClient
 
 
 """
@@ -22,7 +25,6 @@ remake "test_base_delete.yaml", delete the two lines with the login token.
 """
 
 pytest_plugins = [
-    "fixtures.api-base",
     "fixtures.api-experiments",
     "fixtures.api-fcsfiles",
     "fixtures.api-compensations",
@@ -32,6 +34,40 @@ pytest_plugins = [
     "fixtures.api-attachments",
     "fixtures.api-statistics",
 ]
+
+
+@pytest.fixture(scope="session")
+def ENDPOINT_BASE():
+    return os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1")
+
+
+@pytest.fixture(scope="session")
+def client(ENDPOINT_BASE):
+    with responses.RequestsMock() as resps:
+        resps.add(
+            responses.POST,
+            ENDPOINT_BASE + "/signin",
+            json={
+                "token": "some token",
+                "userId": 123456789,
+                "admin": True,
+                "flags": {},
+            },
+            status=200,
+        )
+        return APIClient(user_name="gegnew", password="testpass1")
+
+
+@pytest.fixture(scope="session")
+def experiment(ENDPOINT_BASE, client, experiments):
+    with responses.RequestsMock() as resps:
+        resps.add(
+            responses.GET,
+            ENDPOINT_BASE + "/experiments/5d38a6f79fae87499999a74b",
+            json=experiments[0],
+            status=200,
+        )
+        return client.get_experiment(_id="5d38a6f79fae87499999a74b")
 
 
 @pytest.fixture(scope="module")

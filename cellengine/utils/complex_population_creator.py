@@ -11,7 +11,7 @@ def create_complex_population(
     body.update(gates)
     res = helpers.base_create(
         classname=Population,
-        url="experiments/{0}/populations".format(experiment_id),
+        url="/experiments/{0}/populations".format(experiment_id),
         json=body,
         expected_status=201,
     )

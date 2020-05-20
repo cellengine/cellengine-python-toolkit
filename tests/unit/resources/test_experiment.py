@@ -1,92 +1,27 @@
-import os
 import json
+import pytest
 import responses
-import cellengine
+
 from cellengine.utils import helpers
+from cellengine.resources.experiment import Experiment
+from cellengine.resources.population import Population
+from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.compensation import Compensation
+from cellengine.resources.attachment import Attachment
+from cellengine.resources.gate import Gate
 
 
-base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
-
-
-@responses.activate
-def test_update_experiment(experiments):
-    """Tests updating experiment params"""
-    experiment = cellengine.Experiment(experiments[0])
-    response = experiments[0].copy()
-    response.update({"name": "new name"})
-    responses.add(
-        responses.PATCH,
-        base_url + "experiments/5d38a6f79fae87499999a74b",
-        json=response,
-    )
-    assert experiment.name == "pytest_experiment"
-    experiment.name = "new name"
-    experiment.update()
-    assert experiment.name == "new name"
-    assert json.loads(responses.calls[0].request.body) == experiment._properties
+EXP_ID = "5d38a6f79fae87499999a74b"
+ATTACHMENT_ID = "5e3a5abf62c76b4f1b207b5b"
+FCSFILE_ID = "5d64abe2ca9df61349ed8e7c"
+COMPENSATION_ID = "5d64abe2ca9df61349ed8e95"
+GATE_ID = "5d64abe2ca9df61349ed8e90"
+POPULATION_ID = "5d3903529fae87499999a780"
+STATISTICS_ID = "5d64abe2ca9df61349ed8e79"
 
 
 @responses.activate
-def test_list_fcsfile(experiment, fcsfiles):
-    """Tests listing fcs files in an experiment"""
-    responses.add(
-        responses.GET,
-        base_url + "experiments/5d38a6f79fae87499999a74b/fcsfiles",
-        json=fcsfiles,
-    )
-    all_files = experiment.files
-    assert type(all_files) is list
-    assert all([type(file) is cellengine.FcsFile for file in all_files])
-
-
-@responses.activate
-def test_list_populations(experiment, populations):
-    """Tests listing files in an experiment"""
-    responses.add(
-        responses.GET,
-        base_url + "experiments/5d38a6f79fae87499999a74b/populations",
-        json=populations,
-    )
-    all_populations = experiment.populations
-    assert type(all_populations) is list
-    assert all(
-        [type(population) is cellengine.Population for population in all_populations]
-    )
-
-
-@responses.activate
-def test_list_compensations(experiment, compensations):
-    """Tests listing compensations in an experiment"""
-    responses.add(
-        responses.GET,
-        base_url + "experiments/5d38a6f79fae87499999a74b/compensations",
-        json=compensations,
-    )
-    all_compensations = experiment.compensations
-    assert type(all_compensations) is list
-    assert all(
-        [
-            type(compensation) is cellengine.Compensation
-            for compensation in all_compensations
-        ]
-    )
-
-
-@responses.activate
-def test_list_gates(experiment, gates):
-    """Tests listing gates in an experiment"""
-    responses.add(
-        responses.GET,
-        base_url + "experiments/5d38a6f79fae87499999a74b/gates",
-        json=gates,
-    )
-    all_gates = experiment.gates
-    assert type(all_gates) is list
-    assert all([type(gate) is cellengine.Gate for gate in all_gates])
-
-
-@responses.activate
-def test_all_experiment_properties(experiment):
+def test_all_experiment_properties(ENDPOINT_BASE, experiment):
     assert type(experiment._properties) is dict
     assert experiment._id == "5d38a6f79fae87499999a74b"
     assert experiment.name == "pytest_experiment"
@@ -132,14 +67,129 @@ def test_all_experiment_properties(experiment):
     )
 
 
+list_params = [
+    ("attachments", Attachment),
+    ("compensations", Compensation),
+    ("fcsfiles", FcsFile),
+    ("gates", Gate),
+    ("populations", Population),
+    # ("get_statistics", dict),
+]
+
+
 @responses.activate
-def test_get_statistics(experiment):
+@pytest.mark.parametrize("entity,_type", list_params)
+def test_should_get_list_of_entities(
+    ENDPOINT_BASE,
+    experiment,
+    attachments,
+    compensations,
+    fcsfiles,
+    gates,
+    populations,
+    statistics,
+    entity,
+    _type,
+):
+    responses.add(
+        responses.GET,
+        ENDPOINT_BASE + f"/experiments/5d38a6f79fae87499999a74b/{entity}",
+        json=eval(entity),
+    )
+    all_entities = getattr(experiment, entity)
+    assert type(all_entities) is list
+    if entity == "gates":
+        assert all(
+            [str(ent.__module__) == "cellengine.resources.gate" for ent in all_entities]
+        )
+    else:
+        assert all([type(ent) is _type for ent in all_entities])
+
+
+get_params = [
+    ("attachments", ATTACHMENT_ID, Attachment),
+    ("compensations", COMPENSATION_ID, Compensation),
+    ("fcsfiles", FCSFILE_ID, FcsFile),
+    ("gates", GATE_ID, Gate),
+    ("populations", POPULATION_ID, Population),
+]
+
+
+@responses.activate
+@pytest.mark.parametrize("entity,entity_id,_type", get_params)
+def test_get_one_entity(
+    ENDPOINT_BASE,
+    experiment,
+    attachments,
+    compensations,
+    fcsfiles,
+    gates,
+    populations,
+    statistics,
+    entity,
+    entity_id,
+    _type,
+):
+    responses.add(
+        responses.GET,
+        ENDPOINT_BASE + f"/experiments/5d38a6f79fae87499999a74b/{entity}/{entity_id}",
+        json=eval(entity)[0],
+    )
+    func_name = "get_" + entity[:-1]
+    _func = getattr(experiment, func_name)
+    ent = _func(_id=entity_id)
+    if entity == "gates":
+        assert str(ent.__module__) == "cellengine.resources.gate"
+    else:
+        assert type(ent) is _type
+
+
+@responses.activate
+def test_get_statistics(ENDPOINT_BASE, experiment):
     """Tests getting statistics for an experiment"""
     responses.add(
         responses.POST,
-        base_url + "experiments/{}/bulkstatistics".format(experiment._id),
+        ENDPOINT_BASE + "/experiments/{}/bulkstatistics".format(experiment._id),
         json={"some": "json"},
     )
-    body = "statistics=mean&channels=FSC-A&annotations=False&format=json"
     experiment.get_statistics("mean", "FSC-A")
-    assert responses.calls[0].request.body == body
+    assert (
+        responses.calls[0].request.url
+        == "https://cellengine.com/api/v1/experiments/5d38a6f79fae87499999a74b/bulkstatistics"
+    )
+
+
+@responses.activate
+def test_should_create_experiment(ENDPOINT_BASE, experiment):
+    """Tests updating experiment params"""
+    response = experiment._properties.copy()
+    response["name"] = "new_experiment"
+    responses.add(
+        responses.POST, ENDPOINT_BASE + "/experiments", json=response,
+    )
+    exp = Experiment.create("new_experiment")
+    assert json.loads(responses.calls[0].request.body) == {
+        "name": "new_experiment",
+        "comments": None,
+        "uploader": None,
+        "primaryResearcher": None,
+        "public": False,
+        "tags": None,
+    }
+
+
+@responses.activate
+def test_update_experiment(ENDPOINT_BASE, experiment):
+    """Tests updating experiment params"""
+    response = experiment._properties.copy()
+    response.update({"name": "new name"})
+    responses.add(
+        responses.PATCH,
+        ENDPOINT_BASE + "/experiments/5d38a6f79fae87499999a74b",
+        json=response,
+    )
+    assert experiment.name == "pytest_experiment"
+    experiment.name = "new name"
+    experiment.update()
+    assert experiment.name == "new name"
+    assert json.loads(responses.calls[0].request.body) == experiment._properties
