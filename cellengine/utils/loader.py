@@ -52,7 +52,7 @@ class Loader(object):
     name = attr.ib(kw_only=True, default=None)
     classname = attr.ib(init=True, default=None)
     query = attr.ib(init=True, default="name")
-    path = attr.ib(init=True, default="experiments")
+    path = attr.ib(init=True, default="/experiments")
 
     def load(self):
         if self._id:
@@ -88,7 +88,7 @@ class Loader(object):
             id=_id,
             name=name,
             query="filename",
-            path="experiments/{0}/fcsfiles".format(experiment_id),
+            path="/experiments/{0}/fcsfiles".format(experiment_id),
             classname="cellengine.FcsFile",
         )
         return fcs_loader.load()

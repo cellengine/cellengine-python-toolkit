@@ -50,7 +50,7 @@ class Client(object):
                 self.password = getpass()
 
             req = self._session.post(
-                "signin", {"username": self.username, "password": self.password}
+                "/signin", {"username": self.username, "password": self.password}
             )
             req.raise_for_status()
 
@@ -71,4 +71,4 @@ class Client(object):
     @property
     def experiments(self) -> List[Experiment]:
         """Return a list of Experiment objects for all experiments on client"""
-        return helpers.base_list("experiments", Experiment)
+        return helpers.base_list("/experiments", Experiment)

@@ -1,9 +1,10 @@
 import os
 import responses
 from cellengine.resources.plot import Plot
-from cellengine import FcsFile
+from cellengine.resources.fcsfile import FcsFile
 
-base_url = os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1/")
+
+EXP_ID = "5d38a6f79fae87499999a74b"
 
 
 def plot_tester(plot):
@@ -18,11 +19,10 @@ def plot_tester(plot):
 
 
 @responses.activate
-def test_should_get_plot(experiment, fcsfiles):
+def test_should_get_plot(ENDPOINT_BASE, client, experiment, fcsfiles):
+    # def test_should_get_plot(ENDPOINT_BASE):
     fcsfile = FcsFile(fcsfiles[0])
-    responses.add(
-        responses.GET, base_url + "experiments/{}/plot".format(experiment._id),
-    )
+    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     plot = Plot.get(
         experiment._id, fcsfile._id, fcsfile.channels[0], fcsfile.channels[1], "dot"
     )
@@ -30,35 +30,29 @@ def test_should_get_plot(experiment, fcsfiles):
 
 
 @responses.activate
-def test_should_get_plot_from_fcsfile(fcsfiles):
+def test_should_get_plot_from_fcsfile(ENDPOINT_BASE, client, fcsfiles):
     fcsfile = FcsFile(fcsfiles[0])
-    responses.add(
-        responses.GET, base_url + "experiments/{}/plot".format(fcsfile.experiment_id),
-    )
+    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     plot = fcsfile.plot(fcsfile.channels[0], fcsfile.channels[1], "dot")
     plot_tester(plot)
 
 
 @responses.activate
-def test_should_get_each_plot_type(experiment, fcsfiles):
+def test_should_get_each_plot_type(ENDPOINT_BASE, client, fcsfiles):
     fcsfile = FcsFile(fcsfiles[0])
-    responses.add(
-        responses.GET, base_url + "experiments/{}/plot".format(experiment._id),
-    )
-    for plot in ["contour", "dot", "density", "histogram"]:
+    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
+    for plot_type in ["contour", "dot", "density", "histogram"]:
         plot = Plot.get(
-            experiment._id, fcsfile._id, fcsfile.channels[0], fcsfile.channels[1], plot
+            EXP_ID, fcsfile._id, fcsfile.channels[0], fcsfile.channels[1], plot_type
         )
 
 
 @responses.activate
 def test_should_get_plot_for_each_query_parameter(
-    experiment, fcsfiles, compensations, populations
+    ENDPOINT_BASE, experiment, fcsfiles, compensations, populations
 ):
     fcsfile = FcsFile(fcsfiles[0])
-    responses.add(
-        responses.GET, base_url + "experiments/{}/plot".format(experiment._id),
-    )
+    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     parameters = {
         "compensation": compensations[0]["_id"],
         "width": 400,
@@ -107,11 +101,9 @@ def test_should_get_plot_for_each_query_parameter(
 
 
 @responses.activate
-def test_should_save_plot(experiment, fcsfiles):
+def test_should_save_plot(ENDPOINT_BASE, experiment, fcsfiles):
     fcsfile = FcsFile(fcsfiles[0])
-    responses.add(
-        responses.GET, base_url + "experiments/{}/plot".format(experiment._id),
-    )
+    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     # instantiate Plot directly instead of using .get because the attrs are frozen
     plot = Plot(
         experiment._id,

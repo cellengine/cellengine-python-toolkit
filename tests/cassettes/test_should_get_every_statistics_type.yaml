@@ -1,6 +1,7 @@
 interactions:
 - request:
-    body: statistics=mean&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "mean", "channels": "FSC-A", "annotations": false, "format":
+      "json"}'
     headers:
       Accept:
       - '*/*'
@@ -9,9 +10,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '60'
+      - '83'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -71,7 +72,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:30 GMT
+      - Tue, 09 Jun 2020 15:56:02 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -83,7 +84,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
@@ -93,7 +94,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: statistics=median&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "median", "channels": "FSC-A", "annotations": false, "format":
+      "json"}'
     headers:
       Accept:
       - '*/*'
@@ -102,9 +104,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '62'
+      - '85'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -155,7 +157,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:30 GMT
+      - Tue, 09 Jun 2020 15:56:02 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -167,7 +169,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
@@ -177,7 +179,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: statistics=mad&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "mad", "channels": "FSC-A", "annotations": false, "format":
+      "json"}'
     headers:
       Accept:
       - '*/*'
@@ -186,9 +189,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '59'
+      - '82'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -239,7 +242,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:30 GMT
+      - Tue, 09 Jun 2020 15:56:02 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -251,7 +254,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
@@ -261,7 +264,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: statistics=geometricMean&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "geometricMean", "channels": "FSC-A", "annotations": false,
+      "format": "json"}'
     headers:
       Accept:
       - '*/*'
@@ -270,9 +274,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '69'
+      - '92'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -333,7 +337,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:31 GMT
+      - Tue, 09 Jun 2020 15:56:02 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -345,7 +349,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
@@ -355,7 +359,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: statistics=eventCount&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "eventCount", "channels": "FSC-A", "annotations": false,
+      "format": "json"}'
     headers:
       Accept:
       - '*/*'
@@ -364,9 +369,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '66'
+      - '89'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -414,7 +419,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:31 GMT
+      - Tue, 09 Jun 2020 15:56:03 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -426,7 +431,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
@@ -436,7 +441,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: statistics=cv&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "cv", "channels": "FSC-A", "annotations": false, "format":
+      "json"}'
     headers:
       Accept:
       - '*/*'
@@ -445,9 +451,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '58'
+      - '81'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -507,7 +513,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:31 GMT
+      - Tue, 09 Jun 2020 15:56:03 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -519,7 +525,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
@@ -529,7 +535,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: statistics=stddev&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "stddev", "channels": "FSC-A", "annotations": false, "format":
+      "json"}'
     headers:
       Accept:
       - '*/*'
@@ -538,9 +545,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '62'
+      - '85'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -601,7 +608,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:32 GMT
+      - Tue, 09 Jun 2020 15:56:03 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -613,7 +620,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
@@ -623,7 +630,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: statistics=percent&channels=FSC-A&annotations=False&format=json
+    body: '{"statistics": "percent", "channels": "FSC-A", "annotations": false, "format":
+      "json"}'
     headers:
       Accept:
       - '*/*'
@@ -632,9 +640,9 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '63'
+      - '86'
       Content-Type:
-      - application/x-www-form-urlencoded
+      - application/json
       User-Agent:
       - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
     method: POST
@@ -675,7 +683,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 26 Mar 2020 03:08:32 GMT
+      - Tue, 09 Jun 2020 15:56:03 GMT
       Strict-Transport-Security:
       - max-age=5184000
       Transfer-Encoding:
@@ -687,7 +695,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Current-Release:
-      - /e88e93c
+      - /416a003
       X-Frame-Options:
       - DENY
       X-XSS-Protection:
