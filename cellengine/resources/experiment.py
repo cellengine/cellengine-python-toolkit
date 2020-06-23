@@ -5,7 +5,7 @@ import cellengine as ce
 from cellengine.payloads.experiment import _Experiment
 from cellengine.utils.complex_population_creator import create_complex_population
 from cellengine.resources.population import Population
-from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.gate import Gate
@@ -75,6 +75,20 @@ class Experiment(_Experiment):
         res = ce.APIClient().update_experiment(self._id, self._properties)
         self._properties.update(res)
 
+    def clone(self, name=None, as_dict=False):
+        """
+        Saves a deep copy of the experiment and all of its resources, including
+        attachments, FCS files, gates and populations.
+
+        Args:
+            name: The name to give the new experiment. Defaults to "[Original Experiment]-1"
+            as_dict: Optionally return the new experiment as a dict.
+
+        Returns:
+            A deep copy of the experiment.
+        """
+        return ce.APIClient().clone_experiment(self._id, name=name, as_dict=as_dict)
+
     @property
     def delete(self, confirm=False):
         """Marks the experiment as deleted.
@@ -91,7 +105,7 @@ class Experiment(_Experiment):
         if self._properties.get("deleted") is not None:
             self._properties["delete"] = None
 
-    # TODO: make this override _Experimen to return a compensation
+    # TODO: make this override _Experiment to return a compensation
     active_compensation = GetSet("activeCompensation")
 
     @property
@@ -119,16 +133,16 @@ class Experiment(_Experiment):
         return ce.APIClient().get_compensation(self._id, **kwargs)
 
     @property
-    def fcsfiles(self) -> List[FcsFile]:
+    def fcs_files(self) -> List[FcsFile]:
         """List all files on the experiment."""
-        return ce.APIClient().get_fcsfiles(self._id)
+        return ce.APIClient().get_fcs_files(self._id)
 
-    def get_fcsfile(
+    def get_fcs_file(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> FcsFile:
-        """Get a specific fcsfile."""
+        """Get a specific fcs_file."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_fcsfile(self._id, **kwargs)
+        return ce.APIClient().get_fcs_file(self._id, **kwargs)
 
     @property
     def gates(self) -> List[Gate]:

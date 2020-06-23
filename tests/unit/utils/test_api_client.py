@@ -7,7 +7,7 @@ from cellengine.utils.api_client.APIClient import APIClient
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.experiment import Experiment
-from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.gate import Gate
 from cellengine.resources.plot import Plot
 from cellengine.resources.population import Population
@@ -46,18 +46,18 @@ test_params = [
         "get_attachment",
         {"experiment_id": EXP_ID, "name": "config.h"},
     ),
-    (FcsFile, EXP_ID, "get_fcsfiles", {"experiment_id": EXP_ID}),
-    (FcsFile, EXP_ID, "get_fcsfile", {"experiment_id": EXP_ID, "_id": FCSFILE_ID},),
+    (FcsFile, EXP_ID, "get_fcs_files", {"experiment_id": EXP_ID}),
+    (FcsFile, EXP_ID, "get_fcs_file", {"experiment_id": EXP_ID, "_id": FCSFILE_ID},),
     (
         dict,
         EXP_ID,
-        "get_fcsfile",
+        "get_fcs_file",
         {"experiment_id": EXP_ID, "_id": FCSFILE_ID, "as_dict": True},
     ),
     (
         FcsFile,
         EXP_ID,
-        "get_fcsfile",
+        "get_fcs_file",
         {"experiment_id": EXP_ID, "name": "Specimen_001_A1_A01.fcs"},
     ),
     (Compensation, EXP_ID, "get_compensations", {"experiment_id": EXP_ID}),
@@ -118,7 +118,7 @@ def test_should_get(
     attachments,
     compensations,
     experiments,
-    fcsfiles,
+    fcs_files,
     gates,
     populations,
     scalesets,
@@ -207,7 +207,7 @@ def _mock_request(url, json_response):
 
 
 def _mock_request_by_name(base_url, endpoint, exp_id, entity, name, json_response):
-    if (entity == "fcsfiles") or (entity == "attachments"):
+    if (entity == "fcs_files") or (entity == "attachments"):
         query = "filename"
     else:
         query = "name"

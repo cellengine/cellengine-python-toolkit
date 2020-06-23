@@ -78,7 +78,7 @@ class _FcsFile(object):
     #     """
     #     if self._events is None:
     #         fresp = base_get(
-    #             "/experiments/{0}/fcsfiles/{1}.fcs".format(self.experiment_id, self._id)
+    #             "/experiments/{0}/fcs_files/{1}.fcs".format(self.experiment_id, self._id)
     #         )
     #         parser = fcsparser.api.FCSParser.from_data(fresp.content)
     #         self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)

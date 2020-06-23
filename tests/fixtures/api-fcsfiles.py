@@ -2,8 +2,8 @@ import pytest
 
 
 @pytest.fixture(scope="session")
-def fcsfiles():
-    fcsfiles = [
+def fcs_files():
+    fcs_files = [
         {
             "__v": 0,
             "_id": "5d64abe2ca9df61349ed8e79",
@@ -533,4 +533,4 @@ def fcsfiles():
             "size": 118131,
         },
     ]
-    return fcsfiles
+    return fcs_files

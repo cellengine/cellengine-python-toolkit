@@ -16,7 +16,7 @@ nav:
     - Experiments: experiment.md
     - Attachments: attachment.md
     - Compensations: compensation.md
-    - FcsFiles: fcsfile.md
+    - FcsFiles: fcs_file.md
     - Gates: gate.md
   - Cookbook: recipes.md
   - Development: contributing.md

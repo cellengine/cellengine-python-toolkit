@@ -2,7 +2,7 @@ from typing import List, Dict
 from custom_inherit import doc_inherit
 
 import cellengine as ce
-from cellengine.payloads.fcsfile import _FcsFile
+from cellengine.payloads.fcs_file import _FcsFile
 from cellengine.resources.plot import Plot
 
 
@@ -10,7 +10,7 @@ class FcsFile(_FcsFile):
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None):
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_fcsfile(experiment_id=experiment_id, **kwargs)
+        return ce.APIClient().get_fcs_file(experiment_id=experiment_id, **kwargs)
 
     @classmethod
     def upload(cls, experiment_id: str, filepath: str):
@@ -28,13 +28,13 @@ class FcsFile(_FcsFile):
             file: The file contents.
         """
         file = {"upload_file": open(filepath, "rb")}
-        return ce.APIClient().upload_fcsfile(experiment_id, file)
+        return ce.APIClient().upload_fcs_file(experiment_id, file)
 
     @classmethod
     def create(
         cls,
         experiment_id: str,
-        fcsfiles: List[str],
+        fcs_files: List[str],
         filename: str,
         add_file_number: bool = False,
         add_event_number: bool = False,
@@ -49,7 +49,7 @@ class FcsFile(_FcsFile):
 
         Args:
             experiment_id: ID of the experiment to which the file belongs
-            fcsfiles: ID of file or list of IDs of files or objects to process.
+            fcs_files: ID of file or list of IDs of files or objects to process.
                 If more than one file is provided, they will be concatenated in
                 order. To import files from other experiments, pass a list of dicts
                 with _id and experimentId properties.
@@ -72,13 +72,13 @@ class FcsFile(_FcsFile):
             FcsFile
         """
 
-        def _parse_fcsfile_args(args):
+        def _parse_fcs_file_args(args):
             if type(args) is list:
                 return args
             else:
                 return [args]
 
-        body = {"fcsFiles": _parse_fcsfile_args(fcsfiles), "filename": filename}
+        body = {"fcsFiles": _parse_fcs_file_args(fcs_files), "filename": filename}
         optional_params = {
             "addFileNumber": add_file_number,
             "addEventNumber": add_event_number,
@@ -89,17 +89,17 @@ class FcsFile(_FcsFile):
         body.update(
             {key: val for key, val in optional_params.items() if optional_params[key]}
         )
-        return ce.APIClient().create_fcsfile(experiment_id, body)
+        return ce.APIClient().create_fcs_file(experiment_id, body)
 
     def update(self):
         """Save any changed data to CellEngine."""
         res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "fcsfiles", self._properties
+            self.experiment_id, self._id, "fcs_files", self._properties
         )
         self._properties.update(res)
 
     def delete(self):
-        return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
+        return ce.APIClient().delete_entity(self.experiment_id, "fcs_files", self._id)
 
     @doc_inherit(Plot.get)
     def plot(
