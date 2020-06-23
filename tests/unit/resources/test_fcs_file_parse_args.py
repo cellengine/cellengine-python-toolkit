@@ -2,7 +2,7 @@ import json
 import pytest
 import responses
 from cellengine.utils.generate_id import generate_id
-from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.fcs_file import FcsFile
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -10,39 +10,39 @@ FCSFILE_ID = "5d64abe2ca9df61349ed8e7c"
 
 
 @responses.activate
-def test_should_get_fcs_file(ENDPOINT_BASE, client, fcsfiles):
-    file_id = fcsfiles[0]["_id"]
+def test_should_get_fcs_file(ENDPOINT_BASE, client, fcs_files):
+    file_id = fcs_files[0]["_id"]
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/{file_id}",
-        json=fcsfiles[0],
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files/{file_id}",
+        json=fcs_files[0],
     )
     file = FcsFile.get(EXP_ID, file_id)
     assert type(file) is FcsFile
 
 
 @responses.activate
-def test_should_upload_fcsfile(ENDPOINT_BASE, client, fcsfiles):
-    """Test upload of a new fcsfile.
+def test_should_upload_fcs_file(ENDPOINT_BASE, client, fcs_files):
+    """Test upload of a new fcs_file.
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
-        json=fcsfiles[0],
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        json=fcs_files[0],
     )
     file = FcsFile.upload(EXP_ID, "tests/data/text.txt")
 
 
 @responses.activate
-def test_should_create_fcsfile(ENDPOINT_BASE, client, fcsfiles):
-    """Test upload of a new fcsfile.
+def test_should_create_fcs_file(ENDPOINT_BASE, client, fcs_files):
+    """Test upload of a new fcs_file.
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
-        json=fcsfiles[1],
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        json=fcs_files[1],
     )
-    file = FcsFile.create(EXP_ID, [fcsfiles[0]["_id"]], "new file")
+    file = FcsFile.create(EXP_ID, [fcs_files[0]["_id"]], "new file")
     assert json.loads(responses.calls[0].request.body) == {
         "fcsFiles": ["5d64abe2ca9df61349ed8e79"],
         "filename": "new file",
@@ -53,27 +53,27 @@ params = [
     (FCSFILE_ID, [FCSFILE_ID]),
     ([FCSFILE_ID], [FCSFILE_ID]),
     (
-        ["fcsfile_id_1", "fcsfile_id_2", "fcsfile_id_3"],
-        ["fcsfile_id_1", "fcsfile_id_2", "fcsfile_id_3"],
+        ["fcs_file_id_1", "fcs_file_id_2", "fcs_file_id_3"],
+        ["fcs_file_id_1", "fcs_file_id_2", "fcs_file_id_3"],
     ),
     ({EXP_ID: FCSFILE_ID}, [{EXP_ID: FCSFILE_ID}]),
     ([{EXP_ID: FCSFILE_ID}], [{EXP_ID: FCSFILE_ID}]),
 ]
 
 
-@pytest.mark.parametrize("fcsfile_args,expected_response", params)
+@pytest.mark.parametrize("fcs_file_args,expected_response", params)
 @responses.activate
-def test_should_create_fcsfile_and_correctly_parse_fcsfile_args(
-    ENDPOINT_BASE, client, fcsfiles, fcsfile_args, expected_response
+def test_should_create_fcs_file_and_correctly_parse_fcs_file_args(
+    ENDPOINT_BASE, client, fcs_files, fcs_file_args, expected_response
 ):
-    """Test upload of a new fcsfile.
+    """Test upload of a new fcs_file.
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
-        json=fcsfiles[1],
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        json=fcs_files[1],
     )
-    file = FcsFile.create(EXP_ID, fcsfile_args, "new file")
+    file = FcsFile.create(EXP_ID, fcs_file_args, "new file")
     assert json.loads(responses.calls[0].request.body) == {
         "fcsFiles": expected_response,
         "filename": "new file",
@@ -81,15 +81,15 @@ def test_should_create_fcsfile_and_correctly_parse_fcsfile_args(
 
 
 @responses.activate
-def test_should_create_fcsfile_and_correctly_parse_body_args(
-    ENDPOINT_BASE, client, fcsfiles
+def test_should_create_fcs_file_and_correctly_parse_body_args(
+    ENDPOINT_BASE, client, fcs_files
 ):
-    """Test upload of a new fcsfile.
+    """Test upload of a new fcs_file.
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
-        json=fcsfiles[1],
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        json=fcs_files[1],
     )
     file = FcsFile.create(
         EXP_ID,
@@ -112,13 +112,13 @@ def test_should_create_fcsfile_and_correctly_parse_body_args(
 
 
 @responses.activate
-def test_should_delete_fcsfile(ENDPOINT_BASE, client, fcsfiles):
-    fcsfile = FcsFile(fcsfiles[0])
+def test_should_delete_fcs_file(ENDPOINT_BASE, client, fcs_files):
+    fcs_file = FcsFile(fcs_files[0])
     responses.add(
         responses.DELETE,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/{fcsfile._id}",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files/{fcs_file._id}",
     )
-    deleted = fcsfile.delete()
+    deleted = fcs_file.delete()
     assert deleted is None
 
 
@@ -236,16 +236,16 @@ def test_specify_fcs_file_id(ENDPOINT_BASE, experiment, rectangle_gate):
 
 
 @responses.activate
-def test_fcs_file_called_by_name(ENDPOINT_BASE, experiment, fcsfiles, rectangle_gate):
+def test_fcs_file_called_by_name(ENDPOINT_BASE, experiment, fcs_files, rectangle_gate):
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
-        json=[fcsfiles[3]],
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        json=[fcs_files[3]],
     )
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/5d64abe2ca9df61349ed8e7c",
-        json=fcsfiles[3],
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files/5d64abe2ca9df61349ed8e7c",
+        json=fcs_files[3],
     )
     responses.add(
         responses.POST,

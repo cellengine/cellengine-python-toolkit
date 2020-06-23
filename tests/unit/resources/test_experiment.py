@@ -5,7 +5,7 @@ import responses
 from cellengine.utils import helpers
 from cellengine.resources.experiment import Experiment
 from cellengine.resources.population import Population
-from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.gate import Gate
@@ -70,7 +70,7 @@ def test_all_experiment_properties(ENDPOINT_BASE, experiment):
 list_params = [
     ("attachments", Attachment),
     ("compensations", Compensation),
-    ("fcsfiles", FcsFile),
+    ("fcs_files", FcsFile),
     ("gates", Gate),
     ("populations", Population),
     # ("get_statistics", dict),
@@ -84,7 +84,7 @@ def test_should_get_list_of_entities(
     experiment,
     attachments,
     compensations,
-    fcsfiles,
+    fcs_files,
     gates,
     populations,
     statistics,
@@ -109,7 +109,7 @@ def test_should_get_list_of_entities(
 get_params = [
     ("attachments", ATTACHMENT_ID, Attachment),
     ("compensations", COMPENSATION_ID, Compensation),
-    ("fcsfiles", FCSFILE_ID, FcsFile),
+    ("fcs_files", FCSFILE_ID, FcsFile),
     ("gates", GATE_ID, Gate),
     ("populations", POPULATION_ID, Population),
 ]
@@ -122,7 +122,7 @@ def test_get_one_entity(
     experiment,
     attachments,
     compensations,
-    fcsfiles,
+    fcs_files,
     gates,
     populations,
     statistics,

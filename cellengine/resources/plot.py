@@ -57,7 +57,7 @@ class Plot(_Plot):
     def get(
         cls,
         experiment_id,
-        fcsfile_id: str,
+        fcs_file_id: str,
         x_channel: str,
         y_channel: str,
         plot_type: str,
@@ -67,7 +67,7 @@ class Plot(_Plot):
     ):
         return ce.APIClient().get_plot(
             experiment_id,
-            fcsfile_id,
+            fcs_file_id,
             x_channel,
             y_channel,
             plot_type,

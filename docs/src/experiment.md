@@ -18,7 +18,7 @@ Methods are available for common access and transformations on the Experiment.
     selection:
       members:
         - files
-        - get_fcsfile
+        - get_fcs_file
         - populations
         - compensations
         - gates

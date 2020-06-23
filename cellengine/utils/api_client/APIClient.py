@@ -11,7 +11,7 @@ from cellengine.utils.singleton import Singleton
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.experiment import Experiment
-from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.gate import Gate
 from cellengine.resources.plot import Plot
 from cellengine.resources.population import Population
@@ -91,7 +91,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             path = f"experiments/{experiment_id}/{resource_type}"
         else:
             path = "experiments"
-        if (resource_type == "fcsfiles") or (resource_type == "attachments"):
+        if (resource_type == "fcs_files") or (resource_type == "attachments"):
             query = "filename"
         else:
             query = "name"
@@ -204,30 +204,32 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def update_experiment(self, _id, body) -> Dict:
         return self._patch(f"{self.endpoint_base}/experiments/{_id}", json=body)
 
-    def get_fcsfiles(self, experiment_id, as_dict=False) -> List[FcsFile]:
-        fcsfiles = self._get(
-            f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
+    def get_fcs_files(self, experiment_id, as_dict=False) -> List[FcsFile]:
+        fcs_files = self._get(
+            f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files"
         )
         if as_dict:
-            return fcsfiles
-        return [FcsFile(fcsfile) for fcsfile in fcsfiles]
+            return fcs_files
+        return [FcsFile(fcs_file) for fcs_file in fcs_files]
 
-    def get_fcsfile(self, experiment_id, _id=None, name=None, as_dict=False) -> FcsFile:
-        _id = _id or self._get_id_by_name(name, "fcsfiles", experiment_id)
-        fcsfile = self._get(
-            f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles/{_id}"
+    def get_fcs_file(
+        self, experiment_id, _id=None, name=None, as_dict=False
+    ) -> FcsFile:
+        _id = _id or self._get_id_by_name(name, "fcs_files", experiment_id)
+        fcs_file = self._get(
+            f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files/{_id}"
         )
         if as_dict:
-            return fcsfile
-        return FcsFile(fcsfile)
+            return fcs_file
+        return FcsFile(fcs_file)
 
-    def upload_fcsfile(self, experiment_id, file):
-        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
+    def upload_fcs_file(self, experiment_id, file):
+        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files"
         f = self._post(url, files=file)
         return FcsFile(f)
 
-    def create_fcsfile(self, experiment_id, body):
-        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
+    def create_fcs_file(self, experiment_id, body):
+        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files"
         return self._post(url, json=body)
 
     def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
@@ -264,7 +266,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def get_plot(
         self,
         experiment_id,
-        fcsfile_id,
+        fcs_file_id,
         x_channel: str,
         y_channel: str,
         plot_type: str,
@@ -274,7 +276,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     ) -> Plot:
 
         req_params = {
-            "fcsFileId": fcsfile_id,
+            "fcsFileId": fcs_file_id,
             "xChannel": x_channel,
             "yChannel": y_channel,
             "plotType": plot_type,
@@ -293,7 +295,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return data
         return Plot(
             experiment_id,
-            fcsfile_id,
+            fcs_file_id,
             x_channel,
             y_channel,
             plot_type,
