@@ -21,7 +21,7 @@ def by_name(path):
 
 @lru_cache(maxsize=None)
 def _lookup_by_name(client, path, name):
-    if name == "fcsfiles":
+    if name == "fcs_files":
         query = "filename"
     else:
         query = "name"

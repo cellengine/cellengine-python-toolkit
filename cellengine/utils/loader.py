@@ -44,8 +44,8 @@ class Loader(object):
     the experiment's scope. That is, the following is safe, even though the FCS
     files have the same name:
 
-    exp.get_fcsfile(name="fcsfile1.fcs")
-    exp2.get_fcsfile(name="fcsfile1.fcs")
+    exp.get_fcs_file(name="fcs_file1.fcs")
+    exp2.get_fcs_file(name="fcs_file1.fcs")
     """
 
     _id = attr.ib(kw_only=True, default=None)
@@ -83,12 +83,12 @@ class Loader(object):
         return loader.load()
 
     @staticmethod
-    def get_fcsfile(experiment_id: str, _id: str, name: str):
+    def get_fcs_file(experiment_id: str, _id: str, name: str):
         fcs_loader = Loader(
             id=_id,
             name=name,
             query="filename",
-            path="/experiments/{0}/fcsfiles".format(experiment_id),
+            path="/experiments/{0}/fcs_files".format(experiment_id),
             classname="cellengine.FcsFile",
         )
         return fcs_loader.load()

@@ -12,7 +12,7 @@ Methods are available for common access and transformations on the FCS file.
 
 ## Methods
 
-::: cellengine.resources.fcsfile.FcsFile
+::: cellengine.resources.fcs_file.FcsFile
     selection:
       members:
         - files
@@ -22,5 +22,5 @@ Methods are available for common access and transformations on the FCS file.
 ## Properties
 Properties are getter methods and setter methods representing the underlying
 CellEngine object. Properties are the snake_case equivalent of those documented on the
-[CellEngine API](https://docs.cellengine.com/api/#fcsfiles)
+[CellEngine API](https://docs.cellengine.com/api/#fcs_files)
 otherwise noted.

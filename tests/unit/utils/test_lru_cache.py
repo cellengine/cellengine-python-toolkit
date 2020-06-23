@@ -37,7 +37,7 @@ def test_lru_cache(ENDPOINT_BASE, client, experiments):
 
 
 @responses.activate
-def test_lru_cache_paths(ENDPOINT_BASE, client, experiments, fcsfiles, experiment):
+def test_lru_cache_paths(ENDPOINT_BASE, client, experiments, fcs_files, experiment):
     """Test whether the cache returns a url with a name query on the first
     request and then an ID on the second request."""
     client.cache_clear()
@@ -76,7 +76,7 @@ def test_lru_cache_paths(ENDPOINT_BASE, client, experiments, fcsfiles, experimen
 
 
 @responses.activate
-def test_different_item_cache_accessor(ENDPOINT_BASE, client, experiments, fcsfiles):
+def test_different_item_cache_accessor(ENDPOINT_BASE, client, experiments, fcs_files):
     """Test to see if the LRU cache adds hits. Multiple queries of the same
     object should add hits and new queries should add a miss.
 
@@ -100,16 +100,16 @@ def test_different_item_cache_accessor(ENDPOINT_BASE, client, experiments, fcsfi
 
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + "/experiments/5d38a6f79fae87499999a74b/fcsfiles",
-        json=fcsfiles[0],
+        ENDPOINT_BASE + "/experiments/5d38a6f79fae87499999a74b/fcs_files",
+        json=fcs_files[0],
     )
     responses.add(
         responses.GET,
         ENDPOINT_BASE
-        + "/experiments/5d38a6f79fae87499999a74b/fcsfiles/5d64abe2ca9df61349ed8e79",
-        json=fcsfiles[0],
+        + "/experiments/5d38a6f79fae87499999a74b/fcs_files/5d64abe2ca9df61349ed8e79",
+        json=fcs_files[0],
     )
-    file1 = exp1.get_fcsfile(name="Specimen_001_A12_A12.fcs")
+    file1 = exp1.get_fcs_file(name="Specimen_001_A12_A12.fcs")
     assert client.cache_info().misses == 2
 
     responses.add(
@@ -128,16 +128,16 @@ def test_different_item_cache_accessor(ENDPOINT_BASE, client, experiments, fcsfi
 
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + "/experiments/5d5faa686d24fd0bf35129b1/fcsfiles",
-        json=fcsfiles[1],
+        ENDPOINT_BASE + "/experiments/5d5faa686d24fd0bf35129b1/fcs_files",
+        json=fcs_files[1],
     )
     responses.add(
         responses.GET,
         ENDPOINT_BASE
-        + "/experiments/5d5faa686d24fd0bf35129b1/fcsfiles/5d64abe2ca9df61349ed8e7a",
-        json=fcsfiles[1],
+        + "/experiments/5d5faa686d24fd0bf35129b1/fcs_files/5d64abe2ca9df61349ed8e7a",
+        json=fcs_files[1],
     )
-    file2 = exp2.get_fcsfile(name="Specimen_001_A12_A12.fcs")
+    file2 = exp2.get_fcs_file(name="Specimen_001_A12_A12.fcs")
     assert (
         client.cache_info().misses == 4
     )  # not 3 because this is a different experiment

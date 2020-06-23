@@ -5,7 +5,7 @@ import cellengine as ce
 from cellengine.payloads.experiment import _Experiment
 from cellengine.utils.complex_population_creator import create_complex_population
 from cellengine.resources.population import Population
-from cellengine.resources.fcsfile import FcsFile
+from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.gate import Gate
@@ -119,16 +119,16 @@ class Experiment(_Experiment):
         return ce.APIClient().get_compensation(self._id, **kwargs)
 
     @property
-    def fcsfiles(self) -> List[FcsFile]:
+    def fcs_files(self) -> List[FcsFile]:
         """List all files on the experiment."""
-        return ce.APIClient().get_fcsfiles(self._id)
+        return ce.APIClient().get_fcs_files(self._id)
 
-    def get_fcsfile(
+    def get_fcs_file(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> FcsFile:
-        """Get a specific fcsfile."""
+        """Get a specific fcs_file."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_fcsfile(self._id, **kwargs)
+        return ce.APIClient().get_fcs_file(self._id, **kwargs)
 
     @property
     def gates(self) -> List[Gate]:
