@@ -193,3 +193,16 @@ def test_update_experiment(ENDPOINT_BASE, experiment):
     experiment.update()
     assert experiment.name == "new name"
     assert json.loads(responses.calls[0].request.body) == experiment._properties
+
+
+@responses.activate
+def test_should_clone_experiment(ENDPOINT_BASE, experiment, experiments):
+    responses.add(
+        responses.POST,
+        f"{ENDPOINT_BASE}/experiments/{experiment._id}/clone",
+        json=experiments[0],
+    )
+    new_exp = experiment.clone(name="my cloned experiment")
+    assert json.loads(responses.calls[0].request.body) == {
+        "name": "my cloned experiment",
+    }

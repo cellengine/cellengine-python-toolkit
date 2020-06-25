@@ -22,9 +22,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def __init__(self, user_name=None, password=None, token=None):
         super(APIClient, self).__init__()
-        self.endpoint_base = os.environ.get(
-            "BASE_URL", "https://cellengine.com/api/v1"
-        )
+        self.endpoint_base = os.environ.get("BASE_URL", "https://cellengine.com/api/v1")
         self.user_name = user_name
         self.password = password
         self.token = token
@@ -197,6 +195,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def post_experiment(self, experiment: dict, as_dict=False) -> Experiment:
         experiment = self._post(f"{self.endpoint_base}/experiments", json=experiment)
+        if as_dict:
+            return experiment
+        return Experiment(experiment)
+
+    def clone_experiment(self, _id, name=None, as_dict=False) -> Experiment:
+        experiment = self._post(
+            f"{self.endpoint_base}/experiments/{_id}/clone", json={"name": name}
+        )
         if as_dict:
             return experiment
         return Experiment(experiment)
