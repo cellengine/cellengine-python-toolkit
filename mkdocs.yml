@@ -13,11 +13,15 @@ site_url: 'https://primitybio.github.io/cellengine-python-toolkit/'
 nav:
   - Home: index.md
   - Resources:
-    - Experiments: experiment.md
-    - Attachments: attachment.md
-    - Compensations: compensation.md
-    - FcsFiles: fcs_file.md
-    - Gates: gate.md
+    - Attachments: attachments.md
+    - Compensations: compensations.md
+    - Experiments: experiments.md
+    - FCS Files: fcs_files.md
+    - Gates: gates.md
+    - Plots: plots.md
+    - Populations: populations.md
+    - Statistics: statistics.md
+    - ScaleSets: scalesets.md
   - Cookbook: recipes.md
   - Development: contributing.md
   - About: about.md
@@ -27,7 +31,7 @@ nav:
 docs_dir: 'docs/src'
 
 # Theme Customization
-theme: 
+theme:
   name: material
   language: en
   direction: ltr

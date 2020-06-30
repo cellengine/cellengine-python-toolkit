@@ -9,6 +9,14 @@ class Attachment(_Attachment):
 
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None):
+        """Get an Attachment by name or ID for a specific experiment. Either
+        `name` or `id` must be specified.
+
+        Args:
+            experiment_id: ID of the experiment this attachment is connected with.
+            _id (optional): ID of the attachment.
+            name (optional): Name of the experiment.
+        """
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_attachment(experiment_id, **kwargs)
 
@@ -18,13 +26,17 @@ class Attachment(_Attachment):
         return ce.APIClient().post_attachment(experiment_id, files)
 
     def update(self):
-        """Save any changed data to CellEngine."""
+        """Save any local changes made to this entity to CellEngine.
+        Updates the CellEngine entity with local changes, then updates the
+        local entity with the new data from CellEngine.
+        """
         props = ce.APIClient().update_entity(
             self.experiment_id, self._id, "attachments", body=self._properties
         )
         self._properties.update(props)
 
     def delete(self):
+        """Delete this attachment."""
         return ce.APIClient().delete_entity(self.experiment_id, "attachments", self._id)
 
     def download(self, to_file: str = None):
