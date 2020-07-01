@@ -91,15 +91,26 @@ class FcsFile(_FcsFile):
         )
         return ce.APIClient().create_fcs_file(experiment_id, body)
 
-    def update(self):
-        """Save any changed data to CellEngine."""
+    def update(self, inplace=True):
+        """Save changes to this FcsFile to CellEngine.
+
+        Args:
+            inplace (bool): Update this entity or return a new one.
+
+        Returns:
+            FcsFile or None: If inplace is True, returns a new FcsFile.
+            Otherwise, updates the current entity.
+            """
         res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "fcs_files", self._properties
+            self.experiment_id, self._id, "fcsfiles", self._properties
         )
-        self._properties.update(res)
+        if inplace:
+            self._properties.update(res)
+        else:
+            return self.__class__(res)
 
     def delete(self):
-        return ce.APIClient().delete_entity(self.experiment_id, "fcs_files", self._id)
+        return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
 
     @doc_inherit(Plot.get)
     def plot(

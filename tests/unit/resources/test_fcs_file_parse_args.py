@@ -14,7 +14,7 @@ def test_should_get_fcs_file(ENDPOINT_BASE, client, fcs_files):
     file_id = fcs_files[0]["_id"]
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files/{file_id}",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/{file_id}",
         json=fcs_files[0],
     )
     file = FcsFile.get(EXP_ID, file_id)
@@ -27,7 +27,7 @@ def test_should_upload_fcs_file(ENDPOINT_BASE, client, fcs_files):
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[0],
     )
     file = FcsFile.upload(EXP_ID, "tests/data/text.txt")
@@ -39,7 +39,7 @@ def test_should_create_fcs_file(ENDPOINT_BASE, client, fcs_files):
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[1],
     )
     file = FcsFile.create(EXP_ID, [fcs_files[0]["_id"]], "new file")
@@ -70,7 +70,7 @@ def test_should_create_fcs_file_and_correctly_parse_fcs_file_args(
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[1],
     )
     file = FcsFile.create(EXP_ID, fcs_file_args, "new file")
@@ -88,7 +88,7 @@ def test_should_create_fcs_file_and_correctly_parse_body_args(
     This test must be run from the project root directory"""
     responses.add(
         responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[1],
     )
     file = FcsFile.create(
@@ -116,7 +116,7 @@ def test_should_delete_fcs_file(ENDPOINT_BASE, client, fcs_files):
     fcs_file = FcsFile(fcs_files[0])
     responses.add(
         responses.DELETE,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files/{fcs_file._id}",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/{fcs_file._id}",
     )
     deleted = fcs_file.delete()
     assert deleted is None
@@ -239,12 +239,12 @@ def test_specify_fcs_file_id(ENDPOINT_BASE, experiment, rectangle_gate):
 def test_fcs_file_called_by_name(ENDPOINT_BASE, experiment, fcs_files, rectangle_gate):
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=[fcs_files[3]],
     )
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcs_files/5d64abe2ca9df61349ed8e7c",
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/5d64abe2ca9df61349ed8e7c",
         json=fcs_files[3],
     )
     responses.add(

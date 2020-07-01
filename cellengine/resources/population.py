@@ -13,7 +13,15 @@ class Population(_Population):
         return ce.APIClient().post_population(experiment_id, compensation)
 
     def update(self):
-        """Save any changed data to CellEngine."""
+        """Save changes to this Population to CellEngine.
+
+        Args:
+            inplace (bool): Update this entity or return a new one.
+
+        Returns:
+            Population or None: If inplace is True, returns a new Population.
+            Otherwise, updates the current entity.
+        """
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "populations", self._properties
         )
