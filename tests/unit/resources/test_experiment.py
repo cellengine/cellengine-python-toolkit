@@ -91,10 +91,13 @@ def test_should_get_list_of_entities(
     entity,
     _type,
 ):
+
+    entity_fixture = eval(entity)
+    entity_path = entity.replace("_", "")
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/5d38a6f79fae87499999a74b/{entity}",
-        json=eval(entity),
+        ENDPOINT_BASE + f"/experiments/5d38a6f79fae87499999a74b/{entity_path}",
+        json=entity_fixture,
     )
     all_entities = getattr(experiment, entity)
     assert type(all_entities) is list
@@ -130,10 +133,13 @@ def test_get_one_entity(
     entity_id,
     _type,
 ):
+    entity_fixture = eval(entity)[0]
+    entity_path = entity.replace("_", "")
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/5d38a6f79fae87499999a74b/{entity}/{entity_id}",
-        json=eval(entity)[0],
+        ENDPOINT_BASE
+        + f"/experiments/5d38a6f79fae87499999a74b/{entity_path}/{entity_id}",
+        json=entity_fixture,
     )
     func_name = "get_" + entity[:-1]
     _func = getattr(experiment, func_name)

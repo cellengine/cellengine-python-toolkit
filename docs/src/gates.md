@@ -20,12 +20,19 @@ Methods are available for common access and transformations on the Gate.
 Although you should not instantiate the `Gate` class, each gate type will
 inherit the methods below.
 
-::: cellengine.resources.gate.Gate.model
-::: cellengine.resources.gate.Gate.build
-::: cellengine.resources.gate.Gate.delete_gates
-::: cellengine.resources.gate.Gate.post
-::: cellengine.resources.gate.Gate.update
-
+::: cellengine.resources.gate.Gate
+    rendering:
+      show_root_heading: true
+      show_source: false
+      show_if_no_docstring: true
+    selection:
+      members:
+        - get
+        - build
+        - update
+        - delete
+        - post
+        - delete_gates
 
 ## Gate Types
 

@@ -16,11 +16,23 @@ class Compensation(_Compensation):
     def create(cls, experiment_id: str, compensation: dict):
         return ce.APIClient().post_compensation(experiment_id, compensation)
 
-    def update(self):
-        props = ce.APIClient().update_entity(
+    def update(self, inplace=True):
+        """Save changes to this Compensation to CellEngine.
+
+        Args:
+            inplace (bool): Update this entity or return a new one.
+
+        Returns:
+            Experiment or None: If inplace is True, returns a new Compensation.
+            Otherwise, updates the current entity.
+            """
+        res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "compensations", body=self._properties
         )
-        self._properties.update(props)
+        if inplace:
+            self._properties.update(res)
+        else:
+            return self.__class__(res)
 
     def delete(self):
         return ce.APIClient().delete_entity(

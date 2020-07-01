@@ -11,7 +11,7 @@ def test_get_fcs_file(ENDPOINT_BASE, client, fcs_files):
     file_id = fcs_files[0]["_id"]
     responses.add(
         responses.GET,
-        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcs_files/{file_id}",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file_id}",
         json=fcs_files[0],
     )
     fcs_file = client.get_fcs_file(experiment_id=EXP_ID, _id=file_id)
@@ -23,12 +23,12 @@ def test_get_fcs_file_by_name(ENDPOINT_BASE, client, fcs_files):
     file_id = fcs_files[3]["_id"]
     responses.add(
         responses.GET,
-        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcs_files",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[3],
     )
     responses.add(
         responses.GET,
-        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcs_files/{file_id}",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file_id}",
         json=fcs_files[3],
     )
     fcs_file = client.get_fcs_file(
@@ -45,7 +45,7 @@ def test_should_update_fcs_file(ENDPOINT_BASE, client, fcs_files):
     expected_response.update({"filename": "new name"})
     responses.add(
         responses.PATCH,
-        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcs_files/{file._id}",
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}",
         json=expected_response,
     )
     file.update()

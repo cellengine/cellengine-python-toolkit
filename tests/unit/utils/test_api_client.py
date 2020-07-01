@@ -188,6 +188,8 @@ def _get_fixture_item_or_list(entity: str, _func: str) -> str:
 
 def _make_endpoint(entity, exp_id, kwargs):
     """Return the correct endpoint, given the entity name and experiment_id."""
+    if "fcs" in entity:
+        entity = "fcsfiles"
     if exp_id:
         if "experiment" in entity:
             endpoint = f"/experiments"
@@ -207,7 +209,9 @@ def _mock_request(url, json_response):
 
 
 def _mock_request_by_name(base_url, endpoint, exp_id, entity, name, json_response):
-    if (entity == "fcs_files") or (entity == "attachments"):
+    if "fcs" in entity:
+        entity = "fcsfiles"
+    if (entity == "fcsfiles") or (entity == "attachments"):
         query = "filename"
     else:
         query = "name"
