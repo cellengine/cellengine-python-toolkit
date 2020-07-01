@@ -1,17 +1,11 @@
 ## Recipes for common operations
 
-
-
+```python
 from cellengine.utils.api_client.APIClient import APIClient
-c = APIClient("gegnew", "^w^A7kpB$2sezF")
-exps = c.get_experiments()
-e = exps[0]
-files = e.fcs_files
-f = files[0]
-f_again = e.fcs_file(f._id)
-f_again_by_name = e.fcs_file(name = f.name)
+client = cellengine.APIClient("username", "password")
+e = client.get_experiment(name="my experiment")
+fcsfile = client.get_fcsfile(experiment_id=e._id, name="my fcs file")
 
 pops = e.populations
-p = e.population(name="my population name")
-
-
+p = e.get_population(name="my population name")
+```

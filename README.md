@@ -10,8 +10,10 @@ A Python wrapper around the CellEngine API that enables you to securely,
 reproducibly and easily interact with your data from a Python or Jupyter
 environment.
 
-[Documentation]()
+[Documentation](https://primitybio.github.io/cellengine-python-toolkit/)
+
 [API Documentation](https://docs.cellengine.com/api/)
+
 
 ## Installing:
 ```

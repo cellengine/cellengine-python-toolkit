@@ -2,7 +2,7 @@ import os
 import json
 import pandas
 from getpass import getpass
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Optional
 from functools import lru_cache
 
 from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
@@ -55,12 +55,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             username: Login credential set during CellEngine registration
             password: Password for login
             token: Authentication token; may be passed instead of username and password
-
-        Attributes:
-            experiments: List all experiments on the client
-
-        Returns:
-            client: Authenticated client object
         """
         if user_name:
             self.user_name = user_name
@@ -89,7 +83,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             path = f"experiments/{experiment_id}/{resource_type}"
         else:
             path = "experiments"
-        if (resource_type == "fcs_files") or (resource_type == "attachments"):
+        if (resource_type == "fcsfiles") or (resource_type == "attachments"):
             query = "filename"
         else:
             query = "name"
@@ -212,7 +206,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def get_fcs_files(self, experiment_id, as_dict=False) -> List[FcsFile]:
         fcs_files = self._get(
-            f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files"
+            f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
         )
         if as_dict:
             return fcs_files
@@ -221,21 +215,21 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def get_fcs_file(
         self, experiment_id, _id=None, name=None, as_dict=False
     ) -> FcsFile:
-        _id = _id or self._get_id_by_name(name, "fcs_files", experiment_id)
+        _id = _id or self._get_id_by_name(name, "fcsfiles", experiment_id)
         fcs_file = self._get(
-            f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files/{_id}"
+            f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles/{_id}"
         )
         if as_dict:
             return fcs_file
         return FcsFile(fcs_file)
 
     def upload_fcs_file(self, experiment_id, file):
-        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files"
+        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
         f = self._post(url, files=file)
         return FcsFile(f)
 
     def create_fcs_file(self, experiment_id, body):
-        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcs_files"
+        url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
         return self._post(url, json=body)
 
     def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
@@ -343,47 +337,50 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         statistics: Union[str, List[str]],
         channels: List[str],
         q: float = None,
-        annotations: bool = False,
-        compensation_id: str = None,
-        fcs_file_ids: List[str] = None,
-        format: str = "json",
-        layout: str = None,
-        percent_of: Union[str, List[str]] = None,
-        population_ids: List[str] = None,
+        annotations: Optional[bool] = False,
+        compensation_id: Optional[str] = None,
+        fcs_file_ids: Optional[List[str]] = None,
+        format: Optional[str] = "json",
+        layout: Optional[str] = None,
+        percent_of: Optional[Union[str, List[str]]] = None,
+        population_ids: Optional[List[str]] = None,
     ):
         """
         Request Statistics from CellEngine.
 
-        Required Args:
+        Args:
             experiment_id: ID of experiment to request statistics for.
-            statistics: Statistical method to request. Any of "mean", "median", "quantile",
-                "mad" (median absolute deviation), "geometricmean", "eventcount",
-                "cv", "stddev" or "percent" (case-insensitive).
+            statistics: Statistical method to request. Any of "mean", "median",
+                "quantile", "mad" (median absolute deviation), "geometricmean",
+                "eventcount", "cv", "stddev" or "percent" (case-insensitive).
             q: int: quantile (required for "quantile" statistic)
             channels: str or List[str]: for "mean", "median", "geometricMean", "cv",
                 "stddev", "mad" or "quantile" statistics. Names of
                 channels to calculate statistics for.
-        Optional Args:
-            annotations: bool: Include file annotations in output (defaults to False).
-            compensation_id: str: Compensation to use for gating and statistic calculation.
+            annotations (optional): bool: Include file annotations in output
+                (defaults to False).
+            compensation_id (optional): str: Compensation to use for gating and statistic
+                calculation.
                 Defaults to uncompensated. Three special constants may be used:
                     0: Uncompensated
                     -1: File-Internal Compensation Uses the file's internal compensation
-                        matrix, if available. If not available, an error will be returned.
+                        matrix, if available. If not, an error will be returned.
                     -2: Per-File Compensation Use the compensation assigned to each
                         individual FCS file.
-            fcs_file_ids: List[str]: FCS files to get statistics for. If omitted,
-                statistics for all non-control FCS files will be returned.
-            format: str: One of "TSV (with[out] header)", "CSV (with[out] header)" or
-                "json" (default), "pandas", case-insensitive.
-            layout: str: The file (TSV/CSV) or object (JSON) layout. One of "tall-skinny",
-                "medium", or "short-wide".
-            percent_of: str or List[str]: Population ID or array of population IDs.
-                If omitted or the string "PARENT", will calculate percent of parent for
-                each population. If a single ID, will calculate percent of that population
-                for all populations specified by populationIds. If a list, will calculate
-                percent of each of those populations.
-            population_ids: List[str]: List of population IDs. Defaults to ungated.
+            fcs_file_ids (optional): List[str]: FCS files to get statistics for. If
+                omitted, statistics for all non-control FCS files will be returned.
+            format (optional): str: One of "TSV (with[out] header)",
+                "CSV (with[out] header)" or "json" (default), "pandas", case-insensitive.
+            layout (optional): str: The file (TSV/CSV) or object (JSON) layout.
+                One of "tall-skinny", "medium", or "short-wide".
+            percent_of (optional): str or List[str]: Population ID or array of
+                population IDs.  If omitted or the string "PARENT", will calculate
+                percent of parent for each population. If a single ID, will calculate
+                percent of that population for all populations specified by
+                population_ids. If a list, will calculate percent of each of
+                those populations.
+            population_ids (optional): List[str]: List of population IDs.
+                Defaults to ungated.
         Returns:
             statistics: Dict, String, or pandas.Dataframe
         """

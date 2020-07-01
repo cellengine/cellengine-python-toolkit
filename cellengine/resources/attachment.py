@@ -25,15 +25,23 @@ class Attachment(_Attachment):
         files = {"upload_file": open(filepath, "rb")}
         return ce.APIClient().post_attachment(experiment_id, files)
 
-    def update(self):
-        """Save any local changes made to this entity to CellEngine.
-        Updates the CellEngine entity with local changes, then updates the
-        local entity with the new data from CellEngine.
+    def update(self, inplace=True):
+        """Save changes to this Attachment to CellEngine.
+
+        Args:
+            inplace (bool): Update this entity or return a new one.
+
+        Returns:
+            None: Updates the Attachment on CellEngine and then
+                synchronizes the properties with the current Attachment object.
         """
-        props = ce.APIClient().update_entity(
+        res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "attachments", body=self._properties
         )
-        self._properties.update(props)
+        if inplace:
+            self._properties.update(res)
+        else:
+            return self.__class__(res)
 
     def delete(self):
         """Delete this attachment."""

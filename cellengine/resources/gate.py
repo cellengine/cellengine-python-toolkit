@@ -31,7 +31,15 @@ class Gate(_Gate):
         self._posted = False
 
     def update(self):
-        """Save any changed data to CellEngine."""
+        """Save changes to this Gate to CellEngine.
+
+        Args:
+            inplace (bool): Update this entity or return a new one.
+
+        Returns:
+            Gate or None: If inplace is True, returns a new Gate.
+            Otherwise, updates the current entity.
+        """
         props = ce.APIClient().update_entity(
             self.experiment_id, self._id, "gates", body=self._properties
         )
@@ -80,28 +88,16 @@ class Gate(_Gate):
             create_population (bool): Automatically create corresponding population.
             """
         if type(gates) is list:
-            return cls._create_multiple_gates(gates)
+            return [cls._build_gate(gate) for gate in gates]
         else:
-            return cls._create_gate(gates)
+            return cls._build_gate(gates)
 
     @classmethod
-    def _create_gate(cls, gate):
+    def _build_gate(cls, gate):
         """Get the gate type and return instance of the correct subclass."""
         module = importlib.import_module(__name__)
         gate_type = getattr(module, gate["type"])
         return gate_type(properties=gate)
-
-    @classmethod
-    def _create_multiple_gates(cls, gates: List, post_all=False):
-        """Create an array of gates.
-        Cellengine does not accept createPopulation when an array of gates is created
-        """
-        experiment_id = gates[0]["experimentId"]
-        try:
-            assert all([gate["experimentId"] == experiment_id for gate in gates])
-        except Exception as e:
-            raise ValueError("All gates must be posted to the same experiment", e)
-        return [cls._create_gate(gate) for gate in gates]
 
     @staticmethod
     def delete_gates(

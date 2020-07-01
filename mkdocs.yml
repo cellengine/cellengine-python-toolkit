@@ -2,7 +2,6 @@
 site_name: 'CellEngine Python Toolkit'
 site_description: 'Python API toolkit for CellEngine'
 site_author: 'Zach Bjornson, Gerrit Egnew'
-#site_url: ''
 
 # Repository
 repo_name: 'primitybio/cellengine-pythoon-toolkit'
@@ -13,10 +12,11 @@ site_url: 'https://primitybio.github.io/cellengine-python-toolkit/'
 nav:
   - Home: index.md
   - Resources:
+    - API Client: api_client.md
     - Attachments: attachments.md
     - Compensations: compensations.md
     - Experiments: experiments.md
-    - FCS Files: fcs_files.md
+    - FcsFiles: fcs_files.md
     - Gates: gates.md
     - Plots: plots.md
     - Populations: populations.md
@@ -24,8 +24,6 @@ nav:
     - ScaleSets: scalesets.md
   - Cookbook: recipes.md
   - Development: contributing.md
-  - About: about.md
-  - Legal: licenseagreement.md
 
 # Build information
 docs_dir: 'docs/src'

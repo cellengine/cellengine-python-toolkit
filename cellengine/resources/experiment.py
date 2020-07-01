@@ -25,7 +25,7 @@ from cellengine.utils.helpers import (
 
 class Experiment(_Experiment):
     @classmethod
-    def get(cls, _id: str, name: str = None):
+    def get(cls, _id: str = None, name: str = None):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_experiment(**kwargs)
 
@@ -64,16 +64,21 @@ class Experiment(_Experiment):
         }
         return ce.APIClient().post_experiment(experiment_body, as_dict=as_dict)
 
-    def update(self):
-        """Save changes to this Experiment object to CellEngine.
+    def update(self, inplace: bool = True):
+        """Save changes to this Experiment to CellEngine.
+
+        Args:
+            inplace (bool): Update this entity or return a new one.
 
         Returns:
-            None: Updates the Experiment on CellEngine and then
-                  synchronizes the properties with the current Experiment object.
-
+            Experiment or None: If inplace is True, returns a new Experiment.
+            Otherwise, updates the current experiment.
         """
         res = ce.APIClient().update_experiment(self._id, self._properties)
-        self._properties.update(res)
+        if inplace:
+            self._properties.update(res)
+        else:
+            return self.__class__(res)
 
     def clone(self, name=None):
         """

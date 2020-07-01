@@ -13,10 +13,6 @@ Methods are available for common access and transformations on the FCS file.
 ## Methods
 
 ::: cellengine.resources.fcs_file.FcsFile
-    selection:
-      members:
-        - files
-        - update
 - TODO: add "channels"
 
 ## Properties
