@@ -258,6 +258,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#gate-models">
+    Gate Models
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#properties">
     Properties
   </a>
@@ -391,6 +396,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.gate.QuadrantGate">
     QuadrantGate
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gate-models">
+    Gate Models
   </a>
 </li>
 <li class="md-nav__item">
@@ -769,6 +779,41 @@ Otherwise, updates the current entity.</p>
 <p>Basic concrete class for quadrant gates</p>
 </div>
 </div>
+<h2 id="gate-models">Gate Models</h2>
+<p>Gates have a <code>model</code> property, which is a nested <code>dict</code> object. For
+convenience, the <code>model</code> property has dot-indexing for getting and setting
+properties. For instance:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">gate</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">gates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span>
+<span class="n">Munch</span><span class="p">({</span><span class="s1">'polygon'</span><span class="p">:</span> <span class="n">Munch</span><span class="p">({</span><span class="s1">'vertices'</span><span class="p">:</span> <span class="p">[[</span><span class="mf">4.68957</span><span class="p">,</span> <span class="mf">2.90929</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.23152</span><span class="p">,</span> <span class="mf">5.77464</span><span class="p">],</span> <span class="p">[</span><span class="mf">7.76064</span><span class="p">,</span> <span class="mf">5.956</span><span class="p">],</span> <span class="p">[</span><span class="mf">8.59164</span><span class="p">,</span> <span class="mf">4.65026</span><span class="p">],</span> <span class="p">[</span><span class="mf">6.71287</span><span class="p">,</span> <span class="mf">2.32896</span><span class="p">]]}),</span> <span class="s1">'locked'</span><span class="p">:</span> <span class="s1">'orange'</span><span class="p">,</span> <span class="s1">'label'</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.62844</span><span class="p">,</span> <span class="mf">6.19701</span><span class="p">]})</span>
+
+<span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">vertices</span>
+<span class="p">[[</span><span class="mf">4.68957</span><span class="p">,</span> <span class="mf">2.90929</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">5.23152</span><span class="p">,</span> <span class="mf">5.77464</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">7.76064</span><span class="p">,</span> <span class="mf">5.956</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">8.59164</span><span class="p">,</span> <span class="mf">4.65026</span><span class="p">],</span>
+ <span class="p">[</span><span class="mf">6.71287</span><span class="p">,</span> <span class="mf">2.32896</span><span class="p">]]</span>
+</code></pre></div>
+<p>You can set the values of these properties. You must explicitly call the
+<code>update</code> method for these changes to be saved to CellEngine.
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">locked</span>
+<span class="kc">True</span>
+
+<span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">locked</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">locked</span>
+<span class="kc">False</span>
+</code></pre></div></p>
+<p>You may set invalid values, but <code>update</code> will fail with an API error:
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">locked</span> <span class="o">=</span> <span class="s2">"orange"</span>
+<span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">locked</span>
+<span class="s2">"orange"</span>
+
+<span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="n">APIError</span><span class="p">:</span> <span class="n">CellEngine</span> <span class="n">API</span><span class="p">:</span> <span class="n">status</span> <span class="n">code</span> <span class="mi">400</span> <span class="o">!=</span> <span class="mi">200</span> <span class="k">for</span> <span class="n">URL</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cellengine</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">experiments</span><span class="o">/.../</span><span class="n">gates</span><span class="o">/...</span>
+<span class="o">--</span> <span class="s2">"locked"</span> <span class="n">must</span> <span class="n">be</span> <span class="n">a</span> <span class="n">Boolean</span><span class="o">.</span>
+</code></pre></div></p>
 <h2 id="properties">Properties</h2>
 <p>Properties are getter methods and setter methods representing the underlying
 CellEngine object. Properties are the snake_case equivalent of those documented on the
