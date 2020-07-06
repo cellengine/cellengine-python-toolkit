@@ -1,39 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/</loc>
-     <lastmod>2020-05-06</lastmod>
+     <lastmod>2020-07-06</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/experiment/</loc>
-     <lastmod>2020-05-06</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/attachment/</loc>
-     <lastmod>2020-05-06</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/compensation/</loc>
-     <lastmod>2020-05-06</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/fcsfile/</loc>
-     <lastmod>2020-05-06</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/gate/</loc>
-     <lastmod>2020-05-06</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/recipes/</loc>
-     <lastmod>2020-05-06</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/contributing/</loc>
-     <lastmod>2020-05-06</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://primitybio.github.io/cellengine-python-toolkit/licenseagreement/</loc>
-     <lastmod>2020-05-06</lastmod>
+     <loc>https://primitybio.github.io/cellengine-python-toolkit/api_client/</loc>
+     <lastmod>2020-07-06</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

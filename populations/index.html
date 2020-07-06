@@ -6,11 +6,11 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Python API toolkit for CellEngine" name="description"/>
-<link href="https://primitybio.github.io/cellengine-python-toolkit/recipes/" rel="canonical"/>
+<link href="https://primitybio.github.io/cellengine-python-toolkit/populations/" rel="canonical"/>
 <meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
 <link href="../images/favicon.ico" rel="shortcut icon"/>
 <meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
-<title>Recipes - CellEngine Python Toolkit</title>
+<title>Populations - CellEngine Python Toolkit</title>
 <link href="../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
 <meta content="#3f51b5" name="theme-color"/>
@@ -23,7 +23,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#recipes-for-common-operations">
+<a class="md-skip" href="#populations">
           Skip to content
         </a>
 </div>
@@ -44,7 +44,7 @@
           </span>
 <span class="md-header-nav__topic md-ellipsis">
             
-              Recipes
+              Populations
             
           </span>
 </div>
@@ -159,8 +159,42 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#recipes-for-common-operations">
-    Recipes for common operations
+<a class="md-nav__link" href="#methods">
+    Methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.population.Population">
+    Population
+  </a>
+<nav aria-label="Population" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.population.Population.create">
+    create()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.population.Population.delete">
+    delete()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.population.Population.get">
+    get()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.population.Population.update">
+    update()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#properties">
+    Properties
   </a>
 </li>
 </ul>
@@ -170,19 +204,108 @@
 </div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/primitybio/cellengine-python-toolkit/edit/master/docs/recipes.md" title="Edit this page">
+<a class="md-content__button md-icon" href="https://github.com/primitybio/cellengine-python-toolkit/edit/master/docs/populations.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>Recipes</h1>
-<h2 id="recipes-for-common-operations">Recipes for common operations</h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">cellengine.utils.api_client.APIClient</span> <span class="kn">import</span> <span class="n">APIClient</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">APIClient</span><span class="p">(</span><span class="s2">"username"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">)</span>
-<span class="n">e</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"my experiment"</span><span class="p">)</span>
-<span class="n">fcsfile</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_fcsfile</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my fcs file"</span><span class="p">)</span>
-
-<span class="n">pops</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">populations</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get_population</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"my population name"</span><span class="p">)</span>
-</code></pre></div>
+<h1 id="populations">Populations</h1>
+<p><a href="https://docs.cellengine.com/api/#populations">CellEngine API: Populations</a></p>
+<p>A <code>Population</code> is largely a wrapper around the CellEngine Population, with
+getter and setter methods for writable properties and helper methods. For a
+list of accessible properties, see <a href="#properties">Properties</a>.</p>
+<p>Methods are available for common access and transformations on the <code>Population</code>.</p>
+<h2 id="methods">Methods</h2>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="cellengine.resources.population.Population">
+<code>cellengine.resources.population.Population</code>
+</h2>
+<div class="doc doc-contents first">
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.population.Population.create">
+<code class="highlight language-python">
+create<span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">compensation</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.population.Population.delete">
+<code class="highlight language-python">
+delete<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.population.Population.get">
+<code class="highlight language-python">
+get<span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.population.Population.update">
+<code class="highlight language-python">
+update<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Save changes to this Population to CellEngine.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inplace</code></td>
+<td><code>bool</code></td>
+<td>
+<p>Update this entity or return a new one.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Population or None</code></td>
+<td>
+<p>If inplace is True, returns a new Population.
+Otherwise, updates the current entity.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="properties">Properties</h2>
+<p>Properties are getter methods and setter methods representing the underlying
+CellEngine object. Properties are the snake_case equivalent of those documented on the
+<a href="https://docs.cellengine.com/api/#populations">CellEngine API</a>
+otherwise noted.</p>
 </article>
 </div>
 </div>
