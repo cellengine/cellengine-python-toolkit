@@ -38,7 +38,7 @@ GitHub](https://github.com/primitybio/cellengine-python-toolkit/issues).
 
 ## Methods
 
-::: cellengine.APIClient
+::: cellengine.utils.APIClient.APIClient
     rendering:
       show_root_heading: true
       show_object_full_path: false
