@@ -120,3 +120,18 @@ class FcsFile(_FcsFile):
             self.experiment_id, self._id, x_channel, y_channel, plot_type, properties
         )
         return plot
+
+    @property
+    def events(self):
+        """A DataFrame containing this file's data. This is fetched
+        from the server on-demand the first time that this property is accessed.
+        """
+        if self._events is None:
+            fresp = ce.APIClient().get_fcs_file_events(self.experiment_id, self._id)
+            parser = fcsparser.api.FCSParser.from_data(fresp.content)
+            self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+        return self._events
+
+    @events.setter
+    def events(self, val):
+        self.__dict__["_events"] = val

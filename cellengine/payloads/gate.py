@@ -3,9 +3,9 @@ from typing import Dict, List
 
 import cellengine as ce
 from cellengine.utils.helpers import GetSet
+from cellengine.utils.munchifier import get_prop
 
 from abc import ABC
-import munch
 
 
 @attr.s(repr=False, slots=True)
@@ -77,31 +77,4 @@ class _Gate(ABC):
 
     @property
     def model(self):
-        """Return an attribute-style dict of the model.
-
-        NOTE: This approach allows users to change the model properties to
-        invalid values (i.e. 'rectangle' to a str from a dict). We could
-        prevent this by making Gate.model return a __slot__ class "Model", where each
-        attr of Model was built dynamically. I wrote it this way at first, but
-        couldn't figure out a way to write both get and set attribute-style accessors
-        for the class. Munch does this really nicely.
-
-        As it is, this relies on the API to validate the model
-        """
-        model = self._properties["model"]
-        if type(model) is not _Gate._Munch:
-            self._properties["model"] = munch.munchify(model, factory=self._Munch)
-        return model
-
-    @model.setter
-    def model(self, val):
-        model = self._properties["model"]
-        model.update(val)
-
-    class _Munch(munch.Munch):
-        """Extend the Munch class for a dict-like __repr__"""
-
-        # TODO: change this to show "Model()"
-
-        def __repr__(self):
-            return "{0}".format(dict.__repr__(self))
+        return get_prop(self, "model")

@@ -232,6 +232,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
         return self._post(url, json=body)
 
+    def get_fcs_file_events(self, experiment_id, fcs_file_id):
+        return self._get(
+            f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs"
+        )
+
     def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
         gates = self._get(f"{self.endpoint_base}/experiments/{experiment_id}/gates")
         if as_dict:

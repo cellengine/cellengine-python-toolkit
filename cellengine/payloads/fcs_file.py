@@ -45,7 +45,6 @@ class _FcsFile(object):
 
     filename = GetSet("filename")
 
-    # TODO: make this a Munch class
     panel = GetSet("panel")
 
     compensation = GetSet("compensation")
@@ -70,25 +69,6 @@ class _FcsFile(object):
                 self._properties["annotations"] = val
 
     @property
-    def events(self):
-        pass
-
-    #     """A DataFrame containing this file's data. This is fetched
-    #     from the server on-demand the first time that this property is accessed.
-    #     """
-    #     if self._events is None:
-    #         fresp = base_get(
-    #             "/experiments/{0}/fcs_files/{1}.fcs".format(self.experiment_id, self._id)
-    #         )
-    #         parser = fcsparser.api.FCSParser.from_data(fresp.content)
-    #         self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
-    #     return self._events
-
-    @property
     def channels(self) -> List:
         """Return all channels in the file"""
         return [f["channel"] for f in self.panel]
-
-    @events.setter
-    def events(self, val):
-        self.__dict__["_events"] = val

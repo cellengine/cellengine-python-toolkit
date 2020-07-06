@@ -48,6 +48,49 @@ inherit the methods below.
 
 ::: cellengine.resources.gate.QuadrantGate
 
+## Gate Models
+
+Gates have a `model` property, which is a nested `dict` object. For
+convenience, the `model` property has dot-indexing for getting and setting
+properties. For instance:
+
+```python
+> gate = experiment.gates[0]
+> gate.model
+Munch({'polygon': Munch({'vertices': [[4.68957, 2.90929], [5.23152, 5.77464], [7.76064, 5.956], [8.59164, 4.65026], [6.71287, 2.32896]]}), 'locked': 'orange', 'label': [7.62844, 6.19701]})
+
+> gate.model.polygon.vertices
+[[4.68957, 2.90929],
+ [5.23152, 5.77464],
+ [7.76064, 5.956],
+ [8.59164, 4.65026],
+ [6.71287, 2.32896]]
+```
+
+You can set the values of these properties. You must explicitly call the
+`update` method for these changes to be saved to CellEngine.
+```python
+> gate.model.locked
+True
+
+> gate.model.locked = False
+> gate.update()
+> gate.model.locked
+False
+```
+
+You may set invalid values, but `update` will fail with an API error:
+```python
+> gate.model.locked = "orange"
+> gate.model.locked
+"orange"
+
+> gate.update()
+APIError: CellEngine API: status code 400 != 200 for URL
+https://cellengine.com/api/v1/experiments/.../gates/...
+-- "locked" must be a Boolean.
+```
+
 ## Properties
 Properties are getter methods and setter methods representing the underlying
 CellEngine object. Properties are the snake_case equivalent of those documented on the

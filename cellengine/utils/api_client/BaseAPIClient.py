@@ -46,13 +46,13 @@ class BaseAPIClient(metaclass=AbstractSingleton):
             return response.content
 
         try:
-            json = response.json()
+            response_json = response.json()
 
             if success:
-                return json
+                return response_json
             else:
                 raise APIError(
-                    response.url, response.status_code, json["error"]["message"]
+                    response.url, response.status_code, response_json["error"]
                 )
         except APIError:
             raise

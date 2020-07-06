@@ -90,8 +90,6 @@ class _Experiment(object):
 
     clone_source_experiment = GetSet("cloneSourceExperiment", read_only=True)
 
-    # TODO: retention_policy (Munch object, read_only=True)
-
     revision_source_experiment = GetSet("revisionSourceExperiment", read_only=True)
 
     revisions = GetSet("revisions")
@@ -100,7 +98,7 @@ class _Experiment(object):
 
     per_file_compensation_enabled = GetSet("perFileCompensationEnabled")
 
-    # TODO: sorting_spec
+    tags = GetSet("sortingSpec")
 
     tags = GetSet("tags", read_only=True)
 
@@ -108,9 +106,8 @@ class _Experiment(object):
 
     annotation_table_sort_columns = GetSet("annotationTableSortColumns")
 
-    # TODO: annotationValidators
+    annotationValidators = GetSet("annotationValidators")
 
-    # TODO: make this a Munch class:
     permissions = GetSet("permissions")
 
     data = GetSet("data", read_only=True)
