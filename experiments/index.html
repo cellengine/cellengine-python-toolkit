@@ -118,8 +118,8 @@
       Home
     </a>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
 <label class="md-nav__link" for="nav-2">
       Resources
       <span class="md-nav__icon md-icon">
@@ -139,8 +139,229 @@
       API Client
     </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../attachments/" title="Attachments">
+      Attachments
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../compensations/" title="Compensations">
+      Compensations
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Experiments
+        <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path></svg>
+</span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Experiments">
+      Experiments
+    </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#methods">
+    Methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment">
+    Experiment
+  </a>
+<nav aria-label="Experiment" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.active_compensation">
+    active_compensation
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.attachments">
+    attachments
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.compensations">
+    compensations
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.delete">
+    delete
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.fcs_files">
+    fcs_files
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.gates">
+    gates
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.populations">
+    populations
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.undelete">
+    undelete
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.clone">
+    clone()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create">
+    create()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_complex_population">
+    create_complex_population()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_ellipse_gate">
+    create_ellipse_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_polygon_gate">
+    create_polygon_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_quadrant_gate">
+    create_quadrant_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_range_gate">
+    create_range_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_rectangle_gate">
+    create_rectangle_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_split_gate">
+    create_split_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.delete_gates">
+    delete_gates()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get">
+    get()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_attachment">
+    get_attachment()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_compensation">
+    get_compensation()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_fcs_file">
+    get_fcs_file()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_gate">
+    get_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_population">
+    get_population()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_statistics">
+    get_statistics()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.update">
+    update()
+  </a>
+</li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#properties">
+    Properties
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../fcs_files/" title="FcsFiles">
+      FcsFiles
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../gates/" title="Gates">
+      Gates
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../plots/" title="Plots">
+      Plots
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../populations/" title="Populations">
+      Populations
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../statistics/" title="Statistics">
+      Statistics
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../scalesets/" title="ScaleSets">
+      ScaleSets
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../recipes/" title="Cookbook">
+      Cookbook
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../contributing/" title="Development">
+      Development
+    </a>
 </li>
 </ul>
 </nav>
@@ -832,6 +1053,36 @@ otherwise noted.</p>
 </div>
 </main>
 <footer class="md-footer">
+<div class="md-footer-nav">
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<a class="md-footer-nav__link md-footer-nav__link--prev" href="../compensations/" rel="prev" title="Compensations">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Compensations
+              </div>
+</div>
+</a>
+<a class="md-footer-nav__link md-footer-nav__link--next" href="../fcs_files/" rel="next" title="FcsFiles">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                FcsFiles
+              </div>
+</div>
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+</div>
 <div class="md-footer-meta md-typeset">
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
