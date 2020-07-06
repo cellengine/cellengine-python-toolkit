@@ -4,7 +4,7 @@
 
 Programmatically use CellEngine for statistical analysis.
 
-::: cellengine.APIClient.get_statistics
+::: cellengine.utils.api_client.APIClient.get_statistics
     rendering:
       show_root_heading: true
       show_source: true
