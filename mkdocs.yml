@@ -2,7 +2,6 @@
 site_name: 'CellEngine Python Toolkit'
 site_description: 'Python API toolkit for CellEngine'
 site_author: 'Zach Bjornson, Gerrit Egnew'
-#site_url: ''
 
 # Repository
 repo_name: 'primitybio/cellengine-pythoon-toolkit'
