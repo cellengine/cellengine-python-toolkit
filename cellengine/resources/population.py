@@ -9,8 +9,8 @@ class Population(_Population):
         return ce.APIClient().get_population(experiment_id, **kwargs)
 
     @classmethod
-    def create(cls, experiment_id: str, compensation: dict):
-        return ce.APIClient().post_population(experiment_id, compensation)
+    def create(cls, experiment_id: str, population: dict):
+        return ce.APIClient().post_population(experiment_id, population)
 
     def update(self):
         """Save changes to this Population to CellEngine.
