@@ -1,20 +1,19 @@
 import os
+import json
 import pytest
 import responses
 
 from cellengine.resources.population import Population
+from cellengine.utils.complex_population_builder import ComplexPopulationBuilder
 
-
-def population_tester(population):
-    assert type(population._properties) is dict
-    assert type(population) is Population
-    assert hasattr(population, "_id")
-    assert hasattr(population, "experiment_id")
-    assert hasattr(population, "gates")
-    assert hasattr(population, "name")
-    assert hasattr(population, "parent_id")
-    assert hasattr(population, "terminal_gate_gid")
-    assert hasattr(population, "unique_name")
+EXP_ID = "5d38a6f79fae87499999a74b"
+ID1 = "5f1178fc2c50066876d24aca"
+ID2 = "5f1178fc2c50066876d24acb"
+ID3 = "5f1178fc2c50066876d24acc"
+ID4 = "5f1178fc2c50066876d24acd"
+ID5 = "5f1178fc2c50066876d24ace"
+ID6 = "5f1178fc2c50066876d24acf"
+ID7 = "5f1178fc2c50066876d24acg"
 
 
 @responses.activate
@@ -22,20 +21,92 @@ def test_create_complex_population_basic(ENDPOINT_BASE, experiment, gates, popul
     with pytest.raises(NotImplementedError):
         responses.add(
             responses.POST,
-            ENDPOINT_BASE + "/experiments/5d38a6f79fae87499999a74b/populations",
+            f"{ENDPOINT_BASE}/experiments/{EXP_ID}/populations",
             json=populations[0],
             status=201,
         )
-        complex_pop = experiment.create_complex_population(
-            base_gate=gates[0]["_id"],
-            name="complex",
-            gates={
-                "$and": [
-                    gates[1]["_id"],
-                    gates[2]["_id"],
-                    {"$or": [gates[3]["_id"], gates[4]["_id"]]},
-                ]
-            },
+        complex_pop = experiment.create_population(
+            population=ComplexPopulationBuilder("pop_name")
+            .And([ID1, ID2])
+            .Not(ID3)
+            .build()
         )
+        # TODO: assert correct body upon implementation
 
-        population_tester(complex_pop)
+
+def test_should_build_query_from_string_or_list():
+    expected_output = {"name": "pop_name", "gates": json.dumps({"$and": ["1"]})}
+    assert ComplexPopulationBuilder("pop_name").And("1").build() == expected_output
+    assert ComplexPopulationBuilder("pop_name").And(["1"]).build() == expected_output
+
+
+def test_should_build_complex_population_query_by_chaining():
+    complex_pop = (
+        ComplexPopulationBuilder("pop_name")
+        .And([ID1, ID2])
+        .Or([ID3])
+        # drop one function to check that None is not included
+        # .Not([ID4])
+        .Xor([ID5, ID6, ID7])
+    )
+    assert complex_pop.build() == {
+        "name": "pop_name",
+        "gates": json.dumps(
+            {
+                "$and": [
+                    ID1,
+                    ID2,
+                    {"$or": [ID3]},
+                    # {"$not": [ID4]},
+                    {"$xor": [ID5, ID6, ID7]},
+                ]
+            }
+        ),
+    }
+
+
+def test_should_build_complex_population_query():
+    complex_pop = ComplexPopulationBuilder("pop_name")
+    complex_pop.And(["1", "2"])
+    assert complex_pop.build() == {
+        "name": "pop_name",
+        "gates": json.dumps({"$and": ["1", "2",]}),
+    }
+    complex_pop.Or(["3"])
+    assert complex_pop.build() == {
+        "name": "pop_name",
+        "gates": json.dumps({"$and": ["1", "2", {"$or": ["3"]},]}),
+    }
+    complex_pop.Not(["4"])
+    assert complex_pop.build() == {
+        "name": "pop_name",
+        "gates": json.dumps({"$and": ["1", "2", {"$or": ["3"]}, {"$not": ["4"]},]}),
+    }
+    complex_pop.Xor(["5", "6", "7"])
+    assert complex_pop.build() == {
+        "name": "pop_name",
+        "gates": json.dumps(
+            {
+                "$and": [
+                    "1",
+                    "2",
+                    {"$or": ["3"]},
+                    {"$not": ["4"]},
+                    {"$xor": ["5", "6", "7"]},
+                ]
+            }
+        ),
+    }
+
+
+def test_should_append_new_query():
+    complex_pop = ComplexPopulationBuilder("pop_name").And(["1", "2"])
+    assert complex_pop.build() == {
+        "name": "pop_name",
+        "gates": json.dumps({"$and": ["1", "2",]}),
+    }
+    complex_pop.And(["3"])
+    assert complex_pop.build() == {
+        "name": "pop_name",
+        "gates": json.dumps({"$and": ["1", "2", "3"]}),
+    }

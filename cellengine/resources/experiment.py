@@ -3,7 +3,7 @@ from typing import Optional, Dict, Union, List
 
 import cellengine as ce
 from cellengine.payloads.experiment import _Experiment
-from cellengine.utils.complex_population_creator import create_complex_population
+from cellengine.utils.complex_population_builder import ComplexPopulationBuilder
 from cellengine.resources.population import Population
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
@@ -202,6 +202,7 @@ class Experiment(_Experiment):
 
     # @doc_inherit(_Gate.delete_gates)
     def delete_gates(self, experiment_id, _id=None, gid=None, exclude=None):
+        # TODO
         raise NotImplementedError
         # return _Gate.delete_gates(self._id, _id, gid, exclude)
 
@@ -235,16 +236,27 @@ class Experiment(_Experiment):
         post_body = format_quadrant_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
-    def create_complex_population(self, name, base_gate, gates=None):
-        """Create a complex population
+    def create_population(self, population: Dict):
+        """Create a population.
+
+        Create a complex population
 
         Args:
-            name (str): Name of the population to create.
-            base_gate (str): ID of the gate to build a complex population from.
-            gates (str): IDs of other gates to include in the complex population.
+            population (dict): The population to create. Use the
+                `ComplexPopulationBuilder` to construct a complex population.
 
         Returns:
             Population: A created complex population.
         """
-        raise NotImplementedError
-        # return create_complex_population(self._id, name, base_gate, gates)
+
+        raise NotImplementedError(
+            """
+            This method has not been implemented yet.
+            You can still create complex populations
+            using `APIClient().post_population`, but
+            several CellEngine features, such as deletion
+            of complex population, are currently
+            unavailable.
+            """
+        )
+        # return ce.APIClient().post_population(self._id, population)

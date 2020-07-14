@@ -38,7 +38,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if self.user_name:
             return f"Client(user={self.user_name})"
         else:
-            return f"Client(TOKEN)"
+            return "Client(TOKEN)"
 
     def _authenticate(self, user_name, password, token):
         """Authenticate with the CellEngine API.
@@ -341,14 +341,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if as_dict:
             return res
         return Population(res)
-
-    def post_complex_population(self, experiment_id, body: dict = None) -> Population:
-        res = self._post(
-            f"{self.endpoint_base}/experiments/{experiment_id}/populations",
-            json=body
-        )
-        return Population(res)
-
 
     def get_statistics(
         self,
