@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/api_client/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/attachments/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/compensations/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/experiments/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/fcs_files/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/gates/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/plots/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/populations/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/statistics/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/scalesets/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/recipes/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://primitybio.github.io/cellengine-python-toolkit/contributing/</loc>
-     <lastmod>2020-07-06</lastmod>
+     <lastmod>2020-07-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
