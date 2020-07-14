@@ -268,6 +268,12 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return res
         return Gate.build(res)
 
+    def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
+        return self._patch(
+            f"{self.endpoint_base}/experiments/{experiment_id}/gates?gid={gid}",
+            json=body,
+        )
+
     def get_plot(
         self,
         experiment_id,
@@ -335,6 +341,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if as_dict:
             return res
         return Population(res)
+
+    def post_complex_population(self, experiment_id, body: dict = None) -> Population:
+        res = self._post(
+            f"{self.endpoint_base}/experiments/{experiment_id}/populations",
+            json=body
+        )
+        return Population(res)
+
 
     def get_statistics(
         self,
