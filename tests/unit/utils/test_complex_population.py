@@ -1,10 +1,20 @@
 import os
 import pytest
 import responses
-from tests.unit.resources.test_population import (  # noqa: F401
-    population_tester,
-    population,
-)
+
+from cellengine.resources.population import Population
+
+
+def population_tester(population):
+    assert type(population._properties) is dict
+    assert type(population) is Population
+    assert hasattr(population, "_id")
+    assert hasattr(population, "experiment_id")
+    assert hasattr(population, "gates")
+    assert hasattr(population, "name")
+    assert hasattr(population, "parent_id")
+    assert hasattr(population, "terminal_gate_gid")
+    assert hasattr(population, "unique_name")
 
 
 @responses.activate

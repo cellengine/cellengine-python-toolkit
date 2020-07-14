@@ -1,5 +1,7 @@
 from typing import List, Dict
 from custom_inherit import doc_inherit
+import fcsparser
+import pandas
 
 import cellengine as ce
 from cellengine.payloads.fcs_file import _FcsFile
