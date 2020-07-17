@@ -161,7 +161,7 @@ def test_get_statistics(ENDPOINT_BASE, experiment):
     experiment.get_statistics("mean", "FSC-A")
     assert (
         responses.calls[0].request.url
-        == "https://cellengine.com/api/v1/experiments/5d38a6f79fae87499999a74b/bulkstatistics"
+        == f"{ENDPOINT_BASE}/experiments/5d38a6f79fae87499999a74b/bulkstatistics"
     )
 
 

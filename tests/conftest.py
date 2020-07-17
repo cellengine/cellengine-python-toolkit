@@ -38,7 +38,7 @@ pytest_plugins = [
 
 @pytest.fixture(scope="session")
 def ENDPOINT_BASE():
-    return os.environ.get("CELLENGINE_DEVELOPMENT", "https://cellengine.com/api/v1")
+    return os.environ.get("BASE_URL", "https://cellengine.com/api/v1")
 
 
 @pytest.fixture(scope="session")
