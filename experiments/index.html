@@ -230,11 +230,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_complex_population">
-    create_complex_population()
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_ellipse_gate">
     create_ellipse_gate()
   </a>
@@ -242,6 +237,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_polygon_gate">
     create_polygon_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_population">
+    create_population()
   </a>
 </li>
 <li class="md-nav__item">
@@ -441,11 +441,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_complex_population">
-    create_complex_population()
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_ellipse_gate">
     create_ellipse_gate()
   </a>
@@ -453,6 +448,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_polygon_gate">
     create_polygon_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_population">
+    create_population()
   </a>
 </li>
 <li class="md-nav__item">
@@ -810,11 +810,28 @@ create<span class="p">(</span><span class="n">name</span><span class="o">=</span
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_complex_population">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_ellipse_gate">
 <code class="highlight language-python">
-create_complex_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">base_gate</span><span class="p">,</span> <span class="n">gates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+create_ellipse_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_polygon_gate">
+<code class="highlight language-python">
+create_polygon_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_population">
+<code class="highlight language-python">
+create_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Create a population.</p>
 <p>Create a complex population</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -828,28 +845,13 @@ create_complex_population<span class="p">(</span><span class="bp">self</span><sp
 </thead>
 <tbody>
 <tr>
-<td><code>name</code></td>
-<td><code>str</code></td>
+<td><code>population</code></td>
+<td><code>Dict</code></td>
 <td>
-<p>Name of the population to create.</p>
+<p>The population to create. Use the
+<code>ComplexPopulationBuilder</code> to construct a complex population.</p>
 </td>
 <td><em>required</em></td>
-</tr>
-<tr>
-<td><code>base_gate</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the gate to build a complex population from.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>gates</code></td>
-<td><code>str</code></td>
-<td>
-<p>IDs of other gates to include in the complex population.</p>
-</td>
-<td><code>None</code></td>
 </tr>
 </tbody>
 </table>
@@ -870,22 +872,6 @@ create_complex_population<span class="p">(</span><span class="bp">self</span><sp
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_ellipse_gate">
-<code class="highlight language-python">
-create_ellipse_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_polygon_gate">
-<code class="highlight language-python">
-create_polygon_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
 </div>
 </div>
 <div class="doc doc-object doc-method">
