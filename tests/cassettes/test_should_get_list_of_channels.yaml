@@ -124,4 +124,56 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: '{"statistics": "mean", "channels": ["FSC-A", "FSC-H"], "annotations": false,
+      "format": "json"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '94'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: POST
+    uri: http://127.0.0.1:3000/api/v1/experiments/5e4fcb98bdd7ea051d703652/bulkstatistics
+  response:
+    body:
+      string: Unauthorized
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '12'
+      Content-Security-Policy:
+      - 'default-src ''none''; base-uri ''self''; block-all-mixed-content; connect-src
+        ''self'' ws://127.0.0.1:35729; font-src ''self'' https://fonts.gstatic.com;
+        form-action ''self''; frame-ancestors ''none''; img-src ''self'' data: blob:;
+        report-uri /csp_report; script-src ''self'' ''unsafe-eval''; style-src ''self''
+        ''unsafe-inline'' https://fonts.googleapis.com; worker-src ''self'''
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Wed, 22 Jul 2020 18:09:50 GMT
+      ETag:
+      - W/"c-dAuDFQrdjS3hezqxDTNgW7AOlYk"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 401
+      message: Unauthorized
 version: 1

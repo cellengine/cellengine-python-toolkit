@@ -52,7 +52,7 @@ def test_all_experiment_properties(ENDPOINT_BASE, experiment):
         "fullName": "Gerrit Egnew",
         "id": "5d366077a1789f7d6653075c",
     }
-    assert experiment.active_compensation == 0
+    assert experiment.active_compensation == None
     assert experiment.locked is False
     # assert experiment.clone_source_experiment  # does not exist for this exp
     # assert experiment.revision_source_experiment  # does not exist for this exp

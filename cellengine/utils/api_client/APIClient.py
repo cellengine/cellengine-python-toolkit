@@ -252,8 +252,39 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return gate
         return Gate.build(gate)
 
-    def delete_gate(self, experiment_id, _id):
-        url = f"{self.endpoint_base}/experiments/{experiment_id}/gates/{_id}"
+    def delete_gate(self, experiment_id, _id=None, gid=None, exclude=None):
+        """Deletes a gate or a tailored gate family.
+
+        Works for compound gates if you specify the top-level gid. Specifying
+        the gid of a sector (i.e. one listed in ``model.gids``) will result in no
+        gates being deleted.  If gateId is specified, only that gate will be
+        deleted, regardless of the other parameters specified. May be called as
+        a static method from cellengine.Gate or from an Experiment instance.
+
+        Args:
+            experimentId (str): ID of experiment.
+            _id (str): ID of gate family.
+            gateId (str): ID of gate.
+            exclude (str): Gate ID to exclude from deletion.
+
+        Example:
+            ```python
+            cellengine.Gate.delete_gate(experiment_id, gid = [gate family ID])
+            # or
+            experiment.delete_gate(_id = [gate ID])
+            ```
+
+        Returns:
+            None
+        """
+        if _id:
+            url = f"{self.endpoint_base}/experiments/{experiment_id}/gates/{_id}"
+        elif gid:
+            url = f"{self.endpoint_base}/experiments/{experiment_id}/gates?gid={gid}"
+            if exclude:
+                url = "{0}%exclude={1}".format(url, exclude)
+        else:
+            raise ValueError("Either _id or gid must be specified.")
         self._delete(url)
 
     def post_gate(
@@ -273,6 +304,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             f"{self.endpoint_base}/experiments/{experiment_id}/gates?gid={gid}",
             json=body,
         )
+
+    def tailor_to(self, experiment_id, gate_id, fcs_file_id):
+        """Tailor a gate to a file."""
+        gate = self.get_gate(experiment_id, gate_id)
+        gate._properties["tailoredPerFile"] = True
+        gate._properties["fcsFileId"] = fcs_file_id
+        return self.update_entity(experiment_id, gate_id, "gates", gate._properties)
 
     def get_plot(
         self,

@@ -136,12 +136,20 @@ def test_update_gate(ENDPOINT_BASE, client, experiment, rectangle_gate):
     assert json.loads(responses.calls[0].request.body) == gate._properties
 
 
-# def test_update_gate_family():
-#     pass
+@responses.activate
+def test_update_gate_family(ENDPOINT_BASE, experiment, rectangle_gate):
+    gid = rectangle_gate["gid"]
+    responses.add(
+        responses.PATCH,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates?gid={gid}",
+        status=201,
+        json={"nModified": 1},
+    )
+    updates = Gate.update_gate_family(experiment._id, gid, {"xChannel": "newChannel"})
 
 
 @responses.activate
-def test_delete_gate(ENDPOINT_BASE, client, rectangle_gate):
+def test_should_delete_gate(ENDPOINT_BASE, client, rectangle_gate):
     responses.add(
         responses.POST,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
@@ -156,6 +164,31 @@ def test_delete_gate(ENDPOINT_BASE, client, rectangle_gate):
     g.post()
     gate_tester(g)
     g.delete()
+
+
+class TestShouldDeleteGates:
+    """Delete a gate or gate family, optionally excluding a gate from deletion"""
+
+    gate_id = "5d8d34994e84a1e661f157a1"
+    gid = "5d8d34993b0bb307a31d9d04"
+    delete_params = [
+        ({"_id": gate_id}, f"/experiments/{EXP_ID}/gates/{gate_id}"),
+        ({"gid": gid}, f"/experiments/{EXP_ID}/gates?gid={gid}"),
+        (
+            {"gid": gid, "exclude": gate_id},
+            f"/experiments/{EXP_ID}/gates?gid={gid}%exclude={gate_id}",
+        ),
+    ]
+
+    @responses.activate
+    @pytest.mark.parametrize("args,url", delete_params)
+    def test_should_delete_gates(
+        self, ENDPOINT_BASE, client, experiment, rectangle_gate, args, url
+    ):
+        responses.add(
+            responses.DELETE, f"{ENDPOINT_BASE}" + url,
+        )
+        Gate.delete_gates(experiment._id, **args)
 
 
 @responses.activate
