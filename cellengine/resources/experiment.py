@@ -110,8 +110,15 @@ class Experiment(_Experiment):
         if self._properties.get("deleted") is not None:
             self._properties["delete"] = None
 
-    # TODO: make this override _Experimen to return a compensation
-    active_compensation = GetSet("activeCompensation")
+    @property
+    def active_compensation(self) -> Compensation:
+        active_comp = self._properties["activeCompensation"]
+        return ce.APIClient().get_compensation(active_comp) if active_comp else None
+
+    @active_compensation.setter
+    def active_compensation(self, compensation: str):
+        self._properties["activeCompensation"] = compensation
+        self.update()
 
     @property
     def attachments(self) -> List[Attachment]:
@@ -200,38 +207,36 @@ class Experiment(_Experiment):
 
     # Gate Methods:
 
-    # @doc_inherit(_Gate.delete_gates)
-    def delete_gates(self, experiment_id, _id=None, gid=None, exclude=None):
-        # TODO
-        raise NotImplementedError
-        # return _Gate.delete_gates(self._id, _id, gid, exclude)
+    @doc_inherit(Gate.delete_gates)
+    def delete_gates(self, _id=None, gid=None, exclude=None):
+        return ce.APIClient().delete_gate(self._id, _id, gid, exclude)
 
-    # @doc_inherit(_RectangleGate.create)
+    @doc_inherit(format_rectangle_gate)
     def create_rectangle_gate(self, *args, **kwargs):
         post_body = format_rectangle_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
-    # @doc_inherit(_PolygonGate.create)
+    @doc_inherit(format_polygon_gate)
     def create_polygon_gate(self, *args, **kwargs):
         post_body = format_polygon_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
-    # @doc_inherit(_EllipseGate.create)
+    @doc_inherit(format_ellipse_gate)
     def create_ellipse_gate(self, *args, **kwargs):
         post_body = format_ellipse_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
-    # @doc_inherit(_RangeGate.create)
+    @doc_inherit(format_range_gate)
     def create_range_gate(self, *args, **kwargs):
         post_body = format_range_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
-    # @doc_inherit(_SplitGate.create)
+    @doc_inherit(format_split_gate)
     def create_split_gate(self, *args, **kwargs):
         post_body = format_split_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
-    # @doc_inherit(_QuadrantGate.create)
+    @doc_inherit(format_quadrant_gate)
     def create_quadrant_gate(self, *args, **kwargs):
         post_body = format_quadrant_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
@@ -259,4 +264,4 @@ class Experiment(_Experiment):
             unavailable.
             """
         )
-        # return ce.APIClient().post_population(self._id, population)
+        return ce.APIClient().post_population(self._id, population)

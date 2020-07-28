@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 import cellengine as ce
 from cellengine.payloads.gate import _Gate
 from cellengine.utils.api_client import APIClient
+from cellengine.payloads.gate_utils import format_rectangle_gate
 
 
 @attr.s(repr=False, slots=True)
@@ -24,7 +25,9 @@ class Gate(_Gate):
     ):
         """Get a specific gate."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_gate(experiment_id, **kwargs)
+        gate = ce.APIClient().get_gate(experiment_id, **kwargs)
+        gate._posted = True
+        return gate
 
     def delete(self):
         ce.APIClient().delete_gate(self.experiment_id, self._id)
@@ -119,29 +122,91 @@ class Gate(_Gate):
 
         Example:
             ```python
-            cellengine.Gate.delete_gate(experiment_id, gid = [gate family ID])
+            cellengine.Gate.delete_gates(experiment_id, gid = <gate family ID>)
             # or
-            experiment.delete_gate(_id = [gate ID])
+            experiment.delete_gates(_id = <gate ID>)
+            # or
+            experiment.delete_gates(gid = <gate family ID>, exclude = <gate ID>)
             ```
 
         Returns:
             None
 
         """
-        if (_id and gid) or (not _id and not gid):
-            raise ValueError("Either the gid or the gateId must be specified")
-        if _id:
-            url = "/experiments/{0}/gates/{1}".format(experiment_id, _id)
-        elif gid:
-            url = "/experiments/{0}/gates?gid={1}".format(experiment_id, gid)
-            if exclude:
-                url = "{0}%exclude={1}".format(url, exclude)
+        ce.APIClient().delete_gate(experiment_id, _id, gid, exclude)
 
-        ce.APIClient()._delete(url)
+    @staticmethod
+    def update_gate_family(experiment_id, gid: str, body: Dict):
+        """Update a given field for a gate family.
+
+        Warning: This method does not modify local versions of gates; use the
+        `.update()` method to ensure changes are reflected locally.
+
+        Args:
+            experiment_id: ID of experiment
+            gid: ID of gate family to modify
+            body (dict): camelCase properties to update
+
+        Returns:
+            Raises a warning if no gates are modified, else None
+        """
+
+        res = ce.APIClient().update_gate_family(experiment_id, gid, body)
+        if res["nModified"] < 1:
+            raise Warning("No gates updated.")
+
+    def tailor_to(self, fcs_file_id):
+        """Tailor this gate to a specific fcs_file."""
+        self._properties.update(
+            ce.APIClient().tailor_to(self.experiment_id, self._id, fcs_file_id)
+        )
 
 
 class RectangleGate(Gate):
-    pass
+    """Basic concrete class for Rectangle gates"""
+
+    @classmethod
+    def create(
+        cls,
+        experiment_id,
+        x_channel,
+        y_channel,
+        name,
+        x1,
+        x2,
+        y1,
+        y2,
+        label=[],
+        gid=None,
+        locked=False,
+        parent_population_id=None,
+        parent_population=None,
+        tailored_per_file=False,
+        fcs_file_id=None,
+        fcs_file=None,
+        create_population=True,
+    ):
+        return cls.build(
+            format_rectangle_gate(
+                experiment_id,
+                x_channel,
+                y_channel,
+                name,
+                x1,
+                x2,
+                y1,
+                y2,
+                label,
+                gid,
+                locked,
+                parent_population_id,
+                parent_population,
+                tailored_per_file,
+                fcs_file_id,
+                fcs_file,
+                create_population,
+            )
+        )
 
 
 class PolygonGate(Gate):
@@ -164,6 +229,8 @@ class RangeGate(Gate):
 
 class QuadrantGate(Gate):
     """Basic concrete class for quadrant gates"""
+
+    pass
 
 
 class SplitGate(Gate):
