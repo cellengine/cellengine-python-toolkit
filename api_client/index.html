@@ -9,10 +9,10 @@
 <link href="https://primitybio.github.io/cellengine-python-toolkit/api_client/" rel="canonical"/>
 <meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
 <link href="../images/favicon.ico" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.0" name="generator"/>
 <title>API Client - CellEngine Python Toolkit</title>
-<link href="../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
-<link href="../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.b5d04df8.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.9ab2c1f8.min.css" rel="stylesheet"/>
 <meta content="#3f51b5" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -295,6 +295,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.tailor_to">
+    tailor_to()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.update_entity">
     update_entity()
   </a>
@@ -541,6 +546,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.tailor_to">
+    tailor_to()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.update_entity">
     update_entity()
   </a>
@@ -648,9 +658,84 @@ delete_entity<span class="p">(</span><span class="bp">self</span><span class="p"
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_gate">
 <code class="highlight language-python">
-delete_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span> </code>
+delete_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+<p>Deletes a gate or a tailored gate family.</p>
+<p>Works for compound gates if you specify the top-level gid. Specifying
+the gid of a sector (i.e. one listed in <code>model.gids</code>) will result in no
+gates being deleted.  If gateId is specified, only that gate will be
+deleted, regardless of the other parameters specified. May be called as
+a static method from cellengine.Gate or from an Experiment instance.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>experimentId</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of experiment.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of gate family.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>gateId</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of gate.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>exclude</code></td>
+<td><code>str</code></td>
+<td>
+<p>Gate ID to exclude from deletion.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight">
+<pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">delete_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span> <span class="o">=</span> <span class="p">[</span><span class="n">gate</span> <span class="n">family</span> <span class="n">ID</span><span class="p">])</span>
+<span class="c1"># or</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">delete_gate</span><span class="p">(</span><span class="n">_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">gate</span> <span class="n">ID</span><span class="p">])</span>
+</code></pre>
+</div>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code></code></td>
+<td>
+<p>None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -965,6 +1050,15 @@ post_population<span class="p">(</span><span class="bp">self</span><span class="
 </div>
 </div>
 <div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.tailor_to">
+<code class="highlight language-python">
+tailor_to<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">gate_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Tailor a gate to a file.</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update_entity">
 <code class="highlight language-python">
 update_entity<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span> </code>
@@ -1060,8 +1154,8 @@ upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
-<script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../assets/javascripts/vendor.92ffa368.min.js"></script>
+<script src="../assets/javascripts/bundle.5123e3d4.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "..",

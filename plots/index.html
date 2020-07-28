@@ -9,10 +9,10 @@
 <link href="https://primitybio.github.io/cellengine-python-toolkit/plots/" rel="canonical"/>
 <meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
 <link href="../images/favicon.ico" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.0" name="generator"/>
 <title>Plots - CellEngine Python Toolkit</title>
-<link href="../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
-<link href="../assets/stylesheets/palette.a46bcfb3.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.b5d04df8.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.9ab2c1f8.min.css" rel="stylesheet"/>
 <meta content="#3f51b5" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -321,50 +321,100 @@ list of accessible properties, see <a href="#properties">Properties</a>.</p>
 </h2>
 <div class="doc doc-contents first">
 <p>A class representing a CellEngine plot.</p>
-<div class="codehilite">
-<pre><span></span><code><span class="err">!!! attributes</span>
-<span class="err">    experiment_id (str): ID of the experiment to which the file belongs.</span>
-<span class="err">    fcs_file_id (str): ID of file for which to build a plot.</span>
-<span class="err">    x_channel (str): X channel name.</span>
-<span class="err">    y_channel (str): (for 2D plots) Y channel name.</span>
-<span class="err">    plot_type (str): "contour", "dot", "density" or "histogram" (case-insensitive)</span>
-<span class="err">    population_id (ID): Defaults to ungated.</span>
-<span class="err">    properties (dict): Optional attributes in camelCase dict: {"property": value}</span>
-<span class="err">        compensation (ID): Compensation to use for gating and display.</span>
-<span class="err">        width (int): Image width. Defaults to 228.</span>
-<span class="err">        height (int): Image height. Defaults to 228.</span>
-<span class="err">        axesQ (bool): Display axes lines. Defaults to true.</span>
-<span class="err">        ticksQ (bool): Display ticks. Defaults to true.</span>
-<span class="err">        tickLabelsQ (bool): Display tick labels. Defaults to false.</span>
-<span class="err">        axisLabelsQ (bool): Display axis labels. Defaults to true.</span>
-<span class="err">        xAxisQ (bool): Display x axis line. Overrides axesQ.</span>
-<span class="err">        yAxisQ (bool): Display y axis line. Overrides axesQ.</span>
-<span class="err">        xTicksQ (bool): Display x ticks. Overrides ticksQ.</span>
-<span class="err">        yTicksQ (bool): Display y ticks. Overrides ticksQ.</span>
-<span class="err">        xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.</span>
-<span class="err">        yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.</span>
-<span class="err">        xAxisLabelQ (bool): Display x axis label. Overrides axisLabelsQ.</span>
-<span class="err">        yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.</span>
-<span class="err">        color (str): Case-insensitive string in the format</span>
-<span class="err">            #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e. color</span>
-<span class="err">            of curve in "histogram" plots and dots in "dot" plots.</span>
-<span class="err">        renderGates (bool): Render gates into the image.</span>
-<span class="err">        preSubsampleN (int): Randomly subsample the file to contain this</span>
-<span class="err">            many events before gating.</span>
-<span class="err">        preSubsampleP (float): Randomly subsample the file to contain this percent</span>
-<span class="err">            of events (0 to 1) before gating.</span>
-<span class="err">        postSubsampleN (int): Randomly subsample the file to contain</span>
-<span class="err">            this many events after gating.</span>
-<span class="err">        postSubsampleP (float): Randomly subsample the file to contain this</span>
-<span class="err">            percent of events (0 to 1) after gating.</span>
-<span class="err">        seed (float): Seed for random number generator used for</span>
-<span class="err">            subsampling. Use for deterministic (reproducible) subsampling. If</span>
-<span class="err">            omitted, a pseudo-random value is used.</span>
-<span class="err">        smoothing (float): For density plots, adjusts the amount of</span>
-<span class="err">            smoothing. Defaults to 0 (no smoothing). Set to 1 for optimal</span>
-<span class="err">            smoothing. Higher values increase smoothing.</span>
-</code></pre>
-</div>
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>experiment_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of the experiment to which the file belongs.</p>
+</td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of file for which to build a plot.</p>
+</td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>X channel name.</p>
+</td>
+</tr>
+<tr>
+<td><code>y_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>(for 2D plots) Y channel name.</p>
+</td>
+</tr>
+<tr>
+<td><code>plot_type</code></td>
+<td><code>str</code></td>
+<td>
+<p>"contour", "dot", "density" or "histogram" (case-insensitive)</p>
+</td>
+</tr>
+<tr>
+<td><code>population_id</code></td>
+<td><code>ID</code></td>
+<td>
+<p>Defaults to ungated.</p>
+</td>
+</tr>
+<tr>
+<td><code>properties</code></td>
+<td><code>dict</code></td>
+<td>
+<p>Optional attributes in camelCase dict: {"property": value}
+compensation (ID): Compensation to use for gating and display.
+width (int): Image width. Defaults to 228.
+height (int): Image height. Defaults to 228.
+axesQ (bool): Display axes lines. Defaults to true.
+ticksQ (bool): Display ticks. Defaults to true.
+tickLabelsQ (bool): Display tick labels. Defaults to false.
+axisLabelsQ (bool): Display axis labels. Defaults to true.
+xAxisQ (bool): Display x axis line. Overrides axesQ.
+yAxisQ (bool): Display y axis line. Overrides axesQ.
+xTicksQ (bool): Display x ticks. Overrides ticksQ.
+yTicksQ (bool): Display y ticks. Overrides ticksQ.
+xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.
+yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.
+xAxisLabelQ (bool): Display x axis label. Overrides axisLabelsQ.
+yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.
+color (str): Case-insensitive string in the format
+    #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e. color
+    of curve in "histogram" plots and dots in "dot" plots.
+renderGates (bool): Render gates into the image.
+preSubsampleN (int): Randomly subsample the file to contain this
+    many events before gating.
+preSubsampleP (float): Randomly subsample the file to contain this percent
+    of events (0 to 1) before gating.
+postSubsampleN (int): Randomly subsample the file to contain
+    this many events after gating.
+postSubsampleP (float): Randomly subsample the file to contain this
+    percent of events (0 to 1) after gating.
+seed (float): Seed for random number generator used for
+    subsampling. Use for deterministic (reproducible) subsampling. If
+    omitted, a pseudo-random value is used.
+smoothing (float): For density plots, adjusts the amount of
+    smoothing. Defaults to 0 (no smoothing). Set to 1 for optimal
+    smoothing. Higher values increase smoothing.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="doc doc-children">
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.display">
@@ -449,8 +499,8 @@ above.</p>
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
-<script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../assets/javascripts/vendor.92ffa368.min.js"></script>
+<script src="../assets/javascripts/bundle.5123e3d4.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "..",
