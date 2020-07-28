@@ -1,6 +1,5 @@
 import attr
 import pandas
-import fcsparser
 from typing import List, Dict
 
 from cellengine.utils.helpers import GetSet

@@ -4,6 +4,8 @@ import pandas
 from getpass import getpass
 from typing import List, Dict, Union, Optional
 from functools import lru_cache
+from urllib.parse import urlparse
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
 from cellengine.utils.api_client.APIError import APIError
@@ -188,6 +190,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return Experiment(experiment)
 
     def post_experiment(self, experiment: dict, as_dict=False) -> Experiment:
+        """Create a new experiment on CellEngine."""
         experiment = self._post(f"{self.endpoint_base}/experiments", json=experiment)
         if as_dict:
             return experiment
@@ -223,9 +226,24 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return fcs_file
         return FcsFile(fcs_file)
 
-    def upload_fcs_file(self, experiment_id, file):
+    def upload_fcs_file(self, experiment_id, filepath: str, filename: str = None):
+        """Upload an FCS file to CellEngine
+
+        Args:
+            filepath (str): path to .fcs file
+            filename (str, optional): Optionally, specify a new name for the file
+
+        Returns:
+            The newly-uploaded FcsFile
+        """
         url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
-        f = self._post(url, files=file)
+        filename = filename or os.path.split(filepath)[-1]
+        mpe = MultipartEncoder(
+            fields={
+                "data": (filename, open(filepath, "rb"), "text/plain")
+            }
+        )
+        f = self._post(url, data=mpe, headers={"Content-Type": mpe.content_type})
         return FcsFile(f)
 
     def create_fcs_file(self, experiment_id, body):

@@ -79,6 +79,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         params: Dict = None,
         headers: Dict = None,
         files: Dict = None,
+        data = None,
         raw=False,
     ) -> Dict:
         response = self.requests_session.post(
@@ -87,6 +88,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
             headers=self._make_headers(headers),
             params=params if params else {},
             files=files,
+            data=data,
         )
         return self._parse_response(response, raw=raw)
 
