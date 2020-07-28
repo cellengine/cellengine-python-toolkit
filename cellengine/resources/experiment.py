@@ -1,5 +1,6 @@
 from custom_inherit import doc_inherit
 from typing import Optional, Dict, Union, List
+import fcsparser
 
 import cellengine as ce
 from cellengine.payloads.experiment import _Experiment
@@ -24,21 +25,19 @@ from cellengine.utils.helpers import (
 
 
 class Experiment(_Experiment):
-    @classmethod
-    def get(cls, _id: str = None, name: str = None):
+    @staticmethod
+    def get(_id: str = None, name: str = None):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_experiment(**kwargs)
 
-    @classmethod
+    @staticmethod
     def create(
-        cls,
         name: str = None,
         comments: str = None,
         uploader: str = None,
         primary_researcher: str = None,
         public: bool = False,
         tags: List[str] = None,
-        as_dict=False,
     ):
         """Post a new experiment to CellEngine.
 
@@ -55,14 +54,18 @@ class Experiment(_Experiment):
             Experiment: Creates the Experiment on CellEngine and returns it.
         """
         experiment_body = {
-            "name": name,
-            "comments": comments,
-            "uploader": uploader,
-            "primaryResearcher": primary_researcher,
-            "public": public,
-            "tags": tags,
+            k: v
+            for (k, v) in {
+                "name": name,
+                "comments": comments,
+                "uploader": uploader,
+                "primaryResearcher": primary_researcher,
+                "public": public,
+                "tags": tags,
+            }.items()
+            if v
         }
-        return ce.APIClient().post_experiment(experiment_body, as_dict=as_dict)
+        return ce.APIClient().post_experiment(experiment_body)
 
     def update(self, inplace: bool = True):
         """Save changes to this Experiment to CellEngine.
@@ -146,15 +149,19 @@ class Experiment(_Experiment):
 
     @property
     def fcs_files(self) -> List[FcsFile]:
-        """List all files on the experiment."""
+        """List all FCS files on the experiment."""
         return ce.APIClient().get_fcs_files(self._id)
 
     def get_fcs_file(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> FcsFile:
-        """Get a specific fcs_file."""
+        """Get a specific FCS file."""
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_fcs_file(self._id, **kwargs)
+
+    def upload_fcs_file(self, filepath, filename: str = None):
+        """Upload an FCS file to this experiment."""
+        ce.APIClient().upload_fcs_file(self._id, filepath, filename)
 
     @property
     def gates(self) -> List[Gate]:

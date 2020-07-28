@@ -207,6 +207,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def update_experiment(self, _id, body) -> Dict:
         return self._patch(f"{self.endpoint_base}/experiments/{_id}", json=body)
 
+    def delete_experiment(self, _id):
+        """Hard-delete an experiment.
+
+        Warning: This action is irreversible!
+        """
+        self._delete(f"{self.endpoint_base}/experiments/{_id}")
+
     def get_fcs_files(self, experiment_id, as_dict=False) -> List[FcsFile]:
         fcs_files = self._get(
             f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"

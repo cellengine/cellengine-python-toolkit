@@ -5,7 +5,7 @@ from cellengine.utils.api_client.APIClient import APIClient
 
 
 """
-Run tests with ``python -m pytest``.
+Run tests with ``pytest``.
 
 Fixtures are defined in cellengine-python-toolkit/tests/tests/fixtures.
 You can write new fixtures in new files here, or in existing .py files.
@@ -23,6 +23,8 @@ DELETE requests. Thus, "test_base_delete" is an unsafe test, as it saves a
 login token. I have opened an issue on ``pytest-vcr``, but for now, if you
 remake "test_base_delete.yaml", delete the two lines with the login token.
 """
+
+collect_ignore_glob = ["*integration.py"]
 
 pytest_plugins = [
     "fixtures.api-experiments",
