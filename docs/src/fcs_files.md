@@ -13,7 +13,6 @@ Methods are available for common access and transformations on the FCS file.
 ## Methods
 
 ::: cellengine.resources.fcs_file.FcsFile
-- TODO: add "channels"
 
 ## Properties
 Properties are getter methods and setter methods representing the underlying

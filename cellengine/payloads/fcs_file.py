@@ -14,8 +14,6 @@ class _FcsFile(object):
 
     _properties = attr.ib(default={}, repr=False)
 
-    _events = attr.ib(default=None)
-
     name = GetSet("filename")
 
     _id = GetSet("_id", read_only=True)

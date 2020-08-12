@@ -1,5 +1,9 @@
+import numpy
+import pandas
+
 import cellengine as ce
 from cellengine.payloads.compensation import _Compensation
+from cellengine.resources.fcs_file import FcsFile
 
 
 class Compensation(_Compensation):
@@ -38,3 +42,51 @@ class Compensation(_Compensation):
         return ce.APIClient().delete_entity(
             self.experiment_id, "compensations", self._id
         )
+
+    @property
+    def dataframe(self):
+        """Get the compensation matrix as a Pandas DataFrame."""
+        if getattr(self, "_dataframe") is not None:
+            return self._dataframe
+        else:
+            self._dataframe = pandas.DataFrame(
+                data=numpy.array(self._properties.get("spillMatrix")).reshape(
+                    self.N, self.N
+                ),
+                columns=self.channels,
+                index=self.channels,
+            )
+            return self._dataframe
+
+    @property
+    def dataframe_as_html(self):
+        """Return the compensation matrix dataframe as HTML."""
+        return self.dataframe._repr_html_()
+
+    def apply(self, file: FcsFile, inplace: bool = True, **params):
+        """
+        Compensates the file's data.
+
+        Args:
+            file (FcsFile): The FCS file to compensate.
+            inplace (bool): Compensate the file's data in-place.
+            params: Additional keyword args of form: [Additional Args][cellengine.ApiClient.ApiClient.download_fcs_file]
+
+        Returns:
+            DataFrame or None: if ``inplace=True``, returns nothing.
+        """
+        data = file.events(**params)
+
+        # spill -> comp by inverting
+        inverted = numpy.linalg.inv(self.dataframe)
+
+        # Calculate matrix product for channels matching between file and comp
+        comped = data[self.channels].dot(inverted)
+        comped.columns = self.channels
+
+        data.update(comped)
+
+        if inplace:
+            file._events = data
+        else:
+            return data

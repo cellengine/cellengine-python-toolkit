@@ -37,7 +37,7 @@ class FcsFile(_FcsFile):
         cls,
         experiment_id: str,
         fcs_files: List[str],
-        filename: str,
+        filename: str = None,
         add_file_number: bool = False,
         add_event_number: bool = False,
         pre_subsample_n: int = None,
@@ -55,6 +55,7 @@ class FcsFile(_FcsFile):
                 If more than one file is provided, they will be concatenated in
                 order. To import files from other experiments, pass a list of dicts
                 with _id and experimentId properties.
+            filename (optional): Rename the uploaded file.
             add_file_number (optional): If
                 concatenating files, adds a file number channel to the
                 resulting file.
@@ -123,17 +124,15 @@ class FcsFile(_FcsFile):
         )
         return plot
 
-    @property
-    def events(self):
+    def events(self, **params):
         """A DataFrame containing this file's data. This is fetched
         from the server on-demand the first time that this property is accessed.
-        """
-        if self._events is None:
-            fresp = ce.APIClient().get_fcs_file_events(self.experiment_id, self._id)
-            parser = fcsparser.api.FCSParser.from_data(fresp.content)
-            self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
-        return self._events
 
-    @events.setter
-    def events(self, val):
-        self.__dict__["_events"] = val
+        Args:
+            params: keyword arguments of form: [Additional Args][cellengine.ApiClient.ApiClient.download_fcs_file]
+        """
+        fresp = ce.APIClient().download_fcs_file(
+            self.experiment_id, self._id, params=params
+        )
+        parser = fcsparser.api.FCSParser.from_data(fresp)
+        return pandas.DataFrame(parser.data, columns=parser.channel_names_n)

@@ -1,11 +1,10 @@
 import attr
 from typing import Dict, List
+from abc import ABC
+from munch import Munch, munchify
 
 import cellengine as ce
 from cellengine.utils.helpers import GetSet
-from cellengine.utils.munchifier import get_prop
-
-from abc import ABC
 
 
 @attr.s(repr=False, slots=True)
@@ -73,8 +72,9 @@ class _Gate(ABC):
 
     names = GetSet("names")
 
-    # TODO: create_population()
-
     @property
     def model(self):
-        return get_prop(self, "model")
+        model = self._properties["model"]
+        if type(model) is not Munch:
+            self._properties["model"] = munchify(model)
+        return munchify(model)

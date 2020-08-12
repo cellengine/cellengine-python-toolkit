@@ -122,29 +122,41 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         url = f"{self.endpoint_base}/experiments/{experiment_id}/{entity_type}/{_id}"
         self._delete(url)
 
-    def get_attachments(self, experiment_id, as_dict=False) -> List[Attachment]:
+    def get_attachments(self, experiment_id) -> List[Attachment]:
         attachments = self._get(
             f"{self.endpoint_base}/experiments/{experiment_id}/attachments"
         )
-        if as_dict:
-            return attachments
         return [Attachment(attachment) for attachment in attachments]
 
-    def get_attachment(
-        self, experiment_id, _id=None, name=None, as_dict=False
-    ) -> Attachment:
+    def download_attachment(self, experiment_id, _id=None, name=None) -> Attachment:
+        """Download an attachment"""
         _id = _id or self._get_id_by_name(name, "attachments", experiment_id)
         attachment = self._get(
-            f"{self.endpoint_base}/experiments/{experiment_id}/attachments/{_id}"
+            f"{self.endpoint_base}/experiments/{experiment_id}/attachments/{_id}",
+            raw=True,
         )
-        if as_dict:
-            return attachment
-        return Attachment(attachment)
+        return attachment
 
-    def post_attachment(self, experiment_id, files):
+    def get_attachment(self, experiment_id, _id=None, name=None) -> Attachment:
+        attachments = self.get_attachments(experiment_id)
+        try:
+            return [a for a in attachments if (a.filename == name) or (a._id == _id)][0]
+        except IndexError as e:
+            raise APIError("No experiment with that name or _id found.")
+
+    def post_attachment(self, experiment_id, filepath: str, filename: str = None):
+        """Upload an attachment to CellEngine
+
+        Args:
+            filepath (str): path to .fcs file
+            filename (str, optional): Optionally, specify a new name for the file
+
+        Returns:
+            The newly-uploaded Attachment
+        """
         url = f"{self.endpoint_base}/experiments/{experiment_id}/attachments"
-        att = self._post(url, files=files)
-        return Attachment(att)
+        file, headers = self._read_multipart_file(url, filepath, filename)
+        return Attachment(self._post(url, data=file, headers=headers))
 
     def get_compensations(self, experiment_id, as_dict=False) -> List[Compensation]:
         compensations = self._get(
@@ -165,15 +177,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return comp
         return Compensation(comp)
 
-    def post_compensation(
-        self, experiment_id, compensation=None, as_dict=False
-    ) -> Compensation:
+    def post_compensation(self, experiment_id, compensation=None) -> Compensation:
         res = self._post(
             f"{self.endpoint_base}/experiments/{experiment_id}/compensations",
             json=compensation,
         )
-        if as_dict:
-            return res
         return Compensation(res)
 
     def get_experiments(self, as_dict=False) -> List[Experiment]:
@@ -244,22 +252,76 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             The newly-uploaded FcsFile
         """
         url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
-        filename = filename or os.path.split(filepath)[-1]
+        file, headers = self._read_multipart_file(url, filepath, filename)
+        return FcsFile(self._post(url, data=file, headers=headers))
+
+    def _read_multipart_file(self, url, filepath: str, filename: str = None):
+        """Posts a MultipartEncoder of the file and its content-type"""
+        filename = filename or os.path.basename(filepath)
         mpe = MultipartEncoder(
-            fields={
-                "data": (filename, open(filepath, "rb"), "text/plain")
-            }
+            fields={"data": (filename, open(filepath, "rb"), "text/plain")}
         )
-        f = self._post(url, data=mpe, headers={"Content-Type": mpe.content_type})
-        return FcsFile(f)
+        return mpe, {"Content-Type": mpe.content_type}
 
     def create_fcs_file(self, experiment_id, body):
+        """Creates an FCS file by copying, concatenating and/or
+        subsampling existing file(s) from this or other experiments. Can be
+        used to import files from other experiments.
+        """
         url = f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles"
-        return self._post(url, json=body)
+        return FcsFile(self._post(url, json=body))
 
-    def get_fcs_file_events(self, experiment_id, fcs_file_id):
+    def download_fcs_file(self, experiment_id, fcs_file_id, params: Dict = None):
+        """Download events for a specific FcsFile
+
+        Args:
+            experiment_id: ID of the experiment
+            fcs_file_id: ID of the FcsFile
+            params (Dict): Optional query parameters:
+                compensatedQ (bool): If true, applies the compensation
+                    specified in compensationId to the exported events. For TSV
+                    format, the numerical values will be the compensated values.
+                    For FCS format, the numerical values will be unchanged, but the
+                    file header will contain the compensation as the spill string
+                    (file-internal compensation).
+                compensationId (str): Required if populationId is specified.
+                    Compensation to use for gating.
+                headers (bool): For TSV format only. If true, a header row
+                    containing the channel names will be included.
+                original (bool): If true, the returned file will be
+                    byte-for-byte identical to the originally uploaded file. If
+                    false or unspecified (and compensatedQ is false, populationId
+                    is unspecified and all subsampling parameters are unspecified),
+                    the returned file will contain essentially the same data as the
+                    originally uploaded file, but may not be byte-for-byte
+                    identical. For example, the byte ordering of the DATA segment
+                    will always be little-endian and any extraneous information
+                    appended to the end of the original file will be stripped. This
+                    parameter takes precedence over compensatedQ, populationId and
+                    the subsampling parameters.
+                populationId (str): If provided, only events from this
+                    population will be included in the output file.
+                postSubsampleN (int): Randomly subsample the file to contain
+                    this many events after gating.
+                postSubsampleP (float): Randomly subsample the file to contain
+                    this percent of events (0 to 1) after gating.
+                preSubsampleN (int): Randomly subsample the file to contain
+                    this many events before gating.
+                preSubsampleP (float): Randomly subsample the file to contain
+                    this percent of events (0 to 1) before gating.
+                seed: (float): Seed for random number generator used for
+                    subsampling. Use for deterministic (reproducible) subsampling.
+                    If omitted, a pseudo-random value is used.
+                addEventNumber (bool): Add an event number column to the
+                    exported file. When a populationId is specified (when gating),
+                    this number corresponds to the index of the event in the
+                    original file.
+        """
+
         return self._get(
-            f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs"
+            f"{self.endpoint_base}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs",
+            params=params,
+            raw=True,
         )
 
     def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
@@ -396,13 +458,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return population
         return Population(population)
 
-    def post_population(self, experiment_id, population: Dict, as_dict=False) -> Gate:
+    def post_population(self, experiment_id, population: Dict) -> Gate:
         res = self._post(
             f"{self.endpoint_base}/experiments/{experiment_id}/populations",
             json=population,
         )
-        if as_dict:
-            return res
         return Population(res)
 
     def get_statistics(
@@ -517,6 +577,4 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if as_dict:
             return scalesets
         else:
-            raise NotImplementedError(
-                "There is no SDK representation of Scalesets yet."
-            )
+            raise NotImplementedError("There is no SDK representation of Scalesets.")

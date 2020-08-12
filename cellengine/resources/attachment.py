@@ -20,10 +20,9 @@ class Attachment(_Attachment):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_attachment(experiment_id, **kwargs)
 
-    @classmethod
-    def create(cls, experiment_id: str, filepath: str):
-        files = {"upload_file": open(filepath, "rb")}
-        return ce.APIClient().post_attachment(experiment_id, files)
+    @staticmethod
+    def create(experiment_id: str, filepath: str, filename: str = None):
+        return ce.APIClient().post_attachment(experiment_id, filepath, filename)
 
     def update(self, inplace=True):
         """Save changes to this Attachment to CellEngine.
@@ -60,7 +59,7 @@ class Attachment(_Attachment):
         Returns:
             content: JSON-serializable if possible, otherwise the raw response content.
         """
-        res = ce.APIClient().get_attachment(self.experiment_id, self._id, as_dict=True)
+        res = ce.APIClient().download_attachment(self.experiment_id, self._id)
 
         if to_file:
             with open(to_file, "wb") as f:

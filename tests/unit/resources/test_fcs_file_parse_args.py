@@ -22,18 +22,6 @@ def test_should_get_fcs_file(ENDPOINT_BASE, client, fcs_files):
 
 
 @responses.activate
-def test_should_upload_fcs_file(ENDPOINT_BASE, client, fcs_files):
-    """Test upload of a new fcs_file.
-    This test must be run from the project root directory"""
-    responses.add(
-        responses.POST,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
-        json=fcs_files[0],
-    )
-    file = FcsFile.upload(EXP_ID, "tests/data/text.txt")
-
-
-@responses.activate
 def test_should_create_fcs_file(ENDPOINT_BASE, client, fcs_files):
     """Test upload of a new fcs_file.
     This test must be run from the project root directory"""

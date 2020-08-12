@@ -110,16 +110,16 @@ def test_should_get_list_of_entities(
 
 
 get_params = [
-    ("attachments", ATTACHMENT_ID, Attachment),
-    ("compensations", COMPENSATION_ID, Compensation),
-    ("fcs_files", FCSFILE_ID, FcsFile),
-    ("gates", GATE_ID, Gate),
-    ("populations", POPULATION_ID, Population),
+    ("attachments", ATTACHMENT_ID, "download_attachment", bytes),
+    ("compensations", COMPENSATION_ID, "get_compensation", Compensation),
+    ("fcs_files", FCSFILE_ID, "get_fcs_file", FcsFile),
+    ("gates", GATE_ID, "get_gate", Gate),
+    ("populations", POPULATION_ID, "get_population", Population),
 ]
 
 
 @responses.activate
-@pytest.mark.parametrize("entity,entity_id,_type", get_params)
+@pytest.mark.parametrize("entity,entity_id,get_func,_type", get_params)
 def test_get_one_entity(
     ENDPOINT_BASE,
     experiment,
@@ -131,6 +131,7 @@ def test_get_one_entity(
     statistics,
     entity,
     entity_id,
+    get_func,
     _type,
 ):
     entity_fixture = eval(entity)[0]
@@ -141,8 +142,7 @@ def test_get_one_entity(
         + f"/experiments/5d38a6f79fae87499999a74b/{entity_path}/{entity_id}",
         json=entity_fixture,
     )
-    func_name = "get_" + entity[:-1]
-    _func = getattr(experiment, func_name)
+    _func = getattr(experiment, get_func)
     ent = _func(_id=entity_id)
     if entity == "gates":
         assert str(ent.__module__) == "cellengine.resources.gate"
@@ -176,11 +176,6 @@ def test_should_create_experiment(ENDPOINT_BASE, experiment):
     exp = Experiment.create("new_experiment")
     assert json.loads(responses.calls[0].request.body) == {
         "name": "new_experiment",
-        "comments": None,
-        "uploader": None,
-        "primaryResearcher": None,
-        "public": False,
-        "tags": None,
     }
 
 

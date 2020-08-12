@@ -8,8 +8,6 @@ from cellengine.utils.api_client.APIError import APIError
 
 EXP_ID = "5d38a6f79fae87499999a74b"
 
-# TODO: test create_population True or False
-
 
 def gate_tester(instance):
     """Generalize tests for shared gate fields"""

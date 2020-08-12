@@ -25,35 +25,22 @@ test_params = [
     # (json to return, endpoint, function to test, expected entity, function args)
     (Experiment, None, "get_experiments", None),
     (Experiment, EXP_ID, "get_experiment", {"_id": EXP_ID},),
-    (dict, EXP_ID, "get_experiment", {"_id": EXP_ID, "as_dict": True},),
     (Experiment, EXP_ID, "get_experiment", {"name": "test_experiment"},),
     (Attachment, EXP_ID, "get_attachments", {"experiment_id": EXP_ID},),
     (
-        Attachment,
+        bytes,
         EXP_ID,
-        "get_attachment",
+        "download_attachment",
         {"experiment_id": EXP_ID, "_id": ATTACHMENT_ID},
     ),
     (
-        dict,
+        bytes,
         EXP_ID,
-        "get_attachment",
-        {"experiment_id": EXP_ID, "_id": ATTACHMENT_ID, "as_dict": True,},
-    ),
-    (
-        Attachment,
-        EXP_ID,
-        "get_attachment",
+        "download_attachment",
         {"experiment_id": EXP_ID, "name": "config.h"},
     ),
     (FcsFile, EXP_ID, "get_fcs_files", {"experiment_id": EXP_ID}),
     (FcsFile, EXP_ID, "get_fcs_file", {"experiment_id": EXP_ID, "_id": FCSFILE_ID},),
-    (
-        dict,
-        EXP_ID,
-        "get_fcs_file",
-        {"experiment_id": EXP_ID, "_id": FCSFILE_ID, "as_dict": True},
-    ),
     (
         FcsFile,
         EXP_ID,
@@ -68,12 +55,6 @@ test_params = [
         {"experiment_id": EXP_ID, "_id": COMPENSATION_ID},
     ),
     (
-        dict,
-        EXP_ID,
-        "get_compensation",
-        {"experiment_id": EXP_ID, "_id": COMPENSATION_ID, "as_dict": True},
-    ),
-    (
         Compensation,
         EXP_ID,
         "get_compensation",
@@ -81,24 +62,12 @@ test_params = [
     ),
     (Gate, EXP_ID, "get_gates", {"experiment_id": EXP_ID}),
     (Gate, EXP_ID, "get_gate", {"experiment_id": EXP_ID, "_id": GATE_ID},),
-    (
-        dict,
-        EXP_ID,
-        "get_gate",
-        {"experiment_id": EXP_ID, "_id": GATE_ID, "as_dict": True},
-    ),
     (Population, EXP_ID, "get_populations", {"experiment_id": EXP_ID}),
     (
         Population,
         EXP_ID,
         "get_population",
         {"experiment_id": EXP_ID, "_id": POPULATION_ID},
-    ),
-    (
-        dict,
-        EXP_ID,
-        "get_population",
-        {"experiment_id": EXP_ID, "_id": POPULATION_ID, "as_dict": True},
     ),
     (
         Population,

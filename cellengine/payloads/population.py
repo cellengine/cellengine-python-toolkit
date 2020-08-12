@@ -4,11 +4,7 @@ from cellengine.utils.helpers import GetSet
 
 @attr.s(repr=False, slots=True)
 class _Population(object):
-    """
-    A class representing a CellEngine population.
-
-    Attributes
-        _properties (:obj:`dict`): Population properties; reqired.
+    """A class representing a CellEngine population.
     """
 
     def __repr__(self):

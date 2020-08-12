@@ -5,7 +5,14 @@ from typing import Dict, List, Optional
 import cellengine as ce
 from cellengine.payloads.gate import _Gate
 from cellengine.utils.api_client import APIClient
-from cellengine.payloads.gate_utils import format_rectangle_gate
+from cellengine.payloads.gate_utils import (
+    format_rectangle_gate,
+    format_split_gate,
+    format_polygon_gate,
+    format_ellipse_gate,
+    format_quadrant_gate,
+    format_range_gate,
+)
 
 
 @attr.s(repr=False, slots=True)
@@ -68,6 +75,7 @@ class Gate(_Gate):
                 Experiment object.
             name (str): The name of the gate
             x_channel (str): The name of the x channel to which the gate applies.
+            y_channel (str): The name of the y channel to which the gate applies.
             gid (str): Group ID of the gate, used for tailoring. If this is not
                 specified, then a new Group ID will be created. If you wish you create
                 a tailored gate, you must specify the gid of the global tailored gate.
@@ -99,8 +107,19 @@ class Gate(_Gate):
     def _build_gate(cls, gate):
         """Get the gate type and return instance of the correct subclass."""
         module = importlib.import_module(__name__)
+        gate, _ = cls._separate_gate_and_population(gate)
         gate_type = getattr(module, gate["type"])
         return gate_type(properties=gate)
+
+    @classmethod
+    def _separate_gate_and_population(cls, gate):
+        try:
+            if "gate" in gate.keys():
+                return gate["gate"], [k for k in gate.keys() if k != "gate"]
+            else:
+                return gate, None
+        except KeyError:
+            raise ValueError("Gate payload is of invalid format")
 
     @staticmethod
     def delete_gates(
@@ -115,9 +134,9 @@ class Gate(_Gate):
         a static method from cellengine.Gate or from an Experiment instance.
 
         Args:
-            experimentId (str): ID of experiment.
-            _id (str): ID of gate family.
-            gateId (str): ID of gate.
+            experiment_id (str): ID of experiment.
+            _id (str): ID of gate.
+            gid (str): ID of gate family.
             exclude (str): Gate ID to exclude from deletion.
 
         Example:
@@ -186,7 +205,7 @@ class RectangleGate(Gate):
         fcs_file=None,
         create_population=True,
     ):
-        return cls.build(
+        g = cls.build(
             format_rectangle_gate(
                 experiment_id,
                 x_channel,
@@ -208,27 +227,183 @@ class RectangleGate(Gate):
             )
         )
 
+        return ce.APIClient().post_gate(g["experimentId"], g)
+
 
 class PolygonGate(Gate):
     """Basic concrete class for polygon gates"""
 
-    pass
+    @classmethod
+    def create(
+        cls,
+        experiment_id,
+        x_channel,
+        y_channel,
+        name,
+        x_vertices,
+        y_vertices,
+        label=[],
+        gid=None,
+        locked=False,
+        parent_population_id=None,
+        parent_population=None,
+        tailored_per_file=False,
+        fcs_file_id=None,
+        fcs_file=None,
+        create_population=True,
+    ):
+        g = format_polygon_gate(
+            experiment_id,
+            x_channel,
+            y_channel,
+            name,
+            x_vertices,
+            y_vertices,
+            label=[],
+            gid=None,
+            locked=False,
+            parent_population_id=None,
+            parent_population=None,
+            tailored_per_file=False,
+            fcs_file_id=None,
+            fcs_file=None,
+            create_population=True,
+        )
+        return ce.APIClient().post_gate(g["experimentId"], g)
 
 
 class EllipseGate(Gate):
     """Basic concrete class for ellipse gates"""
 
-    pass
+    @classmethod
+    def create(
+        cls,
+        experiment_id,
+        x_channel,
+        y_channel,
+        name,
+        x,
+        y,
+        angle,
+        major,
+        minor,
+        label=[],
+        gid=None,
+        locked=False,
+        parent_population_id=None,
+        parent_population=None,
+        tailored_per_file=False,
+        fcs_file_id=None,
+        fcs_file=None,
+        create_population=True,
+    ):
+        g = format_ellipse_gate(
+            experiment_id,
+            x_channel,
+            y_channel,
+            name,
+            x,
+            y,
+            angle,
+            major,
+            minor,
+            label=[],
+            gid=None,
+            locked=False,
+            parent_population_id=None,
+            parent_population=None,
+            tailored_per_file=False,
+            fcs_file_id=None,
+            fcs_file=None,
+            create_population=True,
+        )
+        return ce.APIClient().post_gate(g["experimentId"], g)
 
 
 class RangeGate(Gate):
     """Basic concrete class for range gates"""
 
-    pass
+    @classmethod
+    def create(
+        cls,
+        experiment_id,
+        x_channel,
+        name,
+        x1,
+        x2,
+        y=0.5,
+        label=[],
+        gid=None,
+        locked=False,
+        parent_population_id=None,
+        parent_population=None,
+        tailored_per_file=False,
+        fcs_file_id=None,
+        fcs_file=None,
+        create_population=True,
+    ):
+        g = format_range_gate(
+            experiment_id,
+            x_channel,
+            name,
+            x1,
+            x2,
+            y=0.5,
+            label=[],
+            gid=None,
+            locked=False,
+            parent_population_id=None,
+            parent_population=None,
+            tailored_per_file=False,
+            fcs_file_id=None,
+            fcs_file=None,
+            create_population=True,
+        )
+        return ce.APIClient().post_gate(g["experimentId"], g)
 
 
 class QuadrantGate(Gate):
     """Basic concrete class for quadrant gates"""
+
+    @classmethod
+    def create(
+        cls,
+        experiment_id,
+        x_channel,
+        y_channel,
+        name,
+        x,
+        y,
+        labels=[],
+        gid=None,
+        gids=None,
+        locked=False,
+        parent_population_id=None,
+        parent_population=None,
+        tailored_per_file=False,
+        fcs_file_id=None,
+        fcs_file=None,
+        create_population=True,
+    ):
+        g = format_quadrant_gate(
+            experiment_id,
+            x_channel,
+            y_channel,
+            name,
+            x,
+            y,
+            labels=[],
+            gid=None,
+            gids=None,
+            locked=False,
+            parent_population_id=None,
+            parent_population=None,
+            tailored_per_file=False,
+            fcs_file_id=None,
+            fcs_file=None,
+            create_population=True,
+        )
+        return ce.APIClient().post_gate(g["experimentId"], g)
 
     pass
 
@@ -236,4 +411,40 @@ class QuadrantGate(Gate):
 class SplitGate(Gate):
     """Basic concrete class for split gates"""
 
-    pass
+    @classmethod
+    def create(
+        cls,
+        experiment_id,
+        x_channel,
+        name,
+        x,
+        y,
+        labels=[],
+        gid=None,
+        gids=None,
+        locked=False,
+        parent_population_id=None,
+        parent_population=None,
+        tailored_per_file=False,
+        fcs_file_id=None,
+        fcs_file=None,
+        create_population=True,
+    ):
+        g = format_split_gate(
+            experiment_id,
+            x_channel,
+            name,
+            x,
+            y,
+            labels=[],
+            gid=None,
+            gids=None,
+            locked=False,
+            parent_population_id=None,
+            parent_population=None,
+            tailored_per_file=False,
+            fcs_file_id=None,
+            fcs_file=None,
+            create_population=True,
+        )
+        return ce.APIClient().post_gate(g["experimentId"], g)

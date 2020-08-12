@@ -11,9 +11,6 @@ from cellengine.utils.helpers import (
 @attr.s(repr=False, slots=True)
 class _Experiment(object):
     """A class representing a CellEngine experiment.
-
-    Attributes
-        _properties (dict): Experiment properties; required for initialization.
     """
 
     _properties = attr.ib()

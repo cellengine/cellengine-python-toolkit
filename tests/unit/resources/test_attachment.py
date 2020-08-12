@@ -28,8 +28,8 @@ def attachments_tester(attachment):
 def test_should_get_attachment(ENDPOINT_BASE, attachment):
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments/{attachment._id}",
-        json=attachment._properties,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments",
+        json=[attachment._properties],
     )
     att = Attachment.get(EXP_ID, attachment._id)
     attachments_tester(att)
@@ -86,4 +86,4 @@ def test_download_attachment(ENDPOINT_BASE, experiment, attachment):
         json="some file content",
     )
     _file = attachment.download()
-    assert _file == "some file content"
+    assert _file == b'"some file content"'

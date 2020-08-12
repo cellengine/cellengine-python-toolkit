@@ -5,6 +5,9 @@ from cellengine.utils.wrapped_image import WrappedImage
 
 @attr.s(frozen=True)
 class _Plot:
+    """A class representing a CellEngine population.
+    """
+
     experiment_id = attr.ib()
     fcs_file_id = attr.ib()
     x_channel = attr.ib()

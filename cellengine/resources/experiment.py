@@ -128,12 +128,19 @@ class Experiment(_Experiment):
         """List all attachments on the experiment."""
         return ce.APIClient().get_attachments(self._id)
 
-    def get_attachment(
+    def get_attachment(self, _id: Optional[str] = None, name: Optional[str] = None):
+        return ce.APIClient().get_attachment(self._id, _id, name)
+
+    def download_attachment(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> Attachment:
         """Get a specific attachment."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_attachment(self._id, **kwargs)
+        return ce.APIClient().download_attachment(self._id, **kwargs)
+
+    def post_attachment(self, filepath: str, filename: str = None):
+        """Upload an attachment to this experiment."""
+        ce.APIClient().post_attachment(self._id, filepath, filename)
 
     @property
     def compensations(self) -> List[Compensation]:
@@ -146,6 +153,21 @@ class Experiment(_Experiment):
         """Get a specific compensation."""
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_compensation(self._id, **kwargs)
+
+    def post_compensation(
+        self, name: str, channels: List[str], spill_matrix: List[float]
+    ):
+        """Post a new compensation to this experiment
+
+        Args:
+            name (str): The name of the compensation.
+            channels (List[str]): The names of the channels to which this
+                compensation matrix applies.
+            spill_matrix (List[float]): The row-wise, square spillover matrix. The
+                length of the array must be the number of channels squared.
+        """
+        body = {"name": name, "channels": channels, "spillMatrix": spill_matrix}
+        ce.APIClient().post_compensation(self._id, body)
 
     @property
     def fcs_files(self) -> List[FcsFile]:
@@ -212,8 +234,6 @@ class Experiment(_Experiment):
             population_ids,
         )
 
-    # Gate Methods:
-
     @doc_inherit(Gate.delete_gates)
     def delete_gates(self, _id=None, gid=None, exclude=None):
         return ce.APIClient().delete_gate(self._id, _id, gid, exclude)
@@ -249,9 +269,7 @@ class Experiment(_Experiment):
         return ce.APIClient().post_gate(self._id, post_body)
 
     def create_population(self, population: Dict):
-        """Create a population.
-
-        Create a complex population
+        """Create a complex population
 
         Args:
             population (dict): The population to create. Use the
@@ -260,14 +278,11 @@ class Experiment(_Experiment):
         Returns:
             Population: A created complex population.
         """
-
         raise NotImplementedError(
             """
             This method has not been implemented yet.
-            You can still create complex populations
-            using `APIClient().post_population`, but
-            several CellEngine features, such as deletion
-            of complex population, are currently
+            Several CellEngine features, such as deletion
+            of complex populations, are currently
             unavailable.
             """
         )

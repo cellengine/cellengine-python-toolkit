@@ -35,7 +35,12 @@ def test_create_complex_population_basic(ENDPOINT_BASE, experiment, gates, popul
 
 
 def test_should_build_query_from_string_or_list():
-    expected_output = {"name": "pop_name", "gates": json.dumps({"$and": ["1"]})}
+    expected_output = {
+        "name": "pop_name",
+        "gates": json.dumps({"$and": ["1"]}),
+        "parentId": None,
+        "terminalGateGid": None,
+    }
     assert ComplexPopulationBuilder("pop_name").And("1").build() == expected_output
     assert ComplexPopulationBuilder("pop_name").And(["1"]).build() == expected_output
 
@@ -62,6 +67,8 @@ def test_should_build_complex_population_query_by_chaining():
                 ]
             }
         ),
+        "parentId": None,
+        "terminalGateGid": None,
     }
 
 
@@ -71,16 +78,22 @@ def test_should_build_complex_population_query():
     assert complex_pop.build() == {
         "name": "pop_name",
         "gates": json.dumps({"$and": ["1", "2",]}),
+        "parentId": None,
+        "terminalGateGid": None,
     }
     complex_pop.Or(["3"])
     assert complex_pop.build() == {
         "name": "pop_name",
         "gates": json.dumps({"$and": ["1", "2", {"$or": ["3"]},]}),
+        "parentId": None,
+        "terminalGateGid": None,
     }
     complex_pop.Not(["4"])
     assert complex_pop.build() == {
         "name": "pop_name",
         "gates": json.dumps({"$and": ["1", "2", {"$or": ["3"]}, {"$not": ["4"]},]}),
+        "parentId": None,
+        "terminalGateGid": None,
     }
     complex_pop.Xor(["5", "6", "7"])
     assert complex_pop.build() == {
@@ -96,6 +109,8 @@ def test_should_build_complex_population_query():
                 ]
             }
         ),
+        "parentId": None,
+        "terminalGateGid": None,
     }
 
 
@@ -104,9 +119,13 @@ def test_should_append_new_query():
     assert complex_pop.build() == {
         "name": "pop_name",
         "gates": json.dumps({"$and": ["1", "2",]}),
+        "parentId": None,
+        "terminalGateGid": None,
     }
     complex_pop.And(["3"])
     assert complex_pop.build() == {
         "name": "pop_name",
         "gates": json.dumps({"$and": ["1", "2", "3"]}),
+        "parentId": None,
+        "terminalGateGid": None,
     }
