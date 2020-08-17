@@ -9,10 +9,10 @@
 <link href="https://primitybio.github.io/cellengine-python-toolkit/compensations/" rel="canonical"/>
 <meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
 <link href="../images/favicon.ico" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.0" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.7" name="generator"/>
 <title>Compensations - CellEngine Python Toolkit</title>
-<link href="../assets/stylesheets/main.b5d04df8.min.css" rel="stylesheet"/>
-<link href="../assets/stylesheets/palette.9ab2c1f8.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.b8ac9624.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.28f3ef9a.min.css" rel="stylesheet"/>
 <meta content="#3f51b5" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -175,6 +175,21 @@
 <nav aria-label="Compensation" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.dataframe">
+    dataframe
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.dataframe_as_html">
+    dataframe_as_html
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.apply">
+    apply()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.create">
     create()
   </a>
@@ -200,21 +215,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation">
     cellengine.payloads.compensation._Compensation
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation.dataframe">
-    dataframe
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation.apply">
-    apply()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation.dataframe_as_html">
-    dataframe_as_html()
   </a>
 </li>
 <li class="md-nav__item">
@@ -301,6 +301,21 @@
 <nav aria-label="Compensation" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.dataframe">
+    dataframe
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.dataframe_as_html">
+    dataframe_as_html
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.apply">
+    apply()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.compensation.Compensation.create">
     create()
   </a>
@@ -326,21 +341,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation">
     cellengine.payloads.compensation._Compensation
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation.dataframe">
-    dataframe
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation.apply">
-    apply()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.payloads.compensation._Compensation.dataframe_as_html">
-    dataframe_as_html()
   </a>
 </li>
 <li class="md-nav__item">
@@ -376,6 +376,95 @@ Pandas DataFrame.</p>
 <p>A class representing a CellEngine compensation matrix. Can be applied to
 FCS files to compensate them.</p>
 <div class="doc doc-children">
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe">
+<code class="highlight">
+dataframe        </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-property"><code>property</code></small>
+<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+<p>Get the compensation matrix as a Pandas DataFrame.</p>
+</div>
+</div>
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe_as_html">
+<code class="highlight">
+dataframe_as_html        </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-property"><code>property</code></small>
+<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+<p>Return the compensation matrix dataframe as HTML.</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.apply">
+<code class="highlight language-python">
+apply<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Compensates the file's data.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td><code>FcsFile</code></td>
+<td>
+<p>The FCS file to compensate.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>inplace</code></td>
+<td><code>bool</code></td>
+<td>
+<p>Compensate the file's data in-place.</p>
+</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code></code></td>
+<td>
+<p>Additional keyword args of form: [Additional Args][cellengine.ApiClient.ApiClient.download_fcs_file]</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DataFrame or None</code></td>
+<td>
+<p>if <code>inplace=True</code>, returns nothing.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.create">
 <code class="highlight language-python">
@@ -463,85 +552,6 @@ Otherwise, updates the current entity.</p>
 <div class="doc doc-contents first">
 <p>A class representing a CellEngine compensation matrix. Can be applied to
 FCS files to compensate them.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-attribute">
-<h2 class="doc doc-heading" id="cellengine.payloads.compensation._Compensation.dataframe">
-<code class="highlight">
-dataframe        </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h2>
-<div class="doc doc-contents">
-<p>Get the compensation matrix as a Pandas DataFrame.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="cellengine.payloads.compensation._Compensation.apply">
-<code class="highlight language-python">
-apply<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> </code>
-</h2>
-<div class="doc doc-contents">
-<p>Compensates the file's data.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>file</code></td>
-<td><code>FcsFile</code></td>
-<td>
-<p>The FCS file to compensate.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>inplace</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Compensate the file's data in-place.</p>
-</td>
-<td><code>True</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>DataFrame or None</code></td>
-<td>
-<p>if <code>inplace=True</code>, returns nothing.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="cellengine.payloads.compensation._Compensation.dataframe_as_html">
-<code class="highlight language-python">
-dataframe_as_html<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
-</h2>
-<div class="doc doc-contents">
-<p>Return the compensation matrix dataframe as HTML.</p>
-</div>
-</div>
-</div>
 </div>
 </div>
 <h2 id="properties">Properties</h2>
@@ -597,14 +607,14 @@ otherwise noted.</p>
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/vendor.92ffa368.min.js"></script>
-<script src="../assets/javascripts/bundle.5123e3d4.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+<script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

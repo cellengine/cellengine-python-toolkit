@@ -9,10 +9,10 @@
 <link href="https://primitybio.github.io/cellengine-python-toolkit/experiments/" rel="canonical"/>
 <meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
 <link href="../images/favicon.ico" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.0" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.7" name="generator"/>
 <title>Experiments - CellEngine Python Toolkit</title>
-<link href="../assets/stylesheets/main.b5d04df8.min.css" rel="stylesheet"/>
-<link href="../assets/stylesheets/palette.9ab2c1f8.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.b8ac9624.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.28f3ef9a.min.css" rel="stylesheet"/>
 <meta content="#3f51b5" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -270,6 +270,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.download_attachment">
+    download_attachment()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get">
     get()
   </a>
@@ -305,8 +310,23 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_attachment">
+    post_attachment()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_compensation">
+    post_compensation()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.update">
     update()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.upload_fcs_file">
+    upload_fcs_file()
   </a>
 </li>
 </ul>
@@ -481,6 +501,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.download_attachment">
+    download_attachment()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get">
     get()
   </a>
@@ -516,8 +541,23 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_attachment">
+    post_attachment()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_compensation">
+    post_compensation()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.update">
     update()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.upload_fcs_file">
+    upload_fcs_file()
   </a>
 </li>
 </ul>
@@ -617,7 +657,7 @@ fcs_files: <span class="n">List</span><span class="p">[</span><span class="n">ce
 </span>
 </h3>
 <div class="doc doc-contents">
-<p>List all files on the experiment.</p>
+<p>List all FCS files on the experiment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-attribute">
@@ -718,9 +758,9 @@ attachments, FCS files, gates and populations.</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create">
 <code class="highlight language-python">
-create<span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uploader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_researcher</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
+create<span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uploader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_researcher</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 <span class="doc doc-properties">
-<small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+<small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
 </span>
 </h3>
 <div class="doc doc-contents">
@@ -790,7 +830,7 @@ create<span class="p">(</span><span class="n">name</span><span class="o">=</span
 <td>
 <p>Whether to return the experiment as an Experiment object or a dict.</p>
 </td>
-<td><code>False</code></td>
+<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
@@ -985,7 +1025,6 @@ y_channel="FSC-W", name="my gate", x_vertices=[1, 2, 3], y_vertices=[4,
 create_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
-<p>Create a population.</p>
 <p>Create a complex population</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -1384,7 +1423,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>experimentId</code></td>
+<td><code>experiment_id</code></td>
 <td><code>str</code></td>
 <td>
 <p>ID of experiment.</p>
@@ -1395,17 +1434,17 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 <td><code>_id</code></td>
 <td><code>str</code></td>
 <td>
-<p>ID of gate family.</p>
+<p>ID of gate.</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
-<td><code>gateId</code></td>
+<td><code>gid</code></td>
 <td><code>str</code></td>
 <td>
-<p>ID of gate.</p>
+<p>ID of gate family.</p>
 </td>
-<td><em>required</em></td>
+<td><code>None</code></td>
 </tr>
 <tr>
 <td><code>exclude</code></td>
@@ -1446,11 +1485,20 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.download_attachment">
+<code class="highlight language-python">
+download_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Get a specific attachment.</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get">
 <code class="highlight language-python">
 get<span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 <span class="doc doc-properties">
-<small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+<small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
 </span>
 </h3>
 <div class="doc doc-contents">
@@ -1462,7 +1510,6 @@ get<span class="p">(</span><span class="n">_id</span><span class="o">=</span><sp
 get_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
-<p>Get a specific attachment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1480,7 +1527,7 @@ get_compensation<span class="p">(</span><span class="bp">self</span><span class=
 get_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
-<p>Get a specific fcs_file.</p>
+<p>Get a specific FCS file.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1507,6 +1554,63 @@ get_population<span class="p">(</span><span class="bp">self</span><span class="p
 get_statistics<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'json'</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.post_attachment">
+<code class="highlight language-python">
+post_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Upload an attachment to this experiment.</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.post_compensation">
+<code class="highlight language-python">
+post_compensation<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">spill_matrix</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Post a new compensation to this experiment</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>
+<p>The name of the compensation.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>channels</code></td>
+<td><code>List[str]</code></td>
+<td>
+<p>The names of the channels to which this
+compensation matrix applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>spill_matrix</code></td>
+<td><code>List[float]</code></td>
+<td>
+<p>The row-wise, square spillover matrix. The
+length of the array must be the number of channels squared.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1555,6 +1659,15 @@ Otherwise, updates the current experiment.</p>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.upload_fcs_file">
+<code class="highlight language-python">
+upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Upload an FCS file to this experiment.</p>
 </div>
 </div>
 </div>
@@ -1613,14 +1726,14 @@ otherwise noted.</p>
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/vendor.92ffa368.min.js"></script>
-<script src="../assets/javascripts/bundle.5123e3d4.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+<script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

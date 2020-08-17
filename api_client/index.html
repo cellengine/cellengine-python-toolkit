@@ -9,10 +9,10 @@
 <link href="https://primitybio.github.io/cellengine-python-toolkit/api_client/" rel="canonical"/>
 <meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
 <link href="../images/favicon.ico" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.0" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.7" name="generator"/>
 <title>API Client - CellEngine Python Toolkit</title>
-<link href="../assets/stylesheets/main.b5d04df8.min.css" rel="stylesheet"/>
-<link href="../assets/stylesheets/palette.9ab2c1f8.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.b8ac9624.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.28f3ef9a.min.css" rel="stylesheet"/>
 <meta content="#3f51b5" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
@@ -185,8 +185,23 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.delete_experiment">
+    delete_experiment()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.delete_gate">
     delete_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.download_attachment">
+    download_attachment()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.download_fcs_file">
+    download_fcs_file()
   </a>
 </li>
 <li class="md-nav__item">
@@ -222,11 +237,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.get_fcs_file">
     get_fcs_file()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.get_fcs_file_events">
-    get_fcs_file_events()
   </a>
 </li>
 <li class="md-nav__item">
@@ -436,8 +446,23 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.delete_experiment">
+    delete_experiment()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.delete_gate">
     delete_gate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.download_attachment">
+    download_attachment()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.download_fcs_file">
+    download_fcs_file()
   </a>
 </li>
 <li class="md-nav__item">
@@ -473,11 +498,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.get_fcs_file">
     get_fcs_file()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.get_fcs_file_events">
-    get_fcs_file_events()
   </a>
 </li>
 <li class="md-nav__item">
@@ -645,6 +665,9 @@ clone_experiment<span class="p">(</span><span class="bp">self</span><span class=
 create_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+<p>Creates an FCS file by copying, concatenating and/or
+subsampling existing file(s) from this or other experiments. Can be
+used to import files from other experiments.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -653,6 +676,16 @@ create_fcs_file<span class="p">(</span><span class="bp">self</span><span class="
 delete_entity<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_experiment">
+<code class="highlight language-python">
+delete_experiment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Hard-delete an experiment.</p>
+<p>Warning: This action is irreversible!</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -739,9 +772,102 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.download_attachment">
+<code class="highlight language-python">
+download_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Download an attachment</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.download_fcs_file">
+<code class="highlight language-python">
+download_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+</h3>
+<div class="doc doc-contents">
+<p>Download events for a specific FcsFile</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>experiment_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the experiment</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the FcsFile</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code>Dict</code></td>
+<td>
+<p>Optional query parameters:
+compensatedQ (bool): If true, applies the compensation
+    specified in compensationId to the exported events. For TSV
+    format, the numerical values will be the compensated values.
+    For FCS format, the numerical values will be unchanged, but the
+    file header will contain the compensation as the spill string
+    (file-internal compensation).
+compensationId (str): Required if populationId is specified.
+    Compensation to use for gating.
+headers (bool): For TSV format only. If true, a header row
+    containing the channel names will be included.
+original (bool): If true, the returned file will be
+    byte-for-byte identical to the originally uploaded file. If
+    false or unspecified (and compensatedQ is false, populationId
+    is unspecified and all subsampling parameters are unspecified),
+    the returned file will contain essentially the same data as the
+    originally uploaded file, but may not be byte-for-byte
+    identical. For example, the byte ordering of the DATA segment
+    will always be little-endian and any extraneous information
+    appended to the end of the original file will be stripped. This
+    parameter takes precedence over compensatedQ, populationId and
+    the subsampling parameters.
+populationId (str): If provided, only events from this
+    population will be included in the output file.
+postSubsampleN (int): Randomly subsample the file to contain
+    this many events after gating.
+postSubsampleP (float): Randomly subsample the file to contain
+    this percent of events (0 to 1) after gating.
+preSubsampleN (int): Randomly subsample the file to contain
+    this many events before gating.
+preSubsampleP (float): Randomly subsample the file to contain
+    this percent of events (0 to 1) before gating.
+seed: (float): Seed for random number generator used for
+    subsampling. Use for deterministic (reproducible) subsampling.
+    If omitted, a pseudo-random value is used.
+addEventNumber (bool): Add an event number column to the
+    exported file. When a populationId is specified (when gating),
+    this number corresponds to the index of the event in the
+    original file.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_attachment">
 <code class="highlight language-python">
-get_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
+get_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
 </div>
@@ -749,7 +875,7 @@ get_attachment<span class="p">(</span><span class="bp">self</span><span class="p
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_attachments">
 <code class="highlight language-python">
-get_attachments<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
+get_attachments<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
 </div>
@@ -790,14 +916,6 @@ get_experiments<span class="p">(</span><span class="bp">self</span><span class="
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_file">
 <code class="highlight language-python">
 get_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_file_events">
-<code class="highlight language-python">
-get_fcs_file_events<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
 </div>
@@ -1012,15 +1130,62 @@ Defaults to ungated.</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_attachment">
 <code class="highlight language-python">
-post_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span> </code>
+post_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+<p>Upload an attachment to CellEngine</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>filepath</code></td>
+<td><code>str</code></td>
+<td>
+<p>path to .fcs file</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td><code>str</code></td>
+<td>
+<p>Optionally, specify a new name for the file</p>
+</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code></code></td>
+<td>
+<p>The newly-uploaded Attachment</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_compensation">
 <code class="highlight language-python">
-post_compensation<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">compensation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
+post_compensation<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">compensation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
 </div>
@@ -1031,6 +1196,7 @@ post_compensation<span class="p">(</span><span class="bp">self</span><span class
 post_experiment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+<p>Create a new experiment on CellEngine.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1044,7 +1210,7 @@ post_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_population">
 <code class="highlight language-python">
-post_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> </code>
+post_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
 </div>
@@ -1085,9 +1251,56 @@ update_gate_family<span class="p">(</span><span class="bp">self</span><span clas
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.upload_fcs_file">
 <code class="highlight language-python">
-upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span> </code>
+upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 </h3>
 <div class="doc doc-contents">
+<p>Upload an FCS file to CellEngine</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>filepath</code></td>
+<td><code>str</code></td>
+<td>
+<p>path to .fcs file</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td><code>str</code></td>
+<td>
+<p>Optionally, specify a new name for the file</p>
+</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code></code></td>
+<td>
+<p>The newly-uploaded FcsFile</p>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -1154,14 +1367,14 @@ upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/vendor.92ffa368.min.js"></script>
-<script src="../assets/javascripts/bundle.5123e3d4.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+<script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
