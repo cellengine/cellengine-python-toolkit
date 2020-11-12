@@ -111,9 +111,29 @@ class FcsFile(_FcsFile):
         )
         return plot
 
-    def events(self, **params):
-        """A DataFrame containing this file's data. This is fetched
-        from the server on-demand the first time that this property is accessed.
+    @property
+    def events(self):
+        """A DataFrame containing this file's data.
+
+        This is fetched from the server on-demand the first time that
+        this property is accessed.
+
+        To fetch a file with specific parameters (e.g. subsampling, or
+        gated to a specific population) see FcsFile.get_events()
+        """
+        if self._events.empty:
+            self.get_events()
+            return self._events
+        else:
+            return self._events
+
+    @events.setter
+    def events(self, events):
+        self._events = events
+
+    def get_events(self, **params):
+        """
+        Fetch a DataFrame containing this file's data.
 
         Args:
             params (Dict): keyword arguments of form:
@@ -155,9 +175,11 @@ class FcsFile(_FcsFile):
                     exported file. When a populationId is specified (when gating),
                     this number corresponds to the index of the event in the
                     original file.
+
+        Returns: None; updates the self.events property.
         """
         fresp = ce.APIClient().download_fcs_file(
             self.experiment_id, self._id, params=params
         )
         parser = fcsparser.api.FCSParser.from_data(fresp)
-        return pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+        self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)

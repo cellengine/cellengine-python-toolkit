@@ -1,5 +1,6 @@
 import attr
 from typing import List
+from pandas import DataFrame
 
 from cellengine.utils.helpers import GetSet
 
@@ -12,6 +13,8 @@ class _FcsFile(object):
         return "FcsFile(_id='{}', name='{}')".format(self._id, self.name)
 
     _properties = attr.ib(default={}, repr=False)
+
+    _events = attr.ib(default=DataFrame(), init=False, repr=False)
 
     @property
     def name(self):
