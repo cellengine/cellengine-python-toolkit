@@ -17,3 +17,4 @@ from cellengine.resources.gate import (
 )
 from cellengine.resources.plot import Plot
 from cellengine.resources.population import Population
+from cellengine.resources.scaleset import ScaleSet
