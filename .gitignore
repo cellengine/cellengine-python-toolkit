@@ -5,6 +5,9 @@ tags/
 tags
 .vim
 .bumpversion.cfg
+GPATH
+GRTAGS
+GTAGS
 
 # for Mkdocs build
 site/
