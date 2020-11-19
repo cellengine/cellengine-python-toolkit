@@ -9,7 +9,7 @@ class ComplexPopulationBuilder:
 
     Populations are combinations of gates. You may build complex
     populations with this class using method chaining, with
-    combinations of `.And`, `.Or`, `.Not`, and `.Xor`.
+    combinations of .And, .Or, .Not, and .Xor.
 
     Args:
         name: The name of the new population

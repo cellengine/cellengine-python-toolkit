@@ -10,8 +10,7 @@ from cellengine.utils.helpers import (
 
 @attr.s(repr=False, slots=True)
 class _Experiment(object):
-    """A class containing CellEngine experiment resource properties.
-    """
+    """A class containing CellEngine experiment resource properties."""
 
     def __repr__(self):
         return "Experiment(_id='{}', name='{}')".format(self._id, self.name)

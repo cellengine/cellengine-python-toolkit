@@ -310,7 +310,6 @@ def gates():
             "yChannel": "FSC-H",
         },
         {
-            "__v": 0,
             "_id": "5da630b08617fbdf268a4cb0",
             "experimentId": "5d64abe2ca9df61349ed8e78",
             "fcsFileId": None,
@@ -329,7 +328,6 @@ def gates():
             "yChannel": "FSC-W",
         },
         {
-            "__v": 0,
             "_id": "5da631c7181375df27e9860a",
             "experimentId": "5d64abe2ca9df61349ed8e78",
             "fcsFileId": None,
@@ -348,7 +346,6 @@ def gates():
             "yChannel": "FSC-W",
         },
         {
-            "__v": 0,
             "_id": "5da632658617fbdf268a4cb2",
             "experimentId": "5d64abe2ca9df61349ed8e78",
             "fcsFileId": None,

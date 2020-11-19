@@ -17,8 +17,7 @@ OID._random = os.urandom(5)
 
 
 def _random():
-    """Generate a 5-byte random number once per process.
-    """
+    """Generate a 5-byte random number once per process."""
     pid = os.getpid()
     PID = OID._pid
     if pid != PID:

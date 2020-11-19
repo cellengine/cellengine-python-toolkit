@@ -41,7 +41,7 @@ def format_rectangle_gate(
         cellengine.Gate.create_rectangle_gate(experiment_id, x_channel="FSC-A",
         y_channel="FSC-W", name="my gate", x1=12.502, x2=95.102, y1=1020, y2=32021.2,
         gid=global_gate.gid)
-        """
+    """
     if label == []:
         label = [numpy.mean([x1, x2]), numpy.mean([y1, y2])]
     if gid is None:

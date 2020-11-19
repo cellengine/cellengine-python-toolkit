@@ -4,8 +4,7 @@ from cellengine.utils.helpers import GetSet
 
 @attr.s(repr=False, slots=True)
 class _Population(object):
-    """A class containing CellEngine population resource properties.
-    """
+    """A class containing CellEngine population resource properties."""
 
     def __repr__(self):
         return "Population(_id='{}', name='{}')".format(self._id, self.name)

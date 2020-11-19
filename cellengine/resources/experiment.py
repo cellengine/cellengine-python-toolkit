@@ -235,6 +235,10 @@ class Experiment(_Experiment):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_scaleset(self._id, **kwargs)
 
+    def create_gates(self, gates: List):
+        """Save a collection of gate objects."""
+        return Gate.bulk_create(self._id, gates)
+
     @doc_inherit(Gate.delete_gates)
     def delete_gates(self, _id=None, gid=None, exclude=None):
         return ce.APIClient().delete_gate(self._id, _id, gid, exclude)

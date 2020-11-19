@@ -48,6 +48,10 @@ inherit the methods below.
 
 ::: cellengine.resources.gate.QuadrantGate
 
+## Properties
+Properties are the snake_case equivalent of those documented on the
+[CellEngine API](https://docs.cellengine.com/api/#gates) unless otherwise noted.
+
 ## Gate Models
 
 Gates have a `model` property, which is a nested `dict` object. For
@@ -91,6 +95,51 @@ https://cellengine.com/api/v1/experiments/.../gates/...
 -- "locked" must be a Boolean.
 ```
 
-## Properties
-Properties are the snake_case equivalent of those documented on the
-[CellEngine API](https://docs.cellengine.com/api/#gates) unless otherwise noted.
+## Creating Gates
+Gates may be created singly or in bulk.
+
+#### Create a single new gate using kwargs:
+```python
+# using a method on Experiment
+exp.create_ellipse_gate(
+    x_channel="FSC-A",
+    y_channel="FSC-W",
+    name="my gate",
+    x=260000,
+    y=64000,
+    angle=0,
+    major=120000,
+    minor=70000
+    )
+
+# using a classmethod
+from cellengine import EllipseGate
+gate = EllipseGate.create(
+    experiment_id=exp._id,
+    # the same kwargs
+    )
+gate.post()
+```
+
+#### Post gates in bulk
+
+When creating many gates, it will be _much_ more efficient to build the gates
+in a list, then save them in bulk to CellEngine. For instance:
+```python
+gates = []
+gates.append(
+    EllipseGate.create(
+        experiment_id=exp._id,
+        # args, kwargs
+        )
+    )
+gates.append(
+    RectangleGate.create(
+        experiment_id=exp._id,
+        # args, kwargs
+        )
+    )
+
+Gate.bulk_create(gates)
+# returns [EllipseGate(...), RectangleGate(...)]
+```

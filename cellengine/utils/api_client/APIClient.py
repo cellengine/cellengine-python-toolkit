@@ -327,14 +327,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
-        return [Gate.build(gate) for gate in gates]
+        return [Gate.factory(gate) for gate in gates]
 
     def get_gate(self, experiment_id, _id, as_dict=False) -> Gate:
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
-        return Gate.build(gate)
+        return Gate.factory(gate)
 
     def delete_gate(self, experiment_id, _id=None, gid=None, exclude=None):
         """Deletes a gate or a tailored gate family.
@@ -380,7 +380,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return res
-        return Gate.build(res)
+        if type(res) is list:
+            return [Gate.factory(r) for r in res]
+        return Gate.factory(res)
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(

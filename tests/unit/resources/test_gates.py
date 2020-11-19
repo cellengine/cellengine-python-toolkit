@@ -2,7 +2,11 @@ import json
 import pytest
 import responses
 
-from cellengine.resources.gate import Gate
+from cellengine.resources.gate import (
+    Gate,
+    RectangleGate,
+    EllipseGate,
+)
 from cellengine.utils.api_client.APIError import APIError
 
 
@@ -25,7 +29,7 @@ def gate_tester(instance):
 
 def test_init_gate(ENDPOINT_BASE, client, polygon_gate):
     """Test instantiating a gate object a correct dict of properties"""
-    g = Gate.build(polygon_gate)
+    g = Gate.factory(polygon_gate)
     gate_tester(g)
     assert g.experiment_id == EXP_ID
     assert g.x_channel == "FSC-A"
@@ -57,22 +61,74 @@ def test_create_one_gate(ENDPOINT_BASE, client, rectangle_gate):
         status=201,
         json=rectangle_gate,
     )
-    g = Gate.build(rectangle_gate)
+    g = Gate.factory(rectangle_gate)
     g.post()
     gate_tester(g)
 
 
 @responses.activate
-def test_create_multiple_gates(ENDPOINT_BASE, rectangle_gate):
+def test_create_multiple_gates_from_dicts(
+    ENDPOINT_BASE, client, rectangle_gate, polygon_gate
+):
     responses.add(
         responses.POST,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
-        json=[rectangle_gate, rectangle_gate],
+        json=[rectangle_gate, rectangle_gate, polygon_gate],
     )
-    gates = Gate.build([rectangle_gate, rectangle_gate])
-    gate_tester(gates[0])
-    gate_tester(gates[1])
+    new_gates = [rectangle_gate, rectangle_gate, polygon_gate]
+    gates = Gate.bulk_create(EXP_ID, new_gates)
+    [gate_tester(gate) for gate in gates]
+
+
+@responses.activate
+def test_create_multiple_gates_from_gate_objects(
+    ENDPOINT_BASE, client, rectangle_gate, polygon_gate
+):
+    responses.add(
+        responses.POST,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
+        status=201,
+        json=[rectangle_gate, rectangle_gate, polygon_gate],
+    )
+    g1 = RectangleGate.create(
+        EXP_ID,
+        x_channel="FSC-A",
+        y_channel="FSC-W",
+        name="my fancy gate",
+        x1=12.502,
+        x2=95.102,
+        y1=1020,
+        y2=32021.2,
+    )
+    g2 = RectangleGate.create(
+        EXP_ID,
+        x_channel="FSC-A",
+        y_channel="FSC-W",
+        name="my other gate",
+        x1=12.502,
+        x2=95.102,
+        y1=1020,
+        y2=32021.2,
+    )
+    g3 = EllipseGate.create(
+        experiment_id=EXP_ID,
+        x_channel="FSC-A",
+        y_channel="FSC-W",
+        name="my gate",
+        x=260000,
+        y=64000,
+        angle=0,
+        major=120000,
+        minor=70000,
+    )
+    gates = Gate.bulk_create(EXP_ID, [g1, g2, g3])
+    [gate_tester(gate) for gate in gates]
+
+    # gates = Gate.factory([rectangle_gate, rectangle_gate])
+    # gate_tester(gates[0])
+    # gate_tester(gates[1])
+    # Gate.post(gates)
 
 
 @pytest.fixture
@@ -108,7 +164,7 @@ def test_create_gate_with_bad_params(ENDPOINT_BASE, client, bad_gate):
         json={"error": '"gid" is required.'},
     )
     with pytest.raises(APIError):
-        g = Gate.build(bad_gate)
+        g = Gate.factory(bad_gate)
         g.post()
 
 
@@ -118,7 +174,7 @@ def test_update_gate(ENDPOINT_BASE, client, experiment, rectangle_gate):
     that the correct response is made; this should be done with an integration
     test.
     """
-    gate = Gate.build(rectangle_gate)
+    gate = Gate.factory(rectangle_gate)
     # patch the mocked response with the correct values
     response = rectangle_gate.copy()
     response.update({"name": "newname"})
@@ -158,7 +214,7 @@ def test_should_delete_gate(ENDPOINT_BASE, client, rectangle_gate):
         responses.DELETE,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates/{rectangle_gate['_id']}",
     )
-    g = Gate.build(rectangle_gate)
+    g = Gate.factory(rectangle_gate)
     g.post()
     gate_tester(g)
     g.delete()

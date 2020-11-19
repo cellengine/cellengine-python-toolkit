@@ -38,7 +38,7 @@ def format_range_gate(
         cellengine.Gate.create_range_gate(experiment_id,
         x_channel="FSC-A", name="my gate",
         12.502, 95.102)
-        """
+    """
     if label == []:
         label = [numpy.mean([x1, x2]), y]
     if gid is None:

@@ -14,6 +14,15 @@ def check_id(_id):
         ValueError("Object has an invalid ID.", e)
 
 
+def get_args_as_kwargs(cls_context, locals):
+    # fmt: off
+    arg_names = cls_context.create.__code__.co_varnames[
+        1:cls_context.create.__code__.co_argcount
+    ]
+    # fmt: on
+    return {key: locals[key] for key in arg_names}
+
+
 class CommentList(list):
     """Modified list for CellEngine `comments` properties.
 
@@ -31,7 +40,7 @@ class CommentList(list):
 
 
 class GetSet:
-    """ Generator class for getters and setters of API objects.
+    """Generator class for getters and setters of API objects.
 
     Allows for much less verbose declaration of object properties from the
     underlying ``_properties`` dict, i.e.:

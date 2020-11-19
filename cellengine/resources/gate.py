@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 from math import pi
 
 import cellengine as ce
+from cellengine.utils.helpers import get_args_as_kwargs
 from cellengine.payloads.gate import _Gate
 from cellengine.payloads.gate_utils import (
     format_rectangle_gate,
@@ -15,7 +16,7 @@ from cellengine.payloads.gate_utils import (
 )
 
 
-@attr.s(repr=False, slots=True)
+@attr.s(repr=False)
 class Gate(_Gate):
     def __init__(cls, *args, **kwargs):
         if cls is Gate:
@@ -48,10 +49,19 @@ class Gate(_Gate):
         res = ce.APIClient().post_gate(
             self.experiment_id, self._properties, as_dict=True
         )
-        self._properties.update(res)
+        props, _ = self._separate_gate_and_population(res)
+        self._properties.update(props)
 
     @classmethod
-    def build(cls, gates: Dict) -> List["_Gate"]:
+    def bulk_create(cls, experiment_id, gates: List):
+        if type(gates[0]) is dict:
+            pass
+        elif str(gates[0].__module__) == "cellengine.resources.gate":
+            gates = [gate._properties for gate in gates]
+        return ce.APIClient().post_gate(experiment_id, gates, create_population=False)
+
+    @classmethod
+    def factory(cls, gates: Dict) -> List["Gate"]:
         """Build a Gate object from a dict of properties.
 
         Args:
@@ -190,29 +200,8 @@ class RectangleGate(Gate):
         fcs_file=None,
         create_population=True,
     ):
-        g = cls.build(
-            format_rectangle_gate(
-                experiment_id,
-                x_channel,
-                y_channel,
-                name,
-                x1,
-                x2,
-                y1,
-                y2,
-                label,
-                gid,
-                locked,
-                parent_population_id,
-                parent_population,
-                tailored_per_file,
-                fcs_file_id,
-                fcs_file,
-                create_population,
-            )
-        )
-
-        return ce.APIClient().post_gate(g["experimentId"], g)
+        g = format_rectangle_gate(**get_args_as_kwargs(cls, locals()))
+        return cls(g)
 
 
 class PolygonGate(Gate):
@@ -236,23 +225,8 @@ class PolygonGate(Gate):
         fcs_file=None,
         create_population=True,
     ):
-        g = format_polygon_gate(
-            experiment_id,
-            x_channel,
-            y_channel,
-            name,
-            vertices,
-            label=[],
-            gid=None,
-            locked=False,
-            parent_population_id=None,
-            parent_population=None,
-            tailored_per_file=False,
-            fcs_file_id=None,
-            fcs_file=None,
-            create_population=True,
-        )
-        return ce.APIClient().post_gate(g["experimentId"], g)
+        g = format_polygon_gate(**get_args_as_kwargs(cls, locals()))
+        return cls(g)
 
 
 class EllipseGate(Gate):
@@ -280,27 +254,8 @@ class EllipseGate(Gate):
         fcs_file=None,
         create_population=True,
     ):
-        g = format_ellipse_gate(
-            experiment_id,
-            x_channel,
-            y_channel,
-            name,
-            x,
-            y,
-            angle,
-            major,
-            minor,
-            label=[],
-            gid=None,
-            locked=False,
-            parent_population_id=None,
-            parent_population=None,
-            tailored_per_file=False,
-            fcs_file_id=None,
-            fcs_file=None,
-            create_population=True,
-        )
-        return ce.APIClient().post_gate(g["experimentId"], g)
+        g = format_ellipse_gate(**get_args_as_kwargs(cls, locals()))
+        return cls(g)
 
 
 class RangeGate(Gate):
@@ -325,24 +280,8 @@ class RangeGate(Gate):
         fcs_file=None,
         create_population=True,
     ):
-        g = format_range_gate(
-            experiment_id,
-            x_channel,
-            name,
-            x1,
-            x2,
-            y=0.5,
-            label=[],
-            gid=None,
-            locked=False,
-            parent_population_id=None,
-            parent_population=None,
-            tailored_per_file=False,
-            fcs_file_id=None,
-            fcs_file=None,
-            create_population=True,
-        )
-        return ce.APIClient().post_gate(g["experimentId"], g)
+        g = format_range_gate(**get_args_as_kwargs(cls, locals()))
+        return cls(g)
 
 
 class QuadrantGate(Gate):
@@ -370,27 +309,8 @@ class QuadrantGate(Gate):
         fcs_file=None,
         create_population=True,
     ):
-        g = format_quadrant_gate(
-            experiment_id,
-            x_channel,
-            y_channel,
-            name,
-            x,
-            y,
-            labels=[],
-            skewable=False,
-            angles=[0, pi / 2, pi, 3 * pi / 2],
-            gid=None,
-            gids=None,
-            locked=False,
-            parent_population_id=None,
-            parent_population=None,
-            tailored_per_file=False,
-            fcs_file_id=None,
-            fcs_file=None,
-            create_population=True,
-        )
-        return ce.APIClient().post_gate(g["experimentId"], g)
+        g = format_quadrant_gate(**get_args_as_kwargs(cls, locals()))
+        return cls(g)
 
     pass
 
@@ -417,21 +337,5 @@ class SplitGate(Gate):
         fcs_file=None,
         create_population=True,
     ):
-        g = format_split_gate(
-            experiment_id,
-            x_channel,
-            name,
-            x,
-            y=0.5,
-            labels=[],
-            gid=None,
-            gids=None,
-            locked=False,
-            parent_population_id=None,
-            parent_population=None,
-            tailored_per_file=False,
-            fcs_file_id=None,
-            fcs_file=None,
-            create_population=True,
-        )
-        return ce.APIClient().post_gate(g["experimentId"], g)
+        g = format_split_gate(**get_args_as_kwargs(cls, locals()))
+        return cls(g)

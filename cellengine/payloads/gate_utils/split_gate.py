@@ -43,7 +43,7 @@ def format_split_gate(
         name="my gate", x=144000, y=100000)
         experiment.create_split_gate(x_channel="FSC-A", name="my gate", x=144000,
             y=100000)
-        """
+    """
     # set labels based on axis scale
     r = ce.APIClient().get_scaleset(experiment_id, as_dict=True)
     scale_min = min(x["scale"]["minimum"] for x in r["scales"])
