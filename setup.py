@@ -40,11 +40,10 @@ setup(
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
-        "setuptools",
         "fcsparser~=0.2",
         "munch~=2.5",
         "numpy~=1.17",
-        "pandas~=0.25",
+        "pandas~=1.1",
         "python-dateutil~=2.8",
         "requests~=2.22",
         "requests-toolbelt~=0.9",
