@@ -1,578 +1,969 @@
 
-<!DOCTYPE html>
-
-<html class="no-js" lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="Python API toolkit for CellEngine" name="description"/>
-<link href="https://primitybio.github.io/cellengine-python-toolkit/experiments/" rel="canonical"/>
-<meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
-<link href="../images/favicon.ico" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.12" name="generator"/>
-<title>Experiments - CellEngine Python Toolkit</title>
-<link href="../assets/stylesheets/main.4dd2dd8d.min.css" rel="stylesheet"/>
-<link href="../assets/stylesheets/palette.6a5ad368.min.css" rel="stylesheet"/>
-<meta content="#4051b5" name="theme-color"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
-<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
-</head>
-<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="" dir="ltr">
-<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
-<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
-<label class="md-overlay" for="__drawer"></label>
-<div data-md-component="skip">
-<a class="md-skip" href="#experiments">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python API toolkit for CellEngine">
+      
+      
+      
+        <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/experiments/">
+      
+      
+        <meta name="author" content="Zach Bjornson, Gerrit Egnew">
+      
+      <link rel="shortcut icon" href="../images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+    
+    
+      
+        <title>Experiments - CellEngine Python Toolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6910b76c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#experiments" class="md-skip">
           Skip to content
         </a>
-</div>
-<div data-md-component="announce">
-</div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
 <header class="md-header" data-md-component="header">
-<nav aria-label="Header" class="md-header-nav md-grid">
-<a aria-label="CellEngine Python Toolkit" class="md-header-nav__button md-logo" href="https://primitybio.github.io/cellengine-python-toolkit/" title="CellEngine Python Toolkit">
-<img alt="logo" src="../images/logo.svg"/>
-</a>
-<label class="md-header-nav__button md-icon" for="__drawer">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
-</label>
-<div class="md-header-nav__title" data-md-component="header-title">
-<div class="md-header-nav__ellipsis">
-<span class="md-header-nav__topic md-ellipsis">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://primitybio.github.io/cellengine-python-toolkit/" title="CellEngine Python Toolkit" class="md-header-nav__button md-logo" aria-label="CellEngine Python Toolkit">
+      
+  <img src="../images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
             CellEngine Python Toolkit
           </span>
-<span class="md-header-nav__topic md-ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
             
               Experiments
             
           </span>
-</div>
-</div>
-<label class="md-header-nav__button md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
-</label>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
-<label class="md-search__overlay" for="__search"></label>
-<div class="md-search__inner" role="search">
-<form class="md-search__form" name="search">
-<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
-<label class="md-search__icon md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</label>
-<button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
-</button>
-</form>
-<div class="md-search__output">
-<div class="md-search__scrollwrap" data-md-scrollfix="">
-<div class="md-search-result" data-md-component="search-result">
-<div class="md-search-result__meta">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
             Initializing search
           </div>
-<ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="md-header-nav__source">
-<a class="md-source" href="https://github.com/primitybio/cellengine-python-toolkit/" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
-</div>
-<div class="md-source__repository">
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/primitybio/cellengine-python-toolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
     primitybio/cellengine-pythoon-toolkit
   </div>
 </a>
-</div>
-</nav>
+      </div>
+    
+  </nav>
 </header>
-<div class="md-container" data-md-component="container">
-<main class="md-main" data-md-component="main">
-<div class="md-main__inner md-grid">
-<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
-<label class="md-nav__title" for="__drawer">
-<a aria-label="CellEngine Python Toolkit" class="md-nav__button md-logo" href="https://primitybio.github.io/cellengine-python-toolkit/" title="CellEngine Python Toolkit">
-<img alt="logo" src="../images/logo.svg"/>
-</a>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://primitybio.github.io/cellengine-python-toolkit/" title="CellEngine Python Toolkit" class="md-nav__button md-logo" aria-label="CellEngine Python Toolkit">
+      
+  <img src="../images/logo.svg" alt="logo">
+
+    </a>
     CellEngine Python Toolkit
   </label>
-<div class="md-nav__source">
-<a class="md-source" href="https://github.com/primitybio/cellengine-python-toolkit/" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
-</div>
-<div class="md-source__repository">
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/primitybio/cellengine-python-toolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
     primitybio/cellengine-pythoon-toolkit
   </div>
 </a>
-</div>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href=".." title="Home">
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
       Home
     </a>
-</li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
-<label class="md-nav__link" for="nav-2">
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    <label class="md-nav__link" for="nav-2">
       Resources
       <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Resources" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="nav-2">
-<span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Resources" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
         Resources
       </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../api_client/" title="API Client">
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api_client/" class="md-nav__link">
       API Client
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../attachments/" title="Attachments">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../attachments/" class="md-nav__link">
       Attachments
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../compensations/" title="Compensations">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../compensations/" class="md-nav__link">
       Compensations
     </a>
-</li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
         Experiments
         <span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./" title="Experiments">
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Experiments
     </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#methods">
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
     Methods
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment">
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment" class="md-nav__link">
     Experiment
   </a>
-<nav aria-label="Experiment" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.active_compensation">
+  
+    <nav class="md-nav" aria-label="Experiment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.active_compensation" class="md-nav__link">
     active_compensation
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.attachments">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.attachments" class="md-nav__link">
     attachments
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.compensations">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.compensations" class="md-nav__link">
     compensations
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.delete">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.delete" class="md-nav__link">
     delete
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.fcs_files">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.fcs_files" class="md-nav__link">
     fcs_files
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.gates">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.gates" class="md-nav__link">
     gates
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.populations">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.populations" class="md-nav__link">
     populations
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.undelete">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.scalesets" class="md-nav__link">
+    scalesets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.undelete" class="md-nav__link">
     undelete
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.clone">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.clone" class="md-nav__link">
     clone()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create" class="md-nav__link">
     create()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_ellipse_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_compensation" class="md-nav__link">
+    create_compensation()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_ellipse_gate" class="md-nav__link">
     create_ellipse_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_polygon_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_gates" class="md-nav__link">
+    create_gates()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_polygon_gate" class="md-nav__link">
     create_polygon_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_population">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_population" class="md-nav__link">
     create_population()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_quadrant_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_quadrant_gate" class="md-nav__link">
     create_quadrant_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_range_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_range_gate" class="md-nav__link">
     create_range_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_rectangle_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_rectangle_gate" class="md-nav__link">
     create_rectangle_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_split_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_split_gate" class="md-nav__link">
     create_split_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.delete_gates">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.delete_gates" class="md-nav__link">
     delete_gates()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.download_attachment">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.download_attachment" class="md-nav__link">
     download_attachment()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get" class="md-nav__link">
     get()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_attachment">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_attachment" class="md-nav__link">
     get_attachment()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_compensation">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_compensation" class="md-nav__link">
     get_compensation()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_fcs_file">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_fcs_file" class="md-nav__link">
     get_fcs_file()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_gate" class="md-nav__link">
     get_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_population">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_population" class="md-nav__link">
     get_population()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_statistics">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_scaleset" class="md-nav__link">
+    get_scaleset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_statistics" class="md-nav__link">
     get_statistics()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_attachment">
-    post_attachment()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_compensation">
-    post_compensation()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.update">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.update" class="md-nav__link">
     update()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.upload_fcs_file">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.upload_attachment" class="md-nav__link">
+    upload_attachment()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.upload_fcs_file" class="md-nav__link">
     upload_fcs_file()
   </a>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#properties">
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
     Properties
   </a>
+  
 </li>
-</ul>
+      
+    </ul>
+  
 </nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../fcs_files/" title="FcsFiles">
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../fcs_files/" class="md-nav__link">
       FcsFiles
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../gates/" title="Gates">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gates/" class="md-nav__link">
       Gates
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../plots/" title="Plots">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plots/" class="md-nav__link">
       Plots
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../populations/" title="Populations">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../populations/" class="md-nav__link">
       Populations
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../statistics/" title="Statistics">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../statistics/" class="md-nav__link">
       Statistics
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../scalesets/" title="ScaleSets">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../scalesets/" class="md-nav__link">
       ScaleSets
     </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../recipes/" title="Cookbook">
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../recipes/" class="md-nav__link">
       Cookbook
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../contributing/" title="Development">
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../contributing/" class="md-nav__link">
       Development
     </a>
-</li>
-</ul>
+  </li>
+
+    
+  </ul>
 </nav>
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#methods">
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
     Methods
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment">
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment" class="md-nav__link">
     Experiment
   </a>
-<nav aria-label="Experiment" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.active_compensation">
+  
+    <nav class="md-nav" aria-label="Experiment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.active_compensation" class="md-nav__link">
     active_compensation
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.attachments">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.attachments" class="md-nav__link">
     attachments
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.compensations">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.compensations" class="md-nav__link">
     compensations
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.delete">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.delete" class="md-nav__link">
     delete
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.fcs_files">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.fcs_files" class="md-nav__link">
     fcs_files
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.gates">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.gates" class="md-nav__link">
     gates
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.populations">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.populations" class="md-nav__link">
     populations
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.undelete">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.scalesets" class="md-nav__link">
+    scalesets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.undelete" class="md-nav__link">
     undelete
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.clone">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.clone" class="md-nav__link">
     clone()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create" class="md-nav__link">
     create()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_ellipse_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_compensation" class="md-nav__link">
+    create_compensation()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_ellipse_gate" class="md-nav__link">
     create_ellipse_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_polygon_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_gates" class="md-nav__link">
+    create_gates()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_polygon_gate" class="md-nav__link">
     create_polygon_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_population">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_population" class="md-nav__link">
     create_population()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_quadrant_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_quadrant_gate" class="md-nav__link">
     create_quadrant_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_range_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_range_gate" class="md-nav__link">
     create_range_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_rectangle_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_rectangle_gate" class="md-nav__link">
     create_rectangle_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.create_split_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.create_split_gate" class="md-nav__link">
     create_split_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.delete_gates">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.delete_gates" class="md-nav__link">
     delete_gates()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.download_attachment">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.download_attachment" class="md-nav__link">
     download_attachment()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get" class="md-nav__link">
     get()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_attachment">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_attachment" class="md-nav__link">
     get_attachment()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_compensation">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_compensation" class="md-nav__link">
     get_compensation()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_fcs_file">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_fcs_file" class="md-nav__link">
     get_fcs_file()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_gate">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_gate" class="md-nav__link">
     get_gate()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_population">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_population" class="md-nav__link">
     get_population()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.get_statistics">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_scaleset" class="md-nav__link">
+    get_scaleset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.get_statistics" class="md-nav__link">
     get_statistics()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_attachment">
-    post_attachment()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.post_compensation">
-    post_compensation()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.update">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.update" class="md-nav__link">
     update()
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.resources.experiment.Experiment.upload_fcs_file">
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.upload_attachment" class="md-nav__link">
+    upload_attachment()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.upload_fcs_file" class="md-nav__link">
     upload_fcs_file()
   </a>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#properties">
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
     Properties
   </a>
+  
 </li>
-</ul>
+      
+    </ul>
+  
 </nav>
-</div>
-</div>
-</div>
-<div class="md-content">
-<article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/primitybio/cellengine-python-toolkit/edit/master/docs/experiments.md" title="Edit this page">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
-</a>
-<h1 id="experiments">Experiments</h1>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/primitybio/cellengine-python-toolkit/edit/master/docs/experiments.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="experiments">Experiments</h1>
 <p><a href="https://docs.cellengine.com/api/#experiments">CellEngine API: Experiments</a></p>
-<p>An <code>Experiment</code> is largely a wrapper around the CellEngine Experiment, with
-getter and setter methods for writable properties and helper methods. For a
-list of accessible properties, see <a href="#properties">Properties</a>.</p>
+<p>An <code>Experiment</code> is the primary unit of organization in CellEngine and contains
+FCS files, gates, populations, etc. For a list of accessible properties, see
+<a href="#properties">Properties</a>.</p>
 <p>Methods are available for common access and transformations on the <code>Experiment</code>.
 Most methods available from the <code>APIClient</code> are available on an <code>Experiment</code>,
 with the first param <code>experiment_id</code> implicitly passed as the current
@@ -580,58 +971,73 @@ experiment's ID.</p>
 <h2 id="methods">Methods</h2>
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="cellengine.resources.experiment.Experiment">
-<code>cellengine.resources.experiment.Experiment</code>
-</h2>
+
+        <code>cellengine.resources.experiment.Experiment</code>
+
+
+      </h2>
 <div class="doc doc-contents first">
 <div class="doc doc-children">
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.active_compensation">
-<code class="highlight">
-active_compensation: <span class="n">Compensation</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-writable"><code>writable</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
-</div>
+
+        <code class="highlight">
+active_compensation: <span class="n">Compensation</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-writable"><code>writable</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+    </div>
 </div>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.attachments">
-<code class="highlight">
-attachments: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">attachment</span><span class="o">.</span><span class="n">Attachment</span><span class="p">]</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight">
+attachments: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">attachment</span><span class="o">.</span><span class="n">Attachment</span><span class="p">]</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>List all attachments on the experiment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.compensations">
-<code class="highlight">
-compensations: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">compensation</span><span class="o">.</span><span class="n">Compensation</span><span class="p">]</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight">
+compensations: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">compensation</span><span class="o">.</span><span class="n">Compensation</span><span class="p">]</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>List all compensations on the experiment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.delete">
-<code class="highlight">
+
+        <code class="highlight">
 delete        </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Marks the experiment as deleted.</p>
 <p>Deleted experiments are permanently deleted after approximately
 7 days. Until then, deleted experiments can be recovered.</p>
@@ -639,62 +1045,93 @@ delete        </code>
 </div>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.fcs_files">
-<code class="highlight">
-fcs_files: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">fcs_file</span><span class="o">.</span><span class="n">FcsFile</span><span class="p">]</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight">
+fcs_files: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">fcs_file</span><span class="o">.</span><span class="n">FcsFile</span><span class="p">]</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>List all FCS files on the experiment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.gates">
-<code class="highlight">
-gates: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">gate</span><span class="o">.</span><span class="n">Gate</span><span class="p">]</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight">
+gates: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">gate</span><span class="o">.</span><span class="n">Gate</span><span class="p">]</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>List all gates on the experiment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.populations">
-<code class="highlight">
-populations: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">Population</span><span class="p">]</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight">
+populations: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">Population</span><span class="p">]</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>List all populations in the experiment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.scalesets">
+
+        <code class="highlight">
+scalesets: <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">scaleset</span><span class="o">.</span><span class="n">ScaleSet</span><span class="p">]</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+<p>List all scalesets in the experiment.</p>
+</div>
+</div>
+<div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.undelete">
-<code class="highlight">
+
+        <code class="highlight">
 undelete        </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-property"><code>property</code></small>
-<small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Remove a scheduled deletion.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.clone">
-<code class="highlight language-python">
-clone<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+clone<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Saves a deep copy of the experiment and all of its resources, including
 attachments, FCS files, gates and populations.</p>
 <p><strong>Parameters:</strong></p>
@@ -712,7 +1149,8 @@ attachments, FCS files, gates and populations.</p>
 <td><code>name</code></td>
 <td><code></code></td>
 <td>
-<p>The name to give the new experiment. Defaults to "[Original Experiment]-1"</p>
+<p>The name to give the new experiment. Defaults to
+"[Original Experiment]-1"</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -747,13 +1185,16 @@ attachments, FCS files, gates and populations.</p>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create">
-<code class="highlight language-python">
-create<span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uploader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_researcher</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create<span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uploader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_researcher</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Post a new experiment to CellEngine.</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -799,28 +1240,12 @@ create<span class="p">(</span><span class="n">name</span><span class="o">=</span
 <td><code>None</code></td>
 </tr>
 <tr>
-<td><code>public</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Defaults to false.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
 <td><code>tags</code></td>
 <td><code>List[str]</code></td>
 <td>
 <p>Defaults to empty list.</p>
 </td>
 <td><code>None</code></td>
-</tr>
-<tr>
-<td><code>as_dict</code></td>
-<td><code></code></td>
-<td>
-<p>Whether to return the experiment as an Experiment object or a dict.</p>
-</td>
-<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
@@ -844,11 +1269,65 @@ create<span class="p">(</span><span class="n">name</span><span class="o">=</span
 </div>
 </div>
 <div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_compensation">
+
+        <code class="highlight language-python">
+create_compensation<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">spill_matrix</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Create a new compensation to this experiment</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>
+<p>The name of the compensation.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>channels</code></td>
+<td><code>List[str]</code></td>
+<td>
+<p>The names of the channels to which this
+compensation matrix applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>spill_matrix</code></td>
+<td><code>List[float]</code></td>
+<td>
+<p>The row-wise, square spillover matrix. The
+length of the array must be the number of channels squared.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_ellipse_gate">
-<code class="highlight language-python">
-create_ellipse_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create_ellipse_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Formats an ellipse gate for posting to the CellEngine API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -943,11 +1422,26 @@ major=120000, minor=70000)</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_gates">
+
+        <code class="highlight language-python">
+create_gates<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gates</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Save a collection of gate objects.</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_polygon_gate">
-<code class="highlight language-python">
-create_polygon_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create_polygon_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Formats a polygon gate for posting to the CE API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -969,10 +1463,10 @@ create_polygon_gate<span class="p">(</span><span class="bp">self</span><span cla
 <td><em>required</em></td>
 </tr>
 <tr>
-<td><code>x_vertices</code></td>
+<td><code>vertices</code></td>
 <td><code></code></td>
 <td>
-<p>List of x coordinates for the polygon's vertices.</p>
+<p>List of coordinates, like [[x,y], [x,y], ...]</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1005,16 +1499,18 @@ create_polygon_gate<span class="p">(</span><span class="bp">self</span><span cla
 </table>
 <p><strong>Examples:</strong></p>
 <p>experiment.create_polygon_gate(x_channel="FSC-A",
-y_channel="FSC-W", name="my gate", x_vertices=[1, 2, 3], y_vertices=[4,
-5, 6])</p>
+y_channel="FSC-W", name="my gate", vertices=[[1,4], [2,5], [3,6]])</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_population">
-<code class="highlight language-python">
-create_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Create a complex population</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -1059,10 +1555,13 @@ create_population<span class="p">(</span><span class="bp">self</span><span class
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_quadrant_gate">
-<code class="highlight language-python">
-create_quadrant_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create_quadrant_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Formats a quadrant gate for posting to the CE API.</p>
 <p>Quadrant gates have four sectors (upper-right, upper-left, lower-left,
 lower-right), each with a unique gid and name.</p>
@@ -1112,6 +1611,22 @@ the plot corners.</p>
 </td>
 <td><em>required</em></td>
 </tr>
+<tr>
+<td><code>skewable</code></td>
+<td><code>bool</code></td>
+<td>
+<p>Whether the quadrant gate is skewable.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>angles</code></td>
+<td><code>list</code></td>
+<td>
+<p>List of the four angles of the quadrant demarcations</p>
+</td>
+<td><em>required</em></td>
+</tr>
 </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -1140,10 +1655,13 @@ experiment.create_quadrant_gate(x_channel="FSC-A",
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_range_gate">
-<code class="highlight language-python">
-create_range_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create_range_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Formats a range gate for posting to the CE API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -1156,14 +1674,6 @@ create_range_gate<span class="p">(</span><span class="bp">self</span><span class
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>y_channel</code></td>
-<td><code></code></td>
-<td>
-<p>The name of the y channel to which the gate applies.</p>
-</td>
-<td><em>required</em></td>
-</tr>
 <tr>
 <td><code>x1</code></td>
 <td><code></code></td>
@@ -1184,7 +1694,7 @@ create_range_gate<span class="p">(</span><span class="bp">self</span><span class
 <td><code>y</code></td>
 <td><code></code></td>
 <td>
-<p>Position of the horizontal line between the vertical lines, in the</p>
+<p>Position of the horizontal line between the vertical lines</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1225,10 +1735,13 @@ x_channel="FSC-A", name="my gate",
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_rectangle_gate">
-<code class="highlight language-python">
-create_rectangle_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create_rectangle_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Formats a rectangle gate for posting to the CE API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
@@ -1318,10 +1831,13 @@ gid=global_gate.gid)</p>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_split_gate">
-<code class="highlight language-python">
-create_split_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+create_split_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Formats a split gate for posting to the CE API.</p>
 <p>Split gates have two sectors (right and left),
 each with a unique gid and name.</p>
@@ -1341,8 +1857,16 @@ each with a unique gid and name.</p>
 <td><code></code></td>
 <td>
 <p>The x coordinate of the center point (after the channel's scale has
-been applied).  y: The y coordinate of the dashed line extending from
-the center point (after the channel's scale has been applied).</p>
+been applied).</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td><code></code></td>
+<td>
+<p>The relative position from 0 to 1 of the dashed line extending
+from the center point.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1391,14 +1915,17 @@ experiment.create_split_gate(x_channel="FSC-A", name="my gate", x=144000,
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.delete_gates">
-<code class="highlight language-python">
-delete_gates<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+delete_gates<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Deletes a gate or a tailored gate family.</p>
-<p>Works for compound gates if you specify the top-level gid. Specifying
+<p>Specify the top-level gid when working with compound gates (specifying
 the gid of a sector (i.e. one listed in <code>model.gids</code>) will result in no
-gates being deleted.  If gateId is specified, only that gate will be
+gates being deleted). If <code>_id</code> is specified, only that gate will be
 deleted, regardless of the other parameters specified. May be called as
 a static method from cellengine.Gate or from an Experiment instance.</p>
 <p><strong>Parameters:</strong></p>
@@ -1476,187 +2003,148 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.download_attachment">
-<code class="highlight language-python">
-download_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+download_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Get a specific attachment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get">
-<code class="highlight language-python">
-get<span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
-</span>
-</h3>
-<div class="doc doc-contents">
-</div>
+
+        <code class="highlight language-python">
+get<span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+      </h3>
+<div class="doc doc-contents ">
+
+    </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_attachment">
-<code class="highlight language-python">
-get_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
-</div>
+
+        <code class="highlight language-python">
+get_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+
+    </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_compensation">
-<code class="highlight language-python">
-get_compensation<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+get_compensation<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Get a specific compensation.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_fcs_file">
-<code class="highlight language-python">
-get_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+get_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Get a specific FCS file.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_gate">
-<code class="highlight language-python">
-get_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+get_gate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Get a specific gate.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_population">
-<code class="highlight language-python">
-get_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+get_population<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Get a specific population.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_statistics">
-<code class="highlight language-python">
-get_statistics<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'json'</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_scaleset">
+
+        <code class="highlight language-python">
+get_scaleset<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Get a specific scaleset.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.post_attachment">
-<code class="highlight language-python">
-post_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_statistics">
+
+        <code class="highlight language-python">
+get_statistics<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'json'</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+
+    </div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.update">
+
+        <code class="highlight language-python">
+update<span class="p">(</span><span class="bp">self</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Save changes to this Experiment to CellEngine.</p>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.upload_attachment">
+
+        <code class="highlight language-python">
+upload_attachment<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Upload an attachment to this experiment.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.post_compensation">
-<code class="highlight language-python">
-post_compensation<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">spill_matrix</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
-<p>Post a new compensation to this experiment</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>name</code></td>
-<td><code>str</code></td>
-<td>
-<p>The name of the compensation.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>channels</code></td>
-<td><code>List[str]</code></td>
-<td>
-<p>The names of the channels to which this
-compensation matrix applies.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>spill_matrix</code></td>
-<td><code>List[float]</code></td>
-<td>
-<p>The row-wise, square spillover matrix. The
-length of the array must be the number of channels squared.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.update">
-<code class="highlight language-python">
-update<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
-<p>Save changes to this Experiment to CellEngine.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>inplace</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Update this entity or return a new one.</p>
-</td>
-<td><code>True</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Experiment or None</code></td>
-<td>
-<p>If inplace is True, returns a new Experiment.
-Otherwise, updates the current experiment.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.upload_fcs_file">
-<code class="highlight language-python">
-upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
-</h3>
-<div class="doc doc-contents">
+
+        <code class="highlight language-python">
+upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+
+
+      </h3>
+<div class="doc doc-contents ">
 <p>Upload an FCS file to this experiment.</p>
 </div>
 </div>
@@ -1664,68 +2152,87 @@ upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="
 </div>
 </div>
 <h2 id="properties">Properties</h2>
-<p>Properties are getter methods and setter methods representing the underlying
-CellEngine object. Properties are the snake_case equivalent of those documented on the
-<a href="https://docs.cellengine.com/api/#experiments">CellEngine API</a>
-otherwise noted.</p>
-</article>
-</div>
-</div>
-</main>
+<p>Properties are the snake_case equivalent of those documented on the
+<a href="https://docs.cellengine.com/api/#experiments">CellEngine API</a> unless otherwise noted.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
 <footer class="md-footer">
-<div class="md-footer-nav">
-<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
-<a class="md-footer-nav__link md-footer-nav__link--prev" href="../compensations/" rel="prev" title="Compensations">
-<div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</div>
-<div class="md-footer-nav__title">
-<div class="md-ellipsis">
-<span class="md-footer-nav__direction">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../compensations/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 Compensations
               </div>
-</div>
-</a>
-<a class="md-footer-nav__link md-footer-nav__link--next" href="../fcs_files/" rel="next" title="FcsFiles">
-<div class="md-footer-nav__title">
-<div class="md-ellipsis">
-<span class="md-footer-nav__direction">
+            </div>
+          </a>
+        
+        
+          <a href="../fcs_files/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
                   Next
                 </span>
                 FcsFiles
               </div>
-</div>
-<div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
-</div>
-</a>
-</nav>
-</div>
-<div class="md-footer-meta md-typeset">
-<div class="md-footer-meta__inner md-grid">
-<div class="md-footer-copyright">
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
         
         Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs
         </a>
-</div>
-</div>
-</div>
+      </div>
+      
+    </div>
+  </div>
 </footer>
-</div>
-<script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
-<script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
-<script>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
-</body>
+      
+    
+  </body>
 </html>
