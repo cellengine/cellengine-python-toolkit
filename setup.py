@@ -22,7 +22,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="cellengine",
-    version="0.1.0",
+    version="0.1.0",  # update this in cellengine/__init__.py as well
     description="CellEngine API toolkit for Python",
     url="https://github.com/primitybio/cellengine-python-toolkit",
     author="Primity Bio",
@@ -36,15 +36,22 @@ setup(
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3 :: Only",
-        "Topic :: Scientific/Engineering :: Bio-Informatics"
+        "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
-        "setuptools",
-        "fcsparser",
-        "requests",
-        "numpy",
-        "pandas"
+        "fcsparser~=0.2",
+        "munch~=2.5",
+        "numpy~=1.17",
+        "pandas~=1.1",
+        "python-dateutil~=2.8",
+        "requests~=2.22",
+        "requests-toolbelt~=0.9",
+        "urllib3~=1.25",
+        "custom_inherit~=2.2",
     ],
-	python_requires=">=3.0"
+    extras_require={"interactive": ["Pillow~=7.0"]},
+    tests_require=["pytest", "pytest-vcr"],
+    python_requires=">=3.6",
+    test_suite="tests.test_all",
 )

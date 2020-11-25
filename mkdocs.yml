@@ -1,0 +1,66 @@
+# Project Information
+site_name: 'CellEngine Python Toolkit'
+site_description: 'Python API toolkit for CellEngine'
+site_author: 'Zach Bjornson, Gerrit Egnew'
+
+# Repository
+repo_name: 'primitybio/cellengine-pythoon-toolkit'
+repo_url: 'https://github.com/primitybio/cellengine-python-toolkit'
+site_url: 'https://primitybio.github.io/cellengine-python-toolkit/'
+
+# Site Layout
+nav:
+  - Home: index.md
+  - Resources:
+    - API Client: api_client.md
+    - Attachments: attachments.md
+    - Compensations: compensations.md
+    - Experiments: experiments.md
+    - FcsFiles: fcs_files.md
+    - Gates: gates.md
+    - Plots: plots.md
+    - Populations: populations.md
+    - Statistics: statistics.md
+    - ScaleSets: scalesets.md
+  - Cookbook: recipes.md
+  - Development: contributing.md
+
+# Build information
+docs_dir: 'docs/src'
+
+# Theme Customization
+theme:
+  name: material
+  language: en
+  direction: ltr
+  feature:
+    tabs: false
+  palette:
+    primary: indigo
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: 'images/favicon.ico'
+  logo: 'images/logo.svg'
+
+# Plugins
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          rendering:
+            show_root_heading: true
+            show_source: false
+            show_if_no_docstring: true
+          selection:
+            filters: 
+              - "!^__[^__]"
+        watch:
+          - cellengine
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences

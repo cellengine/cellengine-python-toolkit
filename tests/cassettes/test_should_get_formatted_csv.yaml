@@ -1,0 +1,145 @@
+interactions:
+- request:
+    body: '{"statistics": "mean", "channels": "FSC-A", "annotations": false, "format":
+      "csv", "layout": "short-wide"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '106'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: POST
+    uri: https://cellengine.com/api/v1/experiments/5e4fcb98bdd7ea051d703652/bulkstatistics
+  response:
+    body:
+      string: !!binary |
+        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
+        0gXsPx2PBynLIAAA
+    headers:
+      Alt-Svc:
+      - clear
+      Content-Disposition:
+      - attachment; filename="POK 96-1 - Statistics.csv"
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''none''; base-uri ''self''; block-all-mixed-content; connect-src
+        ''self''; font-src ''self'' https://fonts.gstatic.com; form-action ''self'';
+        frame-ancestors ''none''; img-src ''self'' data: blob:; report-uri /csp_report;
+        script-src ''self'' ''unsafe-eval''; style-src ''self'' ''unsafe-inline''
+        https://fonts.googleapis.com; worker-src ''self'''
+      Content-Type:
+      - text/csv; charset=utf-8
+      Date:
+      - Tue, 09 Jun 2020 15:56:04 GMT
+      Strict-Transport-Security:
+      - max-age=5184000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 google
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - /416a003
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"statistics": "mean", "channels": "FSC-A", "annotations": false, "format":
+      "csv", "layout": "short-wide"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '106'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.1 requests/2.22.0
+    method: POST
+    uri: http://127.0.0.1:3000/api/v1/experiments/5e4fcb98bdd7ea051d703652/bulkstatistics
+  response:
+    body:
+      string: Unauthorized
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '12'
+      Content-Security-Policy:
+      - 'default-src ''none''; base-uri ''self''; block-all-mixed-content; connect-src
+        ''self'' ws://127.0.0.1:35729; font-src ''self'' https://fonts.gstatic.com;
+        form-action ''self''; frame-ancestors ''none''; img-src ''self'' data: blob:;
+        report-uri /csp_report; script-src ''self'' ''unsafe-eval''; style-src ''self''
+        ''unsafe-inline'' https://fonts.googleapis.com; worker-src ''self'''
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Wed, 22 Jul 2020 18:09:50 GMT
+      ETag:
+      - W/"c-dAuDFQrdjS3hezqxDTNgW7AOlYk"
+      Strict-Transport-Security:
+      - max-age=5184000
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 401
+      message: Unauthorized
+version: 1
