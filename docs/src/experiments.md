@@ -15,10 +15,6 @@ experiment's ID.
 ## Methods
 
 ::: cellengine.resources.experiment.Experiment
-    rendering:
-      show_root_heading: true
-      show_source: false
-      show_if_no_docstring: true
 
 ## Properties
 Properties are the snake_case equivalent of those documented on the

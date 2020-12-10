@@ -11,10 +11,6 @@ Methods are available for common access and transformations on the `Plot`.
 ## Methods
 
 ::: cellengine.resources.plot.Plot
-    rendering:
-      show_root_heading: true
-      show_source: false
-      show_if_no_docstring: true
     selection:
       members:
         - display

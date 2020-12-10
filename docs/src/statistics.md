@@ -6,6 +6,5 @@ Programmatically use CellEngine for statistical analysis.
 
 ::: cellengine.APIClient.get_statistics
     rendering:
-      show_root_heading: true
       show_source: true
-      show_if_no_docstring: true
+      show_object_full_path: false

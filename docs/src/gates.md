@@ -21,10 +21,6 @@ Although you should not instantiate the `Gate` class, each gate type will
 inherit the methods below.
 
 ::: cellengine.resources.gate.Gate
-    rendering:
-      show_root_heading: true
-      show_source: false
-      show_if_no_docstring: true
     selection:
       members:
         - get

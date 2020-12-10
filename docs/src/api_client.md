@@ -6,15 +6,15 @@ The CellEngine `APIClient` object is the interface between the CellEngine API
 and entities in the Python SDK. After authenticating, you may either use the
 `APIClient` directly or interact with the SDK entities.
 
-Assuming you have instantiated the `APIClient` object like...
+Assuming you have instantiated the `APIClient` object:
 ```python
 import cellengine
 client = cellengine.APIClient("username")
 # Password: <enter your password here>
 
-# Alternatively, authenticate by setting CELLENGINE_PASSWORD or CELLENGINE_AUTH_TOKEN in your environment
+# Alternatively, authenticate by setting CELLENGINE_PASSWORD in your environment
 ```
-...then the following sequences of commands are
+Then the following sequences of commands are
 equivalent:
 
 ```python
@@ -42,13 +42,6 @@ GitHub](https://github.com/primitybio/cellengine-python-toolkit/issues).
 ## Methods
 
 ::: cellengine.APIClient
-    rendering:
-      show_root_heading: true
-      show_object_full_path: false
-      show_source: false
-      show_if_no_docstring: true
-    selection:
-      filters: ["!^_"]
 
 ## Properties
 - base_url

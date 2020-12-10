@@ -10,10 +10,6 @@ Methods are available for common access and transformations on the Attachment.
 ## Methods
 
 ::: cellengine.resources.attachment.Attachment
-    rendering:
-      show_root_heading: true
-      show_source: false
-      show_if_no_docstring: true
 
 ## Properties
 Properties are getter methods and setter methods representing the underlying

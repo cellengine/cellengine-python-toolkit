@@ -20,7 +20,7 @@ from cellengine.resources.scaleset import ScaleSet
 
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
-    API_NAME = "CellEngine Python Toolkit"
+    _API_NAME = "CellEngine Python Toolkit"
 
     def __init__(self, user_name=None, password=None, token=None):
         super(APIClient, self).__init__()

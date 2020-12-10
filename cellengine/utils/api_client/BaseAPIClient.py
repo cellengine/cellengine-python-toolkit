@@ -10,10 +10,9 @@ from cellengine import __version__ as CEV
 class BaseAPIClient(metaclass=AbstractSingleton):
     @property
     @abstractmethod
-    def API_NAME(self):
+    def _API_NAME(self):
         """Define this property in subclasses"""
-
-        assert self.API_NAME
+        assert self._API_NAME
 
     def __init__(self):
         self.requests_session = requests.Session()
