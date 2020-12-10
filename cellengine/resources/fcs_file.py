@@ -107,7 +107,7 @@ class FcsFile(_FcsFile):
         self, x_channel: str, y_channel: str, plot_type: str, properties: Dict = None
     ) -> Plot:
         plot = Plot.get(
-            self.experiment_id, self._id, x_channel, y_channel, plot_type, properties
+            experiment_id=self.experiment_id, fcs_file_id=self._id, x_channel=x_channel, y_channel=y_channel, plot_type=plot_type, properties=properties
         )
         return plot
 
@@ -183,3 +183,4 @@ class FcsFile(_FcsFile):
         )
         parser = fcsparser.api.FCSParser.from_data(fresp)
         self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+
