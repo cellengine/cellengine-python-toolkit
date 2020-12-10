@@ -37,7 +37,10 @@ class ScaleSet(_ScaleSet):
         dest = DataFrame()
 
         for channel, scale in self.scales.items():
-            dest[channel] = data[channel].map(lambda a: apply_scale(scale, a, clamp_q))
+            if channel in data.columns:
+                dest[channel] = data[channel].map(lambda a: apply_scale(scale, a, clamp_q))
+            else:
+                continue
         if in_place:
             file.events = dest
         else:

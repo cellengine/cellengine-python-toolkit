@@ -286,3 +286,48 @@ def test_should_apply_scale_to_file(
     output = scaleset.apply(file, clamp_q=True, in_place=False)
     assert output["FSC-A"].max() <= 100
     assert output["FSC-A"].min() >= 10
+
+
+@mock.patch(
+    "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
+)
+def test_should_only_apply_channels_that_exist_on_an_fcsfile(
+    fcs_events_mock, ENDPOINT_BASE, client, fcs_files
+):
+    # Given:
+    fcs_events_mock.return_value = DataFrame(
+        {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
+    )
+    file = FcsFile(fcs_files[0])
+
+    # When:
+    scaleset = ScaleSet(
+        {
+            "_id": SCALESET_ID,
+            "experimentId": EXP_ID,
+            "name": "test",
+            "scales": [
+                {
+                    "channelName": "Time",
+                    "scale": {"maximum": 10, "minimum": 5, "type": "LinearScale"},
+                },
+                {
+                    "channelName": "Light",
+                    "scale": {"maximum": 100, "minimum": 5, "type": "LinearScale"},
+                },
+                {
+                    "channelName": "ExtraneousScale",
+                    "scale": {"maximum": 100, "minimum": 5, "type": "LinearScale"},
+                },
+            ],
+        }
+    )
+
+    data = file.events
+    assert all(data["Time"] == [10, 7, 1.2, 9, 40])
+    assert all(data["Light"] == [0, 1, 9.4, 100, 1])
+
+    # Then: scales should be correctly applied
+    output = scaleset.apply(file, clamp_q=True, in_place=False)
+    assert all(output["Time"] == [10.0, 7.0, 5.0, 9.0, 10.0])
+    assert all(output["Light"] == [5.0, 5.0, 9.4, 100.0, 5.0])
