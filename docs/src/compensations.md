@@ -16,15 +16,11 @@ Methods are available for common access and transformations on the Compensation.
 
 ::: cellengine.resources.compensation.Compensation
     rendering:
-      show_root_heading: true
-      show_source: false
       show_if_no_docstring: true
 
 ::: cellengine.payloads.compensation._Compensation
     rendering:
       show_root_heading: false
-      show_source: false
-      show_if_no_docstring: true
     selection:
       members:
         - dataframe

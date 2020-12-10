@@ -12,7 +12,7 @@ SESSION = requests.Session()
 
 
 def test_api_client(client):
-    assert client.API_NAME == "CellEngine Python Toolkit"
+    assert client._API_NAME == "CellEngine Python Toolkit"
 
 
 @responses.activate
