@@ -11,7 +11,6 @@ def format_common_gate(
             from an Experiment object
         name: The name of the gate
         x_channel: The name of the x channel to which the gate applies.
-        <Gate Args>
         gid: Group ID of the gate, used for tailoring. If this is not
             specified, then a new Group ID will be created. To create a
             tailored gate, the gid of the global tailored gate must be specified.
@@ -31,7 +30,6 @@ def format_common_gate(
             the name, an error will be thrown. Looking up files by name is
             slower than using the ID, as this requires additional requests
             to the server. If specified, do not specify ``fcs_file_id``.
-        locked: Prevents modification of the gate via the web interface.
         create_population: Automatically create corresponding population.
     """
     return parse_fcs_file_args(
