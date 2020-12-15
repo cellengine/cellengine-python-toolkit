@@ -20,7 +20,7 @@ def test_should_apply_scale(scale):
         5e15, 5e16, 5e17
     ])
     # fmt: on
-    output = Series([], dtype='float64')
+    output = Series([], dtype="float64")
     output = input.map(lambda a: apply_scale(scale, a, False))
     # fmt: off
     expected = Series([
@@ -43,7 +43,7 @@ def test_should_apply_clamped(scale):
         100, 250, 500, 1000, 5000, 10000, 50000
     ])
     # fmt: on
-    output = Series([], dtype='float64')
+    output = Series([], dtype="float64")
     MINV = 0.6989700043360186
     MAXV = 1
     output = input.map(lambda a: apply_scale(scale, a, True))
@@ -58,9 +58,9 @@ def test_should_apply_clamped(scale):
 
 
 def test_should_handle_0_length_arrays(scale):
-    input = Series([], dtype='float64')
-    output = Series([], dtype='float64')
-    output = Series([], dtype='float64')
+    input = Series([], dtype="float64")
+    output = Series([], dtype="float64")
+    output = Series([], dtype="float64")
     output = input.map(lambda a: apply_scale(scale, a, True))
     assert type(output) is Series
     assert output.size == 0
@@ -69,7 +69,7 @@ def test_should_handle_0_length_arrays(scale):
 def test_correctly_applies_scale_of_length_n(scale):
     for n in range(1, 32):
         input = Series([1] * n)
-        output = Series([], dtype='float64')
+        output = Series([], dtype="float64")
         output = input.map(lambda a: apply_scale(scale, a, True))
         for i in range(0, n):
             assert isclose(output[i], log10(scale["minimum"]), rel_tol=0.00001)
