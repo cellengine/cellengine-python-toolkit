@@ -18,7 +18,7 @@ def test_should_apply_scale(scale):
         5, 10, 100, 500, 1000, 5000, 10000, 50000
             ])
     # fmt: on
-    output = Series([])
+    output = Series([], dtype='float64')
     output = input.map(lambda a: apply_scale(scale, a, False))
 
     # fmt: off
@@ -40,7 +40,7 @@ def test_should_apply_clamped(scale):
         10, 100, 500, 1000, 5000, 10000, 50000
     ])
     # fmt: on
-    output = Series([])
+    output = Series([], dtype='float64')
     output = input.map(lambda a: apply_scale(scale, a, True))
     # fmt: off
     expected = [
@@ -55,8 +55,8 @@ def test_should_apply_clamped(scale):
 
 
 def test_should_handle_0_length_arrays(scale):
-    input = Series([])
-    output = Series([])
+    input = Series([], dtype='float64')
+    output = Series([], dtype='float64')
     output = input.map(lambda a: apply_scale(scale, a, True))
     assert type(output) is Series
     assert output.size == 0
@@ -65,7 +65,7 @@ def test_should_handle_0_length_arrays(scale):
 def test_correctly_applies_scale_of_length_n(scale):
     for n in range(1, 32):
         input = Series([1] * n)
-        output = Series([])
+        output = Series([], dtype='float64')
         output = input.map(lambda a: apply_scale(scale, a, True))
         for i in range(0, n):
             assert isclose(output[i], arcsinh(1 / scale["cofactor"]), rel_tol=0.00001)
