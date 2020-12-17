@@ -64,7 +64,7 @@ class Experiment(_Experiment):
         res = ce.APIClient().update_experiment(self._id, self._properties)
         self._properties.update(res)
 
-    def clone(self, name=None):
+    def clone(self, name: str = None):
         """
         Saves a deep copy of the experiment and all of its resources, including
         attachments, FCS files, gates and populations.
@@ -72,10 +72,9 @@ class Experiment(_Experiment):
         Args:
             name: The name to give the new experiment. Defaults to
                 "[Original Experiment]-1"
-            as_dict: Optionally return the new experiment as a dict.
 
         Returns:
-            A deep copy of the experiment.
+            Experiment: A deep copy of the experiment.
         """
         return ce.APIClient().clone_experiment(self._id, name=name)
 
