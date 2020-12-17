@@ -16,7 +16,7 @@
         <meta name="author" content="Zach Bjornson, Gerrit Egnew">
       
       <link rel="shortcut icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6910b76c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
@@ -1341,10 +1341,36 @@ create_ellipse_gate<span class="p">(</span><span class="bp">self</span><span cla
 </thead>
 <tbody>
 <tr>
+<td><code>experiment_id</code></td>
+<td><code></code></td>
+<td>
+<p>The ID of the experiment to which to add the gate.
+Use when calling this as a static method; not needed when calling
+from an Experiment object</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the x channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
 <td><code>y_channel</code></td>
 <td><code></code></td>
 <td>
 <p>The name of the y channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the gate</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1393,6 +1419,83 @@ create_ellipse_gate<span class="p">(</span><span class="bp">self</span><span cla
 <td><code></code></td>
 <td>
 <p>Position of the label. Defaults to the midpoint of the gate.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>gid</code></td>
+<td><code></code></td>
+<td>
+<p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be specified.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>locked</code></td>
+<td><code></code></td>
+<td>
+<p>Prevents modification of the gate via the web interface.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the parent population. Use <code>None</code> for
+the "ungated" population. If specified, do not specify
+<code>parent_population</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population</code></td>
+<td><code></code></td>
+<td>
+<p>Name of the parent population. An attempt will
+be made to find the population by name.  If zero or more than
+one population exists with the name, an error will be thrown.
+If specified, do not specify <code>parent_population_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>tailored_per_file</code></td>
+<td><code></code></td>
+<td>
+<p>Whether or not this gate is tailored per FCS file.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file</code></td>
+<td><code></code></td>
+<td>
+<p>Name of FCS file, if tailored per file. An attempt will be made
+to find the file by name. If zero or more than one file exists with
+the name, an error will be thrown. Looking up files by name is
+slower than using the ID, as this requires additional requests
+to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>create_population</code></td>
+<td><code></code></td>
+<td>
+<p>Automatically create corresponding population.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1455,6 +1558,24 @@ create_polygon_gate<span class="p">(</span><span class="bp">self</span><span cla
 </thead>
 <tbody>
 <tr>
+<td><code>experiment_id</code></td>
+<td><code></code></td>
+<td>
+<p>The ID of the experiment to which to add the gate.
+Use when calling this as a static method; not needed when calling
+from an Experiment object</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the x channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
 <td><code>y_channel</code></td>
 <td><code></code></td>
 <td>
@@ -1475,6 +1596,91 @@ create_polygon_gate<span class="p">(</span><span class="bp">self</span><span cla
 <td><code></code></td>
 <td>
 <p>Position of the label. Defaults to the midpoint of the gate.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the gate</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>gid</code></td>
+<td><code></code></td>
+<td>
+<p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be specified.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>locked</code></td>
+<td><code></code></td>
+<td>
+<p>Prevents modification of the gate via the web interface.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the parent population. Use <code>None</code> for
+the "ungated" population. If specified, do not specify
+<code>parent_population</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population</code></td>
+<td><code></code></td>
+<td>
+<p>Name of the parent population. An attempt will
+be made to find the population by name.  If zero or more than
+one population exists with the name, an error will be thrown.
+If specified, do not specify <code>parent_population_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>tailored_per_file</code></td>
+<td><code></code></td>
+<td>
+<p>Whether or not this gate is tailored per FCS file.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file</code></td>
+<td><code></code></td>
+<td>
+<p>Name of FCS file, if tailored per file. An attempt will be made
+to find the file by name. If zero or more than one file exists with
+the name, an error will be thrown. Looking up files by name is
+slower than using the ID, as this requires additional requests
+to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>create_population</code></td>
+<td><code></code></td>
+<td>
+<p>Automatically create corresponding population.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1577,6 +1783,40 @@ lower-right), each with a unique gid and name.</p>
 </thead>
 <tbody>
 <tr>
+<td><code>experiment_id</code></td>
+<td><code></code></td>
+<td>
+<p>The ID of the experiment to which to add the gate.
+Use when calling this as a static method; not needed when calling
+from an Experiment object</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the x channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>y_channel</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the y channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the gate</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
 <td><code>x</code></td>
 <td><code></code></td>
 <td>
@@ -1604,14 +1844,6 @@ the plot corners.</p>
 <td><em>required</em></td>
 </tr>
 <tr>
-<td><code>gids</code></td>
-<td><code></code></td>
-<td>
-<p>Group IDs of each sector, assigned to <code>model.gids</code>.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
 <td><code>skewable</code></td>
 <td><code>bool</code></td>
 <td>
@@ -1624,6 +1856,91 @@ the plot corners.</p>
 <td><code>list</code></td>
 <td>
 <p>List of the four angles of the quadrant demarcations</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>gid</code></td>
+<td><code></code></td>
+<td>
+<p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be specified.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>gids</code></td>
+<td><code></code></td>
+<td>
+<p>Group IDs of each sector, assigned to <code>model.gids</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>locked</code></td>
+<td><code></code></td>
+<td>
+<p>Prevents modification of the gate via the web interface.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the parent population. Use <code>None</code> for
+the "ungated" population. If specified, do not specify
+<code>parent_population</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population</code></td>
+<td><code></code></td>
+<td>
+<p>Name of the parent population. An attempt will
+be made to find the population by name.  If zero or more than
+one population exists with the name, an error will be thrown.
+If specified, do not specify <code>parent_population_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>tailored_per_file</code></td>
+<td><code></code></td>
+<td>
+<p>Whether or not this gate is tailored per FCS file.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file</code></td>
+<td><code></code></td>
+<td>
+<p>Name of FCS file, if tailored per file. An attempt will be made
+to find the file by name. If zero or more than one file exists with
+the name, an error will be thrown. Looking up files by name is
+slower than using the ID, as this requires additional requests
+to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>create_population</code></td>
+<td><code></code></td>
+<td>
+<p>Automatically create corresponding population.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1675,6 +1992,32 @@ create_range_gate<span class="p">(</span><span class="bp">self</span><span class
 </thead>
 <tbody>
 <tr>
+<td><code>experiment_id</code></td>
+<td><code></code></td>
+<td>
+<p>The ID of the experiment to which to add the gate.
+Use when calling this as a static method; not needed when calling
+from an Experiment object</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the x channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the gate</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
 <td><code>x1</code></td>
 <td><code></code></td>
 <td>
@@ -1703,6 +2046,83 @@ create_range_gate<span class="p">(</span><span class="bp">self</span><span class
 <td><code></code></td>
 <td>
 <p>Position of the label. Defaults to the midpoint of the gate.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>gid</code></td>
+<td><code></code></td>
+<td>
+<p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be specified.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>locked</code></td>
+<td><code></code></td>
+<td>
+<p>Prevents modification of the gate via the web interface.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the parent population. Use <code>None</code> for
+the "ungated" population. If specified, do not specify
+<code>parent_population</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population</code></td>
+<td><code></code></td>
+<td>
+<p>Name of the parent population. An attempt will
+be made to find the population by name.  If zero or more than
+one population exists with the name, an error will be thrown.
+If specified, do not specify <code>parent_population_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>tailored_per_file</code></td>
+<td><code></code></td>
+<td>
+<p>Whether or not this gate is tailored per FCS file.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file</code></td>
+<td><code></code></td>
+<td>
+<p>Name of FCS file, if tailored per file. An attempt will be made
+to find the file by name. If zero or more than one file exists with
+the name, an error will be thrown. Looking up files by name is
+slower than using the ID, as this requires additional requests
+to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>create_population</code></td>
+<td><code></code></td>
+<td>
+<p>Automatically create corresponding population.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1755,6 +2175,32 @@ create_rectangle_gate<span class="p">(</span><span class="bp">self</span><span c
 </thead>
 <tbody>
 <tr>
+<td><code>experiment_id</code></td>
+<td><code></code></td>
+<td>
+<p>The ID of the experiment to which to add the gate.
+Use when calling this as a static method; not needed when calling
+from an Experiment object</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the gate</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the x channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
 <td><code>y_channel</code></td>
 <td><code></code></td>
 <td>
@@ -1799,6 +2245,83 @@ create_rectangle_gate<span class="p">(</span><span class="bp">self</span><span c
 <td><code></code></td>
 <td>
 <p>Position of the label. Defaults to the midpoint of the gate.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>gid</code></td>
+<td><code></code></td>
+<td>
+<p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be specified.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>locked</code></td>
+<td><code></code></td>
+<td>
+<p>Prevents modification of the gate via the web interface.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the parent population. Use <code>None</code> for
+the "ungated" population. If specified, do not specify
+<code>parent_population</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population</code></td>
+<td><code></code></td>
+<td>
+<p>Name of the parent population. An attempt will
+be made to find the population by name.  If zero or more than
+one population exists with the name, an error will be thrown.
+If specified, do not specify <code>parent_population_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>tailored_per_file</code></td>
+<td><code></code></td>
+<td>
+<p>Whether or not this gate is tailored per FCS file.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file</code></td>
+<td><code></code></td>
+<td>
+<p>Name of FCS file, if tailored per file. An attempt will be made
+to find the file by name. If zero or more than one file exists with
+the name, an error will be thrown. Looking up files by name is
+slower than using the ID, as this requires additional requests
+to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>create_population</code></td>
+<td><code></code></td>
+<td>
+<p>Automatically create corresponding population.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1853,6 +2376,32 @@ each with a unique gid and name.</p>
 </thead>
 <tbody>
 <tr>
+<td><code>experiment_id</code></td>
+<td><code></code></td>
+<td>
+<p>The ID of the experiment to which to add the gate.
+Use when calling this as a static method; not needed when calling
+from an Experiment object</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the x channel to which the gate applies.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code></code></td>
+<td>
+<p>The name of the gate</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
 <td><code>x</code></td>
 <td><code></code></td>
 <td>
@@ -1880,10 +2429,87 @@ the order: L, R. These are set automatically to the top corners.</p>
 <td><em>required</em></td>
 </tr>
 <tr>
+<td><code>gid</code></td>
+<td><code></code></td>
+<td>
+<p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be specified.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
 <td><code>gids</code></td>
 <td><code></code></td>
 <td>
 <p>Group IDs of each sector, assigned to model.gids.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>locked</code></td>
+<td><code></code></td>
+<td>
+<p>Prevents modification of the gate via the web interface.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of the parent population. Use <code>None</code> for
+the "ungated" population. If specified, do not specify
+<code>parent_population</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>parent_population</code></td>
+<td><code></code></td>
+<td>
+<p>Name of the parent population. An attempt will
+be made to find the population by name.  If zero or more than
+one population exists with the name, an error will be thrown.
+If specified, do not specify <code>parent_population_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>tailored_per_file</code></td>
+<td><code></code></td>
+<td>
+<p>Whether or not this gate is tailored per FCS file.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code></code></td>
+<td>
+<p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file</code></td>
+<td><code></code></td>
+<td>
+<p>Name of FCS file, if tailored per file. An attempt will be made
+to find the file by name. If zero or more than one file exists with
+the name, an error will be thrown. Looking up files by name is
+slower than using the ID, as this requires additional requests
+to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>create_population</code></td>
+<td><code></code></td>
+<td>
+<p>Automatically create corresponding population.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -2220,8 +2846,8 @@ upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="
       
     </div>
     
-      <script src="../assets/javascripts/vendor.fd16492e.min.js"></script>
-      <script src="../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

@@ -9,9 +9,9 @@
 <link href="https://primitybio.github.io/cellengine-python-toolkit/api_client/" rel="canonical"/>
 <meta content="Zach Bjornson, Gerrit Egnew" name="author"/>
 <link href="../images/favicon.ico" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-6.1.6" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-6.1.7" name="generator"/>
 <title>API Client - CellEngine Python Toolkit</title>
-<link href="../assets/stylesheets/main.6910b76c.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.19753c6b.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.196e0c26.min.css" rel="stylesheet"/>
 <meta content="#4051b5" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -157,8 +157,38 @@
 <nav aria-label="APIClient" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.API_NAME">
-    API_NAME
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._API_NAME">
+    _API_NAME
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._authenticate">
+    _authenticate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._get_id_by_name">
+    _get_id_by_name()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._handle_list">
+    _handle_list()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._handle_response">
+    _handle_response()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._lookup_by_name">
+    _lookup_by_name()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._read_multipart_file">
+    _read_multipart_file()
   </a>
 </li>
 <li class="md-nav__item">
@@ -416,8 +446,38 @@
 <nav aria-label="APIClient" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient.API_NAME">
-    API_NAME
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._API_NAME">
+    _API_NAME
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._authenticate">
+    _authenticate()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._get_id_by_name">
+    _get_id_by_name()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._handle_list">
+    _handle_list()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._handle_response">
+    _handle_response()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._lookup_by_name">
+    _lookup_by_name()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cellengine.utils.api_client.APIClient.APIClient._read_multipart_file">
+    _read_multipart_file()
   </a>
 </li>
 <li class="md-nav__item">
@@ -603,14 +663,14 @@
 <p>The CellEngine <code>APIClient</code> object is the interface between the CellEngine API
 and entities in the Python SDK. After authenticating, you may either use the
 <code>APIClient</code> directly or interact with the SDK entities.</p>
-<p>Assuming you have instantiated the <code>APIClient</code> object like...
+<p>Assuming you have instantiated the <code>APIClient</code> object:
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">cellengine</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">APIClient</span><span class="p">(</span><span class="s2">"username"</span><span class="p">)</span>
 <span class="c1"># Password: &lt;enter your password here&gt;</span>
 
-<span class="c1"># Alternatively, authenticate by setting CELLENGINE_PASSWORD or CELLENGINE_AUTH_TOKEN in your environment</span>
+<span class="c1"># Alternatively, authenticate by setting CELLENGINE_PASSWORD in your environment</span>
 </code></pre></div>
-...then the following sequences of commands are
+Then the following sequences of commands are
 equivalent:</p>
 <div class="highlight"><pre><span></span><code><span class="n">exp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"my experiment"</span><span class="p">)</span>
 <span class="n">fcsfile</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_fcsfile</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="n">exp</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my fcs file"</span><span class="p">)</span>
@@ -635,11 +695,123 @@ GitHub</a>.</p>
 <div class="doc doc-contents first">
 <div class="doc doc-children">
 <div class="doc doc-object doc-attribute">
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.API_NAME">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient._API_NAME">
 <code class="highlight">
-API_NAME        </code>
+_API_NAME        </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-private"><code>private</code></small>
+</span>
 </h3>
 <div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient._authenticate">
+<code class="highlight language-python">
+_authenticate<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_name</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-private"><code>private</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+<p>Authenticate with the CellEngine API.</p>
+<p>There are two ways of authenticating:
+    1. Username and password. Use this to authenticate a user.
+    2. API token. Use this to authenticate an application that is
+        not associated with a user, such as a LIMS integration.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code></td>
+<td><code></code></td>
+<td>
+<p>Login credential set during CellEngine registration</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td><code></code></td>
+<td>
+<p>Password for login</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td><code></code></td>
+<td>
+<p>Authentication token; may be passed instead of username and password</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient._get_id_by_name">
+<code class="highlight language-python">
+_get_id_by_name<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">resource_type</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-private"><code>private</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient._handle_list">
+<code class="highlight language-python">
+_handle_list<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-private"><code>private</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient._handle_response">
+<code class="highlight language-python">
+_handle_response<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-private"><code>private</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient._lookup_by_name">
+<code class="highlight language-python">
+_lookup_by_name<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-private"><code>private</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient._read_multipart_file">
+<code class="highlight language-python">
+_read_multipart_file<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-private"><code>private</code></small>
+</span>
+</h3>
+<div class="doc doc-contents">
+<p>Posts a MultipartEncoder of the file and its content-type</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1351,8 +1523,8 @@ upload_fcs_file<span class="p">(</span><span class="bp">self</span><span class="
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/vendor.fd16492e.min.js"></script>
-<script src="../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+<script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+<script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
 <script>
         app = initialize({
           base: "..",

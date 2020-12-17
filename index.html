@@ -16,7 +16,7 @@
         <meta name="author" content="Zach Bjornson, Gerrit Egnew">
       
       <link rel="shortcut icon" href="images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.19753c6b.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -266,8 +266,7 @@
     Update resources
   </a>
   
-    <nav class="md-nav" aria-label="Update resources">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#operate-on-resources" class="md-nav__link">
@@ -287,15 +286,10 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    Resources
+  <a href="#more-help" class="md-nav__link">
+    More help
   </a>
   
 </li>
@@ -540,8 +534,7 @@
     Update resources
   </a>
   
-    <nav class="md-nav" aria-label="Update resources">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#operate-on-resources" class="md-nav__link">
@@ -561,15 +554,10 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    Resources
+  <a href="#more-help" class="md-nav__link">
+    More help
   </a>
   
 </li>
@@ -638,10 +626,10 @@ API documentation visit <a href="https://docs.cellengine.com/api/">here</a>.</p>
 <span class="n">att</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;my_new_name.txt&quot;</span>
 <span class="n">att</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </code></pre></div>
-<h4 id="operate-on-resources">Operate on resources</h4>
+<h3 id="operate-on-resources">Operate on resources</h3>
 <div class="highlight"><pre><span></span><code><span class="n">file1</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">fcs_files</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;160311-96plex-4dye&quot;</span><span class="p">)</span>
 <span class="c1"># get a Pandas dataframe of an FcsFile&#39;s events, subsampling for only 10 events</span>
-<span class="n">events_df</span> <span class="o">=</span> <span class="n">file1</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="n">preSubsampleN</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">events_df</span> <span class="o">=</span> <span class="n">file1</span><span class="o">.</span><span class="n">get_events</span><span class="p">(</span><span class="n">preSubsampleN</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="n">split_gate</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_split_gate</span><span class="p">(</span>
     <span class="n">file1</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;split_gate&quot;</span><span class="p">,</span> <span class="mi">2300000</span><span class="p">,</span> <span class="mi">250000</span>
@@ -651,7 +639,7 @@ API documentation visit <a href="https://docs.cellengine.com/api/">here</a>.</p>
 <span class="n">experiment</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">file1</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;split_gate&quot;</span><span class="p">,</span> <span class="mi">2300000</span><span class="p">,</span> <span class="mi">250000</span>
 <span class="p">)</span>
 </code></pre></div>
-<h4 id="delete-resources">Delete resources</h4>
+<h3 id="delete-resources">Delete resources</h3>
 <p>Deleting all resources is final, EXCEPT for
 Experiments. Experiments are marked as deleted for 7 days, then
 permanently deleted. To undelete an Experiment, use the <code>.undelete()</code>
@@ -660,7 +648,7 @@ method.
 <span class="n">att</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">attachments</span>  <span class="c1"># returns []</span>
 </code></pre></div></p>
-<h2 id="resources">Resources</h2>
+<h2 id="more-help">More help</h2>
 <ul>
 <li><a href="https://github.com/PrimityBio/cellengine-python-toolkit/">GitHub</a></li>
 <li><a href="https://docs.cellengine.com/api/">CellEngine API</a></li>
@@ -717,8 +705,8 @@ method.
       
     </div>
     
-      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
-      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
