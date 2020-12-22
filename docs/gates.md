@@ -15,6 +15,10 @@ For a list of accessible properties, see [Properties](#properties).
 
 Methods are available for common access and transformations on the Gate.
 
+## Properties
+Properties are the snake_case equivalent of those documented on the
+[CellEngine API](https://docs.cellengine.com/api/#gates) unless otherwise noted.
+
 ## Gate ABC and Methods
 
 Although you should not instantiate the `Gate` class, each gate type will
@@ -43,10 +47,6 @@ inherit the methods below.
 ::: cellengine.resources.gate.SplitGate
 
 ::: cellengine.resources.gate.QuadrantGate
-
-## Properties
-Properties are the snake_case equivalent of those documented on the
-[CellEngine API](https://docs.cellengine.com/api/#gates) unless otherwise noted.
 
 ## Gate Models
 

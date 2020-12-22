@@ -12,6 +12,11 @@ For accessible properties, see [Properties](#properties).
 
 Methods are available for common access and transformations on the Compensation.
 
+## Properties
+Properties are getter methods and setter methods representing the underlying
+CellEngine object. Properties are the snake_case equivalent of those documented on the
+# [CellEngine API](https://docs.cellengine.com/api/#compensations) unless otherwise noted.
+
 ## Methods
 
 ::: cellengine.resources.compensation.Compensation
@@ -26,8 +31,3 @@ Methods are available for common access and transformations on the Compensation.
         - dataframe
         - dataframe_as_html
         - apply
-
-## Properties
-Properties are getter methods and setter methods representing the underlying
-CellEngine object. Properties are the snake_case equivalent of those documented on the
-[CellEngine API](https://docs.cellengine.com/api/#compensations) unless otherwise noted.

@@ -12,10 +12,10 @@ Most methods available from the `APIClient` are available on an `Experiment`,
 with the first param `experiment_id` implicitly passed as the current
 experiment's ID.
 
-## Methods
-
-::: cellengine.resources.experiment.Experiment
-
 ## Properties
 Properties are the snake_case equivalent of those documented on the
 [CellEngine API](https://docs.cellengine.com/api/#experiments) unless otherwise noted.
+
+## Methods
+
+::: cellengine.resources.experiment.Experiment

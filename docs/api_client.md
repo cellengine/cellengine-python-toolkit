@@ -39,10 +39,6 @@ API](https://docs.cellengine.com/api/). If there is a feature you do not see,
 please feel free to [make a pull request][contributing] or [create an Issue on
 GitHub](https://github.com/primitybio/cellengine-python-toolkit/issues).
 
-## Methods
-
-::: cellengine.APIClient
-
 ## Properties
 - base_url
 - user_name
@@ -54,3 +50,7 @@ GitHub](https://github.com/primitybio/cellengine-python-toolkit/issues).
 - authenticated
 - cache_info
 - cache_clear
+
+## Methods
+
+::: cellengine.APIClient

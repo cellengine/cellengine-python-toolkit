@@ -8,6 +8,12 @@ list of accessible properties, see [Properties](#properties).
 
 Methods are available for common access and transformations on the `Plot`.
 
+## Properties
+The Python SDK `Plot` only has accessible `display`, `get`, and `save` methods.
+In the case of `Plot`, `properties` refers to an optional dictionary of
+configuration arguments to pass to the `get` method. Options are detailed
+above.
+
 ## Methods
 
 ::: cellengine.resources.plot.Plot
@@ -16,9 +22,3 @@ Methods are available for common access and transformations on the `Plot`.
         - display
         - get
         - save
-
-## Properties
-The Python SDK `Plot` only has accessible `display`, `get`, and `save` methods.
-In the case of `Plot`, `properties` refers to an optional dictionary of
-configuration arguments to pass to the `get` method. Options are detailed
-above.
