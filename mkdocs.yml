@@ -63,6 +63,7 @@ plugins:
               - "^_id$"
         watch:
           - cellengine
+          - docs
 
 markdown_extensions:
   - admonition
