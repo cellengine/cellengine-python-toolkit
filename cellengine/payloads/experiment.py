@@ -80,7 +80,7 @@ class _Experiment(object):
 
     active_compensation = GetSet("activeCompensation")
 
-    annotationValidators = GetSet("annotationValidators")
+    annotation_validators = GetSet("annotationValidators")
 
     annotation_name_order = GetSet("annotationNameOrder")
 
@@ -102,7 +102,7 @@ class _Experiment(object):
 
     revisions = GetSet("revisions")
 
-    sortingSpec = GetSet("sortingSpec")
+    sorting_spec = GetSet("sortingSpec")
 
     tags = GetSet("tags")
 
