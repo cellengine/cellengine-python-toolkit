@@ -30,7 +30,8 @@ def format_range_gate(
         x_channel (str): The name of the x channel to which the gate applies.
         name (str): The name of the gate
         x1 (float): The first x coordinate (after the channel's scale has been applied).
-        x2 (float): The second x coordinate (after the channel's scale has been applied).
+        x2 (float): The second x coordinate (after the channel's scale has been
+            applied).
         y (float): Position of the horizontal line between the vertical lines
         label (float): Position of the label. Defaults to the midpoint of the gate.
         gid (str): Group ID of the gate, used for tailoring. If this is not

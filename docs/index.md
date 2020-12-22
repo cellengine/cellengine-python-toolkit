@@ -16,6 +16,9 @@ For the development version:
 pip install git+https://github.com/primitybio/cellengine-python-toolkit.git
 ```
 
+Note: Resources all have a unique ID. In this toolkit, the ID is referred to
+as `_id`, i.e. `Experiment()._id`.
+
 ### Authentication
 ```python
 import cellengine

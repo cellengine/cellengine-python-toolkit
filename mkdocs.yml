@@ -60,7 +60,7 @@ plugins:
           selection:
             filters:
               - "!^__[^__]"
-              - "^_id$"
+              - "!^_"
         watch:
           - cellengine
           - docs
