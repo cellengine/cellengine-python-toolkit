@@ -40,6 +40,7 @@ setup(
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
+        "attrs~=20.2",
         "fcsparser~=0.2",
         "munch~=2.5",
         "numpy~=1.17",
