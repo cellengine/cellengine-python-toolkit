@@ -79,14 +79,13 @@ def test_should_get_plot_for_each_query_parameter(
     }
     i = 0
     for item in parameters.items():
-        param_dict = {item[0]: item[1]}
         plot = Plot.get(
             experiment._id,
             fcs_file._id,
             fcs_file.channels[0],
             fcs_file.channels[1],
             "dot",
-            properties=param_dict,
+            **{item[0]: item[1]},
             population_id=populations[0]["_id"],
         )
 

@@ -281,7 +281,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             experiment_id (str): ID of the experiment
             fcs_file_id (str): ID of the FcsFile
             kwargs (Dict): Optional query parameters, camelCased.
-                May also be passed as a dict of keys.
 
                     compensatedQ (bool): If true, applies the compensation
                       specified in compensationId to the exported events. For
@@ -326,10 +325,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                         (when gating), this number corresponds to the index of
                         the event in the original file.
         """
+        params = {}
+        if kwargs:
+            params = dict(kwargs)
 
         return self._get(
             f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs",
-            params=dict(kwargs),
+            params=params,
             raw=True,
         )
 

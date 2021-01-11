@@ -40,7 +40,6 @@ class Plot(_Plot):
                 Color channel name.
             population_id (ID): Defaults to ungated.
             kwargs (Dict): Optional query parameters, camelCased.
-                May also be passed as a dict of keys.
 
                     axesQ (bool): Display axes lines. Defaults to true.
                     axisLabelsQ (bool): Display axis labels. Defaults to true.
@@ -86,7 +85,9 @@ class Plot(_Plot):
                     yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.
                     yTicksQ (bool): Display y ticks. Overrides ticksQ.
         """
-        properties = dict(kwargs)
+        properties = None
+        if kwargs:
+            properties = dict(kwargs)
         return ce.APIClient().get_plot(
             experiment_id,
             fcs_file_id,
