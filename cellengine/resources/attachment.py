@@ -1,3 +1,4 @@
+from __future__ import annotations
 import cellengine as ce
 from cellengine.payloads.attachment import _Attachment
 
@@ -8,7 +9,7 @@ class Attachment(_Attachment):
     """
 
     @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None):
+    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
         """Get an Attachment by name or ID for a specific experiment. Either
         `name` or `id` must be specified.
 
@@ -21,7 +22,7 @@ class Attachment(_Attachment):
         return ce.APIClient().get_attachment(experiment_id, **kwargs)
 
     @staticmethod
-    def upload(experiment_id: str, filepath: str, filename: str = None):
+    def upload(experiment_id: str, filepath: str, filename: str = None) -> Attachment:
         return ce.APIClient().post_attachment(experiment_id, filepath, filename)
 
     def update(self):

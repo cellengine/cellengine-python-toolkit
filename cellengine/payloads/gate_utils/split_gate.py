@@ -1,24 +1,26 @@
+from typing import List
+
 import cellengine as ce
 from cellengine.utils.generate_id import generate_id
 from cellengine.payloads.gate_utils import format_common_gate
 
 
 def format_split_gate(
-    experiment_id,
-    x_channel,
-    name,
-    x,
-    y=0.5,
-    labels=[],
-    gid=None,
-    gids=None,
-    locked=False,
-    parent_population_id=None,
-    parent_population=None,
-    tailored_per_file=False,
-    fcs_file_id=None,
-    fcs_file=None,
-    create_population=True,
+    experiment_id: str,
+    x_channel: str,
+    name: str,
+    x: str,
+    y: float = 0.5,
+    labels: List[str] = [],
+    gid: str = None,
+    gids: List[str] = None,
+    locked: bool = False,
+    parent_population_id: str = None,
+    parent_population: str = None,
+    tailored_per_file: bool = False,
+    fcs_file_id: str = None,
+    fcs_file: str = None,
+    create_population: bool = True,
 ):
     """
     Formats a split gate for posting to the CE API.
@@ -31,11 +33,11 @@ def format_split_gate(
             Use when calling this as a static method; not needed when calling
             from an Experiment object
         x_channel (str): The name of the x channel to which the gate applies.
-        name (str): The name of the gate
+        name (str): The name of the gate.
         x (float): The x coordinate of the center point (after the channel's scale has
             been applied).
         y (float): The relative position from 0 to 1 of the dashed line extending
-           from the center point.
+            from the center point.
         labels (list): Positions of the quadrant labels. A list of two length-2 lists in
             the order: L, R. These are set automatically to the top corners.
         gid (str): Group ID of the gate, used for tailoring. If this is not
@@ -65,10 +67,12 @@ def format_split_gate(
         A SplitGate object.
 
     Example:
+        ```python
         cellengine.Gate.create_split_gate(experiment_id, x_channel="FSC-A",
         name="my gate", x=144000, y=100000)
         experiment.create_split_gate(x_channel="FSC-A", name="my gate", x=144000,
             y=100000)
+        ```
     """
     # set labels based on axis scale
     r = ce.APIClient().get_scaleset(experiment_id, as_dict=True)

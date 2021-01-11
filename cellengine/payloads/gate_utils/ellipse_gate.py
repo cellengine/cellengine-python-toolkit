@@ -1,26 +1,28 @@
+from typing import List
+
 from cellengine.payloads.gate_utils import format_common_gate
 from cellengine.utils.generate_id import generate_id
 
 
 def format_ellipse_gate(
-    experiment_id,
-    x_channel,
-    y_channel,
-    name,
-    x,
-    y,
-    angle,
-    major,
-    minor,
-    label=[],
-    gid=None,
-    locked=False,
-    parent_population_id=None,
-    parent_population=None,
-    tailored_per_file=False,
-    fcs_file_id=None,
-    fcs_file=None,
-    create_population=True,
+    experiment_id: str,
+    x_channel: str,
+    y_channel: str,
+    name: str,
+    x: float,
+    y: float,
+    angle: float,
+    major: float,
+    minor: float,
+    label: List = [],
+    gid: str = None,
+    locked: bool = False,
+    parent_population_id: str = None,
+    parent_population: str = None,
+    tailored_per_file: bool = False,
+    fcs_file_id: str = None,
+    fcs_file: str = None,
+    create_population: bool = True,
 ):
     """Formats an ellipse gate for posting to the CellEngine API.
 
@@ -67,10 +69,12 @@ def format_ellipse_gate(
     Returns:
         EllipseGate: An EllipseGate object.
 
-    Example:
+    Examples:
+        ```python
         cellengine.Gate.create_ellipse_gate(experiment_id, x_channel="FSC-A",
         y_channel="FSC-W", name="my gate", x=260000, y=64000, angle=0,
         major=120000, minor=70000)
+        ```
     """
     if label == []:
         label = [x, y]

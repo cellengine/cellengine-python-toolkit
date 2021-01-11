@@ -1,24 +1,25 @@
 import numpy
+from typing import List
 
 from cellengine.utils.generate_id import generate_id
 from cellengine.payloads.gate_utils import format_common_gate
 
 
 def format_polygon_gate(
-    experiment_id,
-    x_channel,
-    y_channel,
-    name,
-    vertices,
-    label=[],
-    gid=None,
-    locked=False,
-    parent_population_id=None,
-    parent_population=None,
-    tailored_per_file=False,
-    fcs_file_id=None,
-    fcs_file=None,
-    create_population=True,
+    experiment_id: str,
+    x_channel: str,
+    y_channel: str,
+    name: str,
+    vertices: List[float],
+    label: List[str] = [],
+    gid: str = None,
+    locked: bool = False,
+    parent_population_id: str = None,
+    parent_population: str = None,
+    tailored_per_file: bool = False,
+    fcs_file_id: str = None,
+    fcs_file: str = None,
+    create_population: bool = True,
 ):
     """Formats a polygon gate for posting to the CE API.
 
@@ -57,8 +58,10 @@ def format_polygon_gate(
         A PolygonGate object.
 
     Example:
+        ```python
         experiment.create_polygon_gate(x_channel="FSC-A",
         y_channel="FSC-W", name="my gate", vertices=[[1,4], [2,5], [3,6]])
+        ```
     """
     if label == []:
         label = [

@@ -1,3 +1,4 @@
+from __future__ import annotations
 import attr
 import importlib
 from typing import Dict, List, Optional
@@ -29,7 +30,7 @@ class Gate(_Gate):
     @classmethod
     def get(
         cls, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
-    ):
+    ) -> Gate:
         """Get a specific gate."""
         kwargs = {"name": name} if name else {"_id": _id}
         gate = ce.APIClient().get_gate(experiment_id, **kwargs)
@@ -53,7 +54,7 @@ class Gate(_Gate):
         self._properties.update(props)
 
     @classmethod
-    def bulk_create(cls, experiment_id, gates: List):
+    def bulk_create(cls, experiment_id, gates: List) -> List[Gate]:
         if type(gates[0]) is dict:
             pass
         elif str(gates[0].__module__) == "cellengine.resources.gate":
@@ -119,7 +120,7 @@ class Gate(_Gate):
     @staticmethod
     def delete_gates(
         experiment_id, _id: str = None, gid: str = None, exclude: str = None
-    ):
+    ) -> None:
         """Deletes a gate or a tailored gate family.
 
         Specify the top-level gid when working with compound gates (specifying

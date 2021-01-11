@@ -1,3 +1,4 @@
+from typing import List
 from math import pi
 
 import cellengine as ce
@@ -6,24 +7,24 @@ from cellengine.payloads.gate_utils import format_common_gate
 
 
 def format_quadrant_gate(
-    experiment_id,
-    x_channel,
-    y_channel,
-    name,
-    x,
-    y,
-    labels=[],
-    skewable=False,
-    angles=[0, pi / 2, pi, 3 * pi / 2],
-    gid=None,
-    gids=None,
-    locked=False,
-    parent_population_id=None,
-    parent_population=None,
-    tailored_per_file=False,
-    fcs_file_id=None,
-    fcs_file=None,
-    create_population=True,
+    experiment_id: str,
+    x_channel: str,
+    y_channel: str,
+    name: str,
+    x: float,
+    y: float,
+    labels: List[str] = [],
+    skewable: bool = False,
+    angles: List[float] = [0, pi / 2, pi, 3 * pi / 2],
+    gid: str = None,
+    gids: List[str] = None,
+    locked: bool = False,
+    parent_population_id: str = None,
+    parent_population: str = None,
+    tailored_per_file: bool = False,
+    fcs_file_id: str = None,
+    fcs_file: str = None,
+    create_population: bool = True,
 ):
     """Formats a quadrant gate for posting to the CE API.
 
@@ -73,12 +74,13 @@ def format_quadrant_gate(
         A QuadrantGate object.
 
     Example:
+        ```python
         cellengine.Gate.create_quadrant_gate(experimentId, x_channel="FSC-A",
             y_channel="FSC-W", name="my gate", x=160000, y=200000)
         experiment.create_quadrant_gate(x_channel="FSC-A",
             y_channel="FSC-W", name="my gate", x=160000, y=200000)
+        ```
     """
-
     # set labels based on axis scale
     r = ce.APIClient().get_scaleset(experiment_id, as_dict=True)
     scale_min = min(x["scale"]["minimum"] for x in r["scales"])

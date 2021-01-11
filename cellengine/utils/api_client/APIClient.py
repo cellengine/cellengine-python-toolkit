@@ -143,7 +143,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         except IndexError:
             raise APIError("No experiment with that name or _id found.")
 
-    def post_attachment(self, experiment_id, filepath: str, filename: str = None):
+    def post_attachment(
+        self, experiment_id, filepath: str, filename: str = None
+    ) -> Attachment:
         """Upload an attachment to CellEngine
 
         Args:
@@ -238,7 +240,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return fcs_file
         return FcsFile(fcs_file)
 
-    def upload_fcs_file(self, experiment_id, filepath: str, filename: str = None):
+    def upload_fcs_file(
+        self, experiment_id, filepath: str, filename: str = None
+    ) -> FcsFile:
         """Upload an FCS file to CellEngine
 
         Args:
@@ -270,13 +274,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
         return FcsFile(self._post(url, json=body))
 
-    def download_fcs_file(self, experiment_id, fcs_file_id, **kwargs):
+    def download_fcs_file(self, experiment_id: str, fcs_file_id: str, **kwargs):
         """Download events for a specific FcsFile
 
         Parameters:
-            experiment_id: ID of the experiment
-            fcs_file_id: ID of the FcsFile
-            kwargs: Optional query parameters, camelCased:
+            experiment_id (str): ID of the experiment
+            fcs_file_id (str): ID of the FcsFile
+            kwargs (Dict): Optional query parameters, camelCased.
                 May also be passed as a dict of keys.
 
                     compensatedQ (bool): If true, applies the compensation
@@ -286,7 +290,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                       unchanged, but the file header will contain the
                       compensation as the spill string (file-internal
                       compensation).
-
                     compensationId (str, optional): Required if populationId is
                         specified. Compensation to use for gating.
                     headers (bool): For TSV format only. If true, a header row
@@ -336,14 +339,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return gates
         return [Gate.factory(gate) for gate in gates]
 
-    def get_gate(self, experiment_id, _id, as_dict=False) -> Gate:
+    def get_gate(self, experiment_id: str, _id, as_dict=False) -> Gate:
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
         return Gate.factory(gate)
 
-    def delete_gate(self, experiment_id, _id=None, gid=None, exclude=None):
+    def delete_gate(self, experiment_id: str, _id=None, gid=None, exclude=None) -> None:
         """Deletes a gate or a tailored gate family.
 
         Specify the top-level gid when working with compound gates (specifying
@@ -353,7 +356,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         a static method from cellengine.Gate or from an Experiment instance.
 
         Args:
-            experimentId (str): ID of experiment.
+            experiment_id (str): ID of experiment.
             _id (str): ID of gate family.
             exclude (str): Gate ID to exclude from deletion.
 
