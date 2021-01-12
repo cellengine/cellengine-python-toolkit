@@ -1,3 +1,4 @@
+from __future__ import annotations
 import numpy
 import pandas
 
@@ -12,12 +13,12 @@ class Compensation(_Compensation):
     """
 
     @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None):
+    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Compensation:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_compensation(experiment_id, **kwargs)
 
     @classmethod
-    def create(cls, experiment_id: str, compensation: dict):
+    def create(cls, experiment_id: str, compensation: dict) -> Compensation:
         return ce.APIClient().post_compensation(experiment_id, compensation)
 
     def update(self):

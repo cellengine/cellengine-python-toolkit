@@ -1,3 +1,4 @@
+from __future__ import annotations
 import attr
 import importlib
 from typing import Dict, List, Optional
@@ -29,7 +30,7 @@ class Gate(_Gate):
     @classmethod
     def get(
         cls, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
-    ):
+    ) -> Gate:
         """Get a specific gate."""
         kwargs = {"name": name} if name else {"_id": _id}
         gate = ce.APIClient().get_gate(experiment_id, **kwargs)
@@ -53,7 +54,7 @@ class Gate(_Gate):
         self._properties.update(props)
 
     @classmethod
-    def bulk_create(cls, experiment_id, gates: List):
+    def bulk_create(cls, experiment_id, gates: List) -> List[Gate]:
         if type(gates[0]) is dict:
             pass
         elif str(gates[0].__module__) == "cellengine.resources.gate":
@@ -119,7 +120,7 @@ class Gate(_Gate):
     @staticmethod
     def delete_gates(
         experiment_id, _id: str = None, gid: str = None, exclude: str = None
-    ):
+    ) -> None:
         """Deletes a gate or a tailored gate family.
 
         Specify the top-level gid when working with compound gates (specifying
@@ -182,23 +183,23 @@ class RectangleGate(Gate):
     @classmethod
     def create(
         cls,
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        x1,
-        x2,
-        y1,
-        y2,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        x1: float,
+        x2: float,
+        y1: float,
+        y2: float,
+        label: List[str] = [],
+        gid: str = None,
+        locked: bool = False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True,
     ):
         g = format_rectangle_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
@@ -210,20 +211,20 @@ class PolygonGate(Gate):
     @classmethod
     def create(
         cls,
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        vertices,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        vertices: List[float],
+        label: List = [],
+        gid: str = None,
+        locked: bool = False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True,
     ):
         g = format_polygon_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
@@ -235,24 +236,24 @@ class EllipseGate(Gate):
     @classmethod
     def create(
         cls,
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        x,
-        y,
-        angle,
-        major,
-        minor,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        x: float,
+        y: float,
+        angle: float,
+        major: float,
+        minor: float,
+        label: List[str] = [],
+        gid: str = None,
+        locked: bool = False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True,
     ):
         g = format_ellipse_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
@@ -264,21 +265,21 @@ class RangeGate(Gate):
     @classmethod
     def create(
         cls,
-        experiment_id,
-        x_channel,
-        name,
-        x1,
-        x2,
-        y=0.5,
-        label=[],
-        gid=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        name: str,
+        x1: float,
+        x2: float,
+        y: float = 0.5,
+        label: List[str] = [],
+        gid: str = None,
+        locked: bool = False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True,
     ):
         g = format_range_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
@@ -290,29 +291,27 @@ class QuadrantGate(Gate):
     @classmethod
     def create(
         cls,
-        experiment_id,
-        x_channel,
-        y_channel,
-        name,
-        x,
-        y,
-        labels=[],
-        skewable=False,
-        angles=[0, pi / 2, pi, 3 * pi / 2],
-        gid=None,
-        gids=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        y_channel: str,
+        name: str,
+        x: float,
+        y: float,
+        labels: List[str] = [],
+        skewable: bool = False,
+        angles: List[float] = [0, pi / 2, pi, 3 * pi / 2],
+        gid: str = None,
+        gids: List[str] = None,
+        locked: bool = False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True,
     ):
         g = format_quadrant_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
-
-    pass
 
 
 class SplitGate(Gate):
@@ -321,21 +320,21 @@ class SplitGate(Gate):
     @classmethod
     def create(
         cls,
-        experiment_id,
-        x_channel,
-        name,
-        x,
-        y=0.5,
-        labels=[],
-        gid=None,
-        gids=None,
-        locked=False,
-        parent_population_id=None,
-        parent_population=None,
-        tailored_per_file=False,
-        fcs_file_id=None,
-        fcs_file=None,
-        create_population=True,
+        experiment_id: str,
+        x_channel: str,
+        name: str,
+        x: float,
+        y: float = 0.5,
+        labels: List[str] = [],
+        gid: str = None,
+        gids: List[str] = None,
+        locked: bool = False,
+        parent_population_id: str = None,
+        parent_population: str = None,
+        tailored_per_file: bool = False,
+        fcs_file_id: str = None,
+        fcs_file: str = None,
+        create_population: bool = True,
     ):
         g = format_split_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)

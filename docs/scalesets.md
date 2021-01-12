@@ -19,6 +19,11 @@ scaleset.scales["Channel-2"]["maximum"] = 10
 scaleset.scales["Channel-3"]["type"] = "ArcSinhScale"
 ```
 
+## Properties
+Properties are getter methods and setter methods representing the underlying
+CellEngine object. Properties are the snake_case equivalent of those documented on the
+[CellEngine API](https://docs.cellengine.com/api/#populations) unless otherwise noted.
+
 ## Methods
 
 ::: cellengine.resources.scaleset.ScaleSet

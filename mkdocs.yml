@@ -26,7 +26,7 @@ nav:
   - Development: contributing.md
 
 # Build information
-docs_dir: 'docs/src'
+docs_dir: 'docs'
 
 # Theme Customization
 theme:
@@ -60,9 +60,10 @@ plugins:
           selection:
             filters:
               - "!^__[^__]"
-              - "^_id$"
+              - "!^_"
         watch:
           - cellengine
+          - docs
 
 markdown_extensions:
   - admonition

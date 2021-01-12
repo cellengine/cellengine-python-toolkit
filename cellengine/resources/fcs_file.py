@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import List, Dict
 from custom_inherit import doc_inherit
 import fcsparser
@@ -10,12 +11,12 @@ from cellengine.resources.plot import Plot
 
 class FcsFile(_FcsFile):
     @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None):
+    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> FcsFile:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_fcs_file(experiment_id=experiment_id, **kwargs)
 
     @classmethod
-    def upload(cls, experiment_id: str, filepath: str):
+    def upload(cls, experiment_id: str, filepath: str) -> FcsFile:
         """
         Uploads a file. The maximum file size is approximately 2.3 GB.
         Contact us if you need to work with larger files.
@@ -25,7 +26,7 @@ class FcsFile(_FcsFile):
 
         Args:
             experiment_id: ID of the experiment to which the file belongs
-            file: The file contents.
+            filepath: The file contents.
         """
         file = {"upload_file": open(filepath, "rb")}
         return ce.APIClient().upload_fcs_file(experiment_id, file)
@@ -41,7 +42,7 @@ class FcsFile(_FcsFile):
         pre_subsample_n: int = None,
         pre_subsample_p: int = None,
         seed: int = None,
-    ):
+    ) -> FcsFile:
         """Creates an FCS file by copying, concatenating and/or subsampling
         existing file(s) from this or other experiments.
 

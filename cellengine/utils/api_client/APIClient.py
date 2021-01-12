@@ -143,7 +143,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         except IndexError:
             raise APIError("No experiment with that name or _id found.")
 
-    def post_attachment(self, experiment_id, filepath: str, filename: str = None):
+    def post_attachment(
+        self, experiment_id, filepath: str, filename: str = None
+    ) -> Attachment:
         """Upload an attachment to CellEngine
 
         Args:
@@ -238,7 +240,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return fcs_file
         return FcsFile(fcs_file)
 
-    def upload_fcs_file(self, experiment_id, filepath: str, filename: str = None):
+    def upload_fcs_file(
+        self, experiment_id, filepath: str, filename: str = None
+    ) -> FcsFile:
         """Upload an FCS file to CellEngine
 
         Args:
@@ -270,52 +274,60 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
         return FcsFile(self._post(url, json=body))
 
-    def download_fcs_file(self, experiment_id, fcs_file_id, params: Dict = None):
+    def download_fcs_file(self, experiment_id: str, fcs_file_id: str, **kwargs):
         """Download events for a specific FcsFile
 
-        Args:
-            experiment_id: ID of the experiment
-            fcs_file_id: ID of the FcsFile
-            params (Dict): Optional query parameters:
-                compensatedQ (bool): If true, applies the compensation
-                    specified in compensationId to the exported events. For TSV
-                    format, the numerical values will be the compensated values.
-                    For FCS format, the numerical values will be unchanged, but the
-                    file header will contain the compensation as the spill string
-                    (file-internal compensation).
-                compensationId (str): Required if populationId is specified.
-                    Compensation to use for gating.
-                headers (bool): For TSV format only. If true, a header row
-                    containing the channel names will be included.
-                original (bool): If true, the returned file will be
-                    byte-for-byte identical to the originally uploaded file. If
-                    false or unspecified (and compensatedQ is false, populationId
-                    is unspecified and all subsampling parameters are unspecified),
-                    the returned file will contain essentially the same data as the
-                    originally uploaded file, but may not be byte-for-byte
-                    identical. For example, the byte ordering of the DATA segment
-                    will always be little-endian and any extraneous information
-                    appended to the end of the original file will be stripped. This
-                    parameter takes precedence over compensatedQ, populationId and
-                    the subsampling parameters.
-                populationId (str): If provided, only events from this
-                    population will be included in the output file.
-                postSubsampleN (int): Randomly subsample the file to contain
-                    this many events after gating.
-                postSubsampleP (float): Randomly subsample the file to contain
-                    this percent of events (0 to 1) after gating.
-                preSubsampleN (int): Randomly subsample the file to contain
-                    this many events before gating.
-                preSubsampleP (float): Randomly subsample the file to contain
-                    this percent of events (0 to 1) before gating.
-                seed: (float): Seed for random number generator used for
-                    subsampling. Use for deterministic (reproducible) subsampling.
-                    If omitted, a pseudo-random value is used.
-                addEventNumber (bool): Add an event number column to the
-                    exported file. When a populationId is specified (when gating),
-                    this number corresponds to the index of the event in the
-                    original file.
+        Parameters:
+            experiment_id (str): ID of the experiment
+            fcs_file_id (str): ID of the FcsFile
+            kwargs (Dict): Optional query parameters, camelCased.
+
+                    compensatedQ (bool): If true, applies the compensation
+                      specified in compensationId to the exported events. For
+                      TSV format, the numerical values will be the compensated
+                      values.  For FCS format, the numerical values will be
+                      unchanged, but the file header will contain the
+                      compensation as the spill string (file-internal
+                      compensation).
+                    compensationId (str, optional): Required if populationId is
+                        specified. Compensation to use for gating.
+                    headers (bool): For TSV format only. If true, a header row
+                      containing the channel names will be included.
+                    original (bool): If true, the returned file will be
+                        byte-for-byte identical to the originally uploaded
+                        file. If false or unspecified (and compensatedQ is
+                        false, populationId is unspecified and all subsampling
+                        parameters are unspecified), the returned file will
+                        contain essentially the same data as the originally
+                        uploaded file, but may not be byte-for-byte identical.
+                        For example, the byte ordering of the DATA segment will
+                        always be little-endian and any extraneous information
+                        appended to the end of the original file will be
+                        stripped. This parameter takes precedence over
+                        compensatedQ, populationId and the subsampling
+                        parameters.
+                    populationId (str): If provided, only events from this
+                        population will be included in the output file.
+                    postSubsampleN (int): Randomly subsample the file to
+                        contain this many events after gating.
+                    postSubsampleP (float): Randomly subsample the file to
+                        contain this percent of events (0 to 1) after gating.
+                    preSubsampleN (int): Randomly subsample the file to contain
+                        this many events before gating.
+                    preSubsampleP (float): Randomly subsample the file to
+                        contain this percent of events (0 to 1) before gating.
+                    seed: (float): Seed for random number generator used for
+                        subsampling. Use for deterministic (reproducible)
+                        subsampling.  If omitted, a pseudo-random value is
+                        used.
+                    addEventNumber (bool): Add an event number column to the
+                        exported file. When a populationId is specified
+                        (when gating), this number corresponds to the index of
+                        the event in the original file.
         """
+        params = {}
+        if kwargs:
+            params = dict(kwargs)
 
         return self._get(
             f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs",
@@ -329,14 +341,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return gates
         return [Gate.factory(gate) for gate in gates]
 
-    def get_gate(self, experiment_id, _id, as_dict=False) -> Gate:
+    def get_gate(self, experiment_id: str, _id, as_dict=False) -> Gate:
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
         return Gate.factory(gate)
 
-    def delete_gate(self, experiment_id, _id=None, gid=None, exclude=None):
+    def delete_gate(self, experiment_id: str, _id=None, gid=None, exclude=None) -> None:
         """Deletes a gate or a tailored gate family.
 
         Specify the top-level gid when working with compound gates (specifying
@@ -346,7 +358,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         a static method from cellengine.Gate or from an Experiment instance.
 
         Args:
-            experimentId (str): ID of experiment.
+            experiment_id (str): ID of experiment.
             _id (str): ID of gate family.
             exclude (str): Gate ID to exclude from deletion.
 

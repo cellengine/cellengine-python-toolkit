@@ -1,3 +1,4 @@
+from __future__ import annotations
 from custom_inherit import doc_inherit
 from typing import Optional, Dict, Union, List
 
@@ -8,7 +9,15 @@ from cellengine.resources.scaleset import ScaleSet
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachment import Attachment
-from cellengine.resources.gate import Gate
+from cellengine.resources.gate import (
+    Gate,
+    RectangleGate,
+    PolygonGate,
+    RangeGate,
+    SplitGate,
+    EllipseGate,
+    QuadrantGate,
+)
 from cellengine.payloads.gate_utils import (
     format_rectangle_gate,
     format_polygon_gate,
@@ -22,7 +31,7 @@ from cellengine.utils.helpers import today_timestamp
 
 class Experiment(_Experiment):
     @staticmethod
-    def get(_id: str = None, name: str = None):
+    def get(_id: str = None, name: str = None) -> Experiment:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_experiment(**kwargs)
 
@@ -33,7 +42,7 @@ class Experiment(_Experiment):
         uploader: str = None,
         primary_researcher: str = None,
         tags: List[str] = None,
-    ):
+    ) -> Experiment:
         """Post a new experiment to CellEngine.
 
         Args:
@@ -64,7 +73,7 @@ class Experiment(_Experiment):
         res = ce.APIClient().update_experiment(self._id, self._properties)
         self._properties.update(res)
 
-    def clone(self, name=None):
+    def clone(self, name: str = None):
         """
         Saves a deep copy of the experiment and all of its resources, including
         attachments, FCS files, gates and populations.
@@ -72,10 +81,9 @@ class Experiment(_Experiment):
         Args:
             name: The name to give the new experiment. Defaults to
                 "[Original Experiment]-1"
-            as_dict: Optionally return the new experiment as a dict.
 
         Returns:
-            A deep copy of the experiment.
+            Experiment: A deep copy of the experiment.
         """
         return ce.APIClient().clone_experiment(self._id, name=name)
 
@@ -240,36 +248,36 @@ class Experiment(_Experiment):
         return Gate.bulk_create(self._id, gates)
 
     @doc_inherit(Gate.delete_gates)
-    def delete_gates(self, _id=None, gid=None, exclude=None):
+    def delete_gates(self, _id=None, gid=None, exclude=None) -> None:
         return ce.APIClient().delete_gate(self._id, _id, gid, exclude)
 
     @doc_inherit(format_rectangle_gate)
-    def create_rectangle_gate(self, *args, **kwargs):
+    def create_rectangle_gate(self, *args, **kwargs) -> RectangleGate:
         post_body = format_rectangle_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
     @doc_inherit(format_polygon_gate)
-    def create_polygon_gate(self, *args, **kwargs):
+    def create_polygon_gate(self, *args, **kwargs) -> PolygonGate:
         post_body = format_polygon_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
     @doc_inherit(format_ellipse_gate)
-    def create_ellipse_gate(self, *args, **kwargs):
+    def create_ellipse_gate(self, *args, **kwargs) -> EllipseGate:
         post_body = format_ellipse_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
     @doc_inherit(format_range_gate)
-    def create_range_gate(self, *args, **kwargs):
+    def create_range_gate(self, *args, **kwargs) -> RangeGate:
         post_body = format_range_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
     @doc_inherit(format_split_gate)
-    def create_split_gate(self, *args, **kwargs):
+    def create_split_gate(self, *args, **kwargs) -> SplitGate:
         post_body = format_split_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
     @doc_inherit(format_quadrant_gate)
-    def create_quadrant_gate(self, *args, **kwargs):
+    def create_quadrant_gate(self, *args, **kwargs) -> QuadrantGate:
         post_body = format_quadrant_gate(self._id, *args, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 

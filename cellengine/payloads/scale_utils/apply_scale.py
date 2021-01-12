@@ -1,8 +1,9 @@
 from collections import defaultdict
 from numpy import log10, arcsinh, clip
+from typing import List
 
 
-def apply_scale(scale, item, clamp_q=False):
+def apply_scale(scale: List, item, clamp_q=False):
     _type = scale["type"]
 
     def bad_scale_error(_):

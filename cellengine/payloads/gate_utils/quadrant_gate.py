@@ -1,3 +1,4 @@
+from typing import List
 from math import pi
 
 import cellengine as ce
@@ -6,24 +7,24 @@ from cellengine.payloads.gate_utils import format_common_gate
 
 
 def format_quadrant_gate(
-    experiment_id,
-    x_channel,
-    y_channel,
-    name,
-    x,
-    y,
-    labels=[],
-    skewable=False,
-    angles=[0, pi / 2, pi, 3 * pi / 2],
-    gid=None,
-    gids=None,
-    locked=False,
-    parent_population_id=None,
-    parent_population=None,
-    tailored_per_file=False,
-    fcs_file_id=None,
-    fcs_file=None,
-    create_population=True,
+    experiment_id: str,
+    x_channel: str,
+    y_channel: str,
+    name: str,
+    x: float,
+    y: float,
+    labels: List[str] = [],
+    skewable: bool = False,
+    angles: List[float] = [0, pi / 2, pi, 3 * pi / 2],
+    gid: str = None,
+    gids: List[str] = None,
+    locked: bool = False,
+    parent_population_id: str = None,
+    parent_population: str = None,
+    tailored_per_file: bool = False,
+    fcs_file_id: str = None,
+    fcs_file: str = None,
+    create_population: bool = True,
 ):
     """Formats a quadrant gate for posting to the CE API.
 
@@ -32,53 +33,54 @@ def format_quadrant_gate(
 
     Args:
 
-        experiment_id: The ID of the experiment to which to add the gate.
+        experiment_id (str): The ID of the experiment to which to add the gate.
             Use when calling this as a static method; not needed when calling
             from an Experiment object
-        x_channel: The name of the x channel to which the gate applies.
-        y_channel: The name of the y channel to which the gate applies.
-        name: The name of the gate
-        x: The x coordinate of the center point (after the channel's scale has
+        x_channel (str): The name of the x channel to which the gate applies.
+        y_channel (str): The name of the y channel to which the gate applies.
+        name (str): The name of the gate
+        x (float): The x coordinate of the center point (after the channel's scale has
             been applied).
-        y: The y coordinate (after the channel's scale has been applied).
-        labels: Positions of the quadrant labels. A list of four length-2
+        y (float): The y coordinate (after the channel's scale has been applied).
+        labels (list): Positions of the quadrant labels. A list of four length-2
             vectors in the order: UR, UL, LL, LR. These are set automatically to
             the plot corners.
         skewable (bool): Whether the quadrant gate is skewable.
         angles (list): List of the four angles of the quadrant demarcations
-        gid: Group ID of the gate, used for tailoring. If this is not
+        gid (str): Group ID of the gate, used for tailoring. If this is not
             specified, then a new Group ID will be created. To create a
             tailored gate, the gid of the global tailored gate must be specified.
-        gids: Group IDs of each sector, assigned to ``model.gids``.
-        locked: Prevents modification of the gate via the web interface.
-        parent_population_id: ID of the parent population. Use ``None`` for
+        gids (list): Group IDs of each sector, assigned to ``model.gids``.
+        locked (bool): Prevents modification of the gate via the web interface.
+        parent_population_id (str): ID of the parent population. Use ``None`` for
             the "ungated" population. If specified, do not specify
             ``parent_population``.
-        parent_population: Name of the parent population. An attempt will
+        parent_population (str): Name of the parent population. An attempt will
             be made to find the population by name.  If zero or more than
             one population exists with the name, an error will be thrown.
             If specified, do not specify ``parent_population_id``.
-        tailored_per_file: Whether or not this gate is tailored per FCS file.
-        fcs_file_id: ID of FCS file, if tailored per file. Use ``None`` for
+        tailored_per_file (bool): Whether or not this gate is tailored per FCS file.
+        fcs_file_id (str): ID of FCS file, if tailored per file. Use ``None`` for
             the global gate in a tailored gate group. If specified, do not
             specify ``fcs_file``.
-        fcs_file: Name of FCS file, if tailored per file. An attempt will be made
+        fcs_file (str): Name of FCS file, if tailored per file. An attempt will be made
             to find the file by name. If zero or more than one file exists with
             the name, an error will be thrown. Looking up files by name is
             slower than using the ID, as this requires additional requests
             to the server. If specified, do not specify ``fcs_file_id``.
-        create_population: Automatically create corresponding population.
+        create_population (bool): Automatically create corresponding population.
 
     Returns:
         A QuadrantGate object.
 
     Example:
+        ```python
         cellengine.Gate.create_quadrant_gate(experimentId, x_channel="FSC-A",
             y_channel="FSC-W", name="my gate", x=160000, y=200000)
         experiment.create_quadrant_gate(x_channel="FSC-A",
             y_channel="FSC-W", name="my gate", x=160000, y=200000)
+        ```
     """
-
     # set labels based on axis scale
     r = ce.APIClient().get_scaleset(experiment_id, as_dict=True)
     scale_min = min(x["scale"]["minimum"] for x in r["scales"])

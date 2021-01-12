@@ -1,3 +1,4 @@
+from __future__ import annotations
 from pandas import DataFrame
 
 import cellengine as ce
@@ -8,7 +9,7 @@ from cellengine.payloads.scale_utils.apply_scale import apply_scale
 
 class ScaleSet(_ScaleSet):
     @classmethod
-    def get(cls, experiment_id: str):
+    def get(cls, experiment_id: str) -> ScaleSet:
         return ce.APIClient().get_scaleset(experiment_id)
 
     def update(self):
