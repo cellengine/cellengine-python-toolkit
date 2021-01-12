@@ -338,6 +338,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gate-abc-and-methods" class="md-nav__link">
     Gate ABC and Methods
   </a>
@@ -516,13 +523,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
   
 </li>
       
@@ -675,6 +675,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gate-abc-and-methods" class="md-nav__link">
     Gate ABC and Methods
   </a>
@@ -857,13 +864,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#gate-models" class="md-nav__link">
     Gate Models
   </a>
@@ -925,6 +925,9 @@ which are <a href="#cellengine.resources.gate.Gate">documented</a> on the base <
 class. Gate-specific arguments are documented in each gate type.</p>
 <p>For a list of accessible properties, see <a href="#properties">Properties</a>.</p>
 <p>Methods are available for common access and transformations on the Gate.</p>
+<h2 id="properties">Properties</h2>
+<p>Properties are the snake_case equivalent of those documented on the
+<a href="https://docs.cellengine.com/api/#gates">CellEngine API</a> unless otherwise noted.</p>
 <h2 id="gate-abc-and-methods">Gate ABC and Methods</h2>
 <p>Although you should not instantiate the <code>Gate</code> class, each gate type will
 inherit the methods below.</p>
@@ -1031,7 +1034,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>None</code></td>
 <td>
 <p>None</p>
 </td>
@@ -1255,9 +1258,6 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </div>
 </div>
 </div>
-<h2 id="properties">Properties</h2>
-<p>Properties are the snake_case equivalent of those documented on the
-<a href="https://docs.cellengine.com/api/#gates">CellEngine API</a> unless otherwise noted.</p>
 <h2 id="gate-models">Gate Models</h2>
 <p>Gates have a <code>model</code> property, which is a nested <code>dict</code> object. For
 convenience, the <code>model</code> property has dot-indexing for getting and setting

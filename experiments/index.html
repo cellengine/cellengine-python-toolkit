@@ -312,6 +312,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -559,13 +566,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
   
 </li>
       
@@ -710,6 +710,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -960,13 +967,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -993,6 +993,9 @@ FCS files, gates, populations, etc. For a list of accessible properties, see
 Most methods available from the <code>APIClient</code> are available on an <code>Experiment</code>,
 with the first param <code>experiment_id</code> implicitly passed as the current
 experiment's ID.</p>
+<h2 id="properties">Properties</h2>
+<p>Properties are the snake_case equivalent of those documented on the
+<a href="https://docs.cellengine.com/api/#experiments">CellEngine API</a> unless otherwise noted.</p>
 <h2 id="methods">Methods</h2>
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="cellengine.resources.experiment.Experiment">
@@ -1022,7 +1025,7 @@ experiment's ID.</p>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.attachments">
 
-<code class="highlight language-python"><span class="n">attachments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">attachment</span><span class="o">.</span><span class="n">Attachment</span><span class="p">]</span></code>
+<code class="highlight language-python"><span class="n">attachments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Attachment</span><span class="p">]</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -1037,7 +1040,7 @@ experiment's ID.</p>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.compensations">
 
-<code class="highlight language-python"><span class="n">compensations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">compensation</span><span class="o">.</span><span class="n">Compensation</span><span class="p">]</span></code>
+<code class="highlight language-python"><span class="n">compensations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Compensation</span><span class="p">]</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -1069,7 +1072,7 @@ experiment's ID.</p>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.fcs_files">
 
-<code class="highlight language-python"><span class="n">fcs_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">fcs_file</span><span class="o">.</span><span class="n">FcsFile</span><span class="p">]</span></code>
+<code class="highlight language-python"><span class="n">fcs_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FcsFile</span><span class="p">]</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -1084,7 +1087,7 @@ experiment's ID.</p>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.gates">
 
-<code class="highlight language-python"><span class="n">gates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">gate</span><span class="o">.</span><span class="n">Gate</span><span class="p">]</span></code>
+<code class="highlight language-python"><span class="n">gates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Gate</span><span class="p">]</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -1099,7 +1102,7 @@ experiment's ID.</p>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.populations">
 
-<code class="highlight language-python"><span class="n">populations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">Population</span><span class="p">]</span></code>
+<code class="highlight language-python"><span class="n">populations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Population</span><span class="p">]</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -1114,7 +1117,7 @@ experiment's ID.</p>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.scalesets">
 
-<code class="highlight language-python"><span class="n">scalesets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">cellengine</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">scaleset</span><span class="o">.</span><span class="n">ScaleSet</span><span class="p">]</span></code>
+<code class="highlight language-python"><span class="n">scalesets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ScaleSet</span><span class="p">]</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -1164,20 +1167,12 @@ attachments, FCS files, gates and populations.</p>
 <tbody>
 <tr>
 <td><code>name</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name to give the new experiment. Defaults to
 "[Original Experiment]-1"</p>
 </td>
 <td><code>None</code></td>
-</tr>
-<tr>
-<td><code>as_dict</code></td>
-<td><code></code></td>
-<td>
-<p>Optionally return the new experiment as a dict.</p>
-</td>
-<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
@@ -1191,7 +1186,7 @@ attachments, FCS files, gates and populations.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>Experiment</code></td>
 <td>
 <p>A deep copy of the experiment.</p>
 </td>
@@ -1277,7 +1272,7 @@ attachments, FCS files, gates and populations.</p>
 <tr>
 <td><code>Experiment</code></td>
 <td>
-<p>Creates the Experiment on CellEngine and returns it.</p>
+<p>Experiment: Creates the Experiment on CellEngine and returns it.</p>
 </td>
 </tr>
 </tbody>
@@ -1356,7 +1351,7 @@ length of the array must be the number of channels squared.</p>
 <tbody>
 <tr>
 <td><code>experiment_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The ID of the experiment to which to add the gate.
 Use when calling this as a static method; not needed when calling
@@ -1366,7 +1361,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the x channel to which the gate applies.</p>
 </td>
@@ -1374,7 +1369,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>y_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the y channel to which the gate applies.</p>
 </td>
@@ -1382,7 +1377,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the gate</p>
 </td>
@@ -1390,7 +1385,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The x centerpoint of the gate.</p>
 </td>
@@ -1398,7 +1393,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>y</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The y centerpoint of the gate.</p>
 </td>
@@ -1406,7 +1401,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>angle</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The angle of the ellipse in radians.</p>
 </td>
@@ -1414,7 +1409,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>major</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The major radius of the ellipse.</p>
 </td>
@@ -1422,7 +1417,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>minor</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The minor radius of the ellipse.</p>
 </td>
@@ -1430,86 +1425,84 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>label</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
-<p>Position of the label. Defaults to the midpoint of the gate.</p>
+<p>Position of the label. Defaults to the
+midpoint of the gate.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>gid</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
-<p>Group ID of the gate, used for tailoring. If this is not
-specified, then a new Group ID will be created. To create a
-tailored gate, the gid of the global tailored gate must be specified.</p>
+<p>Group ID of the gate, used for tailoring. If this
+is not specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be
+specified.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>locked</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
-<p>Prevents modification of the gate via the web interface.</p>
+<p>Prevents modification of the gate via the web
+interface.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>parent_population_id</code></td>
-<td><code></code></td>
+<td><code>Optional[str]</code></td>
 <td>
-<p>ID of the parent population. Use <code>None</code> for
-the "ungated" population. If specified, do not specify
+<p>ID of the parent population. Use
+<code>None</code> for the "ungated" population. If specified, do not specify
 <code>parent_population</code>.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>parent_population</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
-<p>Name of the parent population. An attempt will
-be made to find the population by name.  If zero or more than
-one population exists with the name, an error will be thrown.
-If specified, do not specify <code>parent_population_id</code>.</p>
+<p>Name of the parent population. An
+attempt will be made to find the population by name.  If zero or
+more than one population exists with the name, an error will be
+thrown. If specified, do not specify <code>parent_population_id</code>.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>tailored_per_file</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
-<p>Whether or not this gate is tailored per FCS file.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>fcs_file_id</code></td>
-<td><code></code></td>
-<td>
-<p>ID of FCS file, if tailored per file. Use <code>None</code> for
-the global gate in a tailored gate group. If specified, do not
-specify <code>fcs_file</code>.</p>
+<p>Whether or not this gate is
+tailored per FCS file.  fcs_file_id (str, optional): ID of FCS
+file, if tailored per file. Use <code>None</code> for the global gate in a
+tailored gate group. If specified, do not specify <code>fcs_file</code>.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>fcs_file</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
-<p>Name of FCS file, if tailored per file. An attempt will be made
-to find the file by name. If zero or more than one file exists with
-the name, an error will be thrown. Looking up files by name is
-slower than using the ID, as this requires additional requests
-to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
+<p>Name of FCS file, if tailored per file. An
+attempt will be made to find the file by name. If zero or more than
+one file exists with the name, an error will be thrown. Looking up
+files by name is slower than using the ID, as this requires
+additional requests to the server. If specified, do not specify
+<code>fcs_file_id</code>.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>create_population</code></td>
-<td><code></code></td>
+<td><code>optional, bool</code></td>
 <td>
-<p>Automatically create corresponding population.</p>
+<p>Automatically create corresponding
+population.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1525,17 +1518,20 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>EllipseGate</code></td>
 <td>
-<p>An EllipseGate object.</p>
+<p>EllipseGate: An EllipseGate object.</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>cellengine.Gate.create_ellipse_gate(experiment_id, x_channel="FSC-A",
-y_channel="FSC-W", name="my gate", x=260000, y=64000, angle=0,
-major=120000, minor=70000)</p>
+<div class="highlight">
+<pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">create_ellipse_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span>
+<span class="n">y_channel</span><span class="o">=</span><span class="s2">"FSC-W"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">260000</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">64000</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="n">major</span><span class="o">=</span><span class="mi">120000</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="mi">70000</span><span class="p">)</span>
+</code></pre>
+</div>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1571,7 +1567,7 @@ major=120000, minor=70000)</p>
 <tbody>
 <tr>
 <td><code>experiment_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The ID of the experiment to which to add the gate.
 Use when calling this as a static method; not needed when calling
@@ -1581,7 +1577,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the x channel to which the gate applies.</p>
 </td>
@@ -1589,7 +1585,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>y_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the y channel to which the gate applies.</p>
 </td>
@@ -1597,7 +1593,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>vertices</code></td>
-<td><code></code></td>
+<td><code>list</code></td>
 <td>
 <p>List of coordinates, like [[x,y], [x,y], ...]</p>
 </td>
@@ -1605,7 +1601,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>label</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Position of the label. Defaults to the midpoint of the gate.</p>
 </td>
@@ -1613,7 +1609,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the gate</p>
 </td>
@@ -1621,7 +1617,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>gid</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
@@ -1631,7 +1627,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>locked</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Prevents modification of the gate via the web interface.</p>
 </td>
@@ -1639,7 +1635,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>parent_population_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of the parent population. Use <code>None</code> for
 the "ungated" population. If specified, do not specify
@@ -1649,7 +1645,7 @@ the "ungated" population. If specified, do not specify
 </tr>
 <tr>
 <td><code>parent_population</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of the parent population. An attempt will
 be made to find the population by name.  If zero or more than
@@ -1660,7 +1656,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>tailored_per_file</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Whether or not this gate is tailored per FCS file.</p>
 </td>
@@ -1668,7 +1664,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
@@ -1678,7 +1674,7 @@ specify <code>fcs_file</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of FCS file, if tailored per file. An attempt will be made
 to find the file by name. If zero or more than one file exists with
@@ -1690,7 +1686,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tr>
 <tr>
 <td><code>create_population</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Automatically create corresponding population.</p>
 </td>
@@ -1708,7 +1704,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>PolygonGate</code></td>
 <td>
 <p>A PolygonGate object.</p>
 </td>
@@ -1716,8 +1712,11 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>experiment.create_polygon_gate(x_channel="FSC-A",
-y_channel="FSC-W", name="my gate", vertices=[[1,4], [2,5], [3,6]])</p>
+<div class="highlight">
+<pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">create_polygon_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span>
+<span class="n">y_channel</span><span class="o">=</span><span class="s2">"FSC-W"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="n">vertices</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+</code></pre>
+</div>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1794,7 +1793,7 @@ lower-right), each with a unique gid and name.</p>
 <tbody>
 <tr>
 <td><code>experiment_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The ID of the experiment to which to add the gate.
 Use when calling this as a static method; not needed when calling
@@ -1804,7 +1803,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the x channel to which the gate applies.</p>
 </td>
@@ -1812,7 +1811,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>y_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the y channel to which the gate applies.</p>
 </td>
@@ -1820,7 +1819,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the gate</p>
 </td>
@@ -1828,7 +1827,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The x coordinate of the center point (after the channel's scale has
 been applied).</p>
@@ -1837,7 +1836,7 @@ been applied).</p>
 </tr>
 <tr>
 <td><code>y</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The y coordinate (after the channel's scale has been applied).</p>
 </td>
@@ -1845,7 +1844,7 @@ been applied).</p>
 </tr>
 <tr>
 <td><code>labels</code></td>
-<td><code></code></td>
+<td><code>list</code></td>
 <td>
 <p>Positions of the quadrant labels. A list of four length-2
 vectors in the order: UR, UL, LL, LR. These are set automatically to
@@ -1871,7 +1870,7 @@ the plot corners.</p>
 </tr>
 <tr>
 <td><code>gid</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
@@ -1881,7 +1880,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>gids</code></td>
-<td><code></code></td>
+<td><code>list</code></td>
 <td>
 <p>Group IDs of each sector, assigned to <code>model.gids</code>.</p>
 </td>
@@ -1889,7 +1888,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>locked</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Prevents modification of the gate via the web interface.</p>
 </td>
@@ -1897,7 +1896,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>parent_population_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of the parent population. Use <code>None</code> for
 the "ungated" population. If specified, do not specify
@@ -1907,7 +1906,7 @@ the "ungated" population. If specified, do not specify
 </tr>
 <tr>
 <td><code>parent_population</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of the parent population. An attempt will
 be made to find the population by name.  If zero or more than
@@ -1918,7 +1917,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>tailored_per_file</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Whether or not this gate is tailored per FCS file.</p>
 </td>
@@ -1926,7 +1925,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
@@ -1936,7 +1935,7 @@ specify <code>fcs_file</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of FCS file, if tailored per file. An attempt will be made
 to find the file by name. If zero or more than one file exists with
@@ -1948,7 +1947,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tr>
 <tr>
 <td><code>create_population</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Automatically create corresponding population.</p>
 </td>
@@ -1966,7 +1965,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>QuadrantGate</code></td>
 <td>
 <p>A QuadrantGate object.</p>
 </td>
@@ -1974,10 +1973,13 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>cellengine.Gate.create_quadrant_gate(experimentId, x_channel="FSC-A",
-    y_channel="FSC-W", name="my gate", x=160000, y=200000)
-experiment.create_quadrant_gate(x_channel="FSC-A",
-    y_channel="FSC-W", name="my gate", x=160000, y=200000)</p>
+<div class="highlight">
+<pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">create_quadrant_gate</span><span class="p">(</span><span class="n">experimentId</span><span class="p">,</span> <span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="o">=</span><span class="s2">"FSC-W"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">160000</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">200000</span><span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">create_quadrant_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="o">=</span><span class="s2">"FSC-W"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">160000</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">200000</span><span class="p">)</span>
+</code></pre>
+</div>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -2002,7 +2004,7 @@ experiment.create_quadrant_gate(x_channel="FSC-A",
 <tbody>
 <tr>
 <td><code>experiment_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The ID of the experiment to which to add the gate.
 Use when calling this as a static method; not needed when calling
@@ -2012,7 +2014,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the x channel to which the gate applies.</p>
 </td>
@@ -2020,7 +2022,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the gate</p>
 </td>
@@ -2028,7 +2030,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x1</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The first x coordinate (after the channel's scale has been applied).</p>
 </td>
@@ -2036,15 +2038,16 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x2</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
-<p>The second x coordinate (after the channel's scale has been applied).</p>
+<p>The second x coordinate (after the channel's scale has been
+applied).</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>y</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>Position of the horizontal line between the vertical lines</p>
 </td>
@@ -2052,7 +2055,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>label</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>Position of the label. Defaults to the midpoint of the gate.</p>
 </td>
@@ -2060,7 +2063,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>gid</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
@@ -2070,7 +2073,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>locked</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Prevents modification of the gate via the web interface.</p>
 </td>
@@ -2078,7 +2081,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>parent_population_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of the parent population. Use <code>None</code> for
 the "ungated" population. If specified, do not specify
@@ -2088,7 +2091,7 @@ the "ungated" population. If specified, do not specify
 </tr>
 <tr>
 <td><code>parent_population</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of the parent population. An attempt will
 be made to find the population by name.  If zero or more than
@@ -2099,7 +2102,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>tailored_per_file</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Whether or not this gate is tailored per FCS file.</p>
 </td>
@@ -2107,7 +2110,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
@@ -2117,7 +2120,7 @@ specify <code>fcs_file</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of FCS file, if tailored per file. An attempt will be made
 to find the file by name. If zero or more than one file exists with
@@ -2129,7 +2132,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tr>
 <tr>
 <td><code>create_population</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Automatically create corresponding population.</p>
 </td>
@@ -2147,7 +2150,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>RangeGate</code></td>
 <td>
 <p>A RangeGate object.</p>
 </td>
@@ -2155,11 +2158,14 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>experiment.create_range_gate(x_channel="FSC-A", name="my gate",
-x1=12.502, x2=95.102)
-cellengine.Gate.create_range_gate(experiment_id,
-x_channel="FSC-A", name="my gate",
-12.502, 95.102)</p>
+<div class="highlight">
+<pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">create_range_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span>
+<span class="n">x1</span><span class="o">=</span><span class="mf">12.502</span><span class="p">,</span> <span class="n">x2</span><span class="o">=</span><span class="mf">95.102</span><span class="p">)</span>
+<span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">create_range_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span>
+<span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span>
+<span class="mf">12.502</span><span class="p">,</span> <span class="mf">95.102</span><span class="p">)</span>
+</code></pre>
+</div>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -2184,7 +2190,7 @@ x_channel="FSC-A", name="my gate",
 <tbody>
 <tr>
 <td><code>experiment_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The ID of the experiment to which to add the gate.
 Use when calling this as a static method; not needed when calling
@@ -2194,7 +2200,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the gate</p>
 </td>
@@ -2202,7 +2208,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x_channel</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The name of the x channel to which the gate applies.</p>
 </td>
@@ -2210,7 +2216,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>y_channel</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The name of the y channel to which the gate applies.</p>
 </td>
@@ -2218,7 +2224,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x1</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The first x coordinate (after the channel's scale has been applied).</p>
 </td>
@@ -2226,15 +2232,16 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x2</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
-<p>The second x coordinate (after the channel's scale has been applied).</p>
+<p>The second x coordinate (after the channel's scale
+has been applied).</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>y1</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The first y coordinate (after the channel's scale has been applied).</p>
 </td>
@@ -2242,15 +2249,16 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>y2</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
-<p>The second y coordinate (after the channel's scale has been applied).</p>
+<p>The second y coordinate (after the channel's scale has
+been applied).</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>label</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>Position of the label. Defaults to the midpoint of the gate.</p>
 </td>
@@ -2258,7 +2266,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>gid</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
@@ -2268,7 +2276,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>locked</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Prevents modification of the gate via the web interface.</p>
 </td>
@@ -2276,7 +2284,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>parent_population_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of the parent population. Use <code>None</code> for
 the "ungated" population. If specified, do not specify
@@ -2286,7 +2294,7 @@ the "ungated" population. If specified, do not specify
 </tr>
 <tr>
 <td><code>parent_population</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of the parent population. An attempt will
 be made to find the population by name.  If zero or more than
@@ -2297,7 +2305,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>tailored_per_file</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Whether or not this gate is tailored per FCS file.</p>
 </td>
@@ -2305,7 +2313,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
@@ -2315,7 +2323,7 @@ specify <code>fcs_file</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of FCS file, if tailored per file. An attempt will be made
 to find the file by name. If zero or more than one file exists with
@@ -2327,7 +2335,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tr>
 <tr>
 <td><code>create_population</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Automatically create corresponding population.</p>
 </td>
@@ -2345,7 +2353,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>RectangleGate</code></td>
 <td>
 <p>A RectangleGate object.</p>
 </td>
@@ -2353,11 +2361,14 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>experiment.create_rectangle_gate(x_channel="FSC-A", y_channel="FSC-W",
-name="my gate", 12.502, 95.102, 1020, 32021.2)
-cellengine.Gate.create_rectangle_gate(experiment_id, x_channel="FSC-A",
-y_channel="FSC-W", name="my gate", x1=12.502, x2=95.102, y1=1020, y2=32021.2,
-gid=global_gate.gid)</p>
+<div class="highlight">
+<pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">create_rectangle_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span> <span class="n">y_channel</span><span class="o">=</span><span class="s2">"FSC-W"</span><span class="p">,</span>
+<span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="mf">12.502</span><span class="p">,</span> <span class="mf">95.102</span><span class="p">,</span> <span class="mi">1020</span><span class="p">,</span> <span class="mf">32021.2</span><span class="p">)</span>
+<span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">create_rectangle_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span>
+<span class="n">y_channel</span><span class="o">=</span><span class="s2">"FSC-W"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="n">x1</span><span class="o">=</span><span class="mf">12.502</span><span class="p">,</span> <span class="n">x2</span><span class="o">=</span><span class="mf">95.102</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="mi">1020</span><span class="p">,</span> <span class="n">y2</span><span class="o">=</span><span class="mf">32021.2</span><span class="p">,</span>
+<span class="n">gid</span><span class="o">=</span><span class="n">global_gate</span><span class="o">.</span><span class="n">gid</span><span class="p">)</span>
+</code></pre>
+</div>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -2384,7 +2395,7 @@ each with a unique gid and name.</p>
 <tbody>
 <tr>
 <td><code>experiment_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The ID of the experiment to which to add the gate.
 Use when calling this as a static method; not needed when calling
@@ -2394,7 +2405,7 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>x_channel</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>The name of the x channel to which the gate applies.</p>
 </td>
@@ -2402,15 +2413,15 @@ from an Experiment object</p>
 </tr>
 <tr>
 <td><code>name</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
-<p>The name of the gate</p>
+<p>The name of the gate.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
 <td><code>x</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The x coordinate of the center point (after the channel's scale has
 been applied).</p>
@@ -2419,7 +2430,7 @@ been applied).</p>
 </tr>
 <tr>
 <td><code>y</code></td>
-<td><code></code></td>
+<td><code>float</code></td>
 <td>
 <p>The relative position from 0 to 1 of the dashed line extending
 from the center point.</p>
@@ -2428,7 +2439,7 @@ from the center point.</p>
 </tr>
 <tr>
 <td><code>labels</code></td>
-<td><code></code></td>
+<td><code>list</code></td>
 <td>
 <p>Positions of the quadrant labels. A list of two length-2 lists in
 the order: L, R. These are set automatically to the top corners.</p>
@@ -2437,7 +2448,7 @@ the order: L, R. These are set automatically to the top corners.</p>
 </tr>
 <tr>
 <td><code>gid</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
@@ -2447,7 +2458,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>gids</code></td>
-<td><code></code></td>
+<td><code>list</code></td>
 <td>
 <p>Group IDs of each sector, assigned to model.gids.</p>
 </td>
@@ -2455,7 +2466,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>locked</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Prevents modification of the gate via the web interface.</p>
 </td>
@@ -2463,7 +2474,7 @@ tailored gate, the gid of the global tailored gate must be specified.</p>
 </tr>
 <tr>
 <td><code>parent_population_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of the parent population. Use <code>None</code> for
 the "ungated" population. If specified, do not specify
@@ -2473,7 +2484,7 @@ the "ungated" population. If specified, do not specify
 </tr>
 <tr>
 <td><code>parent_population</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of the parent population. An attempt will
 be made to find the population by name.  If zero or more than
@@ -2484,7 +2495,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>tailored_per_file</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Whether or not this gate is tailored per FCS file.</p>
 </td>
@@ -2492,7 +2503,7 @@ If specified, do not specify <code>parent_population_id</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file_id</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
@@ -2502,7 +2513,7 @@ specify <code>fcs_file</code>.</p>
 </tr>
 <tr>
 <td><code>fcs_file</code></td>
-<td><code></code></td>
+<td><code>str</code></td>
 <td>
 <p>Name of FCS file, if tailored per file. An attempt will be made
 to find the file by name. If zero or more than one file exists with
@@ -2514,7 +2525,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tr>
 <tr>
 <td><code>create_population</code></td>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>Automatically create corresponding population.</p>
 </td>
@@ -2532,7 +2543,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>SplitGate</code></td>
 <td>
 <p>A SplitGate object.</p>
 </td>
@@ -2540,10 +2551,13 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>cellengine.Gate.create_split_gate(experiment_id, x_channel="FSC-A",
-name="my gate", x=144000, y=100000)
-experiment.create_split_gate(x_channel="FSC-A", name="my gate", x=144000,
-    y=100000)</p>
+<div class="highlight">
+<pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">create_split_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span>
+<span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">144000</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">create_split_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="o">=</span><span class="s2">"FSC-A"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my gate"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">144000</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+</code></pre>
+</div>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -2624,7 +2638,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>None</code></td>
 <td>
 <p>None</p>
 </td>
@@ -2774,9 +2788,6 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </div>
 </div>
 </div>
-<h2 id="properties">Properties</h2>
-<p>Properties are the snake_case equivalent of those documented on the
-<a href="https://docs.cellengine.com/api/#experiments">CellEngine API</a> unless otherwise noted.</p>
                 
               
               

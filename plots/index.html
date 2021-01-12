@@ -351,6 +351,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -388,13 +395,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
   
 </li>
       
@@ -500,6 +500,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -540,13 +547,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -570,6 +570,11 @@
 getter and setter methods for writable properties and helper methods. For a
 list of accessible properties, see <a href="#properties">Properties</a>.</p>
 <p>Methods are available for common access and transformations on the <code>Plot</code>.</p>
+<h2 id="properties">Properties</h2>
+<p>The Python SDK <code>Plot</code> only has accessible <code>display</code>, <code>get</code>, and <code>save</code> methods.
+In the case of <code>Plot</code>, <code>properties</code> refers to an optional dictionary of
+configuration arguments to pass to the <code>get</code> method. Options are detailed
+above.</p>
 <h2 id="methods">Methods</h2>
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="cellengine.resources.plot.Plot">
@@ -581,116 +586,6 @@ list of accessible properties, see <a href="#properties">Properties</a>.</p>
       </h2>
 <div class="doc doc-contents first">
 <p>A class representing a CellEngine plot.</p>
-<p><strong>Attributes:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the experiment to which the file belongs.</p>
-</td>
-</tr>
-<tr>
-<td><code>fcs_file_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of file for which to build a plot.</p>
-</td>
-</tr>
-<tr>
-<td><code>plot_type</code></td>
-<td><code>str</code></td>
-<td>
-<p>"contour", "dot", "density" or "histogram" (case-insensitive)</p>
-</td>
-</tr>
-<tr>
-<td><code>x_channel</code></td>
-<td><code>str</code></td>
-<td>
-<p>X channel name.</p>
-</td>
-</tr>
-<tr>
-<td><code>y_channel</code></td>
-<td><code>str</code></td>
-<td>
-<p>(for 2D plots) Y channel name.</p>
-</td>
-</tr>
-<tr>
-<td><code>z_channel</code></td>
-<td><code>str</code></td>
-<td>
-<p>(for dot plots colored by a 3rd channel) Color channel name.</p>
-</td>
-</tr>
-<tr>
-<td><code>population_id</code></td>
-<td><code>ID</code></td>
-<td>
-<p>Defaults to ungated.</p>
-</td>
-</tr>
-<tr>
-<td><code>properties</code></td>
-<td><code>dict</code></td>
-<td>
-<p>Optional attributes in camelCase dict: {"property": value}
-axesQ (bool): Display axes lines. Defaults to true.
-axisLabelsQ (bool): Display axis labels. Defaults to true.
-compensation (ID): Compensation to use for gating and display.
-color (str): Case-insensitive string in the format
-    #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e. color
-    of curve in "histogram" plots and dots in "dot" plots.
-gateLabel (str): One of "eventcount", "mean", "median",
-    "percent", "mad", "cv", "stddev", "geometricmean", "name", "none".
-gateLabelFontSize (float): Font size for gate labels.
-height (int): Image height. Defaults to 228.
-percentileStart (float): For contour plots, the percentile of the
-    first contour.
-percentileStep (float): For contour plots, the percentile
-    step between each contour.
-postSubsampleN (int): Randomly subsample the file to contain
-    this many events after gating.
-postSubsampleP (float): Randomly subsample the file to contain this
-    percent of events (0 to 1) after gating.
-preSubsampleN (int): Randomly subsample the file to contain this
-    many events before gating.
-preSubsampleP (float): Randomly subsample the file to contain this percent
-    of events (0 to 1) before gating.
-renderGates (bool): Render gates into the image.
-seed (float): Seed for random number generator used for
-    subsampling. Use for deterministic (reproducible) subsampling. If
-    omitted, a pseudo-random value is used.
-smoothing (float): For density and contour plots, adjusts the
-strokeThickness (float): The thickness of histogram and contour
-    plot lines. Defaults to 1.
-tickLabelsQ (bool): Display tick labels. Defaults to false.
-ticksQ (bool): Display ticks. Defaults to true.
-width (int): Image width. Defaults to 228.
-xAxisLabelQ (bool): Display x axis label. Overrides axisLabelsQ.
-xAxisQ (bool): Display x axis line. Overrides axesQ.
-xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.
-xTicksQ (bool): Display x ticks. Overrides ticksQ.
-yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.
-    amount of smoothing. Defaults to 0 (no smoothing). Set to 1 for
-    typical smoothing. Higher values (up to 10) increase smoothing.
-yAxisQ (bool): Display y axis line. Overrides axesQ.
-yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.
-yTicksQ (bool): Display y ticks. Overrides ticksQ.</p>
-</td>
-</tr>
-</tbody>
-</table>
 <div class="doc doc-children">
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.display">
@@ -707,7 +602,7 @@ yTicksQ (bool): Display y ticks. Overrides ticksQ.</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.get">
 
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
@@ -715,9 +610,132 @@ yTicksQ (bool): Display y ticks. Overrides ticksQ.</p>
 
       </h3>
 <div class="doc doc-contents ">
-
-
-    </div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>experiment_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of the experiment to which the file belongs.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of file for which to build a plot.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>plot_type</code></td>
+<td><code>str</code></td>
+<td>
+<p>"contour", "dot", "density" or
+"histogram" (case-insensitive)</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>X channel name.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>y_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>(for 2D plots) Y channel name.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>z_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>(for dot plots colored by a 3rd channel)
+Color channel name.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>population_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>Defaults to ungated.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>kwargs</code></td>
+<td><code>Dict</code></td>
+<td>
+<p>Optional query parameters, camelCased.</p>
+<div class="codehilite">
+<pre><span></span><code><span class="err">axesQ (bool): Display axes lines. Defaults to true.</span>
+<span class="err">axisLabelsQ (bool): Display axis labels. Defaults to true.</span>
+<span class="err">compensation (ID): Compensation to use for gating and display.</span>
+<span class="err">color (str): Case-insensitive string in the format</span>
+<span class="err">    #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e.</span>
+<span class="err">    color of curve in "histogram" plots and dots in "dot" plots.</span>
+<span class="err">gateLabel (str): One of "eventcount", "mean", "median",</span>
+<span class="err">    "percent", "mad", "cv", "stddev", "geometricmean",</span>
+<span class="err">    "name", "none".</span>
+<span class="err">gateLabelFontSize (float): Font size for gate labels.</span>
+<span class="err">height (int): Image height. Defaults to 228.</span>
+<span class="err">percentileStart (float): For contour plots, the percentile of the</span>
+<span class="err">    first contour.</span>
+<span class="err">percentileStep (float): For contour plots, the percentile</span>
+<span class="err">    step between each contour.</span>
+<span class="err">postSubsampleN (int): Randomly subsample the file to contain</span>
+<span class="err">    this many events after gating.</span>
+<span class="err">postSubsampleP (float): Randomly subsample the file to contain this</span>
+<span class="err">    percent of events (0 to 1) after gating.</span>
+<span class="err">preSubsampleN (int): Randomly subsample the file to contain this</span>
+<span class="err">    many events before gating.</span>
+<span class="err">preSubsampleP (float): Randomly subsample the file to contain this</span>
+<span class="err">    percent of events (0 to 1) before gating.</span>
+<span class="err">renderGates (bool): Render gates into the image.</span>
+<span class="err">seed (float): Seed for random number generator used for</span>
+<span class="err">    subsampling. Use for deterministic (reproducible) subsampling.</span>
+<span class="err">    If omitted, a pseudo-random value is used.</span>
+<span class="err">smoothing (float): For density and contour plots, adjusts the</span>
+<span class="err">strokeThickness (float): The thickness of histogram and contour</span>
+<span class="err">    plot lines. Defaults to 1.</span>
+<span class="err">tickLabelsQ (bool): Display tick labels. Defaults to false.</span>
+<span class="err">ticksQ (bool): Display ticks. Defaults to true.</span>
+<span class="err">width (int): Image width. Defaults to 228.</span>
+<span class="err">xAxisLabelQ (bool): Display x axis label. Overrides axisLabelsQ.</span>
+<span class="err">xAxisQ (bool): Display x axis line. Overrides axesQ.</span>
+<span class="err">xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.</span>
+<span class="err">xTicksQ (bool): Display x ticks. Overrides ticksQ.</span>
+<span class="err">yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.</span>
+<span class="err">    amount of smoothing. Defaults to 0 (no smoothing). Set to 1 for</span>
+<span class="err">    typical smoothing. Higher values (up to 10) increase smoothing.</span>
+<span class="err">yAxisQ (bool): Display y axis line. Overrides axesQ.</span>
+<span class="err">yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.</span>
+<span class="err">yTicksQ (bool): Display y ticks. Overrides ticksQ.</span>
+</code></pre>
+</div>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.save">
@@ -734,11 +752,6 @@ yTicksQ (bool): Display y ticks. Overrides ticksQ.</p>
 </div>
 </div>
 </div>
-<h2 id="properties">Properties</h2>
-<p>The Python SDK <code>Plot</code> only has accessible <code>display</code>, <code>get</code>, and <code>save</code> methods.
-In the case of <code>Plot</code>, <code>properties</code> refers to an optional dictionary of
-configuration arguments to pass to the <code>get</code> method. Options are detailed
-above.</p>
                 
               
               

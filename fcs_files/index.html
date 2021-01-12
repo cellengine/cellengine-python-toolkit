@@ -325,6 +325,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -397,13 +404,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
   
 </li>
       
@@ -535,6 +535,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -610,13 +617,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#properties" class="md-nav__link">
-    Properties
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -641,6 +641,9 @@ CellEngine, an <code>FcsFile</code> resource represents the file itself, along w
 metadata such as the panel and annotations.</p>
 <p>For a list of accessible properties, see <a href="#properties">Properties</a>.</p>
 <p>Methods are available for common access and transformations on the FCS file.</p>
+<h2 id="properties">Properties</h2>
+<p>Properties are the snake_case equivalent of those documented on the
+<a href="https://docs.cellengine.com/api/#fcs_files">CellEngine API</a> unless otherwise noted.</p>
 <h2 id="methods">Methods</h2>
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile">
@@ -784,7 +787,7 @@ pseudo-random value is used.</p>
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>FcsFile</code></td>
 <td>
 <p>FcsFile</p>
 </td>
@@ -899,9 +902,132 @@ addEventNumber (bool): Add an event number column to the
 
       </h3>
 <div class="doc doc-contents ">
-
-
-    </div>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>experiment_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of the experiment to which the file belongs.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>fcs_file_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of file for which to build a plot.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>plot_type</code></td>
+<td><code>str</code></td>
+<td>
+<p>"contour", "dot", "density" or
+"histogram" (case-insensitive)</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>x_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>X channel name.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>y_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>(for 2D plots) Y channel name.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>z_channel</code></td>
+<td><code>str</code></td>
+<td>
+<p>(for dot plots colored by a 3rd channel)
+Color channel name.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>population_id</code></td>
+<td><code>ID</code></td>
+<td>
+<p>Defaults to ungated.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>kwargs</code></td>
+<td><code>Dict</code></td>
+<td>
+<p>Optional query parameters, camelCased.</p>
+<div class="codehilite">
+<pre><span></span><code><span class="err">axesQ (bool): Display axes lines. Defaults to true.</span>
+<span class="err">axisLabelsQ (bool): Display axis labels. Defaults to true.</span>
+<span class="err">compensation (ID): Compensation to use for gating and display.</span>
+<span class="err">color (str): Case-insensitive string in the format</span>
+<span class="err">    #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e.</span>
+<span class="err">    color of curve in "histogram" plots and dots in "dot" plots.</span>
+<span class="err">gateLabel (str): One of "eventcount", "mean", "median",</span>
+<span class="err">    "percent", "mad", "cv", "stddev", "geometricmean",</span>
+<span class="err">    "name", "none".</span>
+<span class="err">gateLabelFontSize (float): Font size for gate labels.</span>
+<span class="err">height (int): Image height. Defaults to 228.</span>
+<span class="err">percentileStart (float): For contour plots, the percentile of the</span>
+<span class="err">    first contour.</span>
+<span class="err">percentileStep (float): For contour plots, the percentile</span>
+<span class="err">    step between each contour.</span>
+<span class="err">postSubsampleN (int): Randomly subsample the file to contain</span>
+<span class="err">    this many events after gating.</span>
+<span class="err">postSubsampleP (float): Randomly subsample the file to contain this</span>
+<span class="err">    percent of events (0 to 1) after gating.</span>
+<span class="err">preSubsampleN (int): Randomly subsample the file to contain this</span>
+<span class="err">    many events before gating.</span>
+<span class="err">preSubsampleP (float): Randomly subsample the file to contain this</span>
+<span class="err">    percent of events (0 to 1) before gating.</span>
+<span class="err">renderGates (bool): Render gates into the image.</span>
+<span class="err">seed (float): Seed for random number generator used for</span>
+<span class="err">    subsampling. Use for deterministic (reproducible) subsampling.</span>
+<span class="err">    If omitted, a pseudo-random value is used.</span>
+<span class="err">smoothing (float): For density and contour plots, adjusts the</span>
+<span class="err">strokeThickness (float): The thickness of histogram and contour</span>
+<span class="err">    plot lines. Defaults to 1.</span>
+<span class="err">tickLabelsQ (bool): Display tick labels. Defaults to false.</span>
+<span class="err">ticksQ (bool): Display ticks. Defaults to true.</span>
+<span class="err">width (int): Image width. Defaults to 228.</span>
+<span class="err">xAxisLabelQ (bool): Display x axis label. Overrides axisLabelsQ.</span>
+<span class="err">xAxisQ (bool): Display x axis line. Overrides axesQ.</span>
+<span class="err">xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.</span>
+<span class="err">xTicksQ (bool): Display x ticks. Overrides ticksQ.</span>
+<span class="err">yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.</span>
+<span class="err">    amount of smoothing. Defaults to 0 (no smoothing). Set to 1 for</span>
+<span class="err">    typical smoothing. Higher values (up to 10) increase smoothing.</span>
+<span class="err">yAxisQ (bool): Display y axis line. Overrides axesQ.</span>
+<span class="err">yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.</span>
+<span class="err">yTicksQ (bool): Display y ticks. Overrides ticksQ.</span>
+</code></pre>
+</div>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.update">
@@ -949,8 +1075,8 @@ include all channels in the file.</p>
 <td><em>required</em></td>
 </tr>
 <tr>
-<td><code>file</code></td>
-<td><code></code></td>
+<td><code>filepath</code></td>
+<td><code>str</code></td>
 <td>
 <p>The file contents.</p>
 </td>
@@ -963,9 +1089,6 @@ include all channels in the file.</p>
 </div>
 </div>
 </div>
-<h2 id="properties">Properties</h2>
-<p>Properties are the snake_case equivalent of those documented on the
-<a href="https://docs.cellengine.com/api/#fcs_files">CellEngine API</a> unless otherwise noted.</p>
                 
               
               
