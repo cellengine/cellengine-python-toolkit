@@ -1,6 +1,5 @@
 from __future__ import annotations
-from typing import List, Dict
-from custom_inherit import doc_inherit
+from typing import List
 import fcsparser
 import pandas
 

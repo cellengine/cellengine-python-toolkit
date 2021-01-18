@@ -254,8 +254,8 @@ class Experiment(_Experiment):
         self, _id: str = None, gid: str = None, exclude: bool = None
     ) -> None:
         """Delete a gate or gate family.
-
-        See [`APIClient.delete_gate`][cellengine.utils.api_client.APIClient.APIClient.delete_gate]
+        See the
+        [`APIClient`][cellengine.utils.api_client.APIClient.APIClient.delete_gate]
         for more information.
         """
         return ce.APIClient().delete_gate(self._id, _id, gid, exclude)
