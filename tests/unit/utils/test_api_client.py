@@ -225,6 +225,7 @@ def test_should_get_scaleset(client, ENDPOINT_BASE, scalesets):
     assert type(s is ScaleSet)
     assert s._id == SCALESET_ID
 
+
 @responses.activate
 def test_should_get_statistics(client, ENDPOINT_BASE, statistics):
     responses.add(

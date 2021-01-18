@@ -347,7 +347,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return gate
         return Gate.factory(gate)
 
-    def delete_gate(self, experiment_id: str, _id=None, gid=None, exclude=None) -> None:
+    def delete_gate(
+        self, experiment_id: str, _id: str = None, gid: str = None, exclude: bool = None
+    ) -> None:
         """Deletes a gate or a tailored gate family.
 
         Specify the top-level gid when working with compound gates (specifying
@@ -357,9 +359,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         a static method from cellengine.Gate or from an Experiment instance.
 
         Args:
-            experiment_id (str): ID of experiment.
-            _id (str): ID of gate family.
-            exclude (str): Gate ID to exclude from deletion.
+            experiment_id: ID of experiment.
+            _id: ID of the gate to delete.
+            gid: ID of gate family to delte.
+            exclude: Gate ID to exclude from deletion.
 
         Example:
             ```python

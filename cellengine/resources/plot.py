@@ -18,27 +18,27 @@ class Plot(_Plot):
     @classmethod
     def get(
         cls,
-        experiment_id,
+        experiment_id: str,
         fcs_file_id: str,
         plot_type: str,
         x_channel: str,
         y_channel: str,
         z_channel: str = None,
         population_id: str = None,
-        as_dict=False,
+        as_dict: bool = False,
         **kwargs,
     ) -> Plot:
         """
         Args:
-            experiment_id (str): ID of the experiment to which the file belongs.
-            fcs_file_id (str): ID of file for which to build a plot.
-            plot_type (str): "contour", "dot", "density" or
+            experiment_id: ID of the experiment to which the file belongs.
+            fcs_file_id: ID of file for which to build a plot.
+            plot_type: "contour", "dot", "density" or
                 "histogram" (case-insensitive)
-            x_channel (str): X channel name.
-            y_channel (str): (for 2D plots) Y channel name.
-            z_channel (str): (for dot plots colored by a 3rd channel)
+            x_channel: X channel name.
+            y_channel: (for 2D plots) Y channel name.
+            z_channel: (for dot plots colored by a 3rd channel)
                 Color channel name.
-            population_id (ID): Defaults to ungated.
+            population_id: Defaults to ungated.
             **kwargs (Dict):
                 - axesQ (bool): Display axes lines. Defaults to true.
                 - axisLabelsQ (bool): Display axis labels. Defaults to true.

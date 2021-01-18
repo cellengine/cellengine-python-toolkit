@@ -103,7 +103,6 @@ class FcsFile(_FcsFile):
     def delete(self):
         return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
 
-    @doc_inherit(Plot.get)
     def plot(
         self,
         x_channel: str,
@@ -113,6 +112,10 @@ class FcsFile(_FcsFile):
         population_id: str = None,
         **kwargs,
     ) -> Plot:
+        """Buid a plot for an FcsFile.
+
+        See [`Plot.get`][cellengine.resources.plot.Plot.get] for more information.
+        """
         plot = Plot.get(
             experiment_id=self.experiment_id,
             fcs_file_id=self._id,

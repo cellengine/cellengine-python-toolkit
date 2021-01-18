@@ -102,7 +102,9 @@ def test_should_return_pandas_dataframe(ENDPOINT_BASE, client, statistic_respons
         f"{ENDPOINT_BASE}/experiments/5e4fcb98bdd7ea051d703653/bulkstatistics",
         json=statistic_response,
     )
-    stats = client.get_statistics("5e4fcb98bdd7ea051d703653", "mean", "FSC-A", format="pandas")
+    stats = client.get_statistics(
+        "5e4fcb98bdd7ea051d703653", "mean", "FSC-A", format="pandas"
+    )
     properties = [
         "fcsFileId",
         "filename",
