@@ -39,9 +39,9 @@ class FcsFile(_FcsFile):
         filename: str = None,
         add_file_number: bool = False,
         add_event_number: bool = False,
-        pre_subsample_n: int = None,
-        pre_subsample_p: int = None,
-        seed: int = None,
+        pre_subsample_n: float = None,
+        pre_subsample_p: float = None,
+        seed: float = None,
     ) -> FcsFile:
         """Creates an FCS file by copying, concatenating and/or subsampling
         existing file(s) from this or other experiments.
@@ -58,15 +58,15 @@ class FcsFile(_FcsFile):
             add_file_number (optional): If
                 concatenating files, adds a file number channel to the
                 resulting file.
-            add_event_number (optional): Add an event number column to the
+            add_event_number (bool): Add an event number column to the
                 exported file. This number corresponds to the index of the event in
                 the original file; when concatenating files, the same event number
                 will appear more than once.
-            pre_subsample_n (optional): Randomly subsample the file to contain
+            pre_subsample_n (float): Randomly subsample the file to contain
                 this many events.
-            pre_subsample_p (optional): Randomly subsample the file to contain
+            pre_subsample_p (float): Randomly subsample the file to contain
                 this percent of events (0 to 1).
-            seed (optional): Seed for random number generator used for subsampling.
+            seed (float): Seed for random number generator used for subsampling.
                 Use for deterministic (reproducible) subsampling. If omitted, a
                 pseudo-random value is used.
 
@@ -137,23 +137,23 @@ class FcsFile(_FcsFile):
     def events(self, events):
         self._events = events
 
-    def get_events(self, **params):
+    def get_events(self, **kwargs):
         """
         Fetch a DataFrame containing this file's data.
 
         Args:
-            params (Dict): keyword arguments of form:
-                compensatedQ (bool): If true, applies the compensation
+            **kwargs:
+                - compensatedQ (bool): If true, applies the compensation
                     specified in compensationId to the exported events. For TSV
                     format, the numerical values will be the compensated values.
                     For FCS format, the numerical values will be unchanged, but the
                     file header will contain the compensation as the spill string
                     (file-internal compensation).
-                compensationId (str): Required if populationId is specified.
+                - compensationId (int): Required if populationId is specified.
                     Compensation to use for gating.
-                headers (bool): For TSV format only. If true, a header row
+                - headers (bool): For TSV format only. If true, a header row
                     containing the channel names will be included.
-                original (bool): If true, the returned file will be
+                - original (bool): If true, the returned file will be
                     byte-for-byte identical to the originally uploaded file. If
                     false or unspecified (and compensatedQ is false, populationId
                     is unspecified and all subsampling parameters are unspecified),
@@ -164,28 +164,33 @@ class FcsFile(_FcsFile):
                     appended to the end of the original file will be stripped. This
                     parameter takes precedence over compensatedQ, populationId and
                     the subsampling parameters.
-                populationId (str): If provided, only events from this
+                - populationId (str): If provided, only events from this
                     population will be included in the output file.
-                postSubsampleN (int): Randomly subsample the file to contain
+                - postSubsampleN (int): Randomly subsample the file to contain
                     this many events after gating.
-                postSubsampleP (float): Randomly subsample the file to contain
+                - postSubsampleP (float): Randomly subsample the file to contain
                     this percent of events (0 to 1) after gating.
-                preSubsampleN (int): Randomly subsample the file to contain
+                - preSubsampleN (int): Randomly subsample the file to contain
                     this many events before gating.
-                preSubsampleP (float): Randomly subsample the file to contain
+                - preSubsampleP (float): Randomly subsample the file to contain
                     this percent of events (0 to 1) before gating.
-                seed: (float): Seed for random number generator used for
+                - seed: (float): Seed for random number generator used for
                     subsampling. Use for deterministic (reproducible) subsampling.
                     If omitted, a pseudo-random value is used.
-                addEventNumber (bool): Add an event number column to the
+                - addEventNumber (bool): Add an event number column to the
                     exported file. When a populationId is specified (when gating),
                     this number corresponds to the index of the event in the
                     original file.
 
         Returns: None; updates the self.events property.
+
         """
+
         fresp = ce.APIClient().download_fcs_file(
-            self.experiment_id, self._id, params=params
+            self.experiment_id, self._id, params=dict(kwargs)
         )
         parser = fcsparser.api.FCSParser.from_data(fresp)
         self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+
+        """
+        """

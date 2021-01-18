@@ -280,50 +280,49 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Parameters:
             experiment_id (str): ID of the experiment
             fcs_file_id (str): ID of the FcsFile
-            kwargs (Dict): Optional query parameters, camelCased.
-
-                    compensatedQ (bool): If true, applies the compensation
-                      specified in compensationId to the exported events. For
-                      TSV format, the numerical values will be the compensated
-                      values.  For FCS format, the numerical values will be
-                      unchanged, but the file header will contain the
-                      compensation as the spill string (file-internal
-                      compensation).
-                    compensationId (str, optional): Required if populationId is
-                        specified. Compensation to use for gating.
-                    headers (bool): For TSV format only. If true, a header row
-                      containing the channel names will be included.
-                    original (bool): If true, the returned file will be
-                        byte-for-byte identical to the originally uploaded
-                        file. If false or unspecified (and compensatedQ is
-                        false, populationId is unspecified and all subsampling
-                        parameters are unspecified), the returned file will
-                        contain essentially the same data as the originally
-                        uploaded file, but may not be byte-for-byte identical.
-                        For example, the byte ordering of the DATA segment will
-                        always be little-endian and any extraneous information
-                        appended to the end of the original file will be
-                        stripped. This parameter takes precedence over
-                        compensatedQ, populationId and the subsampling
-                        parameters.
-                    populationId (str): If provided, only events from this
-                        population will be included in the output file.
-                    postSubsampleN (int): Randomly subsample the file to
-                        contain this many events after gating.
-                    postSubsampleP (float): Randomly subsample the file to
-                        contain this percent of events (0 to 1) after gating.
-                    preSubsampleN (int): Randomly subsample the file to contain
-                        this many events before gating.
-                    preSubsampleP (float): Randomly subsample the file to
-                        contain this percent of events (0 to 1) before gating.
-                    seed: (float): Seed for random number generator used for
-                        subsampling. Use for deterministic (reproducible)
-                        subsampling.  If omitted, a pseudo-random value is
-                        used.
-                    addEventNumber (bool): Add an event number column to the
-                        exported file. When a populationId is specified
-                        (when gating), this number corresponds to the index of
-                        the event in the original file.
+            kwargs:
+                - compensatedQ (bool): If true, applies the compensation
+                  specified in compensationId to the exported events. For
+                  TSV format, the numerical values will be the compensated
+                  values.  For FCS format, the numerical values will be
+                  unchanged, but the file header will contain the
+                  compensation as the spill string (file-internal
+                  compensation).
+                - compensationId (str, optional): Required if populationId is
+                    specified. Compensation to use for gating.
+                - headers (bool): For TSV format only. If true, a header row
+                  containing the channel names will be included.
+                - original (bool): If true, the returned file will be
+                    byte-for-byte identical to the originally uploaded
+                    file. If false or unspecified (and compensatedQ is
+                    false, populationId is unspecified and all subsampling
+                    parameters are unspecified), the returned file will
+                    contain essentially the same data as the originally
+                    uploaded file, but may not be byte-for-byte identical.
+                    For example, the byte ordering of the DATA segment will
+                    always be little-endian and any extraneous information
+                    appended to the end of the original file will be
+                    stripped. This parameter takes precedence over
+                    compensatedQ, populationId and the subsampling
+                    parameters.
+                - populationId (str): If provided, only events from this
+                    population will be included in the output file.
+                - postSubsampleN (int): Randomly subsample the file to
+                    contain this many events after gating.
+                - postSubsampleP (float): Randomly subsample the file to
+                    contain this percent of events (0 to 1) after gating.
+                - preSubsampleN (int): Randomly subsample the file to contain
+                    this many events before gating.
+                - preSubsampleP (float): Randomly subsample the file to
+                    contain this percent of events (0 to 1) before gating.
+                - seed: (float): Seed for random number generator used for
+                    subsampling. Use for deterministic (reproducible)
+                    subsampling.  If omitted, a pseudo-random value is
+                    used.
+                - addEventNumber (bool): Add an event number column to the
+                    exported file. When a populationId is specified
+                    (when gating), this number corresponds to the index of
+                    the event in the original file.
         """
         params = {}
         if kwargs:
