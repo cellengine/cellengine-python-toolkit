@@ -27,9 +27,6 @@ def format_rectangle_gate(
     """Formats a rectangle gate for posting to the CE API.
 
     Args:
-        experiment_id (str): The ID of the experiment to which to add the gate.
-            Use when calling this as a static method; not needed when calling
-            from an Experiment object
         name (str): The name of the gate
         x_channel (float): The name of the x channel to which the gate applies.
         y_channel (float): The name of the y channel to which the gate applies.

@@ -29,9 +29,6 @@ def format_split_gate(
     each with a unique gid and name.
 
     Args:
-        experiment_id (str): The ID of the experiment to which to add the gate.
-            Use when calling this as a static method; not needed when calling
-            from an Experiment object
         x_channel (str): The name of the x channel to which the gate applies.
         name (str): The name of the gate.
         x (float): The x coordinate of the center point (after the channel's scale has

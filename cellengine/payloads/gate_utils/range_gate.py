@@ -25,9 +25,6 @@ def format_range_gate(
     """Formats a range gate for posting to the CE API.
 
     Args:
-        experiment_id (str): The ID of the experiment to which to add the gate.
-            Use when calling this as a static method; not needed when calling
-            from an Experiment object
         x_channel (str): The name of the x channel to which the gate applies.
         name (str): The name of the gate
         x1 (float): The first x coordinate (after the channel's scale has been applied).
