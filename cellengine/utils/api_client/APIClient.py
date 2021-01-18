@@ -22,30 +22,30 @@ from cellengine.resources.scaleset import ScaleSet
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
 
-    def __init__(self, user_name=None, password=None, token=None):
+    def __init__(self, username=None, password=None, token=None):
         super(APIClient, self).__init__()
         self.base_url = os.environ.get(
             "CELLENGINE_BASE_URL", "https://cellengine.com/api/v1"
         )
-        self.user_name = user_name
+        self.username = username
         self.password = password or os.environ.get("CELLENGINE_PASSWORD")
         self.token = token or os.environ.get("CELLENGINE_AUTH_TOKEN")
         self.user_id = None
         self.flags = None
         self.authenticated = self._authenticate(
-            self.user_name, self.password, self.token
+            self.username, self.password, self.token
         )
 
         self.cache_info = self._get_id_by_name.cache_info
         self.cache_clear = self._get_id_by_name.cache_clear
 
     def __repr__(self):
-        if self.user_name:
-            return f"Client(user={self.user_name})"
+        if self.username:
+            return f"Client(user={self.username})"
         else:
             return "Client(TOKEN)"
 
-    def _authenticate(self, user_name, password, token):
+    def _authenticate(self, username, password, token):
         """Authenticate with the CellEngine API.
 
         There are two ways of authenticating:
@@ -58,13 +58,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             password: Password for login
             token: Authentication token; may be passed instead of username and password
         """
-        if user_name:
-            self.user_name = user_name
+        if username:
+            self.username = username
             self.password = password or getpass()
 
             res = self._post(
                 f"{self.base_url}/signin",
-                {"username": self.user_name, "password": self.password},
+                {"username": self.username, "password": self.password},
             )
 
             self.token = res["token"]

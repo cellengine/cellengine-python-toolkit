@@ -27,7 +27,10 @@ def population_tester(population):
     assert hasattr(population, "gates")
     assert hasattr(population, "name")
     assert hasattr(population, "parent_id")
-    assert hasattr(population, "terminal_gate_gid") and len(getattr(population, "terminal_gate_gid")) == 24
+    assert (
+        hasattr(population, "terminal_gate_gid")
+        and len(getattr(population, "terminal_gate_gid")) == 24
+    )
     assert hasattr(population, "unique_name")
 
 

@@ -2,7 +2,6 @@ import pytest
 import requests
 import responses
 
-# from cellengine.utils.api_client.APIClient import APIClient
 from cellengine.utils.api_client.APIError import APIError
 
 

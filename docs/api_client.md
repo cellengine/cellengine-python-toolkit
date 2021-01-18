@@ -41,7 +41,7 @@ GitHub](https://github.com/primitybio/cellengine-python-toolkit/issues).
 
 ## Properties
 - base_url
-- user_name
+- username
 - password
 - token
 - user_id
