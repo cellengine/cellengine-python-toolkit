@@ -2,7 +2,7 @@ import os
 import json
 import pandas
 from getpass import getpass
-from typing import List, Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from functools import lru_cache
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -472,6 +472,22 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return Population(res)
 
+    def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
+        """Get a scaleset for an experiment."""
+        scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
+            0
+        ]
+        if as_dict:
+            return scaleset
+        return ScaleSet(scaleset)
+
+    def post_statistics(self, experiment_id, req_params, raw=True):
+        return self._post(
+            f"{self.base_url}/experiments/{experiment_id}/bulkstatistics",
+            json=req_params,
+            raw=raw,
+        )
+
     def get_statistics(
         self,
         experiment_id: str,
@@ -556,11 +572,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         }
         req_params = {key: val for key, val in params.items() if val is not None}
 
-        raw_stats = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/bulkstatistics",
-            json=req_params,
-            raw=True,
-        )
+        raw_stats = self.post_statistics(experiment_id, req_params)
 
         format = format.lower()
         if format == "json":
@@ -575,12 +587,3 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                 return pandas.DataFrame.from_dict(json.loads(raw_stats))
             except Exception as e:
                 raise ValueError("Invalid data format {} for pandas".format(format), e)
-
-    def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
-        """Get a scaleset for an experiment."""
-        scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
-            0
-        ]
-        if as_dict:
-            return scaleset
-        return ScaleSet(scaleset)
