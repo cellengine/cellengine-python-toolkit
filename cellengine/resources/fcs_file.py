@@ -105,15 +105,23 @@ class FcsFile(_FcsFile):
 
     @doc_inherit(Plot.get)
     def plot(
-        self, x_channel: str, y_channel: str, plot_type: str, properties: Dict = None
+        self,
+        x_channel: str,
+        y_channel: str,
+        plot_type: str,
+        z_channel: str = None,
+        population_id: str = None,
+        **kwargs,
     ) -> Plot:
         plot = Plot.get(
             experiment_id=self.experiment_id,
             fcs_file_id=self._id,
+            plot_type=plot_type,
             x_channel=x_channel,
             y_channel=y_channel,
-            plot_type=plot_type,
-            properties=properties,
+            z_channel=z_channel,
+            population_id=population_id,
+            **kwargs,
         )
         return plot
 
