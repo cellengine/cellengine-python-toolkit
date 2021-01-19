@@ -14,24 +14,6 @@ ID6 = "5f1178fc2c50066876d24acf"
 ID7 = "5f1178fc2c50066876d24acg"
 
 
-@responses.activate
-def test_create_complex_population_basic(ENDPOINT_BASE, experiment, gates, populations):
-    with pytest.raises(NotImplementedError):
-        responses.add(
-            responses.POST,
-            f"{ENDPOINT_BASE}/experiments/{EXP_ID}/populations",
-            json=populations[0],
-            status=201,
-        )
-        experiment.create_population(
-            population=ComplexPopulationBuilder("pop_name")
-            .And([ID1, ID2])
-            .Not(ID3)
-            .build()
-        )
-        # TODO: assert correct body upon implementation
-
-
 def test_should_build_query_from_string_or_list():
     expected_output = {
         "name": "pop_name",

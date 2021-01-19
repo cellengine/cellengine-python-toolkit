@@ -405,22 +405,22 @@ class Experiment(_Experiment):
         post_body = format_quadrant_gate(kwargs.pop("self")._id, **kwargs)
         return ce.APIClient().post_gate(self._id, post_body)
 
-    def create_population(self, population: Dict):
+    def create_population(self, population: Dict) -> Population:
         """Create a complex population
 
         Args:
-            population (dict): The population to create. Use the
-                `ComplexPopulationBuilder` to construct a complex population.
+            population (dict): The population to create.
+                Use the `ComplexPopulationBuilder` to construct a complex population.
+
+        Examples:
+            experiment.create_population({
+                "name": name,
+                "terminalGateGid": GID,
+                "parentId": parent._id,
+                "gates": json.dumps({"$and": AND_GATES})
+            })
 
         Returns:
             Population: A created complex population.
         """
-        raise NotImplementedError(
-            """
-            This method has not been implemented yet.
-            Several CellEngine features, such as deletion
-            of complex populations, are currently
-            unavailable.
-            """
-        )
         return ce.APIClient().post_population(self._id, population)
