@@ -64,7 +64,7 @@ class Plot(_Plot):
                 - preSubsampleP (float): Randomly subsample the file to contain this
                     percent of events (0 to 1) before gating.
                 - renderGates (bool): Render gates into the image.
-                - seed (float): Seed for random number generator used for
+                - seed (int): Seed for random number generator used for
                     subsampling. Use for deterministic (reproducible) subsampling.
                     If omitted, a pseudo-random value is used.
                 - smoothing (float): For density and contour plots, adjusts the

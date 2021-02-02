@@ -315,7 +315,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                     this many events before gating.
                 - preSubsampleP (float): Randomly subsample the file to
                     contain this percent of events (0 to 1) before gating.
-                - seed: (float): Seed for random number generator used for
+                - seed: (int): Seed for random number generator used for
                     subsampling. Use for deterministic (reproducible)
                     subsampling.  If omitted, a pseudo-random value is
                     used.
@@ -348,7 +348,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return Gate.factory(gate)
 
     def delete_gate(
-        self, experiment_id: str, _id: str = None, gid: str = None, exclude: bool = None
+        self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None
     ) -> None:
         """Deletes a gate or a tailored gate family.
 
