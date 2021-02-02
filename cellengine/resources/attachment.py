@@ -11,7 +11,7 @@ class Attachment(_Attachment):
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
         """Get an Attachment by name or ID for a specific experiment. Either
-        `name` or `id` must be specified.
+        `name` or `_id` must be specified.
 
         Args:
             experiment_id: ID of the experiment this attachment is connected with.
@@ -29,8 +29,8 @@ class Attachment(_Attachment):
         """Save changes to this Attachment to CellEngine.
 
         Returns:
-            None: Updates the Attachment on CellEngine and then
-                synchronizes the properties with the current Attachment object.
+            None: Updates the Attachment on CellEngine and synchronizes the
+                local Attachment object properties with remote state.
         """
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "attachments", body=self._properties
@@ -44,12 +44,12 @@ class Attachment(_Attachment):
     def download(self, to_file: str = None):
         """Download the attachment.
 
-        Defaults to returning the file as a blob. If ``to_file`` is specified, the file
-        will be saved to disk.
+        Defaults to returning the file as a blob. If ``to_file`` is specified,
+        the file will be saved to disk.
 
         Args:
-            to_file (str): Filepath at which to save the file. Accepts relative or
-                absolute path.
+            to_file (str): Path at which to save the file. Accepts relative or
+                absolute paths.
 
         Returns:
             content: The raw response content.

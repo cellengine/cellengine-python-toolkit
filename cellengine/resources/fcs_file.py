@@ -135,7 +135,7 @@ class FcsFile(_FcsFile):
         this property is accessed.
 
         To fetch a file with specific parameters (e.g. subsampling, or
-        gated to a specific population) see FcsFile.get_events()
+        gated to a specific population) see `FcsFile.get_events()`.
         """
         if self._events.empty:
             self.get_events()

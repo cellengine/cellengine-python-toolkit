@@ -22,7 +22,7 @@ def format_range_gate(
     fcs_file: str = None,
     create_population: bool = True,
 ):
-    """Formats a range gate for posting to the CE API.
+    """Formats a range gate for posting to the CellEngine API.
 
     Args:
         x_channel (str): The name of the x channel to which the gate applies.

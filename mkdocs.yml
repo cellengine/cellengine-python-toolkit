@@ -20,7 +20,6 @@ nav:
     - Gates: gates.md
     - Plots: plots.md
     - Populations: populations.md
-    - Statistics: statistics.md
     - ScaleSets: scalesets.md
   - Cookbook: recipes.md
   - Development: contributing.md
@@ -61,9 +60,9 @@ plugins:
             filters:
               - "!^__[^__]"
               - "!^_"
-        watch:
-          - cellengine
-          - docs
+      watch:
+        - cellengine
+        - docs
 
 markdown_extensions:
   - admonition

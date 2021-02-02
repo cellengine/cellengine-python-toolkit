@@ -125,10 +125,10 @@ class Gate(_Gate):
         """Deletes a gate or a tailored gate family.
 
         Specify the top-level gid when working with compound gates (specifying
-        the gid of a sector (i.e. one listed in ``model.gids``) will result in no
-        gates being deleted). If ``_id`` is specified, only that gate will be
+        the gid of a sector (i.e. one listed in ``model.gids``) will result in
+        no gates being deleted). If ``_id`` is specified, only that gate will be
         deleted, regardless of the other parameters specified. May be called as
-        a static method from cellengine.Gate or from an Experiment instance.
+        a static method on `cellengine.Gate` or on an `Experiment` instance.
 
         Args:
             experiment_id (str): ID of experiment.

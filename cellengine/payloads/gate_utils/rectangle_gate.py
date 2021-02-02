@@ -24,7 +24,7 @@ def format_rectangle_gate(
     fcs_file: str = None,
     create_population: bool = True,
 ):
-    """Formats a rectangle gate for posting to the CE API.
+    """Formats a rectangle gate for posting to the CellEngine API.
 
     Args:
         name (str): The name of the gate

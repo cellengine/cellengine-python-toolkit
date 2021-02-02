@@ -11,10 +11,6 @@ All gate types share some required and optional arguments,
 which are [documented][cellengine.resources.gate.Gate] on the base ``Gate``
 class. Gate-specific arguments are documented in each gate type.
 
-For a list of accessible properties, see [Properties](#properties).
-
-Methods are available for common access and transformations on the Gate.
-
 ## Properties
 Properties are the snake_case equivalent of those documented on the
 [CellEngine API](https://docs.cellengine.com/api/#gates) unless otherwise noted.
@@ -57,7 +53,17 @@ properties. For instance:
 ```python
 > gate = experiment.gates[0]
 > gate.model
-Munch({'polygon': Munch({'vertices': [[4.68957, 2.90929], [5.23152, 5.77464], [7.76064, 5.956], [8.59164, 4.65026], [6.71287, 2.32896]]}), 'locked': 'orange', 'label': [7.62844, 6.19701]})
+Munch({'polygon':
+    Munch({'vertices': [
+        [4.68957, 2.90929],
+        [5.23152, 5.77464],
+        [7.76064, 5.956],
+        [8.59164, 4.65026],
+        [6.71287, 2.32896]
+    ]}),
+    'locked': False,
+    'label': [7.62844, 6.19701]
+})
 
 > gate.model.polygon.vertices
 [[4.68957, 2.90929],
@@ -119,8 +125,7 @@ gate.post()
 
 #### Post gates in bulk
 
-When creating many gates, it will be _much_ more efficient to build the gates
-in a list, then save them in bulk to CellEngine. For instance:
+When creating many gates, build the gates in a list, then save them in bulk to CellEngine. For instance:
 ```python
 gates = []
 gates.append(

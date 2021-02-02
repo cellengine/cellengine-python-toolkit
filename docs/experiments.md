@@ -6,7 +6,6 @@ An `Experiment` is the primary unit of organization in CellEngine and contains
 FCS files, gates, populations, etc. For a list of accessible properties, see
 [Properties](#properties).
 
-
 Methods are available for common access and transformations on the `Experiment`.
 Most methods available from the `APIClient` are available on an `Experiment`,
 with the first param `experiment_id` implicitly passed as the current
