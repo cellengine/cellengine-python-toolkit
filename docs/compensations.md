@@ -3,14 +3,11 @@
 [CellEngine API: Compensations](https://docs.cellengine.com/api/#compensations)
 
 A compensation is a list of channel names and a corresponding square matrix.
-The matrix is technically a "spill"/"spillover" matrix, which is inverted to
+The matrix is technically a "spill" or "spillover" matrix, which is inverted to
 yield the compensation matrix; most applications refer to the spill matrix as a
-compensation matrix, however. In the Python SDK, the matrix is represented by a
-Pandas DataFrame.
+compensation matrix, however.
 
-For accessible properties, see [Properties](#properties).
-
-Methods are available for common access and transformations on the Compensation.
+In the Python SDK, the matrix is represented by a Pandas DataFrame.
 
 ## Properties
 Properties are getter methods and setter methods representing the underlying
@@ -23,12 +20,3 @@ otherwise noted.
 ::: cellengine.resources.compensation.Compensation
     rendering:
       show_if_no_docstring: true
-
-::: cellengine.payloads.compensation._Compensation
-    rendering:
-      show_root_heading: false
-    selection:
-      members:
-        - dataframe
-        - dataframe_as_html
-        - apply

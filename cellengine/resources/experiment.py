@@ -55,7 +55,7 @@ class Experiment(_Experiment):
             tags: Defaults to empty list.
 
         Returns:
-            Experiment: Creates the Experiment on CellEngine and returns it.
+            Creates the Experiment in CellEngine and returns it.
         """
         experiment_body = {
             k: v
@@ -101,7 +101,7 @@ class Experiment(_Experiment):
 
     @property
     def undelete(self):
-        """Remove a scheduled deletion."""
+        """Clear a scheduled deletion."""
         if self._properties.get("deleted") is not None:
             self._properties["delete"] = None
 
@@ -413,14 +413,16 @@ class Experiment(_Experiment):
                 Use the `ComplexPopulationBuilder` to construct a complex population.
 
         Examples:
+            ```py
             experiment.create_population({
                 "name": name,
                 "terminalGateGid": GID,
                 "parentId": parent._id,
                 "gates": json.dumps({"$and": AND_GATES})
             })
+            ```
 
         Returns:
-            Population: A created complex population.
+            The new population.
         """
         return ce.APIClient().post_population(self._id, population)

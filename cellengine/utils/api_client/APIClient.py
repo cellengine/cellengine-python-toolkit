@@ -146,11 +146,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def post_attachment(
         self, experiment_id, filepath: str, filename: str = None
     ) -> Attachment:
-        """Upload an attachment to CellEngine
+        """Upload an attachment
 
         Args:
-            filepath (str): path to .fcs file
-            filename (str, optional): Optionally, specify a new name for the file
+            filepath (str): Local path to file to upload.
+            filename (str, optional): Optionally, specify a new name for the file.
 
         Returns:
             The newly-uploaded Attachment
@@ -246,8 +246,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """Upload an FCS file to CellEngine
 
         Args:
-            filepath (str): path to .fcs file
-            filename (str, optional): Optionally, specify a new name for the file
+            filepath (str): Local path to FCS file.
+            filename (str, optional): Optionally, specify a new name for the file.
 
         Returns:
             The newly-uploaded FcsFile
@@ -502,7 +502,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         fcs_file_ids: Optional[List[str]] = None,
         format: Optional[str] = "json",
         layout: Optional[str] = None,
-        percent_of: Optional[Union[str, List[str]]] = None,
+        percent_of: Optional[Union[str, List[str]]] = "PARENT",
         population_ids: Optional[List[str]] = None,
     ):
         """
@@ -513,38 +513,43 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             statistics: Statistical method to request. Any of "mean", "median",
                 "quantile", "mad" (median absolute deviation), "geometricmean",
                 "eventcount", "cv", "stddev" or "percent" (case-insensitive).
-            q: int: quantile (required for "quantile" statistic)
-            channels: str or List[str]: for "mean", "median", "geometricMean", "cv",
-                "stddev", "mad" or "quantile" statistics. Names of
-                channels to calculate statistics for.
-            annotations (optional): bool: Include file annotations in output
-                (defaults to False).
-            compensation_id (optional): str: Compensation to use for gating and
-                statistic calculation.
-                Defaults to uncompensated. Three special constants may be used:
-                    0: Uncompensated
-                    -1: File-Internal Compensation Uses the file's internal
-                        compensation matrix, if available. If not, an error
-                        will be returned.
-                    -2: Per-File Compensation Use the compensation assigned to
+            q: quantile (required for "quantile" statistic)
+            channels: For "mean", "median", "geometricMean", "cv", "stddev",
+                "mad" or "quantile" statistics, the names of channels for which
+                to calculate statistics.
+            annotations (optional): Include file annotations in output.
+            compensation_id (optional): Compensation to use for gating and
+                statistic calculation. Defaults to uncompensated. Three special
+                constants may be used:
+
+                  * 0: Uncompensated
+                  * -1: File-Internal: Uses the file's internal compensation
+                        matrix, if available. If unavailable, an error will be
+                        returned.
+                  * -2: Per-File Compensation: Use the compensation assigned to
                         each individual FCS file.
-            fcs_file_ids (optional): List[str]: FCS files to get statistics for. If
-                omitted, statistics for all non-control FCS files will be returned.
-            format (optional): str: One of "TSV (with[out] header)",
-                "CSV (with[out] header)" or "json" (default), "pandas",
-                case-insensitive.
-            layout (optional): str: The file (TSV/CSV) or object (JSON) layout.
+            fcs_file_ids (optional): FCS files to get statistics for. If
+                omitted, statistics for all non-control FCS files will be
+                returned.
+            format (optional): One of the following (case-insensitive):
+
+                  * "TSV (with header)"
+                  * "TSV (without header)"
+                  * "CSV (with header)"
+                  * "CSV (without header)"
+                  * "json"
+                  * "pandas"
+            layout (optional): The file (TSV/CSV) or object (JSON) layout.
                 One of "tall-skinny", "medium", or "short-wide".
-            percent_of (optional): str or List[str]: Population ID or array of
-                population IDs.  If omitted or the string "PARENT", will calculate
-                percent of parent for each population. If a single ID, will calculate
-                percent of that population for all populations specified by
-                population_ids. If a list, will calculate percent of each of
-                those populations.
-            population_ids (optional): List[str]: List of population IDs.
-                Defaults to ungated.
+            percent_of (optional): Population ID or array of population IDs. If
+                omitted or the string "PARENT", will calculate percent of parent
+                for each population. If a single ID, will calculate percent of
+                that population for all populations specified by population_ids.
+                If a list, will calculate percent of each of those populations.
+            population_ids (optional): List of population IDs. Defaults to
+                ungated.
         Returns:
-            statistics: Dict, String, or pandas.Dataframe
+            Dict, String, or pandas.Dataframe: statistics
         """
 
         def determine_format(f):

@@ -19,6 +19,12 @@ class Compensation(_Compensation):
 
     @classmethod
     def create(cls, experiment_id: str, compensation: dict) -> Compensation:
+        """Creates a compensation
+
+        Args:
+            experiment_id: ID of experiment that this compensation belongs to.
+            compensation: Dict containing `channels` and `spillMatrix` properties.
+        """
         return ce.APIClient().post_compensation(experiment_id, compensation)
 
     def update(self):

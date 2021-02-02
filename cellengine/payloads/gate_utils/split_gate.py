@@ -23,7 +23,7 @@ def format_split_gate(
     create_population: bool = True,
 ):
     """
-    Formats a split gate for posting to the CE API.
+    Formats a split gate for posting to the CellEngine API.
 
     Split gates have two sectors (right and left),
     each with a unique gid and name.

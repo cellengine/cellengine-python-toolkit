@@ -26,7 +26,7 @@ def format_quadrant_gate(
     fcs_file: str = None,
     create_population: bool = True,
 ):
-    """Formats a quadrant gate for posting to the CE API.
+    """Formats a quadrant gate for posting to the CellEngine API.
 
     Quadrant gates have four sectors (upper-right, upper-left, lower-left,
     lower-right), each with a unique gid and name.

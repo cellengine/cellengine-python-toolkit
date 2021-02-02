@@ -3,7 +3,7 @@
 This is the documentation for the Python toolkit for the CellEngine API. For
 API documentation visit [here](https://docs.cellengine.com/api/).
 
-## Quickstart
+## Quick Start
 Install `cellengine` using `pip`:
 
 ```bash
@@ -16,83 +16,67 @@ For the development version:
 pip install git+https://github.com/primitybio/cellengine-python-toolkit.git
 ```
 
-Note: Resources all have a unique ID. In this toolkit, the ID is referred to
-as `_id`, i.e. `Experiment()._id`.
-
 ### Authentication
 ```python
 import cellengine
 client = cellengine.APIClient(username="jason")
 # Password: <enter your password here>
-# Alternatively, authenticate by setting CELLENGINE_PASSWORD or CELLENGINE_AUTH_TOKEN in your environment
+# Alternatively, authenticate by setting CELLENGINE_PASSWORD or 
+# CELLENGINE_AUTH_TOKEN in your environment
 
 # Get a list of all accessible experiments
 experiment = client.get_experiments()
+```
 
-# or get one experiment by its name
+### Get resources
+All resources have a unique ID stored as `_id`, e.g. `Experiment()._id`.
+Resources can be retrieved by name or by ID:
+```python
+# Get an experiment by its name
 experiment = client.get_experiment(name="My experiment")
-# alternatively,
 experiment = cellengine.Experiment.get(name="My experiment")
-
-# or get one experiment by ID
+# or by its ID
 experiment = client.get_experiment("5f203e852a183003c2459c94")
 ```
-
-### Get resources:
-The following are all equivalent commands, and apply to all resources types:
-```python
+```py
+# Get an attachment by name
 att = experiment.get_attachment(name="my attachment")
-# assuming that 'my attachment' has this ID
+att = Attachment.get(experiment._id, "my attachment")
+# or by its ID
 att = experiment.get_attachment("5f3ac0ba5465db092213cff5")
 att = client.get_attachment(experiment._id, "5f3ac0ba5465db092213cff5")
-att = Attachment.get(experiment._id, "my attachment")
-```
-
-### Get resources by name or ID
-```python
-comp = experiment.get_compensation("5f3ac0ba5465db092213cff8")
-file = experiment.get_fcs_file(name="160311-96plex-4dye")
 ```
 
 ### Create resources
 ```python
-experiment.create_attachment("my_file.txt")
+experiment.upload_attachment("path/to/my_file.txt")
+experiment.create_compensation("My comp", ["Chan1", "Chan2", [1, 0.1, 0, 1])
 ```
 
 ### Update resources
 ```python
 att = experiment.get_attachment(name="my_file.txt")
 att.filename = "my_new_name.txt"
-att.update()
+att.update()  # save changes back to CellEngine
 ```
 
 ### Operate on resources
 ```python
-file1 = experiment.fcs_files(name="160311-96plex-4dye")
-# get a Pandas dataframe of an FcsFile's events, subsampling for only 10 events
+file1 = experiment.get_fcs_file(name="160311-96plex-4dye")
+# Get a Pandas dataframe containing an FcsFile's events, subsampled to 10 events
 events_df = file1.get_events(preSubsampleN=10)
-
-split_gate = experiment.create_split_gate(
-    file1.channels[0], "split_gate", 2300000, 250000
-)
-# The above command is equivalent to:
-split_gate = SplitGate.create(
-experiment._id, file1.channels[0], "split_gate", 2300000, 250000
-)
 ```
 
 ### Delete resources
-Deleting all resources is final, EXCEPT for
-Experiments. Experiments are marked as deleted for 7 days, then
-permanently deleted. To undelete an Experiment, use the `.undelete()`
-method.
+Deleting all resources is final, except for Experiments, Folders and FCS files. Those resources are marked as deleted, then permanently deleted at a later date.
+To undelete an Experiment, use the `.undelete()` method.
+
 ```python
 att = experiment.get_attachment(name="my_file.txt")
 att.delete()
 experiment.attachments  # returns []
 ```
 
-
-## More help
-* [GitHub](https://github.com/PrimityBio/cellengine-python-toolkit/)
+## More Help
+* [GitHub Issues](https://github.com/PrimityBio/cellengine-python-toolkit/issues)
 * [CellEngine API](https://docs.cellengine.com/api/)
