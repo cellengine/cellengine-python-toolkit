@@ -49,7 +49,7 @@ setup(
         "requests~=2.22",
         "requests-toolbelt~=0.9",
         "urllib3~=1.25",
-        "custom_inherit~=2.2",
+        "custom_inherit~=2.3",
     ],
     extras_require={"interactive": ["Pillow~=7.0"]},
     tests_require=["pytest", "pytest-vcr"],

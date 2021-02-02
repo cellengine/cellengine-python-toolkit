@@ -24,9 +24,6 @@ def format_polygon_gate(
     """Formats a polygon gate for posting to the CE API.
 
     Args:
-        experiment_id (str): The ID of the experiment to which to add the gate.
-            Use when calling this as a static method; not needed when calling
-            from an Experiment object
         x_channel (str): The name of the x channel to which the gate applies.
         y_channel (str): The name of the y channel to which the gate applies.
         vertices (list): List of coordinates, like [[x,y], [x,y], ...]

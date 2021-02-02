@@ -58,7 +58,7 @@ def client(ENDPOINT_BASE):
             },
             status=200,
         )
-        return APIClient(user_name="gegnew", password="testpass1")
+        return APIClient(username="gegnew", password="testpass1")
 
 
 @pytest.fixture(scope="session")

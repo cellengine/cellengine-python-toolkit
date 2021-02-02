@@ -215,6 +215,18 @@ def test_should_get_plot(client, ENDPOINT_BASE):
 
 
 @responses.activate
+def test_should_get_scaleset(client, ENDPOINT_BASE, scalesets):
+    responses.add(
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/scalesets",
+        json=[scalesets],
+    )
+    s = client.get_scaleset(EXP_ID)
+    assert type(s is ScaleSet)
+    assert s._id == SCALESET_ID
+
+
+@responses.activate
 def test_should_get_statistics(client, ENDPOINT_BASE, statistics):
     responses.add(
         responses.POST,
@@ -247,15 +259,3 @@ def test_should_get_statistics(client, ENDPOINT_BASE, statistics):
         population_ids="some population id",
     )
     assert set(expected_query_body) == set(json.loads(responses.calls[0].request.body))
-
-
-@responses.activate
-def test_should_get_scaleset(client, ENDPOINT_BASE, scalesets):
-    responses.add(
-        responses.GET,
-        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/scalesets",
-        json=[scalesets],
-    )
-    s = client.get_scaleset(EXP_ID)
-    assert type(s is ScaleSet)
-    assert s._id == SCALESET_ID

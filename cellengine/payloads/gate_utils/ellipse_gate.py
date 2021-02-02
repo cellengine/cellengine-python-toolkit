@@ -27,9 +27,6 @@ def format_ellipse_gate(
     """Formats an ellipse gate for posting to the CellEngine API.
 
     Args:
-        experiment_id (str): The ID of the experiment to which to add the gate.
-            Use when calling this as a static method; not needed when calling
-            from an Experiment object
         x_channel (str): The name of the x channel to which the gate applies.
         y_channel (str): The name of the y channel to which the gate applies.
         name (str): The name of the gate

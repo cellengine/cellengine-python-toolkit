@@ -3,6 +3,7 @@ import attr
 import importlib
 from typing import Dict, List, Optional
 from math import pi
+from custom_inherit import doc_inherit
 
 import cellengine as ce
 from cellengine.utils.helpers import get_args_as_kwargs
@@ -181,6 +182,7 @@ class RectangleGate(Gate):
     """Basic concrete class for Rectangle gates"""
 
     @classmethod
+    @doc_inherit(format_rectangle_gate)
     def create(
         cls,
         experiment_id: str,
@@ -200,7 +202,7 @@ class RectangleGate(Gate):
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
-    ):
+    ) -> RectangleGate:
         g = format_rectangle_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
 
@@ -209,6 +211,7 @@ class PolygonGate(Gate):
     """Basic concrete class for polygon gates"""
 
     @classmethod
+    @doc_inherit(format_polygon_gate)
     def create(
         cls,
         experiment_id: str,
@@ -225,7 +228,7 @@ class PolygonGate(Gate):
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
-    ):
+    ) -> PolygonGate:
         g = format_polygon_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
 
@@ -234,6 +237,7 @@ class EllipseGate(Gate):
     """Basic concrete class for ellipse gates"""
 
     @classmethod
+    @doc_inherit(format_ellipse_gate)
     def create(
         cls,
         experiment_id: str,
@@ -254,7 +258,7 @@ class EllipseGate(Gate):
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
-    ):
+    ) -> EllipseGate:
         g = format_ellipse_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
 
@@ -263,6 +267,7 @@ class RangeGate(Gate):
     """Basic concrete class for range gates"""
 
     @classmethod
+    @doc_inherit(format_range_gate)
     def create(
         cls,
         experiment_id: str,
@@ -280,7 +285,7 @@ class RangeGate(Gate):
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
-    ):
+    ) -> RangeGate:
         g = format_range_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
 
@@ -289,6 +294,7 @@ class QuadrantGate(Gate):
     """Basic concrete class for quadrant gates"""
 
     @classmethod
+    @doc_inherit(format_quadrant_gate)
     def create(
         cls,
         experiment_id: str,
@@ -309,7 +315,7 @@ class QuadrantGate(Gate):
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
-    ):
+    ) -> QuadrantGate:
         g = format_quadrant_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)
 
@@ -318,6 +324,7 @@ class SplitGate(Gate):
     """Basic concrete class for split gates"""
 
     @classmethod
+    @doc_inherit(format_split_gate)
     def create(
         cls,
         experiment_id: str,
@@ -335,6 +342,6 @@ class SplitGate(Gate):
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
-    ):
+    ) -> SplitGate:
         g = format_split_gate(**get_args_as_kwargs(cls, locals()))
         return cls(g)

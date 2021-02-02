@@ -2,7 +2,7 @@ import os
 import json
 import pandas
 from getpass import getpass
-from typing import List, Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from functools import lru_cache
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -22,30 +22,30 @@ from cellengine.resources.scaleset import ScaleSet
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
 
-    def __init__(self, user_name=None, password=None, token=None):
+    def __init__(self, username=None, password=None, token=None):
         super(APIClient, self).__init__()
         self.base_url = os.environ.get(
             "CELLENGINE_BASE_URL", "https://cellengine.com/api/v1"
         )
-        self.user_name = user_name
+        self.username = username
         self.password = password or os.environ.get("CELLENGINE_PASSWORD")
         self.token = token or os.environ.get("CELLENGINE_AUTH_TOKEN")
         self.user_id = None
         self.flags = None
         self.authenticated = self._authenticate(
-            self.user_name, self.password, self.token
+            self.username, self.password, self.token
         )
 
         self.cache_info = self._get_id_by_name.cache_info
         self.cache_clear = self._get_id_by_name.cache_clear
 
     def __repr__(self):
-        if self.user_name:
-            return f"Client(user={self.user_name})"
+        if self.username:
+            return f"Client(user={self.username})"
         else:
             return "Client(TOKEN)"
 
-    def _authenticate(self, user_name, password, token):
+    def _authenticate(self, username, password, token):
         """Authenticate with the CellEngine API.
 
         There are two ways of authenticating:
@@ -58,13 +58,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             password: Password for login
             token: Authentication token; may be passed instead of username and password
         """
-        if user_name:
-            self.user_name = user_name
+        if username:
+            self.username = username
             self.password = password or getpass()
 
             res = self._post(
                 f"{self.base_url}/signin",
-                {"username": self.user_name, "password": self.password},
+                {"username": self.username, "password": self.password},
             )
 
             self.token = res["token"]
@@ -280,50 +280,49 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Parameters:
             experiment_id (str): ID of the experiment
             fcs_file_id (str): ID of the FcsFile
-            kwargs (Dict): Optional query parameters, camelCased.
-
-                    compensatedQ (bool): If true, applies the compensation
-                      specified in compensationId to the exported events. For
-                      TSV format, the numerical values will be the compensated
-                      values.  For FCS format, the numerical values will be
-                      unchanged, but the file header will contain the
-                      compensation as the spill string (file-internal
-                      compensation).
-                    compensationId (str, optional): Required if populationId is
-                        specified. Compensation to use for gating.
-                    headers (bool): For TSV format only. If true, a header row
-                      containing the channel names will be included.
-                    original (bool): If true, the returned file will be
-                        byte-for-byte identical to the originally uploaded
-                        file. If false or unspecified (and compensatedQ is
-                        false, populationId is unspecified and all subsampling
-                        parameters are unspecified), the returned file will
-                        contain essentially the same data as the originally
-                        uploaded file, but may not be byte-for-byte identical.
-                        For example, the byte ordering of the DATA segment will
-                        always be little-endian and any extraneous information
-                        appended to the end of the original file will be
-                        stripped. This parameter takes precedence over
-                        compensatedQ, populationId and the subsampling
-                        parameters.
-                    populationId (str): If provided, only events from this
-                        population will be included in the output file.
-                    postSubsampleN (int): Randomly subsample the file to
-                        contain this many events after gating.
-                    postSubsampleP (float): Randomly subsample the file to
-                        contain this percent of events (0 to 1) after gating.
-                    preSubsampleN (int): Randomly subsample the file to contain
-                        this many events before gating.
-                    preSubsampleP (float): Randomly subsample the file to
-                        contain this percent of events (0 to 1) before gating.
-                    seed: (float): Seed for random number generator used for
-                        subsampling. Use for deterministic (reproducible)
-                        subsampling.  If omitted, a pseudo-random value is
-                        used.
-                    addEventNumber (bool): Add an event number column to the
-                        exported file. When a populationId is specified
-                        (when gating), this number corresponds to the index of
-                        the event in the original file.
+            kwargs:
+                - compensatedQ (bool): If true, applies the compensation
+                  specified in compensationId to the exported events. For
+                  TSV format, the numerical values will be the compensated
+                  values.  For FCS format, the numerical values will be
+                  unchanged, but the file header will contain the
+                  compensation as the spill string (file-internal
+                  compensation).
+                - compensationId (str, optional): Required if populationId is
+                    specified. Compensation to use for gating.
+                - headers (bool): For TSV format only. If true, a header row
+                  containing the channel names will be included.
+                - original (bool): If true, the returned file will be
+                    byte-for-byte identical to the originally uploaded
+                    file. If false or unspecified (and compensatedQ is
+                    false, populationId is unspecified and all subsampling
+                    parameters are unspecified), the returned file will
+                    contain essentially the same data as the originally
+                    uploaded file, but may not be byte-for-byte identical.
+                    For example, the byte ordering of the DATA segment will
+                    always be little-endian and any extraneous information
+                    appended to the end of the original file will be
+                    stripped. This parameter takes precedence over
+                    compensatedQ, populationId and the subsampling
+                    parameters.
+                - populationId (str): If provided, only events from this
+                    population will be included in the output file.
+                - postSubsampleN (int): Randomly subsample the file to
+                    contain this many events after gating.
+                - postSubsampleP (float): Randomly subsample the file to
+                    contain this percent of events (0 to 1) after gating.
+                - preSubsampleN (int): Randomly subsample the file to contain
+                    this many events before gating.
+                - preSubsampleP (float): Randomly subsample the file to
+                    contain this percent of events (0 to 1) before gating.
+                - seed: (int): Seed for random number generator used for
+                    subsampling. Use for deterministic (reproducible)
+                    subsampling.  If omitted, a pseudo-random value is
+                    used.
+                - addEventNumber (bool): Add an event number column to the
+                    exported file. When a populationId is specified
+                    (when gating), this number corresponds to the index of
+                    the event in the original file.
         """
         params = {}
         if kwargs:
@@ -348,7 +347,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return gate
         return Gate.factory(gate)
 
-    def delete_gate(self, experiment_id: str, _id=None, gid=None, exclude=None) -> None:
+    def delete_gate(
+        self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None
+    ) -> None:
         """Deletes a gate or a tailored gate family.
 
         Specify the top-level gid when working with compound gates (specifying
@@ -358,9 +359,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         a static method from cellengine.Gate or from an Experiment instance.
 
         Args:
-            experiment_id (str): ID of experiment.
-            _id (str): ID of gate family.
-            exclude (str): Gate ID to exclude from deletion.
+            experiment_id: ID of experiment.
+            _id: ID of the gate to delete.
+            gid: ID of gate family to delte.
+            exclude: Gate ID to exclude from deletion.
 
         Example:
             ```python
@@ -473,6 +475,22 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return Population(res)
 
+    def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
+        """Get a scaleset for an experiment."""
+        scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
+            0
+        ]
+        if as_dict:
+            return scaleset
+        return ScaleSet(scaleset)
+
+    def post_statistics(self, experiment_id, req_params, raw=True):
+        return self._post(
+            f"{self.base_url}/experiments/{experiment_id}/bulkstatistics",
+            json=req_params,
+            raw=raw,
+        )
+
     def get_statistics(
         self,
         experiment_id: str,
@@ -557,11 +575,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         }
         req_params = {key: val for key, val in params.items() if val is not None}
 
-        raw_stats = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/bulkstatistics",
-            json=req_params,
-            raw=True,
-        )
+        raw_stats = self.post_statistics(experiment_id, req_params)
 
         format = format.lower()
         if format == "json":
@@ -576,12 +590,3 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                 return pandas.DataFrame.from_dict(json.loads(raw_stats))
             except Exception as e:
                 raise ValueError("Invalid data format {} for pandas".format(format), e)
-
-    def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
-        """Get a scaleset for an experiment."""
-        scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
-            0
-        ]
-        if as_dict:
-            return scaleset
-        return ScaleSet(scaleset)

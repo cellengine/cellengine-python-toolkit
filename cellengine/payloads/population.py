@@ -19,7 +19,7 @@ class _Population(object):
 
     gates = GetSet("gates")
 
-    terminal_gate_gid = GetSet("terminalGateId")
+    terminal_gate_gid = GetSet("terminalGateGid")
 
     parent_id = GetSet("parentId")
 
