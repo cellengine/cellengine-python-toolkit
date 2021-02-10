@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/gates/">
       
       <link rel="shortcut icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -593,18 +593,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../statistics/" class="md-nav__link">
-        Statistics
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../scalesets/" class="md-nav__link">
         ScaleSets
       </a>
@@ -921,8 +909,6 @@ own implementation of the abstract <code>Gate</code> class. Do not instantiate t
 <p>All gate types share some required and optional arguments,
 which are <a href="#cellengine.resources.gate.Gate">documented</a> on the base <code>Gate</code>
 class. Gate-specific arguments are documented in each gate type.</p>
-<p>For a list of accessible properties, see <a href="#properties">Properties</a>.</p>
-<p>Methods are available for common access and transformations on the Gate.</p>
 <h2 id="properties">Properties</h2>
 <p>Properties are the snake_case equivalent of those documented on the
 <a href="https://docs.cellengine.com/api/#gates">CellEngine API</a> unless otherwise noted.</p>
@@ -964,10 +950,10 @@ inherit the methods below.</p>
 <div class="doc doc-contents ">
 <p>Deletes a gate or a tailored gate family.</p>
 <p>Specify the top-level gid when working with compound gates (specifying
-the gid of a sector (i.e. one listed in <code>model.gids</code>) will result in no
-gates being deleted). If <code>_id</code> is specified, only that gate will be
+the gid of a sector (i.e. one listed in <code>model.gids</code>) will result in
+no gates being deleted). If <code>_id</code> is specified, only that gate will be
 deleted, regardless of the other parameters specified. May be called as
-a static method from cellengine.Gate or from an Experiment instance.</p>
+a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code> instance.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -1104,7 +1090,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a rectangle gate for posting to the CE API.</p>
+<p>Formats a rectangle gate for posting to the CellEngine API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -1314,7 +1300,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a polygon gate for posting to the CE API.</p>
+<p>Formats a polygon gate for posting to the CellEngine API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -1707,7 +1693,7 @@ population.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a range gate for posting to the CE API.</p>
+<p>Formats a range gate for posting to the CellEngine API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -1900,7 +1886,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a split gate for posting to the CE API.</p>
+<p>Formats a split gate for posting to the CellEngine API.</p>
 <p>Split gates have two sectors (right and left),
 each with a unique gid and name.</p>
 <p><strong>Parameters:</strong></p>
@@ -2096,7 +2082,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a quadrant gate for posting to the CE API.</p>
+<p>Formats a quadrant gate for posting to the CellEngine API.</p>
 <p>Quadrant gates have four sectors (upper-right, upper-left, lower-left,
 lower-right), each with a unique gid and name.</p>
 <p><strong>Parameters:</strong></p>
@@ -2300,7 +2286,17 @@ convenience, the <code>model</code> property has dot-indexing for getting and se
 properties. For instance:</p>
 <div class="highlight"><pre><span></span><code><span class="o">&gt;</span> <span class="n">gate</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">gates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span>
-<span class="n">Munch</span><span class="p">({</span><span class="s1">&#39;polygon&#39;</span><span class="p">:</span> <span class="n">Munch</span><span class="p">({</span><span class="s1">&#39;vertices&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">4.68957</span><span class="p">,</span> <span class="mf">2.90929</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.23152</span><span class="p">,</span> <span class="mf">5.77464</span><span class="p">],</span> <span class="p">[</span><span class="mf">7.76064</span><span class="p">,</span> <span class="mf">5.956</span><span class="p">],</span> <span class="p">[</span><span class="mf">8.59164</span><span class="p">,</span> <span class="mf">4.65026</span><span class="p">],</span> <span class="p">[</span><span class="mf">6.71287</span><span class="p">,</span> <span class="mf">2.32896</span><span class="p">]]}),</span> <span class="s1">&#39;locked&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.62844</span><span class="p">,</span> <span class="mf">6.19701</span><span class="p">]})</span>
+<span class="n">Munch</span><span class="p">({</span><span class="s1">&#39;polygon&#39;</span><span class="p">:</span>
+    <span class="n">Munch</span><span class="p">({</span><span class="s1">&#39;vertices&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mf">4.68957</span><span class="p">,</span> <span class="mf">2.90929</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">5.23152</span><span class="p">,</span> <span class="mf">5.77464</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">7.76064</span><span class="p">,</span> <span class="mf">5.956</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">8.59164</span><span class="p">,</span> <span class="mf">4.65026</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">6.71287</span><span class="p">,</span> <span class="mf">2.32896</span><span class="p">]</span>
+    <span class="p">]}),</span>
+    <span class="s1">&#39;locked&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.62844</span><span class="p">,</span> <span class="mf">6.19701</span><span class="p">]</span>
+<span class="p">})</span>
 
 <span class="o">&gt;</span> <span class="n">gate</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">polygon</span><span class="o">.</span><span class="n">vertices</span>
 <span class="p">[[</span><span class="mf">4.68957</span><span class="p">,</span> <span class="mf">2.90929</span><span class="p">],</span>
@@ -2353,8 +2349,7 @@ properties. For instance:</p>
 <span class="n">gate</span><span class="o">.</span><span class="n">post</span><span class="p">()</span>
 </code></pre></div>
 <h4 id="post-gates-in-bulk">Post gates in bulk</h4>
-<p>When creating many gates, it will be <em>much</em> more efficient to build the gates
-in a list, then save them in bulk to CellEngine. For instance:
+<p>When creating many gates, build the gates in a list, then save them in bulk to CellEngine. For instance:
 <div class="highlight"><pre><span></span><code><span class="n">gates</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">gates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
     <span class="n">EllipseGate</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
@@ -2438,8 +2433,8 @@ in a list, then save them in bulk to CellEngine. For instance:
       
     </div>
     
-      <script src="../assets/javascripts/vendor.53cc9318.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

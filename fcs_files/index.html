@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/fcs_files/">
       
       <link rel="shortcut icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -453,18 +453,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../statistics/" class="md-nav__link">
-        Statistics
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../scalesets/" class="md-nav__link">
         ScaleSets
       </a>
@@ -637,8 +625,6 @@
 <p>FCS files are the standard data representation for flow cytometry.  In
 CellEngine, an <code>FcsFile</code> resource represents the file itself, along with
 metadata such as the panel and annotations.</p>
-<p>For a list of accessible properties, see <a href="#properties">Properties</a>.</p>
-<p>Methods are available for common access and transformations on the FCS file.</p>
 <h2 id="properties">Properties</h2>
 <p>Properties are the snake_case equivalent of those documented on the
 <a href="https://docs.cellengine.com/api/#fcs_files">CellEngine API</a> unless otherwise noted.</p>
@@ -669,7 +655,7 @@ metadata such as the panel and annotations.</p>
 <p>This is fetched from the server on-demand the first time that
 this property is accessed.</p>
 <p>To fetch a file with specific parameters (e.g. subsampling, or
-gated to a specific population) see FcsFile.get_events()</p>
+gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1031,8 +1017,8 @@ include all channels in the file.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.53cc9318.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

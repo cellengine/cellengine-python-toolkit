@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/">
       
       <link rel="shortcut icon" href="images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -235,11 +235,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#quickstart" class="md-nav__link">
-    Quickstart
+  <a href="#quick-start" class="md-nav__link">
+    Quick Start
   </a>
   
-    <nav class="md-nav" aria-label="Quickstart">
+    <nav class="md-nav" aria-label="Quick Start">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -251,14 +251,7 @@
         
           <li class="md-nav__item">
   <a href="#get-resources" class="md-nav__link">
-    Get resources:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-resources-by-name-or-id" class="md-nav__link">
-    Get resources by name or ID
+    Get resources
   </a>
   
 </li>
@@ -298,7 +291,7 @@
       
         <li class="md-nav__item">
   <a href="#more-help" class="md-nav__link">
-    More help
+    More Help
   </a>
   
 </li>
@@ -437,18 +430,6 @@
   
   
     <li class="md-nav__item">
-      <a href="statistics/" class="md-nav__link">
-        Statistics
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="scalesets/" class="md-nav__link">
         ScaleSets
       </a>
@@ -517,11 +498,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#quickstart" class="md-nav__link">
-    Quickstart
+  <a href="#quick-start" class="md-nav__link">
+    Quick Start
   </a>
   
-    <nav class="md-nav" aria-label="Quickstart">
+    <nav class="md-nav" aria-label="Quick Start">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -533,14 +514,7 @@
         
           <li class="md-nav__item">
   <a href="#get-resources" class="md-nav__link">
-    Get resources:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-resources-by-name-or-id" class="md-nav__link">
-    Get resources by name or ID
+    Get resources
   </a>
   
 </li>
@@ -580,7 +554,7 @@
       
         <li class="md-nav__item">
   <a href="#more-help" class="md-nav__link">
-    More help
+    More Help
   </a>
   
 </li>
@@ -605,77 +579,63 @@
                 <h1 id="cellengine-api-toolkit-for-python">CellEngine API Toolkit for Python</h1>
 <p>This is the documentation for the Python toolkit for the CellEngine API. For
 API documentation visit <a href="https://docs.cellengine.com/api/">here</a>.</p>
-<h2 id="quickstart">Quickstart</h2>
+<h2 id="quick-start">Quick Start</h2>
 <p>Install <code>cellengine</code> using <code>pip</code>:</p>
 <div class="highlight"><pre><span></span><code>pip install cellengine
 </code></pre></div>
 <p>For the development version:</p>
 <div class="highlight"><pre><span></span><code>pip install git+https://github.com/primitybio/cellengine-python-toolkit.git
 </code></pre></div>
-<p>Note: Resources all have a unique ID. In this toolkit, the ID is referred to
-as <code>_id</code>, i.e. <code>Experiment()._id</code>.</p>
 <h3 id="authentication">Authentication</h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">cellengine</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">APIClient</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;jason&quot;</span><span class="p">)</span>
 <span class="c1"># Password: &lt;enter your password here&gt;</span>
-<span class="c1"># Alternatively, authenticate by setting CELLENGINE_PASSWORD or CELLENGINE_AUTH_TOKEN in your environment</span>
+<span class="c1"># Alternatively, authenticate by setting CELLENGINE_PASSWORD or </span>
+<span class="c1"># CELLENGINE_AUTH_TOKEN in your environment</span>
 
 <span class="c1"># Get a list of all accessible experiments</span>
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiments</span><span class="p">()</span>
-
-<span class="c1"># or get one experiment by its name</span>
+</code></pre></div>
+<h3 id="get-resources">Get resources</h3>
+<p>All resources have a unique ID stored as <code>_id</code>, e.g. <code>Experiment()._id</code>.
+Resources can be retrieved by name or by ID:
+<div class="highlight"><pre><span></span><code><span class="c1"># Get an experiment by its name</span>
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;My experiment&quot;</span><span class="p">)</span>
-<span class="c1"># alternatively,</span>
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">Experiment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;My experiment&quot;</span><span class="p">)</span>
-
-<span class="c1"># or get one experiment by ID</span>
+<span class="c1"># or by its ID</span>
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiment</span><span class="p">(</span><span class="s2">&quot;5f203e852a183003c2459c94&quot;</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="get-resources">Get resources:</h3>
-<p>The following are all equivalent commands, and apply to all resources types:
-<div class="highlight"><pre><span></span><code><span class="n">att</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my attachment&quot;</span><span class="p">)</span>
-<span class="c1"># assuming that &#39;my attachment&#39; has this ID</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get an attachment by name</span>
+<span class="n">att</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my attachment&quot;</span><span class="p">)</span>
+<span class="n">att</span> <span class="o">=</span> <span class="n">Attachment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="s2">&quot;my attachment&quot;</span><span class="p">)</span>
+<span class="c1"># or by its ID</span>
 <span class="n">att</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="s2">&quot;5f3ac0ba5465db092213cff5&quot;</span><span class="p">)</span>
 <span class="n">att</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="s2">&quot;5f3ac0ba5465db092213cff5&quot;</span><span class="p">)</span>
-<span class="n">att</span> <span class="o">=</span> <span class="n">Attachment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="s2">&quot;my attachment&quot;</span><span class="p">)</span>
 </code></pre></div></p>
-<h3 id="get-resources-by-name-or-id">Get resources by name or ID</h3>
-<div class="highlight"><pre><span></span><code><span class="n">comp</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_compensation</span><span class="p">(</span><span class="s2">&quot;5f3ac0ba5465db092213cff8&quot;</span><span class="p">)</span>
-<span class="n">file</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_fcs_file</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;160311-96plex-4dye&quot;</span><span class="p">)</span>
-</code></pre></div>
 <h3 id="create-resources">Create resources</h3>
-<div class="highlight"><pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">create_attachment</span><span class="p">(</span><span class="s2">&quot;my_file.txt&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">upload_attachment</span><span class="p">(</span><span class="s2">&quot;path/to/my_file.txt&quot;</span><span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">create_compensation</span><span class="p">(</span><span class="s2">&quot;My comp&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Chan1&quot;</span><span class="p">,</span> <span class="s2">&quot;Chan2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 </code></pre></div>
 <h3 id="update-resources">Update resources</h3>
 <div class="highlight"><pre><span></span><code><span class="n">att</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_file.txt&quot;</span><span class="p">)</span>
 <span class="n">att</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;my_new_name.txt&quot;</span>
-<span class="n">att</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="n">att</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>  <span class="c1"># save changes back to CellEngine</span>
 </code></pre></div>
 <h3 id="operate-on-resources">Operate on resources</h3>
-<div class="highlight"><pre><span></span><code><span class="n">file1</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">fcs_files</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;160311-96plex-4dye&quot;</span><span class="p">)</span>
-<span class="c1"># get a Pandas dataframe of an FcsFile&#39;s events, subsampling for only 10 events</span>
+<div class="highlight"><pre><span></span><code><span class="n">file1</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_fcs_file</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;160311-96plex-4dye&quot;</span><span class="p">)</span>
+<span class="c1"># Get a Pandas dataframe containing an FcsFile&#39;s events, subsampled to 10 events</span>
 <span class="n">events_df</span> <span class="o">=</span> <span class="n">file1</span><span class="o">.</span><span class="n">get_events</span><span class="p">(</span><span class="n">preSubsampleN</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="n">split_gate</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_split_gate</span><span class="p">(</span>
-    <span class="n">file1</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;split_gate&quot;</span><span class="p">,</span> <span class="mi">2300000</span><span class="p">,</span> <span class="mi">250000</span>
-<span class="p">)</span>
-<span class="c1"># The above command is equivalent to:</span>
-<span class="n">split_gate</span> <span class="o">=</span> <span class="n">SplitGate</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">file1</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;split_gate&quot;</span><span class="p">,</span> <span class="mi">2300000</span><span class="p">,</span> <span class="mi">250000</span>
-<span class="p">)</span>
 </code></pre></div>
 <h3 id="delete-resources">Delete resources</h3>
-<p>Deleting all resources is final, EXCEPT for
-Experiments. Experiments are marked as deleted for 7 days, then
-permanently deleted. To undelete an Experiment, use the <code>.undelete()</code>
-method.
+<p>Deleting all resources is final, except for Experiments, Folders and FCS files. Those resources are marked as deleted, then permanently deleted at a later date.
+To undelete an Experiment, use the <code>.undelete()</code> method.</p>
 <div class="highlight"><pre><span></span><code><span class="n">att</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_file.txt&quot;</span><span class="p">)</span>
 <span class="n">att</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">attachments</span>  <span class="c1"># returns []</span>
-</code></pre></div></p>
-<h2 id="more-help">More help</h2>
+</code></pre></div>
+<h2 id="more-help">More Help</h2>
 <ul>
-<li><a href="https://github.com/PrimityBio/cellengine-python-toolkit/">GitHub</a></li>
+<li><a href="https://github.com/PrimityBio/cellengine-python-toolkit/issues">GitHub Issues</a></li>
 <li><a href="https://docs.cellengine.com/api/">CellEngine API</a></li>
 </ul>
                 
@@ -730,8 +690,8 @@ method.
       
     </div>
     
-      <script src="assets/javascripts/vendor.53cc9318.min.js"></script>
-      <script src="assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

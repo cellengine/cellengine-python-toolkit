@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/compensations/">
       
       <link rel="shortcut icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -373,13 +373,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#cellengine.payloads.compensation._Compensation" class="md-nav__link">
-    cellengine.payloads.compensation._Compensation
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -443,18 +436,6 @@
     <li class="md-nav__item">
       <a href="../populations/" class="md-nav__link">
         Populations
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../statistics/" class="md-nav__link">
-        Statistics
       </a>
     </li>
   
@@ -608,13 +589,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#cellengine.payloads.compensation._Compensation" class="md-nav__link">
-    cellengine.payloads.compensation._Compensation
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -635,12 +609,10 @@
                 <h1 id="compensations">Compensations</h1>
 <p><a href="https://docs.cellengine.com/api/#compensations">CellEngine API: Compensations</a></p>
 <p>A compensation is a list of channel names and a corresponding square matrix.
-The matrix is technically a "spill"/"spillover" matrix, which is inverted to
+The matrix is technically a "spill" or "spillover" matrix, which is inverted to
 yield the compensation matrix; most applications refer to the spill matrix as a
-compensation matrix, however. In the Python SDK, the matrix is represented by a
-Pandas DataFrame.</p>
-<p>For accessible properties, see <a href="#properties">Properties</a>.</p>
-<p>Methods are available for common access and transformations on the Compensation.</p>
+compensation matrix, however.</p>
+<p>In the Python SDK, the matrix is represented by a Pandas DataFrame.</p>
 <h2 id="properties">Properties</h2>
 <p>Properties are getter methods and setter methods representing the underlying
 CellEngine object. Properties are the snake_case equivalent of those documented
@@ -765,9 +737,37 @@ FCS files to compensate them.</p>
 
       </h3>
 <div class="doc doc-contents ">
-
-
-    </div>
+<p>Creates a compensation</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>experiment_id</code></td>
+<td><code>str</code></td>
+<td>
+<p>ID of experiment that this compensation belongs to.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>compensation</code></td>
+<td><code>dict</code></td>
+<td>
+<p>Dict containing <code>channels</code> and <code>spillMatrix</code> properties.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.delete">
@@ -808,14 +808,6 @@ FCS files to compensate them.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="hidden-toc" id="cellengine.payloads.compensation._Compensation" style="visibility: hidden; position: absolute;">
-        </h2>
-<div class="doc doc-contents first">
-<p>A class containing CellEngine compensation resource properties. Can be applied to
-FCS files to compensate them.</p>
 </div>
 </div>
                 
@@ -884,8 +876,8 @@ FCS files to compensate them.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.53cc9318.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

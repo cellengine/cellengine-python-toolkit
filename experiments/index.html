@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/experiments/">
       
       <link rel="shortcut icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -628,18 +628,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../statistics/" class="md-nav__link">
-        Statistics
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../scalesets/" class="md-nav__link">
         ScaleSets
       </a>
@@ -1139,7 +1127,7 @@ experiment's ID.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Remove a scheduled deletion.</p>
+<p>Clear a scheduled deletion.</p>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -1270,7 +1258,7 @@ attachments, FCS files, gates and populations.</p>
 <tr>
 <td><code>Experiment</code></td>
 <td>
-<p>Experiment: Creates the Experiment on CellEngine and returns it.</p>
+<p>Creates the Experiment in CellEngine and returns it.</p>
 </td>
 </tr>
 </tbody>
@@ -1541,7 +1529,7 @@ population.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a polygon gate for posting to the CE API.</p>
+<p>Formats a polygon gate for posting to the CellEngine API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -1729,12 +1717,15 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<p>experiment.create_population({
-    "name": name,
-    "terminalGateGid": GID,
-    "parentId": parent._id,
-    "gates": json.dumps({"$and": AND_GATES})
-})</p>
+<div class="highlight">
+<pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">create_population</span><span class="p">({</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+    <span class="s2">"terminalGateGid"</span><span class="p">:</span> <span class="n">GID</span><span class="p">,</span>
+    <span class="s2">"parentId"</span><span class="p">:</span> <span class="n">parent</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span>
+    <span class="s2">"gates"</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">"$and"</span><span class="p">:</span> <span class="n">AND_GATES</span><span class="p">})</span>
+<span class="p">})</span>
+</code></pre>
+</div>
 <p><strong>Returns:</strong></p>
 <table>
 <thead>
@@ -1747,7 +1738,7 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 <tr>
 <td><code>Population</code></td>
 <td>
-<p>Population: A created complex population.</p>
+<p>The new population.</p>
 </td>
 </tr>
 </tbody>
@@ -1762,7 +1753,7 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a quadrant gate for posting to the CE API.</p>
+<p>Formats a quadrant gate for posting to the CellEngine API.</p>
 <p>Quadrant gates have four sectors (upper-right, upper-left, lower-left,
 lower-right), each with a unique gid and name.</p>
 <p><strong>Parameters:</strong></p>
@@ -1965,7 +1956,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a range gate for posting to the CE API.</p>
+<p>Formats a range gate for posting to the CellEngine API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -2141,7 +2132,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a rectangle gate for posting to the CE API.</p>
+<p>Formats a rectangle gate for posting to the CellEngine API.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -2334,7 +2325,7 @@ to the server. If specified, do not specify <code>fcs_file_id</code>.</p>
 
       </h3>
 <div class="doc doc-contents ">
-<p>Formats a split gate for posting to the CE API.</p>
+<p>Formats a split gate for posting to the CellEngine API.</p>
 <p>Split gates have two sectors (right and left),
 each with a unique gid and name.</p>
 <p><strong>Parameters:</strong></p>
@@ -2726,8 +2717,8 @@ for more information.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.53cc9318.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

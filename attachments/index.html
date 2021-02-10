@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/attachments/">
       
       <link rel="shortcut icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -432,18 +432,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../statistics/" class="md-nav__link">
-        Statistics
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../scalesets/" class="md-nav__link">
         ScaleSets
       </a>
@@ -592,13 +580,12 @@
                 
                 <h1 id="attachments">Attachments</h1>
 <p><a href="https://docs.cellengine.com/api/#attachments">CellEngine API: Attachments</a></p>
-<p>Attachments are non-data files stored in an experiment.
-For accessible properties, see <a href="#properties">Properties</a>.</p>
-<p>Methods are available for common access and transformations on the Attachment.</p>
+<p>Attachments are non-data files stored in an experiment.</p>
 <h2 id="properties">Properties</h2>
-<p>Properties are getter methods and setter methods representing the underlying
-CellEngine object. Properties are the snake_case equivalent of those documented
-on the <a href="https://docs.cellengine.com/api/#attachments">CellEngine API</a> unless otherwise noted.</p>
+<p>Properties are getter and setter methods representing the underlying CellEngine
+object. Properties are the snake_case equivalent of those documented in the
+<a href="https://docs.cellengine.com/api/#attachments">CellEngine API</a> unless otherwise
+noted.</p>
 <h2 id="methods">Methods</h2>
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="cellengine.resources.attachment.Attachment">
@@ -632,8 +619,8 @@ Attachments are non-data files that are stored in an experiment.</p>
       </h3>
 <div class="doc doc-contents ">
 <p>Download the attachment.</p>
-<p>Defaults to returning the file as a blob. If <code>to_file</code> is specified, the file
-will be saved to disk.</p>
+<p>Defaults to returning the file as a blob. If <code>to_file</code> is specified,
+the file will be saved to disk.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -649,8 +636,8 @@ will be saved to disk.</p>
 <td><code>to_file</code></td>
 <td><code>str</code></td>
 <td>
-<p>Filepath at which to save the file. Accepts relative or
-absolute path.</p>
+<p>Path at which to save the file. Accepts relative or
+absolute paths.</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -687,7 +674,7 @@ absolute path.</p>
       </h3>
 <div class="doc doc-contents ">
 <p>Get an Attachment by name or ID for a specific experiment. Either
-<code>name</code> or <code>id</code> must be specified.</p>
+<code>name</code> or <code>_id</code> must be specified.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -748,8 +735,8 @@ absolute path.</p>
 <tr>
 <td><code>None</code></td>
 <td>
-<p>Updates the Attachment on CellEngine and then
-    synchronizes the properties with the current Attachment object.</p>
+<p>Updates the Attachment on CellEngine and synchronizes the
+    local Attachment object properties with remote state.</p>
 </td>
 </tr>
 </tbody>
@@ -840,8 +827,8 @@ absolute path.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.53cc9318.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
