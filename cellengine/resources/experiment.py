@@ -5,6 +5,7 @@ from custom_inherit import doc_inherit
 from typing import Optional, Dict, Union, List
 
 import cellengine as ce
+from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
 from cellengine.payloads.experiment import _Experiment
 from cellengine.resources.population import Population
 from cellengine.resources.scaleset import ScaleSet
@@ -206,6 +207,7 @@ class Experiment(_Experiment):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_population(self._id, **kwargs)
 
+    @doc_inherit(BaseAPIClient.get_statistics)
     def get_statistics(
         self,
         statistics: Union[str, List[str]],
