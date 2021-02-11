@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 import json
 import pandas
@@ -9,14 +10,14 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
 from cellengine.utils.api_client.APIError import APIError
 from cellengine.utils.singleton import Singleton
-from cellengine.resources.attachment import Attachment
-from cellengine.resources.compensation import Compensation
-from cellengine.resources.experiment import Experiment
-from cellengine.resources.fcs_file import FcsFile
-from cellengine.resources.gate import Gate
-from cellengine.resources.plot import Plot
-from cellengine.resources.population import Population
-from cellengine.resources.scaleset import ScaleSet
+from ...resources.attachment import Attachment
+from ...resources.compensation import Compensation
+from ...resources.experiment import Experiment
+from ...resources.fcs_file import FcsFile
+from ...resources.gate import Gate
+from ...resources.plot import Plot
+from ...resources.population import Population
+from ...resources.scaleset import ScaleSet
 
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
@@ -505,53 +506,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         percent_of: Optional[Union[str, List[str]]] = "PARENT",
         population_ids: Optional[List[str]] = None,
     ):
-        """
-        Request Statistics from CellEngine.
-
-        Args:
-            experiment_id: ID of experiment to request statistics for.
-            statistics: Statistical method to request. Any of "mean", "median",
-                "quantile", "mad" (median absolute deviation), "geometricmean",
-                "eventcount", "cv", "stddev" or "percent" (case-insensitive).
-            q: quantile (required for "quantile" statistic)
-            channels: For "mean", "median", "geometricMean", "cv", "stddev",
-                "mad" or "quantile" statistics, the names of channels for which
-                to calculate statistics.
-            annotations (optional): Include file annotations in output.
-            compensation_id (optional): Compensation to use for gating and
-                statistic calculation. Defaults to uncompensated. Three special
-                constants may be used:
-
-                  * 0: Uncompensated
-                  * -1: File-Internal: Uses the file's internal compensation
-                        matrix, if available. If unavailable, an error will be
-                        returned.
-                  * -2: Per-File Compensation: Use the compensation assigned to
-                        each individual FCS file.
-            fcs_file_ids (optional): FCS files to get statistics for. If
-                omitted, statistics for all non-control FCS files will be
-                returned.
-            format (optional): One of the following (case-insensitive):
-
-                  * "TSV (with header)"
-                  * "TSV (without header)"
-                  * "CSV (with header)"
-                  * "CSV (without header)"
-                  * "json"
-                  * "pandas"
-            layout (optional): The file (TSV/CSV) or object (JSON) layout.
-                One of "tall-skinny", "medium", or "short-wide".
-            percent_of (optional): Population ID or array of population IDs. If
-                omitted or the string "PARENT", will calculate percent of parent
-                for each population. If a single ID, will calculate percent of
-                that population for all populations specified by population_ids.
-                If a list, will calculate percent of each of those populations.
-            population_ids (optional): List of population IDs. Defaults to
-                ungated.
-        Returns:
-            Dict, String, or pandas.Dataframe: statistics
-        """
-
         def determine_format(f):
             if f == "pandas":
                 return "json"
