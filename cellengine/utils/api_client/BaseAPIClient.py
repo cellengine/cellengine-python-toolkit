@@ -133,7 +133,6 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         Request Statistics from CellEngine.
 
         Args:
-            experiment_id: ID of experiment to request statistics for.
             statistics: Statistical method to request. Any of "mean", "median",
                 "quantile", "mad" (median absolute deviation), "geometricmean",
                 "eventcount", "cv", "stddev" or "percent" (case-insensitive).
