@@ -1444,14 +1444,6 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of experiment to request statistics for.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
 <td><code>statistics</code></td>
 <td><code>Union[str, List[str]]</code></td>
 <td>
@@ -1465,7 +1457,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 <td><code>q</code></td>
 <td><code>float</code></td>
 <td>
-<p>quantile (required for "quantile" statistic)</p>
+<p>int: quantile (required for "quantile" statistic)</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -1473,9 +1465,9 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 <td><code>channels</code></td>
 <td><code>List[str]</code></td>
 <td>
-<p>For "mean", "median", "geometricMean", "cv", "stddev",
-"mad" or "quantile" statistics, the names of channels for which
-to calculate statistics.</p>
+<p>str or List[str]: for "mean", "median", "geometricMean", "cv",
+"stddev", "mad" or "quantile" statistics. Names of
+channels to calculate statistics for.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1483,7 +1475,8 @@ to calculate statistics.</p>
 <td><code>annotations</code></td>
 <td><code>Optional[bool]</code></td>
 <td>
-<p>Include file annotations in output.</p>
+<p>bool: Include file annotations in output
+(defaults to False).</p>
 </td>
 <td><code>False</code></td>
 </tr>
@@ -1491,17 +1484,15 @@ to calculate statistics.</p>
 <td><code>compensation_id</code></td>
 <td><code>Optional[str]</code></td>
 <td>
-<p>Compensation to use for gating and
-statistic calculation. Defaults to uncompensated. Three special
-constants may be used:</p>
-<ul>
-<li>0: Uncompensated</li>
-<li>-1: File-Internal: Uses the file's internal compensation
-        matrix, if available. If unavailable, an error will be
-        returned.</li>
-<li>-2: Per-File Compensation: Use the compensation assigned to
-        each individual FCS file.</li>
-</ul>
+<p>str: Compensation to use for gating and
+statistic calculation.
+Defaults to uncompensated. Three special constants may be used:
+    0: Uncompensated
+    -1: File-Internal Compensation Uses the file's internal
+        compensation matrix, if available. If not, an error
+        will be returned.
+    -2: Per-File Compensation Use the compensation assigned to
+        each individual FCS file.</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -1509,9 +1500,8 @@ constants may be used:</p>
 <td><code>fcs_file_ids</code></td>
 <td><code>Optional[List[str]]</code></td>
 <td>
-<p>FCS files to get statistics for. If
-omitted, statistics for all non-control FCS files will be
-returned.</p>
+<p>List[str]: FCS files to get statistics for. If
+omitted, statistics for all non-control FCS files will be returned.</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -1519,15 +1509,9 @@ returned.</p>
 <td><code>format</code></td>
 <td><code>Optional[str]</code></td>
 <td>
-<p>One of the following (case-insensitive):</p>
-<ul>
-<li>"TSV (with header)"</li>
-<li>"TSV (without header)"</li>
-<li>"CSV (with header)"</li>
-<li>"CSV (without header)"</li>
-<li>"json"</li>
-<li>"pandas"</li>
-</ul>
+<p>str: One of "TSV (with[out] header)",
+"CSV (with[out] header)" or "json" (default), "pandas",
+case-insensitive.</p>
 </td>
 <td><code>'json'</code></td>
 </tr>
@@ -1535,20 +1519,21 @@ returned.</p>
 <td><code>layout</code></td>
 <td><code>Optional[str]</code></td>
 <td>
-<p>The file (TSV/CSV) or object (JSON) layout.
+<p>str: The file (TSV/CSV) or object (JSON) layout.
 One of "tall-skinny", "medium", or "short-wide".</p>
 </td>
 <td><code>None</code></td>
 </tr>
 <tr>
 <td><code>percent_of</code></td>
-<td><code>Union[str, List[str]]</code></td>
+<td><code>Optional[Union[str, List[str]]]</code></td>
 <td>
-<p>Population ID or array of population IDs. If
-omitted or the string "PARENT", will calculate percent of parent
-for each population. If a single ID, will calculate percent of
-that population for all populations specified by population_ids.
-If a list, will calculate percent of each of those populations.</p>
+<p>str or List[str]: Population ID or array of
+population IDs.  If omitted or the string "PARENT", will calculate
+percent of parent for each population. If a single ID, will calculate
+percent of that population for all populations specified by
+population_ids. If a list, will calculate percent of each of
+those populations.</p>
 </td>
 <td><code>'PARENT'</code></td>
 </tr>
@@ -1556,8 +1541,8 @@ If a list, will calculate percent of each of those populations.</p>
 <td><code>population_ids</code></td>
 <td><code>Optional[List[str]]</code></td>
 <td>
-<p>List of population IDs. Defaults to
-ungated.</p>
+<p>List[str]: List of population IDs.
+Defaults to ungated.</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -1573,9 +1558,9 @@ ungated.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>Dict, String, or pandas.Dataframe</code></td>
+<td><code>statistics</code></td>
 <td>
-<p>statistics</p>
+<p>Dict, String, or pandas.Dataframe</p>
 </td>
 </tr>
 </tbody>
