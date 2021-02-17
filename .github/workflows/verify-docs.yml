@@ -1,0 +1,29 @@
+name: verify mkdocs build
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  verify-docs:
+    name: Verify docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          pip install -e .
+      - name: Install mkdocs dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs
+          pip install mkdocstrings
+          pip install mkdocs-material
+      - name: Build site
+        run: mkdocs build --strict
