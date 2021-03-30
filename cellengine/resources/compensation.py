@@ -59,19 +59,20 @@ class Compensation(_Compensation):
         """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
-    def apply(self, file: FcsFile, inplace: bool = True, **params):
+    def apply(self, file: FcsFile, inplace: bool = False, **kwargs):
         """
-        Compensates the file's data.
+        Compensate an FcsFile's data.
 
         Args:
             file (FcsFile): The FCS file to compensate.
             inplace (bool): Compensate the file's data in-place.
-            params (Dict):
-                All arguments accepted by `FcsFile.events` are accepted here.
+            kwargs (Dict):
+                All arguments accepted by `FcsFile.get_events` are accepted here.
         Returns:
-            DataFrame or None: if ``inplace=True``, returns nothing.
+            DataFrame: if ``inplace=True``, updates `FcsFile.events` for
+                the target FcsFile
         """
-        data = file.events(**params)
+        data = file.get_events(**kwargs, inplace=True)
 
         # spill -> comp by inverting
         inverted = numpy.linalg.inv(self.dataframe)

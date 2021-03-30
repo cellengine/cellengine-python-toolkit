@@ -138,7 +138,7 @@ class FcsFile(_FcsFile):
         gated to a specific population) see `FcsFile.get_events()`.
         """
         if self._events.empty:
-            self.get_events()
+            self.get_events(inplace=True)
             return self._events
         else:
             return self._events
@@ -147,7 +147,7 @@ class FcsFile(_FcsFile):
     def events(self, events):
         self._events = events
 
-    def get_events(self, **kwargs):
+    def get_events(self, inplace: bool = False, **kwargs):
         """
         Fetch a DataFrame containing this file's data.
 
@@ -192,11 +192,15 @@ class FcsFile(_FcsFile):
                     this number corresponds to the index of the event in the
                     original file.
 
-        Returns: None; updates the self.events property.
+        Returns: A DataFrame of this files data, with query parameters applied.
+            If inplace=True, it updates the self.events property.
         """
 
         fresp = ce.APIClient().download_fcs_file(
-            self.experiment_id, self._id, params=dict(kwargs)
+            self.experiment_id, self._id, **kwargs
         )
         parser = fcsparser.api.FCSParser.from_data(fresp)
-        self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+        events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+        if inplace:
+            self._events = events
+        return events

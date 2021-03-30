@@ -22,20 +22,20 @@ log = logging.getLogger(__name__)
 
 @pytest.fixture(scope="module")
 def client():
-    return cellengine.APIClient("gegnew", "testpass123")
+    return cellengine.APIClient("gegnew", "^w^A7kpB$2sezF")
 
 
 @pytest.fixture(scope="module")
 def setup_experiment(request, client):
     log.info("Setting up CellEngine experiment for {}".format(__name__))
-    exp = cellengine.Experiment.create("new_experiment")
-    exp.upload_fcs_file("tests/data/Acea - Novocyte.fcs")
+    # exp = cellengine.Experiment.create("new_experiment")
+    # exp.upload_fcs_file("tests/data/Acea - Novocyte.fcs")
 
-    def teardown():
-        log.info("Starting teardown of: {}".format(__name__))
-        client.delete_experiment(exp._id)
+    # def teardown():
+    #     log.info("Starting teardown of: {}".format(__name__))
+    #     client.delete_experiment(exp._id)
 
-    request.addfinalizer(teardown)
+    # request.addfinalizer(teardown)
 
 
 class TestExperimentIntegration:
@@ -43,8 +43,8 @@ class TestExperimentIntegration:
         experiment = client.get_experiment(name="new_experiment")
 
         # POST
-        experiment.post_attachment("tests/data/text.txt")
-        experiment.post_attachment("tests/data/text.txt", filename="text2.txt")
+        experiment.upload_attachment("tests/data/text.txt")
+        experiment.upload_attachment("tests/data/text.txt", filename="text2.txt")
 
         # GET
         attachments = experiment.attachments
@@ -63,12 +63,27 @@ class TestExperimentIntegration:
         [a.delete() for a in experiment.attachments]
         assert len(experiment.attachments) == 0
 
+    def test_fcs_file_events(self, setup_experiment, client):
+        experiment = client.get_experiment(name="new_experiment")
+        file = experiment.fcs_files[0]
+
+        all_events = file.events
+        limited_events = file.get_events(preSubsampleN = 10)
+
+        assert len(all_events) > len(limited_events)
+        assert len(limited_events) == 10
+
+        # it should update the events value
+        file.get_events(preSubsampleN = 10, inplace=True)
+        assert len(limited_events) == len(file.events)
+
+
     def test_experiment_compensations(self, setup_experiment, client):
         experiment = client.get_experiment(name="new_experiment")
 
         # POST
         file1 = experiment.fcs_files[0]
-        experiment.post_compensation("test_comp", file1.channels[0:2], [1, 2, 3, 4])
+        experiment.create_compensation("test_comp", file1.channels[0:2], [1, 2, 3, 4])
 
         # GET
         compensations = experiment.compensations
@@ -135,7 +150,7 @@ class TestExperimentIntegration:
         assert file._id == file2._id
 
         # events
-        events_df = file.events(preSubsampleN=10, seed=7)
+        events_df = file.get_events(preSubsampleN=10, seed=7)
         assert len(events_df) == 10
 
         # DELETE
