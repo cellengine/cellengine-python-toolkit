@@ -43,7 +43,11 @@ class _Gate(ABC):
     """
 
     def __repr__(self):
-        return "{}(_id='{}', name='{}')".format(self.type, self._id, self.name)
+        if self.name:
+            name = self.name
+        else:
+            name = str(self.names)
+        return "{}(_id='{}', name='{}')".format(self.type, self._id, name)
 
     _id = GetSet("_id", read_only=True)
 
