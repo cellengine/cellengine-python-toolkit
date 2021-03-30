@@ -195,8 +195,6 @@ class FcsFile(_FcsFile):
         Returns: None; updates the self.events property.
         """
 
-        fresp = ce.APIClient().download_fcs_file(
-            self.experiment_id, self._id, params=dict(kwargs)
-        )
+        fresp = ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
         parser = fcsparser.api.FCSParser.from_data(fresp)
         self._events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)

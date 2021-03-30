@@ -1,4 +1,5 @@
 import attr
+import re
 
 
 @attr.s(auto_exc=True)
@@ -9,9 +10,13 @@ class APIError(BaseException):
 
     def __str__(self):
         if self.status_code:
-            return "CellEngine API responded with \
+            return re.sub(
+                " +",
+                " ",
+                "CellEngine API responded with \
                 error status code {} for URL {} -- {}".format(
-                self.status_code, self.url, self.message
+                    self.status_code, self.url, self.message
+                ),
             )
 
         else:
