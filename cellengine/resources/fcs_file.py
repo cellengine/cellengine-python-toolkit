@@ -196,9 +196,7 @@ class FcsFile(_FcsFile):
             If inplace=True, it updates the self.events property.
         """
 
-        fresp = ce.APIClient().download_fcs_file(
-            self.experiment_id, self._id, **kwargs
-        )
+        fresp = ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
         parser = fcsparser.api.FCSParser.from_data(fresp)
         events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
         if inplace:
