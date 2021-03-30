@@ -118,7 +118,9 @@ class BaseAPIClient(metaclass=AbstractSingleton):
                 return response.content
             else:
                 raise APIError(
-                    response.url, response.status_code, response["error"]["message"]
+                    response.url,
+                    response.status_code,
+                    response.json() or response["error"],
                 )
         except APIError:
             raise
