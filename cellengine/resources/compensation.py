@@ -4,7 +4,6 @@ import pandas
 
 import cellengine as ce
 from cellengine.payloads.compensation import _Compensation
-from cellengine.resources.fcs_file import FcsFile
 
 
 class Compensation(_Compensation):
@@ -26,6 +25,27 @@ class Compensation(_Compensation):
             compensation: Dict containing `channels` and `spillMatrix` properties.
         """
         return ce.APIClient().post_compensation(experiment_id, compensation)
+
+    @staticmethod
+    def from_spill_string(spill_string: str) -> Compensation:
+        """Creates a Compensation from a spill string (a file-internal compensation).
+        This can be used with FcsFile.spill_string. The compensation is not
+        saved to CellEngine.
+        """
+        arr = (
+            spill_string.replace("\n", "").replace("'", "").replace(" ", "").split(",")
+        )
+        length = int(arr.pop(0))
+        channels = [arr.pop(0) for idx in range(length)]
+
+        properties = {
+            "_id": None,
+            "channels": channels,
+            "spillMatrix": [float(n) for n in arr],
+            "experimentId": None,
+            "name": None,
+        }
+        return Compensation(properties)
 
     def update(self):
         """Save changes to this Compensation to CellEngine."""
@@ -59,7 +79,7 @@ class Compensation(_Compensation):
         """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
-    def apply(self, file: FcsFile, inplace: bool = False, **kwargs):
+    def apply(self, file, inplace: bool = False, **kwargs):
         """
         Compensate an FcsFile's data.
 
