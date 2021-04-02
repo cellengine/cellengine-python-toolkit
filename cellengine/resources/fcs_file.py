@@ -6,6 +6,7 @@ import pandas
 import cellengine as ce
 from cellengine.payloads.fcs_file import _FcsFile
 from cellengine.resources.plot import Plot
+from cellengine.resources.compensation import Compensation
 
 
 class FcsFile(_FcsFile):
@@ -127,6 +128,12 @@ class FcsFile(_FcsFile):
         )
         return plot
 
+    def get_file_internal_compensation(self) -> Compensation:
+        """Get the file-internal Compensation.
+        """
+        file = ce.APIClient().get_fcs_file(self.experiment_id, self._id)
+        return Compensation.from_spill_string(file.spill_string)
+
     @property
     def events(self):
         """A DataFrame containing this file's data.
@@ -154,11 +161,9 @@ class FcsFile(_FcsFile):
         Args:
             **kwargs:
                 - compensatedQ (bool): If true, applies the compensation
-                    specified in compensationId to the exported events. For TSV
-                    format, the numerical values will be the compensated values.
-                    For FCS format, the numerical values will be unchanged, but the
-                    file header will contain the compensation as the spill string
-                    (file-internal compensation).
+                    specified in compensationId to the exported events.
+                    The numerical values will be unchanged, but the
+                    file header will contain the compensation as the spill string.
                 - compensationId ([int, str]): Required if populationId is
                     specified. Compensation to use for gating.
                 - headers (bool): For TSV format only. If true, a header row

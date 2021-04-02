@@ -78,24 +78,25 @@ def test_should_update_compensation(ENDPOINT_BASE, experiment, compensation):
     properties_tester(compensation)
     assert json.loads(responses.calls[0].request.body) == compensation._properties
 
+
 def test_create_from_spill_string(spillstring):
     comp = Compensation.from_spill_string(spillstring)
     spillstring.replace
     assert type(comp) is Compensation
 
     assert comp.channels == [
-        'Ax488-A',
-        'PE-A',
-        'PE-TR-A',
-        'PerCP-Cy55-A',
-        'PE-Cy7-A',
-        'Ax647-A',
-        'Ax700-A',
-        'Ax750-A',
-        'PacBlu-A',
-        'Qdot525-A',
-        'PacOrange-A',
-        'Qdot605-A',
-        'Qdot655-A',
-        'Qdot705-A',
+        "Ax488-A",
+        "PE-A",
+        "PE-TR-A",
+        "PerCP-Cy55-A",
+        "PE-Cy7-A",
+        "Ax647-A",
+        "Ax700-A",
+        "Ax750-A",
+        "PacBlu-A",
+        "Qdot525-A",
+        "PacOrange-A",
+        "Qdot605-A",
+        "Qdot655-A",
+        "Qdot705-A",
     ]
