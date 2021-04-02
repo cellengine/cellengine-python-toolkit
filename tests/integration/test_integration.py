@@ -73,7 +73,7 @@ def test_fcs_file_events(setup_experiment, client):
     assert len(limited_events) == len(file.events)
 
 
-def test_experiment_compensations(setup_experiment, client):
+def test_apply_compensations(setup_experiment, client):
     experiment = client.get_experiment(name="new_experiment")
 
     # POST
@@ -103,6 +103,20 @@ def test_experiment_compensations(setup_experiment, client):
     # DELETE
     experiment.compensations[0].delete()
     assert experiment.compensations == []
+
+
+def test_apply_file_internal_compensation(setup_experiment, client):
+    experiment = client.get_experiment(name="new_experiment")
+
+    file = experiment.fcs_files[0]
+    comp = file.get_file_internal_compensation()
+
+    events_df = comp.apply(file, preSubsampleN=100)
+
+    assert len(events_df) == 100
+    assert type(comp.dataframe) == pandas.DataFrame
+
+    assert all([c in events_df.columns for c in comp.channels])
 
 
 def test_experiment(setup_experiment, client):
