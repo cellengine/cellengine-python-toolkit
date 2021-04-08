@@ -1,9 +1,13 @@
 from __future__ import annotations
 import numpy
 import pandas
+import typing
 
 import cellengine as ce
 from cellengine.payloads.compensation import _Compensation
+
+if typing.TYPE_CHECKING:
+    from cellengine.payload.fcs_file import FcsFile
 
 
 class Compensation(_Compensation):
@@ -32,9 +36,7 @@ class Compensation(_Compensation):
         This can be used with FcsFile.spill_string. The compensation is not
         saved to CellEngine.
         """
-        arr = (
-            spill_string.split(",")
-        )
+        arr = spill_string.split(",")
         length = int(arr.pop(0))
         channels = [arr.pop(0) for idx in range(length)]
 
@@ -79,7 +81,7 @@ class Compensation(_Compensation):
         """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
-    def apply(self, file, inplace: bool = False, **kwargs):
+    def apply(self, file: "FcsFile", inplace: bool = False, **kwargs):
         """
         Compensate an FcsFile's data.
 
