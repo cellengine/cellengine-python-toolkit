@@ -33,7 +33,7 @@ class Compensation(_Compensation):
         saved to CellEngine.
         """
         arr = (
-            spill_string.replace("\n", "").replace("'", "").replace(" ", "").split(",")
+            spill_string.split(",")
         )
         length = int(arr.pop(0))
         channels = [arr.pop(0) for idx in range(length)]
