@@ -46,6 +46,8 @@
     
     
     
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
     
       
     
@@ -558,114 +560,130 @@
 of <code>Plot</code>, <code>properties</code> refers to an optional dictionary of configuration
 arguments to pass to the <code>get</code> method. Options are detailed above.</p>
 <h2 id="methods">Methods</h2>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="cellengine.resources.plot.Plot">
 
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.resources.plot.Plot">
         <code>cellengine.resources.plot.Plot</code>
 
 
 
-      </h2>
-<div class="doc doc-contents first">
-<p>A class representing a CellEngine plot.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>A class representing a CellEngine plot.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.display">
+<code class="codehilite language-python"><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.get">
 
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
+</h3>
+
+    <div class="doc doc-contents ">
+
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the experiment to which the file belongs.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>fcs_file_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of file for which to build a plot.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>plot_type</code></td>
-<td><code>str</code></td>
-<td>
-<p>"contour", "dot", "density" or
-"histogram" (case-insensitive)</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>x_channel</code></td>
-<td><code>str</code></td>
-<td>
-<p>X channel name.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>y_channel</code></td>
-<td><code>str</code></td>
-<td>
-<p>(for 2D plots) Y channel name.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>z_channel</code></td>
-<td><code>str</code></td>
-<td>
-<p>(for dot plots colored by a 3rd channel)
-Color channel name.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>population_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>Defaults to ungated.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>**kwargs</code></td>
-<td><code>Dict</code></td>
-<td>
-<ul>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>experiment_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the experiment to which the file belongs.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>fcs_file_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of file for which to build a plot.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>plot_type</code></td>
+        <td><code>str</code></td>
+        <td><p>"contour", "dot", "density" or
+"histogram" (case-insensitive)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>x_channel</code></td>
+        <td><code>str</code></td>
+        <td><p>X channel name.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>y_channel</code></td>
+        <td><code>str</code></td>
+        <td><p>(for 2D plots) Y channel name.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>z_channel</code></td>
+        <td><code>str</code></td>
+        <td><p>(for dot plots colored by a 3rd channel)
+Color channel name.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>population_id</code></td>
+        <td><code>str</code></td>
+        <td><p>Defaults to ungated.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>Dict</code></td>
+        <td><ul>
 <li>axesQ (bool): Display axes lines. Defaults to true.</li>
 <li>axisLabelsQ (bool): Display axis labels. Defaults to true.</li>
 <li>compensation (ID): Compensation to use for gating and display.</li>
@@ -709,29 +727,43 @@ Color channel name.</p>
 <li>yAxisQ (bool): Display y axis line. Overrides axesQ.</li>
 <li>yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.</li>
 <li>yTicksQ (bool): Display y ticks. Overrides ticksQ.</li>
-</ul>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+</ul></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.save">
+<code class="codehilite language-python"><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-</div>
-</div>
-</div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               

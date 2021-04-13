@@ -46,6 +46,8 @@
     
     
     
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
     
       
     
@@ -1011,202 +1013,260 @@ GitHub</a>.</p>
 <li><code>cache_clear</code></li>
 </ul>
 <h2 id="methods">Methods</h2>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient">
 
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient">
         <code>cellengine.utils.api_client.APIClient.APIClient</code>
 
 
 
-      </h2>
-<div class="doc doc-contents first">
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
+</h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.clone_experiment">
+<code class="codehilite language-python"><span class="n">clone_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">clone_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.create_fcs_file">
+<code class="codehilite language-python"><span class="n">create_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">create_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Creates an FCS file by copying, concatenating and/or
+    <div class="doc doc-contents ">
+
+      <p>Creates an FCS file by copying, concatenating and/or
 subsampling existing file(s) from this or other experiments. Can be
 used to import files from other experiments.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_entity">
+<code class="codehilite language-python"><span class="n">delete_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">delete_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_experiment">
+<code class="codehilite language-python"><span class="n">delete_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">delete_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Hard-delete an experiment.</p>
+    <div class="doc doc-contents ">
+
+      <p>Hard-delete an experiment.</p>
 <p>Warning: This action is irreversible!</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_gate">
+<code class="codehilite language-python"><span class="n">delete_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">delete_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Deletes a gate or a tailored gate family.</p>
+    <div class="doc doc-contents ">
+
+      <p>Deletes a gate or a tailored gate family.</p>
 <p>Specify the top-level gid when working with compound gates (specifying
 the gid of a sector (i.e. one listed in <code>model.gids</code>) will result in no
 gates being deleted). If <code>_id</code> is specified, only that gate will be
 deleted, regardless of the other parameters specified. May be called as
 a static method from cellengine.Gate or from an Experiment instance.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of experiment.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the gate to delete.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>gid</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of gate family to delte.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>exclude</code></td>
-<td><code>str</code></td>
-<td>
-<p>Gate ID to exclude from deletion.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>experiment_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of experiment.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the gate to delete.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>gid</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of gate family to delte.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>exclude</code></td>
+        <td><code>str</code></td>
+        <td><p>Gate ID to exclude from deletion.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<div class="highlight">
-<pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">delete_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span> <span class="o">=</span> <span class="p">[</span><span class="n">gate</span> <span class="n">family</span> <span class="n">ID</span><span class="p">])</span>
+    <div class="highlight"><pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">delete_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span> <span class="o">=</span> <span class="p">[</span><span class="n">gate</span> <span class="n">family</span> <span class="n">ID</span><span class="p">])</span>
 <span class="c1"># or</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">delete_gate</span><span class="p">(</span><span class="n">_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">gate</span> <span class="n">ID</span><span class="p">])</span>
-</code></pre>
-</div>
+</code></pre></div>
+
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>None</code></td>
-<td>
-<p>None</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>None</code></td>
+      <td><p>None</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.download_attachment">
+<code class="codehilite language-python"><span class="n">download_attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">download_attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Download an attachment</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Download an attachment</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.download_fcs_file">
+<code class="codehilite language-python"><span class="n">download_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">download_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Download events for a specific FcsFile</p>
+    <div class="doc doc-contents ">
+
+      <p>Download events for a specific FcsFile</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the experiment</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>fcs_file_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the FcsFile</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>kwargs</code></td>
-<td><code></code></td>
-<td>
-<ul>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>experiment_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the experiment</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>fcs_file_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the FcsFile</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code></code></td>
+        <td><ul>
 <li>compensatedQ (bool): If true, applies the compensation
   specified in compensationId to the exported events. For
   TSV format, the numerical values will be the compensated
@@ -1249,242 +1309,343 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
     exported file. When a populationId is specified
     (when gating), this number corresponds to the index of
     the event in the original file.</li>
-</ul>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+</ul></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_attachment">
+<code class="codehilite language-python"><span class="n">get_attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_attachments">
+<code class="codehilite language-python"><span class="n">get_attachments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_attachments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_compensation">
+<code class="codehilite language-python"><span class="n">get_compensation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_compensation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_compensations">
+<code class="codehilite language-python"><span class="n">get_compensations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_compensations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_experiment">
+<code class="codehilite language-python"><span class="n">get_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_experiments">
+<code class="codehilite language-python"><span class="n">get_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_experiments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_file">
+<code class="codehilite language-python"><span class="n">get_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_files">
+<code class="codehilite language-python"><span class="n">get_fcs_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_fcs_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_gate">
+<code class="codehilite language-python"><span class="n">get_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Gates cannot be retrieved by name.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Gates cannot be retrieved by name.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_gates">
+<code class="codehilite language-python"><span class="n">get_gates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_gates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_plot">
+<code class="codehilite language-python"><span class="n">get_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_population">
+<code class="codehilite language-python"><span class="n">get_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_populations">
+<code class="codehilite language-python"><span class="n">get_populations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_populations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_scaleset">
+<code class="codehilite language-python"><span class="n">get_scaleset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_scaleset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get a scaleset for an experiment.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Get a scaleset for an experiment.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_statistics">
+<code class="codehilite language-python"><span class="n">get_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="s1">&#39;PARENT&#39;</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">'json'</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="s1">'PARENT'</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Request Statistics from CellEngine.</p>
+    <div class="doc doc-contents ">
+
+      <p>Request Statistics from CellEngine.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>statistics</code></td>
-<td><code>Union[str, List[str]]</code></td>
-<td>
-<p>Statistical method to request. Any of "mean", "median",
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>statistics</code></td>
+        <td><code>Union[str, List[str]]</code></td>
+        <td><p>Statistical method to request. Any of "mean", "median",
 "quantile", "mad" (median absolute deviation), "geometricmean",
-"eventcount", "cv", "stddev" or "percent" (case-insensitive).</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>q</code></td>
-<td><code>float</code></td>
-<td>
-<p>int: quantile (required for "quantile" statistic)</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>channels</code></td>
-<td><code>List[str]</code></td>
-<td>
-<p>str or List[str]: for "mean", "median", "geometricMean", "cv",
+"eventcount", "cv", "stddev" or "percent" (case-insensitive).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>q</code></td>
+        <td><code>float</code></td>
+        <td><p>int: quantile (required for "quantile" statistic)</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>channels</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>str or List[str]: for "mean", "median", "geometricMean", "cv",
 "stddev", "mad" or "quantile" statistics. Names of
-channels to calculate statistics for.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>annotations</code></td>
-<td><code>Optional[bool]</code></td>
-<td>
-<p>bool: Include file annotations in output
-(defaults to False).</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>compensation_id</code></td>
-<td><code>Optional[str]</code></td>
-<td>
-<p>str: Compensation to use for gating and
+channels to calculate statistics for.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>annotations</code></td>
+        <td><code>Optional[bool]</code></td>
+        <td><p>bool: Include file annotations in output
+(defaults to False).</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>compensation_id</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>str: Compensation to use for gating and
 statistic calculation.
 Defaults to uncompensated. Three special constants may be used:
     0: Uncompensated
@@ -1492,304 +1653,372 @@ Defaults to uncompensated. Three special constants may be used:
         compensation matrix, if available. If not, an error
         will be returned.
     -2: Per-File Compensation Use the compensation assigned to
-        each individual FCS file.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>fcs_file_ids</code></td>
-<td><code>Optional[List[str]]</code></td>
-<td>
-<p>List[str]: FCS files to get statistics for. If
-omitted, statistics for all non-control FCS files will be returned.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>format</code></td>
-<td><code>Optional[str]</code></td>
-<td>
-<p>str: One of "TSV (with[out] header)",
+        each individual FCS file.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>fcs_file_ids</code></td>
+        <td><code>Optional[List[str]]</code></td>
+        <td><p>List[str]: FCS files to get statistics for. If
+omitted, statistics for all non-control FCS files will be returned.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>format</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>str: One of "TSV (with[out] header)",
 "CSV (with[out] header)" or "json" (default), "pandas",
-case-insensitive.</p>
-</td>
-<td><code>'json'</code></td>
-</tr>
-<tr>
-<td><code>layout</code></td>
-<td><code>Optional[str]</code></td>
-<td>
-<p>str: The file (TSV/CSV) or object (JSON) layout.
-One of "tall-skinny", "medium", or "short-wide".</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>percent_of</code></td>
-<td><code>Optional[Union[str, List[str]]]</code></td>
-<td>
-<p>str or List[str]: Population ID or array of
+case-insensitive.</p></td>
+        <td><code>&#39;json&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>layout</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>str: The file (TSV/CSV) or object (JSON) layout.
+One of "tall-skinny", "medium", or "short-wide".</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>percent_of</code></td>
+        <td><code>Optional[Union[str, List[str]]]</code></td>
+        <td><p>str or List[str]: Population ID or array of
 population IDs.  If omitted or the string "PARENT", will calculate
 percent of parent for each population. If a single ID, will calculate
 percent of that population for all populations specified by
 population_ids. If a list, will calculate percent of each of
-those populations.</p>
-</td>
-<td><code>'PARENT'</code></td>
-</tr>
-<tr>
-<td><code>population_ids</code></td>
-<td><code>Optional[List[str]]</code></td>
-<td>
-<p>List[str]: List of population IDs.
-Defaults to ungated.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+those populations.</p></td>
+        <td><code>&#39;PARENT&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>population_ids</code></td>
+        <td><code>Optional[List[str]]</code></td>
+        <td><p>List[str]: List of population IDs.
+Defaults to ungated.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>statistics</code></td>
-<td>
-<p>Dict, String, or pandas.Dataframe</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>statistics</code></td>
+      <td><p>Dict, String, or pandas.Dataframe</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_attachment">
+<code class="codehilite language-python"><span class="n">post_attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">post_attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Upload an attachment</p>
+    <div class="doc doc-contents ">
+
+      <p>Upload an attachment</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>filepath</code></td>
-<td><code>str</code></td>
-<td>
-<p>Local path to file to upload.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>filename</code></td>
-<td><code>str</code></td>
-<td>
-<p>Optionally, specify a new name for the file.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>filepath</code></td>
+        <td><code>str</code></td>
+        <td><p>Local path to file to upload.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>filename</code></td>
+        <td><code>str</code></td>
+        <td><p>Optionally, specify a new name for the file.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Attachment</code></td>
-<td>
-<p>The newly-uploaded Attachment</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Attachment</code></td>
+      <td><p>The newly-uploaded Attachment</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_compensation">
+<code class="codehilite language-python"><span class="n">post_compensation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">compensation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">post_compensation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">compensation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_experiment">
+<code class="codehilite language-python"><span class="n">post_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">post_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Create a new experiment on CellEngine.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Create a new experiment on CellEngine.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_gate">
+<code class="codehilite language-python"><span class="n">post_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">gate</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">post_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">gate</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_population">
+<code class="codehilite language-python"><span class="n">post_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">post_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_statistics">
+<code class="codehilite language-python"><span class="n">post_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">req_params</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">post_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">req_params</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.tailor_to">
+<code class="codehilite language-python"><span class="n">tailor_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">gate_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">tailor_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">gate_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Tailor a gate to a file.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Tailor a gate to a file.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update_entity">
+<code class="codehilite language-python"><span class="n">update_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">update_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update_experiment">
+<code class="codehilite language-python"><span class="n">update_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">update_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update_gate_family">
+<code class="codehilite language-python"><span class="n">update_gate_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">update_gate_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.upload_fcs_file">
+<code class="codehilite language-python"><span class="n">upload_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">upload_fcs_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Upload an FCS file to CellEngine</p>
+    <div class="doc doc-contents ">
+
+      <p>Upload an FCS file to CellEngine</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>filepath</code></td>
-<td><code>str</code></td>
-<td>
-<p>Local path to FCS file.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>filename</code></td>
-<td><code>str</code></td>
-<td>
-<p>Optionally, specify a new name for the file.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>filepath</code></td>
+        <td><code>str</code></td>
+        <td><p>Local path to FCS file.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>filename</code></td>
+        <td><code>str</code></td>
+        <td><p>Optionally, specify a new name for the file.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>FcsFile</code></td>
-<td>
-<p>The newly-uploaded FcsFile</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>FcsFile</code></td>
+      <td><p>The newly-uploaded FcsFile</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-</div>
-</div>
-</div>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               

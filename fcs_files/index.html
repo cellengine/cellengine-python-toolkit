@@ -46,6 +46,8 @@
     
     
     
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
     
       
     
@@ -379,6 +381,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.get_file_internal_compensation" class="md-nav__link">
+    get_file_internal_compensation()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.plot" class="md-nav__link">
     plot()
   </a>
@@ -578,6 +587,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.get_file_internal_compensation" class="md-nav__link">
+    get_file_internal_compensation()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.plot" class="md-nav__link">
     plot()
   </a>
@@ -629,215 +645,249 @@ metadata such as the panel and annotations.</p>
 <p>Properties are the snake_case equivalent of those documented on the
 <a href="https://docs.cellengine.com/api/#fcs_files">CellEngine API</a> unless otherwise noted.</p>
 <h2 id="methods">Methods</h2>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile">
 
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile">
         <code>cellengine.resources.fcs_file.FcsFile</code>
 
 
 
-      </h2>
-<div class="doc doc-contents first">
-<div class="doc doc-children">
-<div class="doc doc-object doc-attribute">
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.events">
+</h2>
 
-<code class="highlight language-python"><span class="n">events</span></code>
+    <div class="doc doc-contents first">
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.events">
+<code class="codehilite language-python"><span class="n">events</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
       <small class="doc doc-property doc-property-writable"><code>writable</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>A DataFrame containing this file's data.</p>
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>A DataFrame containing this file's data.</p>
 <p>This is fetched from the server on-demand the first time that
 this property is accessed.</p>
 <p>To fetch a file with specific parameters (e.g. subsampling, or
 gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.create">
+    </div>
 
-<code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_files</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_file_number</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">add_event_number</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pre_subsample_n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pre_subsample_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.create">
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_files</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_file_number</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">add_event_number</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pre_subsample_n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pre_subsample_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Creates an FCS file by copying, concatenating and/or subsampling
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Creates an FCS file by copying, concatenating and/or subsampling
 existing file(s) from this or other experiments.</p>
 <p>This endpoint can be used to import files from other experiments.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the experiment to which the file belongs</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>fcs_files</code></td>
-<td><code>List[str]</code></td>
-<td>
-<p>ID of file or list of IDs of files or objects to process.
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>experiment_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the experiment to which the file belongs</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>fcs_files</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>ID of file or list of IDs of files or objects to process.
 If more than one file is provided, they will be concatenated in
 order. To import files from other experiments, pass a list of dicts
-with _id and experimentId properties.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>filename</code></td>
-<td><code>str</code></td>
-<td>
-<p>Rename the uploaded file.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>add_file_number</code></td>
-<td><code>bool</code></td>
-<td>
-<p>If
+with _id and experimentId properties.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>filename</code></td>
+        <td><code>str</code></td>
+        <td><p>Rename the uploaded file.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>add_file_number</code></td>
+        <td><code>bool</code></td>
+        <td><p>If
 concatenating files, adds a file number channel to the
-resulting file.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>add_event_number</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Add an event number column to the
+resulting file.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>add_event_number</code></td>
+        <td><code>bool</code></td>
+        <td><p>Add an event number column to the
 exported file. This number corresponds to the index of the event in
 the original file; when concatenating files, the same event number
-will appear more than once.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>pre_subsample_n</code></td>
-<td><code>int</code></td>
-<td>
-<p>Randomly subsample the file to contain
-this many events.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>pre_subsample_p</code></td>
-<td><code>float</code></td>
-<td>
-<p>Randomly subsample the file to contain
-this percent of events (0 to 1).</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>seed</code></td>
-<td><code>int</code></td>
-<td>
-<p>Seed for random number generator used for subsampling.
+will appear more than once.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>pre_subsample_n</code></td>
+        <td><code>int</code></td>
+        <td><p>Randomly subsample the file to contain
+this many events.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>pre_subsample_p</code></td>
+        <td><code>float</code></td>
+        <td><p>Randomly subsample the file to contain
+this percent of events (0 to 1).</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>seed</code></td>
+        <td><code>int</code></td>
+        <td><p>Seed for random number generator used for subsampling.
 Use for deterministic (reproducible) subsampling. If omitted, a
-pseudo-random value is used.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+pseudo-random value is used.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>FcsFile</code></td>
-<td>
-<p>FcsFile</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>FcsFile</code></td>
+      <td><p>FcsFile</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.delete">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get">
 
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
+</h3>
+
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get_events">
+<code class="codehilite language-python"><span class="n">get_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">get_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Fetch a DataFrame containing this file's data.</p>
+    <div class="doc doc-contents ">
+
+      <p>Fetch a DataFrame containing this file's data.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>**kwargs</code></td>
-<td><code></code></td>
-<td>
-<ul>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code></code></td>
+        <td><ul>
 <li>compensatedQ (bool): If true, applies the compensation
-    specified in compensationId to the exported events. For TSV
-    format, the numerical values will be the compensated values.
-    For FCS format, the numerical values will be unchanged, but the
-    file header will contain the compensation as the spill string
-    (file-internal compensation).</li>
+    specified in compensationId to the exported events.
+    The numerical values will be unchanged, but the
+    file header will contain the compensation as the spill string.</li>
 <li>compensationId ([int, str]): Required if populationId is
     specified. Compensation to use for gating.</li>
 <li>headers (bool): For TSV format only. If true, a header row
@@ -870,87 +920,140 @@ pseudo-random value is used.</p>
     exported file. When a populationId is specified (when gating),
     this number corresponds to the index of the event in the
     original file.</li>
-</ul>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
-</table>
-<p>Returns: None; updates the self.events property.</p>
+</ul></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>      <div class="admonition returns">
+<p class="admonition-title">A DataFrame of this files data, with query parameters applied.</p>
+<p>If inplace=True, it updates the self.events property.</p>
 </div>
-</div>
-<div class="doc doc-object doc-method">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get_file_internal_compensation">
+<code class="codehilite language-python"><span class="n">get_file_internal_compensation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the file-internal Compensation.</p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.plot">
+<code class="codehilite language-python"><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Buid a plot for an FcsFile.</p>
+    <div class="doc doc-contents ">
+
+      <p>Buid a plot for an FcsFile.</p>
 <p>See <a href="../plots/#cellengine.resources.plot.Plot.get"><code>Plot.get</code></a> for more information.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.update">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Save changes to this FcsFile to CellEngine.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Save changes to this FcsFile to CellEngine.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.upload">
-
-<code class="highlight language-python"><span class="n">upload</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">upload</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Uploads a file. The maximum file size is approximately 2.3 GB.
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Uploads a file. The maximum file size is approximately 2.3 GB.
 Contact us if you need to work with larger files.</p>
 <p>Automatically parses panels and annotations and updates ScaleSets to
 include all channels in the file.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the experiment to which the file belongs</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>filepath</code></td>
-<td><code>str</code></td>
-<td>
-<p>The file contents.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>experiment_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the experiment to which the file belongs</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>filepath</code></td>
+        <td><code>str</code></td>
+        <td><p>The file contents.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-</div>
-</div>
-</div>
-</div>
-</div>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               

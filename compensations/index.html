@@ -46,6 +46,8 @@
     
     
     
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
     
       
     
@@ -355,6 +357,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.from_spill_string" class="md-nav__link">
+    from_spill_string()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.get" class="md-nav__link">
     get()
   </a>
@@ -571,6 +580,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.from_spill_string" class="md-nav__link">
+    from_spill_string()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.get" class="md-nav__link">
     get()
   </a>
@@ -619,197 +635,291 @@ CellEngine object. Properties are the snake_case equivalent of those documented
 on the <a href="https://docs.cellengine.com/api/#compensations">CellEngine API</a> unless
 otherwise noted.</p>
 <h2 id="methods">Methods</h2>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="cellengine.resources.compensation.Compensation">
 
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.resources.compensation.Compensation">
         <code>cellengine.resources.compensation.Compensation</code>
 
 
 
-      </h2>
-<div class="doc doc-contents first">
-<p>A class representing a CellEngine compensation matrix. Can be applied to
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>A class representing a CellEngine compensation matrix. Can be applied to
 FCS files to compensate them.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-attribute">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe">
-
-<code class="highlight language-python"><span class="n">dataframe</span></code>
+<code class="codehilite language-python"><span class="n">dataframe</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
       <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Get the compensation matrix as a Pandas DataFrame.</p>
-</div>
-</div>
-<div class="doc doc-object doc-attribute">
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the compensation matrix as a Pandas DataFrame.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe_as_html">
-
-<code class="highlight language-python"><span class="n">dataframe_as_html</span></code>
+<code class="codehilite language-python"><span class="n">dataframe_as_html</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
       <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Return the compensation matrix dataframe as HTML.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the compensation matrix dataframe as HTML.</p>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.apply">
+<code class="codehilite language-python"><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Compensates the file's data.</p>
+    <div class="doc doc-contents ">
+
+      <p>Compensate an FcsFile's data.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>file</code></td>
-<td><code>FcsFile</code></td>
-<td>
-<p>The FCS file to compensate.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>inplace</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Compensate the file's data in-place.</p>
-</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><code>params</code></td>
-<td><code>Dict</code></td>
-<td>
-<p>All arguments accepted by <code>FcsFile.events</code> are accepted here.</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>file</code></td>
+        <td><code>&#39;FcsFile&#39;</code></td>
+        <td><p>The FCS file to compensate.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>inplace</code></td>
+        <td><code>bool</code></td>
+        <td><p>Compensate the file's data in-place.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code>Dict</code></td>
+        <td><p>All arguments accepted by <code>FcsFile.get_events</code> are accepted here.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>DataFrame or None</code></td>
-<td>
-<p>if <code>inplace=True</code>, returns nothing.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>DataFrame</code></td>
+      <td><p>if <code>inplace=True</code>, updates <code>FcsFile.events</code> for
+    the target FcsFile</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.create">
+    </div>
 
-<code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">compensation</span><span class="p">)</span></code>
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.create">
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">compensation</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Creates a compensation</p>
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Creates a compensation</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of experiment that this compensation belongs to.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>compensation</code></td>
-<td><code>dict</code></td>
-<td>
-<p>Dict containing <code>channels</code> and <code>spillMatrix</code> properties.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>experiment_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of experiment that this compensation belongs to.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>compensation</code></td>
+        <td><code>dict</code></td>
+        <td><p>Dict containing <code>channels</code> and <code>spillMatrix</code> properties.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.delete">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.get">
 
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.from_spill_string">
+<code class="codehilite language-python"><span class="n">from_spill_string</span><span class="p">(</span><span class="n">spill_string</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Creates a Compensation from a spill string (a file-internal compensation).
+This can be used with FcsFile.spill_string. The compensation is not
+saved to CellEngine.</p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
+</h3>
+
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.update">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Save changes to this Compensation to CellEngine.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Save changes to this Compensation to CellEngine.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               

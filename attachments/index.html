@@ -46,6 +46,8 @@
     
     
     
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
     
       
     
@@ -587,180 +589,234 @@ object. Properties are the snake_case equivalent of those documented in the
 <a href="https://docs.cellengine.com/api/#attachments">CellEngine API</a> unless otherwise
 noted.</p>
 <h2 id="methods">Methods</h2>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="cellengine.resources.attachment.Attachment">
 
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.resources.attachment.Attachment">
         <code>cellengine.resources.attachment.Attachment</code>
 
 
 
-      </h2>
-<div class="doc doc-contents first">
-<p>A class representing a CellEngine attachment.
+</h2>
+
+    <div class="doc doc-contents first">
+
+      <p>A class representing a CellEngine attachment.
 Attachments are non-data files that are stored in an experiment.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.attachment.Attachment.delete">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete this attachment.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Delete this attachment.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.attachment.Attachment.download">
+<code class="codehilite language-python"><span class="n">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Download the attachment.</p>
+    <div class="doc doc-contents ">
+
+      <p>Download the attachment.</p>
 <p>Defaults to returning the file as a blob. If <code>to_file</code> is specified,
 the file will be saved to disk.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>to_file</code></td>
-<td><code>str</code></td>
-<td>
-<p>Path at which to save the file. Accepts relative or
-absolute paths.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>to_file</code></td>
+        <td><code>str</code></td>
+        <td><p>Path at which to save the file. Accepts relative or
+absolute paths.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>content</code></td>
-<td>
-<p>The raw response content.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>content</code></td>
+      <td><p>The raw response content.</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.attachment.Attachment.get">
+    </div>
 
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.attachment.Attachment.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Get an Attachment by name or ID for a specific experiment. Either
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get an Attachment by name or ID for a specific experiment. Either
 <code>name</code> or <code>_id</code> must be specified.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>experiment_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the experiment this attachment is connected with.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>ID of the attachment.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>name</code></td>
-<td><code>str</code></td>
-<td>
-<p>Name of the experiment.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>experiment_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the experiment this attachment is connected with.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of the attachment.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Name of the experiment.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.attachment.Attachment.update">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Save changes to this Attachment to CellEngine.</p>
+    <div class="doc doc-contents ">
+
+      <p>Save changes to this Attachment to CellEngine.</p>
+
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>None</code></td>
-<td>
-<p>Updates the Attachment on CellEngine and synchronizes the
-    local Attachment object properties with remote state.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>None</code></td>
+      <td><p>Updates the Attachment on CellEngine and synchronizes the
+    local Attachment object properties with remote state.</p></td>
+    </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.attachment.Attachment.upload">
+    </div>
 
-<code class="highlight language-python"><span class="n">upload</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.attachment.Attachment.upload">
+<code class="codehilite language-python"><span class="n">upload</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
+</h3>
+
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-</div>
-</div>
-</div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               

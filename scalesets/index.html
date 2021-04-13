@@ -46,6 +46,8 @@
     
     
     
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
     
       
     
@@ -571,96 +573,138 @@ CellEngine object. Properties are the snake_case equivalent of those documented
 on the <a href="https://docs.cellengine.com/api/#populations">CellEngine API</a> unless
 otherwise noted.</p>
 <h2 id="methods">Methods</h2>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet">
 
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet">
         <code>cellengine.resources.scaleset.ScaleSet</code>
 
 
 
-      </h2>
-<div class="doc doc-contents first">
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
+</h2>
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.apply">
+<code class="codehilite language-python"><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">clamp_q</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">clamp_q</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
+</h3>
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Apply the scaleset to a file.</p>
+    <div class="doc doc-contents ">
+
+      <p>Apply the scaleset to a file.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>file</code></td>
-<td><code>_id or FcsFile</code></td>
-<td>
-<p>The file to which this scaleset will be
-applied.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>clamp_q</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Clamp the output to the scale's minimum and maximum
-values.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>in_place</code></td>
-<td><code>bool</code></td>
-<td>
-<p>If True, updates the FcsFile.events; if
-False, returns a DataFrame</p>
-</td>
-<td><code>True</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>file</code></td>
+        <td><code>_id or FcsFile</code></td>
+        <td><p>The file to which this scaleset will be
+applied.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>clamp_q</code></td>
+        <td><code>bool</code></td>
+        <td><p>Clamp the output to the scale's minimum and maximum
+values.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>in_place</code></td>
+        <td><code>bool</code></td>
+        <td><p>If True, updates the FcsFile.events; if
+False, returns a DataFrame</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.get">
+    </div>
 
-<code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></code>
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
   </span>
 
-      </h3>
-<div class="doc doc-contents ">
+</h3>
+
+    <div class="doc doc-contents ">
 
 
     </div>
-</div>
-<div class="doc doc-object doc-method">
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.update">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
-<code class="highlight language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Save changes to this ScaleSet to CellEngine.</p>
+
+    </div>
+
+  </div>
 
 
-      </h3>
-<div class="doc doc-contents ">
-<p>Save changes to this ScaleSet to CellEngine.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               
