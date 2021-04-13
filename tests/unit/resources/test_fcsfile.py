@@ -1,6 +1,7 @@
 import json
 import responses
 from cellengine.resources.fcs_file import FcsFile
+from cellengine.resources.compensation import Compensation
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -51,3 +52,23 @@ def test_should_update_fcs_file(ENDPOINT_BASE, client, fcs_files):
     file.update()
     assert json.loads(responses.calls[0].request.body) == file._properties
     assert expected_response == file._properties
+
+
+@responses.activate
+def test_gets_file_internal_compensation(ENDPOINT_BASE, client, fcs_files, spillstring):
+    # Given: An FcsFile with a spill string
+    file_data = fcs_files[0]
+    file_data["spillString"] = spillstring
+    file = FcsFile(file_data)
+    expected_response = fcs_files[0].copy()
+    responses.add(
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}",
+        json=expected_response,
+    )
+
+    # When:
+    comp = file.get_file_internal_compensation()
+
+    # Then:
+    assert type(comp) == Compensation

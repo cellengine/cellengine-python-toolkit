@@ -1,10 +1,13 @@
 from __future__ import annotations
 import numpy
 import pandas
+import typing
 
 import cellengine as ce
 from cellengine.payloads.compensation import _Compensation
-from cellengine.resources.fcs_file import FcsFile
+
+if typing.TYPE_CHECKING:
+    from cellengine.payload.fcs_file import FcsFile
 
 
 class Compensation(_Compensation):
@@ -26,6 +29,25 @@ class Compensation(_Compensation):
             compensation: Dict containing `channels` and `spillMatrix` properties.
         """
         return ce.APIClient().post_compensation(experiment_id, compensation)
+
+    @staticmethod
+    def from_spill_string(spill_string: str) -> Compensation:
+        """Creates a Compensation from a spill string (a file-internal compensation).
+        This can be used with FcsFile.spill_string. The compensation is not
+        saved to CellEngine.
+        """
+        arr = spill_string.split(",")
+        length = int(arr.pop(0))
+        channels = [arr.pop(0) for idx in range(length)]
+
+        properties = {
+            "_id": None,
+            "channels": channels,
+            "spillMatrix": [float(n) for n in arr],
+            "experimentId": None,
+            "name": None,
+        }
+        return Compensation(properties)
 
     def update(self):
         """Save changes to this Compensation to CellEngine."""
@@ -59,19 +81,20 @@ class Compensation(_Compensation):
         """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
-    def apply(self, file: FcsFile, inplace: bool = True, **params):
+    def apply(self, file: "FcsFile", inplace: bool = False, **kwargs):
         """
-        Compensates the file's data.
+        Compensate an FcsFile's data.
 
         Args:
             file (FcsFile): The FCS file to compensate.
             inplace (bool): Compensate the file's data in-place.
-            params (Dict):
-                All arguments accepted by `FcsFile.events` are accepted here.
+            kwargs (Dict):
+                All arguments accepted by `FcsFile.get_events` are accepted here.
         Returns:
-            DataFrame or None: if ``inplace=True``, returns nothing.
+            DataFrame: if ``inplace=True``, updates `FcsFile.events` for
+                the target FcsFile
         """
-        data = file.events(**params)
+        data = file.get_events(**kwargs, inplace=True)
 
         # spill -> comp by inverting
         inverted = numpy.linalg.inv(self.dataframe)
