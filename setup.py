@@ -51,7 +51,7 @@ setup(
         "urllib3~=1.25",
         "custom_inherit~=2.3",
     ],
-    extras_require={"interactive": ["Pillow~=7.0"]},
+    extras_require={"interactive": ["Pillow~=8.2"]},
     tests_require=["pytest", "pytest-vcr"],
     python_requires=">=3.6",
     test_suite="tests.test_all",
