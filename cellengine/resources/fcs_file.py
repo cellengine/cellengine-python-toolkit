@@ -197,7 +197,8 @@ class FcsFile(_FcsFile):
                     this number corresponds to the index of the event in the
                     original file.
 
-        Returns: A DataFrame of this files data, with query parameters applied.
+        Returns:
+            DataFrame: This file's data, with query parameters applied.
             If inplace=True, it updates the self.events property.
         """
 
