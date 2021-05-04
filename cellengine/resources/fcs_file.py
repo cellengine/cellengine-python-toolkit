@@ -154,7 +154,7 @@ class FcsFile(_FcsFile):
     def events(self, events):
         self._events = events
 
-    def get_events(self, inplace: bool = False, **kwargs):
+    def get_events(self, inplace: bool = False, destination=None, **kwargs):
         """
         Fetch a DataFrame containing this file's data.
 
@@ -199,9 +199,14 @@ class FcsFile(_FcsFile):
 
         Returns: A DataFrame of this files data, with query parameters applied.
             If inplace=True, it updates the self.events property.
+            If destination is a string, saves file to the destination and returns None.
         """
 
         fresp = ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
+        if destination:
+            with open(destination, "wb") as file:
+                file.write(fresp)
+            return
         parser = fcsparser.api.FCSParser.from_data(fresp)
         events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
         if inplace:

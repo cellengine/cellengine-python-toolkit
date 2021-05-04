@@ -1,5 +1,8 @@
+import os
 import json
 import responses
+from io import BufferedReader, BytesIO
+
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 
@@ -72,3 +75,23 @@ def test_gets_file_internal_compensation(ENDPOINT_BASE, client, fcs_files, spill
 
     # Then:
     assert type(comp) == Compensation
+
+
+@responses.activate
+def test_save_events_to_file(ENDPOINT_BASE, client, fcs_files):
+    file_data = fcs_files[0]
+    file = FcsFile(file_data)
+    events_body = open("tests/data/Acea - Novocyte.fcs")
+    responses.add(
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
+        body=BufferedReader(BytesIO(b"test")),
+    )
+
+    # When:
+    file.get_events(destination="test.fcs")
+
+    # Then:
+    with open("test.fcs", "r") as events:
+        assert events.readline() == "test"
+    os.remove("test.fcs")
