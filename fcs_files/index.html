@@ -860,7 +860,7 @@ pseudo-random value is used.</p></td>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get_events">
-<code class="codehilite language-python"><span class="n">get_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">get_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 </h3>
@@ -937,7 +937,8 @@ pseudo-random value is used.</p></td>
     <tr>
       <td><code>DataFrame</code></td>
       <td><p>This file's data, with query parameters applied.
-If inplace=True, it updates the self.events property.</p></td>
+If inplace=True, it updates the self.events property.
+If destination is a string, saves file to the destination and returns None.</p></td>
     </tr>
   </tbody>
 </table>
