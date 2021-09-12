@@ -1,7 +1,8 @@
 import json
+from numpy import array
 import pytest
 import responses
-import pandas
+from pandas import DataFrame
 from cellengine.resources.compensation import Compensation
 
 
@@ -12,11 +13,10 @@ EXP_ID = "5d38a6f79fae87499999a74b"
 def compensation(ENDPOINT_BASE, client, compensations):
     comp = compensations[0]
     comp.update({"experimentId": EXP_ID})
-    return Compensation(comp)
+    return Compensation.from_dict(comp)
 
 
 def properties_tester(comp):
-    assert type(comp._properties) is dict
     assert type(comp) is Compensation
     assert hasattr(comp, "_id")
     assert hasattr(comp, "name")
@@ -25,7 +25,7 @@ def properties_tester(comp):
     assert hasattr(comp, "N")
     assert comp.N == len(comp.dataframe)
     assert hasattr(comp, "dataframe")
-    assert type(comp.dataframe) is pandas.core.frame.DataFrame
+    assert type(comp.dataframe) is DataFrame
     assert all(comp.dataframe.index == comp.channels)
     assert hasattr(comp, "apply")
     assert hasattr(comp, "dataframe_as_html")
@@ -36,17 +36,15 @@ def test_compensation_properties(ENDPOINT_BASE, compensation):
 
 
 @responses.activate
-def test_should_post_compensation(
-    ENDPOINT_BASE, experiment, compensation, compensations
-):
+def test_should_post_compensation(ENDPOINT_BASE, experiment, compensations):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
         json=compensations[0],
     )
     payload = compensations[0].copy()
-    att = Compensation.create(experiment._id, payload)
-    properties_tester(att)
+    comp = Compensation.create(experiment._id, payload)
+    properties_tester(comp)
 
 
 @responses.activate
@@ -60,13 +58,13 @@ def test_should_delete_compensation(ENDPOINT_BASE, compensation):
 
 
 @responses.activate
-def test_should_update_compensation(ENDPOINT_BASE, experiment, compensation):
+def test_should_update_compensation(ENDPOINT_BASE, compensation):
     """Test that the .update() method makes the correct call. Does not test
     that the correct response is made; this should be done with an integration
     test.
     """
     # patch the mocked response with the correct values
-    response = compensation._properties.copy()
+    response = compensation.to_dict().copy()
     response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
@@ -76,7 +74,7 @@ def test_should_update_compensation(ENDPOINT_BASE, experiment, compensation):
     compensation.name = "newname"
     compensation.update()
     properties_tester(compensation)
-    assert json.loads(responses.calls[0].request.body) == compensation._properties
+    assert json.loads(responses.calls[0].request.body) == compensation.to_dict()
 
 
 def test_create_from_spill_string(spillstring):
