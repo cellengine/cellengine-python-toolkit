@@ -1,3 +1,4 @@
+import json
 import responses
 import pytest
 from unittest import mock
@@ -24,38 +25,38 @@ def test_should_get_scaleset(ENDPOINT_BASE, client, scalesets):
 
 @responses.activate
 def test_should_update_scaleset(ENDPOINT_BASE, client, scalesets):
+    # Given: a ScaleSet and the proper respones from the API
+    s = ScaleSet.from_dict(scalesets)
+
+    patched_response = scalesets.copy()
+    patched_response["name"] = "new scaleset"
+    patched_response["scales"][0]["scale"]["maximum"] = 10
     responses.add(
         responses.PATCH,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/scalesets/{SCALESET_ID}",
-        json=scalesets,
+        json=patched_response,
     )
-    s = ScaleSet(scalesets)
+
+    # When:
     s.name = "new scaleset"
+    s.scales["FSC-A"]["maximum"] = 10
     s.update()
+
+    # Then:
+    assert s.name == "new scaleset"
+    assert s.scales["FSC-A"]["maximum"] == 10
 
 
 def test_should_contain_scale_entities(scalesets):
-    s = ScaleSet(scalesets)
+    s = ScaleSet.from_dict(scalesets)
     assert s.scales["FSC-A"]["type"] == "LinearScale"
 
 
 def test_should_update_scale_value(scalesets):
-    scaleset = ScaleSet(scalesets)
+    scaleset = ScaleSet.from_dict(scalesets)
     assert scaleset.scales["Time"]["minimum"] == 1
     scaleset.scales["Time"]["minimum"] = 5
     assert scaleset.scales["Time"]["minimum"] == 5
-
-
-def test_should_update_internal_properties_when_update_is_called(
-    ENDPOINT_BASE, client, scalesets
-):
-    scaleset = ScaleSet(scalesets)
-    scaleset.scales["Time"]["minimum"] = 5
-    assert scaleset.scales["Time"]["minimum"] == 5
-
-    scaleset._save_scales()
-    assert scaleset._properties["scales"]
-    assert scaleset._properties["scales"][-1]["scale"]["minimum"] == 5
 
 
 @mock.patch(
@@ -69,7 +70,7 @@ def test_raise_when_scale_type_does_not_exist(fcs_events_mock, fcs_files):
     file = FcsFile(fcs_files[0])
 
     # When: scale is of nonexistent type
-    scaleset = ScaleSet(
+    scaleset = ScaleSet.from_dict(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -100,7 +101,7 @@ def test_should_apply_simple_scale_from_scaleset(
     file = FcsFile(fcs_files[0])
 
     # When:
-    scaleset = ScaleSet(
+    scaleset = ScaleSet.from_dict(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -139,7 +140,7 @@ def test_should_apply_scale_when_scaleset_is_updated(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
     file = FcsFile(fcs_files[0])
-    scaleset = ScaleSet(
+    scaleset = ScaleSet.from_dict(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -191,7 +192,7 @@ def test_should_apply_all_scale_types(
     file = FcsFile(fcs_files[0])
 
     # When:
-    scaleset = ScaleSet(
+    scaleset = ScaleSet.from_dict(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -270,7 +271,7 @@ def test_should_apply_scale_to_file(
     keys = ["FSC-A", "FSC-W", "Time"]  # limit to a few keys
     trimmed_scales = [a for a in scalesets["scales"] if a["channelName"] in keys]
     scalesets.update({"scales": trimmed_scales})
-    scaleset = ScaleSet(scalesets)
+    scaleset = ScaleSet.from_dict(scalesets)
 
     # patch FcsFile().events() to directly return a dataframe
     fcs_events_mock.return_value = events[keys]
@@ -301,7 +302,7 @@ def test_should_only_apply_channels_that_exist_on_an_fcsfile(
     file = FcsFile(fcs_files[0])
 
     # When:
-    scaleset = ScaleSet(
+    scaleset = ScaleSet.from_dict(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
