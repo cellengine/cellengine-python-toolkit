@@ -1,19 +1,53 @@
 from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import List, TYPE_CHECKING
+
+from dataclasses_json.cfg import config
 import numpy
-import pandas
-import typing
+from pandas import DataFrame
 
 import cellengine as ce
-from cellengine.payloads.compensation import _Compensation
-
-if typing.TYPE_CHECKING:
-    from cellengine.payload.fcs_file import FcsFile
+from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 
 
-class Compensation(_Compensation):
-    """A class representing a CellEngine compensation matrix. Can be applied to
-    FCS files to compensate them.
+if TYPE_CHECKING:
+    from cellengine.resources.fcs_file import FcsFile
+
+
+@dataclass
+class Compensation(DataClassMixin):
+    """A class representing a CellEngine compensation matrix.
+
+    Can be applied to FCS files to compensate them.
     """
+
+    name: str
+    channels: List[str]
+    dataframe: DataFrame = field(
+        metadata=config(
+            field_name="spillMatrix",
+            encoder=lambda x: x.to_numpy().flatten().tolist(),
+            decoder=lambda x: numpy.array(x),
+        )
+    )
+    _id: str = field(
+        metadata=config(field_name="_id"), default=ReadOnly()
+    )  # type: ignore
+    experiment_id: str = field(default=ReadOnly())  # type: ignore
+
+    def __post_init__(self):
+        self.dataframe = DataFrame(
+            self.dataframe.reshape(self.N, self.N),
+            columns=self.channels,
+            index=self.channels,
+        )
+
+    def __repr__(self):
+        return f"Compensation(_id='{self._id}', name='{self.name}')"
+
+    @property
+    def N(self):
+        return len(self.channels)
 
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Compensation:
@@ -38,7 +72,7 @@ class Compensation(_Compensation):
         """
         arr = spill_string.split(",")
         length = int(arr.pop(0))
-        channels = [arr.pop(0) for idx in range(length)]
+        channels = [arr.pop(0) for _ in range(length)]
 
         properties = {
             "_id": None,
@@ -47,34 +81,19 @@ class Compensation(_Compensation):
             "experimentId": None,
             "name": None,
         }
-        return Compensation(properties)
+        return Compensation.from_dict(properties)
 
     def update(self):
         """Save changes to this Compensation to CellEngine."""
         res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "compensations", body=self._properties
+            self.experiment_id, self._id, "compensations", body=self.to_dict()
         )
-        self._properties.update(res)
+        self.__dict__.update(res)
 
     def delete(self):
         return ce.APIClient().delete_entity(
             self.experiment_id, "compensations", self._id
         )
-
-    @property
-    def dataframe(self):
-        """Get the compensation matrix as a Pandas DataFrame."""
-        if getattr(self, "_dataframe") is not None:
-            return self._dataframe
-        else:
-            self._dataframe = pandas.DataFrame(
-                data=numpy.array(self._properties.get("spillMatrix")).reshape(
-                    self.N, self.N
-                ),
-                columns=self.channels,
-                index=self.channels,
-            )
-            return self._dataframe
 
     @property
     def dataframe_as_html(self):
@@ -94,16 +113,21 @@ class Compensation(_Compensation):
             DataFrame: if ``inplace=True``, updates `FcsFile.events` for
                 the target FcsFile
         """
-        data = file.get_events(**kwargs, inplace=True)
+        data = file.get_events(**kwargs, inplace=True, destination=None)
 
         # spill -> comp by inverting
         inverted = numpy.linalg.inv(self.dataframe)
 
         # Calculate matrix product for channels matching between file and comp
-        comped = data[self.channels].dot(inverted)
-        comped.columns = self.channels
-
-        data.update(comped)
+        if data and data[self.channels]:
+            comped = data[self.channels]
+            comped = comped.dot(inverted)  # type: ignore
+            comped.columns = self.channels
+            data.update(comped)
+        else:
+            raise IndexError(
+                "No channels from this file match those in the compensation."
+            )
 
         if inplace:
             file._events = data
