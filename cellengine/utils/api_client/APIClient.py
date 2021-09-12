@@ -478,14 +478,16 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return Population.from_dict(res)
 
-    def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
+    def get_scaleset(
+        self, experiment_id, as_dict=False
+    ) -> Union[Dict[str, Any], ScaleSet]:
         """Get a scaleset for an experiment."""
-        scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
-            0
-        ]
+        scaleset: Dict = self._get(
+            f"{self.base_url}/experiments/{experiment_id}/scalesets"
+        )[0]
         if as_dict:
             return scaleset
-        return ScaleSet(scaleset)
+        return ScaleSet.from_dict(scaleset)
 
     def post_statistics(self, experiment_id, req_params, raw=True):
         return self._post(

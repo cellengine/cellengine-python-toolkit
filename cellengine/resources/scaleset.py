@@ -1,24 +1,53 @@
 from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import Dict, Union
+
+from dataclasses_json.cfg import config
 from pandas import DataFrame
 
 import cellengine as ce
-from cellengine.payloads.scaleset import _ScaleSet
-from cellengine.resources.fcs_file import FcsFile
 from cellengine.payloads.scale_utils.apply_scale import apply_scale
+from cellengine.payloads.scale_utils.scale_dict import ScaleDict
+from cellengine.resources.fcs_file import FcsFile
+from cellengine.utils.dataclass_mixin import DataClassMixin
 
 
-class ScaleSet(_ScaleSet):
+def encode_json_scale(scales):
+    """Encode a ScaleDict to JSON
+    See https://github.com/lidatong/dataclasses-json#Overriding for more info.
+    """
+    return [{"channelName": key, "scale": val} for key, val in scales.items()]
+
+
+def decode_json_scale(scales) -> Dict[str, ScaleDict]:
+    """Decode a ScaleSet from JSON to a ScaleDict
+    See https://github.com/lidatong/dataclasses-json#Overriding for more info.
+    """
+    return {item["channelName"]: ScaleDict(item["scale"]) for item in scales}
+
+
+@dataclass
+class ScaleSet(DataClassMixin):
+    _id: str = field(metadata=config(field_name="_id"))
+    experiment_id: str
+    name: str
+    scales: Dict["str", Dict[str, Union[str, int]]] = field(
+        metadata=config(encoder=encode_json_scale, decoder=decode_json_scale)
+    )
+
+    def __repr__(self):
+        return "ScaleSet(_id='{}', name='{}')".format(self._id, self.name)
+
     @classmethod
     def get(cls, experiment_id: str) -> ScaleSet:
-        return ce.APIClient().get_scaleset(experiment_id)
+        return ce.APIClient().get_scaleset(experiment_id)  # type: ignore
 
     def update(self):
         """Save changes to this ScaleSet to CellEngine."""
-        self._save_scales()
         res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "scalesets", self._properties
+            self.experiment_id, self._id, "scalesets", self.to_dict()
         )
-        self._properties.update(res)
+        self.__dict__.update(self.from_dict(res).__dict__)
 
     def apply(self, file, clamp_q=False, in_place=True):
         """Apply the scaleset to a file.
@@ -39,16 +68,10 @@ class ScaleSet(_ScaleSet):
 
         for channel, scale in self.scales.items():
             if channel in data.columns:
-                dest[channel] = data[channel].map(
+                dest[channel] = data[channel].map(  # type: ignore
                     lambda a: apply_scale(scale, a, clamp_q)
                 )
         if in_place:
             file.events = dest
         else:
             return dest
-
-    def _save_scales(self):
-        """Save changes to scales to the object-internal _properties"""
-        self._properties["scales"] = [
-            {"channelName": key, "scale": val} for key, val in self.scales.items()
-        ]
