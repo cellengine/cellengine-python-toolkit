@@ -1,12 +1,23 @@
 from __future__ import annotations
+from dataclasses import dataclass, field
+from dataclasses_json.cfg import config
+
 import cellengine as ce
-from cellengine.payloads.attachment import _Attachment
+from cellengine.utils.dataclass_mixin import DataClassMixin
 
 
-class Attachment(_Attachment):
+@dataclass
+class Attachment(DataClassMixin):
     """A class representing a CellEngine attachment.
     Attachments are non-data files that are stored in an experiment.
     """
+
+    _id: str = field(metadata=config(field_name="_id"))
+    filename: str
+    crc32c: str = field(repr=False)
+    experiment_id: str = field(repr=False)
+    md5: str = field(repr=False)
+    size: int = field(repr=False)
 
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
@@ -33,9 +44,9 @@ class Attachment(_Attachment):
                 local Attachment object properties with remote state.
         """
         res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "attachments", body=self._properties
+            self.experiment_id, self._id, "attachments", body=self.to_dict()
         )
-        self._properties.update(res)
+        self.__dict__.update(res)
 
     def delete(self):
         """Delete this attachment."""
