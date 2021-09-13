@@ -127,9 +127,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         attachments = self._get(
             f"{self.base_url}/experiments/{experiment_id}/attachments"
         )
-        return [Attachment(attachment) for attachment in attachments]
+        return [Attachment.from_dict(attachment) for attachment in attachments]
 
-    def download_attachment(self, experiment_id, _id=None, name=None) -> Attachment:
+    def download_attachment(self, experiment_id, _id=None, name=None) -> bytes:
         """Download an attachment"""
         _id = _id or self._get_id_by_name(name, "attachments", experiment_id)
         attachment = self._get(
@@ -142,7 +142,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         try:
             return [a for a in attachments if (a.filename == name) or (a._id == _id)][0]
         except IndexError:
-            raise APIError("No experiment with that name or _id found.")
+            raise RuntimeError("No experiment with that name or _id found.")
 
     def post_attachment(
         self, experiment_id, filepath: str, filename: str = None
@@ -157,8 +157,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             The newly-uploaded Attachment
         """
         url = f"{self.base_url}/experiments/{experiment_id}/attachments"
-        file, headers = self._read_multipart_file(url, filepath, filename)
-        return Attachment(self._post(url, data=file, headers=headers))
+        file, headers = self._read_multipart_file(filepath, filename)
+        return Attachment.from_dict(self._post(url, data=file, headers=headers))
 
     def get_compensations(self, experiment_id, as_dict=False) -> List[Compensation]:
         compensations = self._get(
@@ -254,10 +254,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             The newly-uploaded FcsFile
         """
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
-        file, headers = self._read_multipart_file(url, filepath, filename)
+        file, headers = self._read_multipart_file(filepath, filename)
         return FcsFile(self._post(url, data=file, headers=headers))
 
-    def _read_multipart_file(self, url, filepath: str, filename: str = None):
+    def _read_multipart_file(self, filepath: str, filename: str = None):
         """Posts a MultipartEncoder of the file and its content-type"""
         filename = filename or os.path.basename(filepath)
         mpe = MultipartEncoder(

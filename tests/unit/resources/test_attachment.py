@@ -11,11 +11,10 @@ EXP_ID = "5d38a6f79fae87499999a74b"
 def attachment(ENDPOINT_BASE, client, attachments):
     att = attachments[0]
     att.update({"experimentId": EXP_ID})
-    return Attachment(att)
+    return Attachment.from_dict(att)
 
 
 def attachments_tester(attachment):
-    assert type(attachment._properties) is dict
     assert type(attachment) is Attachment
     assert hasattr(attachment, "experiment_id")
     assert hasattr(attachment, "filename")
@@ -29,7 +28,7 @@ def test_should_get_attachment(ENDPOINT_BASE, attachment):
     responses.add(
         responses.GET,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments",
-        json=[attachment._properties],
+        json=[attachment.to_dict()],
     )
     att = Attachment.get(EXP_ID, attachment._id)
     attachments_tester(att)
@@ -65,7 +64,7 @@ def test_update_attachment(ENDPOINT_BASE, experiment, attachment, attachments):
     test.
     """
     # patch the mocked response with the correct values
-    expected_resp = attachment._properties.copy()
+    expected_resp = attachment.to_dict().copy()
     expected_resp.update({"filename": "newname.file"})
     responses.add(
         responses.PATCH,
@@ -75,7 +74,7 @@ def test_update_attachment(ENDPOINT_BASE, experiment, attachment, attachments):
     attachment.filename = "newname.file"
     attachment.update()
     attachments_tester(attachment)
-    assert json.loads(responses.calls[0].request.body) == attachment._properties
+    assert json.loads(responses.calls[0].request.body) == attachment.to_dict()  # type: ignore
 
 
 @responses.activate
