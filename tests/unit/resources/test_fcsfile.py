@@ -43,7 +43,7 @@ def test_get_fcs_file_by_name(ENDPOINT_BASE, client, fcs_files):
 
 @responses.activate
 def test_should_update_fcs_file(ENDPOINT_BASE, client, fcs_files):
-    file = FcsFile(fcs_files[0])
+    file = FcsFile.from_dict(fcs_files[0])
     file.name = "new name"
     expected_response = fcs_files[0].copy()
     expected_response.update({"filename": "new name"})
@@ -53,8 +53,8 @@ def test_should_update_fcs_file(ENDPOINT_BASE, client, fcs_files):
         json=expected_response,
     )
     file.update()
-    assert json.loads(responses.calls[0].request.body) == file._properties
-    assert expected_response == file._properties
+    assert json.loads(responses.calls[0].request.body) == file.to_dict()
+    assert expected_response == file.to_dict()
 
 
 @responses.activate
@@ -62,7 +62,7 @@ def test_gets_file_internal_compensation(ENDPOINT_BASE, client, fcs_files, spill
     # Given: An FcsFile with a spill string
     file_data = fcs_files[0]
     file_data["spillString"] = spillstring
-    file = FcsFile(file_data)
+    file = FcsFile.from_dict(file_data)
     expected_response = fcs_files[0].copy()
     responses.add(
         responses.GET,
@@ -80,7 +80,7 @@ def test_gets_file_internal_compensation(ENDPOINT_BASE, client, fcs_files, spill
 @responses.activate
 def test_save_events_to_file(ENDPOINT_BASE, client, fcs_files):
     file_data = fcs_files[0]
-    file = FcsFile(file_data)
+    file = FcsFile.from_dict(file_data)
     events_body = open("tests/data/Acea - Novocyte.fcs")
     responses.add(
         responses.GET,

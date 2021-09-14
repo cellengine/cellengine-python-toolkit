@@ -1,15 +1,79 @@
 from __future__ import annotations
-from typing import List
-import fcsparser
+from cellengine.utils.dataclass_mixin import DataClassMixin
+from dataclasses import dataclass, field
+from dataclasses_json import config
+from typing import Any, Dict, List, Optional, Union
+from fcsparser.api import FCSParser
 import pandas
+from pandas.core.frame import DataFrame
 
 import cellengine as ce
-from cellengine.payloads.fcs_file import _FcsFile
 from cellengine.resources.plot import Plot
 from cellengine.resources.compensation import Compensation
 
 
-class FcsFile(_FcsFile):
+@dataclass
+class FcsFile(DataClassMixin):
+    _id: str = field(metadata=config(field_name="_id"))
+    _annotations: str = field(metadata=config(field_name="annotations"))
+    filename: str
+    is_control: str
+    panel_name: str
+    deleted: bool
+    _id: str = field(
+        metadata=config(field_name="_id"), default=ReadOnly()
+    )  # type: ignore
+    compensation: Optional[int] = None
+    crc32c: str = field(default=ReadOnly())  # type: ignore
+    event_count: int = field(default=ReadOnly())  # type: ignore
+    experiment_id: str = field(default=ReadOnly())  # type: ignore
+    has_file_internal_comp: bool = field(default=ReadOnly())  # type: ignore
+    header: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
+    md5: str = field(default=ReadOnly())  # type: ignore
+    panel: List[Dict[str, Any]] = field(default=ReadOnly())  # type: ignore
+    sample_name: str = field(default=ReadOnly())  # type: ignore
+    size: int = field(default=ReadOnly())  # type: ignore
+    _spill_string: Optional[str] = field(
+        metadata=config(field_name="spillString"), default=None
+    )
+
+    def __repr__(self):
+        return f"FcsFile(_id='{self._id}', name='{self.name}')"
+
+    @property
+    def name(self):
+        """Alias for `filename`."""
+        return self.filename
+
+    @name.setter
+    def name(self, val):
+        self.filename = val
+
+    @property
+    def annotations(self):
+        """Return file annotations.
+        New annotations may be added with file.annotations.append or
+        redefined by setting file.annotations to a dict with a 'name'
+        and 'value' key (i.e. {'name': 'plate row', 'value': 'A'}) or
+        a list of such dicts.
+        """
+        return self._annotations
+
+    @annotations.setter
+    def annotations(self, val):
+        """Set new annotations.
+        Warning: This will overwrite current annotations!
+        """
+        if type(val) is not dict or "name" and "value" not in val:
+            raise TypeError('Input must be a dict with a "name" and a "value" item.')
+        else:
+            self._annotations = val
+
+    @property
+    def channels(self) -> List:
+        """Return all channels in the file"""
+        return [f["channel"] for f in self.panel]  # type: ignore
+
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> FcsFile:
         kwargs = {"name": name} if name else {"_id": _id}
@@ -28,8 +92,7 @@ class FcsFile(_FcsFile):
             experiment_id: ID of the experiment to which the file belongs
             filepath: The file contents.
         """
-        file = {"upload_file": open(filepath, "rb")}
-        return ce.APIClient().upload_fcs_file(experiment_id, file)
+        return ce.APIClient().upload_fcs_file(experiment_id, filepath)
 
     @classmethod
     def create(
@@ -96,9 +159,9 @@ class FcsFile(_FcsFile):
     def update(self):
         """Save changes to this FcsFile to CellEngine."""
         res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "fcsfiles", self._properties
+            self.experiment_id, self._id, "fcsfiles", self.to_dict()
         )
-        self._properties.update(res)
+        self.__dict__.update(res)
 
     def delete(self):
         return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
@@ -129,10 +192,9 @@ class FcsFile(_FcsFile):
         return plot
 
     def get_file_internal_compensation(self) -> Compensation:
-        """Get the file-internal Compensation.
-        """
+        """Get the file-internal Compensation."""
         file = ce.APIClient().get_fcs_file(self.experiment_id, self._id)
-        return Compensation.from_spill_string(file.spill_string)
+        return Compensation.from_spill_string(file.spill_string)  # type: ignore
 
     @property
     def events(self):
@@ -154,7 +216,9 @@ class FcsFile(_FcsFile):
     def events(self, events):
         self._events = events
 
-    def get_events(self, inplace: bool = False, destination=None, **kwargs):
+    def get_events(
+        self, inplace: bool = False, destination=None, **kwargs
+    ) -> Union[DataFrame, None]:
         """
         Fetch a DataFrame containing this file's data.
 
@@ -208,7 +272,7 @@ class FcsFile(_FcsFile):
             with open(destination, "wb") as file:
                 file.write(fresp)
             return
-        parser = fcsparser.api.FCSParser.from_data(fresp)
+        parser = FCSParser.from_data(fresp)
         events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
         if inplace:
             self._events = events
