@@ -20,7 +20,7 @@ def plot_tester(plot):
 
 @responses.activate
 def test_should_get_plot(ENDPOINT_BASE, client, experiment, fcs_files):
-    fcs_file = FcsFile(fcs_files[0])
+    fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     plot = Plot.get(
         experiment._id, fcs_file._id, "dot", fcs_file.channels[0], fcs_file.channels[1],
@@ -30,7 +30,7 @@ def test_should_get_plot(ENDPOINT_BASE, client, experiment, fcs_files):
 
 @responses.activate
 def test_should_get_plot_from_fcs_file(ENDPOINT_BASE, client, fcs_files):
-    fcs_file = FcsFile(fcs_files[0])
+    fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     plot = fcs_file.plot("dot", fcs_file.channels[0], fcs_file.channels[1],)
     plot_tester(plot)
@@ -38,7 +38,7 @@ def test_should_get_plot_from_fcs_file(ENDPOINT_BASE, client, fcs_files):
 
 @responses.activate
 def test_should_get_each_plot_type(ENDPOINT_BASE, client, fcs_files):
-    fcs_file = FcsFile(fcs_files[0])
+    fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     for plot_type in ["contour", "dot", "density", "histogram"]:
         Plot.get(
@@ -50,7 +50,7 @@ def test_should_get_each_plot_type(ENDPOINT_BASE, client, fcs_files):
 def test_should_get_plot_for_each_query_parameter(
     ENDPOINT_BASE, experiment, fcs_files, compensations, populations
 ):
-    fcs_file = FcsFile(fcs_files[0])
+    fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     parameters = {
         "compensation": compensations[0]["_id"],
@@ -100,7 +100,7 @@ def test_should_get_plot_for_each_query_parameter(
 
 @responses.activate
 def test_should_save_plot(ENDPOINT_BASE, experiment, fcs_files):
-    fcs_file = FcsFile(fcs_files[0])
+    fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     # instantiate Plot directly instead of using .get because the attrs are frozen
     plot = Plot(

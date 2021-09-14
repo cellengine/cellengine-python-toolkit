@@ -67,7 +67,7 @@ def test_raise_when_scale_type_does_not_exist(fcs_events_mock, fcs_files):
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile(fcs_files[0])
+    file = FcsFile.from_dict(fcs_files[0])
 
     # When: scale is of nonexistent type
     scaleset = ScaleSet.from_dict(
@@ -98,7 +98,7 @@ def test_should_apply_simple_scale_from_scaleset(
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile(fcs_files[0])
+    file = FcsFile.from_dict(fcs_files[0])
 
     # When:
     scaleset = ScaleSet.from_dict(
@@ -139,7 +139,7 @@ def test_should_apply_scale_when_scaleset_is_updated(
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile(fcs_files[0])
+    file = FcsFile.from_dict(fcs_files[0])
     scaleset = ScaleSet.from_dict(
         {
             "_id": SCALESET_ID,
@@ -189,7 +189,7 @@ def test_should_apply_all_scale_types(
         }
     )
     # fmt: on
-    file = FcsFile(fcs_files[0])
+    file = FcsFile.from_dict(fcs_files[0])
 
     # When:
     scaleset = ScaleSet.from_dict(
@@ -263,7 +263,7 @@ def test_should_apply_scale_to_file(
     fcs_events_mock, ENDPOINT_BASE, client, scalesets, fcs_files, events
 ):
     # Given:
-    file = FcsFile(fcs_files[0])
+    file = FcsFile.from_dict(fcs_files[0])
     responses.add(
         responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
     )
@@ -299,7 +299,7 @@ def test_should_only_apply_channels_that_exist_on_an_fcsfile(
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile(fcs_files[0])
+    file = FcsFile.from_dict(fcs_files[0])
 
     # When:
     scaleset = ScaleSet.from_dict(
