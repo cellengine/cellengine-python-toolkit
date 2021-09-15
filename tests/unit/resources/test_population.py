@@ -9,18 +9,11 @@ EXP_ID = "5d38a6f79fae87499999a74b"
 
 
 @pytest.fixture(scope="module")
-def population(ENDPOINT_BASE, client, experiment, populations):
-    with responses.RequestsMock() as resps:
-        resps.add(
-            responses.GET,
-            f"{ENDPOINT_BASE}/experiments/{EXP_ID}/populations",
-            json=populations,
-        )
-        return experiment.populations[0]
+def population(client, populations):
+    return Population.from_dict(populations[0])
 
 
 def population_tester(population):
-    assert type(population._properties) is dict
     assert type(population) is Population
     assert hasattr(population, "_id")
     assert hasattr(population, "experiment_id")
@@ -58,13 +51,13 @@ def test_should_post_population(ENDPOINT_BASE, population, populations):
 
 
 @responses.activate
-def test_update_population(ENDPOINT_BASE, experiment, population, populations):
+def test_update_population(ENDPOINT_BASE, population):
     """Test that the .update() method makes the correct call. Does not test
     that the correct response is made; this should be done with an integration
     test.
     """
     # patch the mocked response with the correct values
-    response = population._properties.copy()
+    response = population.to_dict().copy()
     response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
@@ -74,11 +67,14 @@ def test_update_population(ENDPOINT_BASE, experiment, population, populations):
     population.name = "newname"
     population.update()
     population_tester(population)
-    assert json.loads(responses.calls[0].request.body) == population._properties
+    assert (
+        json.loads(responses.calls[0].request.body)  # type: ignore
+        == population.to_dict()
+    )
 
 
 @responses.activate
-def test_delete_population(ENDPOINT_BASE, client, experiment, population, populations):
+def test_delete_population(ENDPOINT_BASE, population):
     responses.add(
         responses.DELETE,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/populations/{population._id}",
