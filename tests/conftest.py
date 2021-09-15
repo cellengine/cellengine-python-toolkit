@@ -1,3 +1,4 @@
+from cellengine.resources.experiment import Experiment
 import os
 import socket
 import pytest
@@ -71,15 +72,8 @@ def client(ENDPOINT_BASE):
 
 
 @pytest.fixture(scope="session")
-def experiment(ENDPOINT_BASE, client, experiments):
-    with responses.RequestsMock() as resps:
-        resps.add(
-            responses.GET,
-            ENDPOINT_BASE + "/experiments/5d38a6f79fae87499999a74b",
-            json=experiments[0],
-            status=200,
-        )
-        return client.get_experiment(_id="5d38a6f79fae87499999a74b")
+def experiment(experiments):
+    return Experiment.from_dict(experiments[0])
 
 
 @pytest.fixture(scope="module")
