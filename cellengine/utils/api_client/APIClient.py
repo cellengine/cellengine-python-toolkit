@@ -3,7 +3,7 @@ import os
 import json
 import pandas
 from getpass import getpass
-from typing import Dict, List, Union, Optional
+from typing import Any, Dict, List, Union, Optional
 from functools import lru_cache
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -451,30 +451,32 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             data,
         )
 
-    def get_populations(self, experiment_id, as_dict=False) -> List[Population]:
-        populations = self._get(
+    def get_populations(
+        self, experiment_id, as_dict=False
+    ) -> Union[List[Population], List[Dict[str, Any]]]:
+        populations: List[Dict[str, Any]] = self._get(
             f"{self.base_url}/experiments/{experiment_id}/populations"
         )
         if as_dict:
             return populations
-        return [Population(pop) for pop in populations]
+        return [Population.from_dict(pop) for pop in populations]
 
     def get_population(
         self, experiment_id, _id=None, name=None, as_dict=False
-    ) -> Population:
+    ) -> Union[Population, Dict[str, Any]]:
         _id = _id or self._get_id_by_name(name, "populations", experiment_id)
         population = self._get(
             f"{self.base_url}/experiments/{experiment_id}/populations/{_id}"
         )
         if as_dict:
             return population
-        return Population(population)
+        return Population.from_dict(population)
 
-    def post_population(self, experiment_id, population: Dict) -> Gate:
+    def post_population(self, experiment_id, population: Dict) -> Population:
         res = self._post(
             f"{self.base_url}/experiments/{experiment_id}/populations", json=population,
         )
-        return Population(res)
+        return Population.from_dict(res)
 
     def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
         """Get a scaleset for an experiment."""
