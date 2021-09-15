@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Union, List, Dict
+from typing import Any, Union, List, Dict
 
 import requests
 from cellengine.utils.singleton import AbstractSingleton
@@ -56,9 +56,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         except Exception as error:
             raise APIError(response.url, response.status_code, repr(error))
 
-    def _get(
-        self, url, params: Dict = None, headers: Dict = None, raw=False
-    ) -> Union[Dict, List[Dict], bytes]:
+    def _get(self, url, params: Dict = None, headers: Dict = None, raw=False) -> Any:
         try:
             response = self.requests_session.get(
                 url,

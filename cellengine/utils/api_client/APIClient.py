@@ -190,21 +190,21 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         experiments = self._get(f"{self.base_url}/experiments")
         if as_dict:
             return experiments
-        return [Experiment(experiment) for experiment in experiments]
+        return [Experiment.from_dict(experiment) for experiment in experiments]
 
     def get_experiment(self, _id=None, name=None, as_dict=False) -> Experiment:
         _id = _id or self._get_id_by_name(name, "experiments", _id)
         experiment = self._get(f"{self.base_url}/experiments/{_id}")
         if as_dict:
             return experiment
-        return Experiment(experiment)
+        return Experiment.from_dict(experiment)
 
     def post_experiment(self, experiment: dict, as_dict=False) -> Experiment:
         """Create a new experiment on CellEngine."""
         experiment = self._post(f"{self.base_url}/experiments", json=experiment)
         if as_dict:
             return experiment
-        return Experiment(experiment)
+        return Experiment.from_dict(experiment)
 
     def clone_experiment(self, _id, name=None, as_dict=False) -> Experiment:
         experiment = self._post(
@@ -212,7 +212,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return experiment
-        return Experiment(experiment)
+        return Experiment.from_dict(experiment)
 
     def update_experiment(self, _id, body) -> Dict:
         return self._patch(f"{self.base_url}/experiments/{_id}", json=body)
@@ -481,13 +481,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return Population.from_dict(res)
 
-    def get_scaleset(
-        self, experiment_id, as_dict=False
-    ) -> Union[Dict[str, Any], ScaleSet]:
+    def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
         """Get a scaleset for an experiment."""
-        scaleset: Dict = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/scalesets"
-        )[0]
+        scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
+            0
+        ]
         if as_dict:
             return scaleset
         return ScaleSet.from_dict(scaleset)
