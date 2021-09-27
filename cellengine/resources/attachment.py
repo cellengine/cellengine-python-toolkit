@@ -44,18 +44,6 @@ class Attachment:
     def upload(experiment_id: str, filepath: str, filename: str = None) -> Attachment:
         return ce.APIClient().post_attachment(experiment_id, filepath, filename)
 
-    def update(self):
-        """Save changes to this Attachment to CellEngine.
-
-        Returns:
-            None: Updates the Attachment on CellEngine and synchronizes the
-                local Attachment object properties with remote state.
-        """
-        res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "attachments", body=self.to_dict()
-        )
-        self.__dict__.update(res)
-
     def delete(self):
         """Delete this attachment."""
         return ce.APIClient().delete_entity(self.experiment_id, "attachments", self._id)

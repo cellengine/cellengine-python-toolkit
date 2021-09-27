@@ -19,6 +19,7 @@ from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
 
+from cellengine.utils.converter import converter
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
@@ -119,6 +120,23 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             json=body,
         )
 
+    def update(self, entity):
+        path = entity.__module__.split(".")[-1] + "s"
+        if type(entity) is Experiment:
+            fullpath = f"{self.base_url}/experiments/{entity._id}"
+        else:
+            eid = entity.experiment_id
+            _id = entity._id
+            fullpath = f"{self.base_url}/experiments/{eid}/{path}/{_id}"
+
+        data = converter.unstructure(entity)
+
+        res = self._patch(
+            fullpath,
+            json=data,
+        )
+        return converter.structure(res, entity.__class__)
+
     def delete_entity(self, experiment_id, entity_type, _id):
         url = f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}"
         self._delete(url)
@@ -127,7 +145,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         attachments = self._get(
             f"{self.base_url}/experiments/{experiment_id}/attachments"
         )
-        return [Attachment.from_dict(attachment) for attachment in attachments]
+        return converter.structure(attachments, List[Attachment])
 
     def download_attachment(self, experiment_id, _id=None, name=None) -> bytes:
         """Download an attachment"""
