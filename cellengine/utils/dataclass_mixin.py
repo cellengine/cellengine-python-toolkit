@@ -20,6 +20,12 @@ class ReadOnly:
         self.optional = optional
         self.block_set = False
 
+    def keys(self):
+        return []
+
+    def values(self):
+        return []
+
     def __set_name__(self, owner, attr):
         self.owner = owner.__name__
         self.attr = attr
