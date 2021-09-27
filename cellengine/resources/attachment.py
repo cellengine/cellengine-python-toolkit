@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from dataclasses_json.cfg import config
 
 import cellengine as ce
-from cellengine.utils.dataclass_mixin import DataClassMixin
+from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 
 
 @dataclass
@@ -12,12 +12,14 @@ class Attachment(DataClassMixin):
     Attachments are non-data files that are stored in an experiment.
     """
 
-    _id: str = field(metadata=config(field_name="_id"))
     filename: str
-    crc32c: str = field(repr=False)
-    experiment_id: str = field(repr=False)
-    md5: str = field(repr=False)
-    size: int = field(repr=False)
+    _id: str = field(
+        metadata=config(field_name="_id"), default=ReadOnly()
+    )  # type: ignore
+    crc32c: str = field(repr=False, default=ReadOnly())  # type: ignore
+    experiment_id: str = field(repr=False, default=ReadOnly())  # type: ignore
+    md5: str = field(repr=False, default=ReadOnly())  # type: ignore
+    size: int = field(repr=False, default=ReadOnly())  # type: ignore
 
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
