@@ -1,25 +1,31 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-from dataclasses_json.cfg import config
+from attr import define, field
 
 import cellengine as ce
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
+from cellengine.utils import readonly, converter
 
-
-@dataclass
-class Attachment(DataClassMixin):
+@define
+class Attachment:
     """A class representing a CellEngine attachment.
     Attachments are non-data files that are stored in an experiment.
     """
-
+    _id: str = field(on_setattr=readonly)
     filename: str
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    crc32c: str = field(repr=False, default=ReadOnly())  # type: ignore
-    experiment_id: str = field(repr=False, default=ReadOnly())  # type: ignore
-    md5: str = field(repr=False, default=ReadOnly())  # type: ignore
-    size: int = field(repr=False, default=ReadOnly())  # type: ignore
+    crc32c: str = field(on_setattr=readonly, repr=False)
+    experiment_id: str = field(on_setattr=readonly, repr=False)
+    md5: str = field(on_setattr=readonly, repr=False)
+    size: int = field(on_setattr=readonly, repr=False)
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        return converter.structure(data, cls)
+
+    def to_dict(self):
+        return converter.unstructure(self)
+
+    def asdict(self):
+        """Force use of cattrs"""
+        return self.to_dict()
 
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
