@@ -342,6 +342,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.N" class="md-nav__link">
+    N
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.channels" class="md-nav__link">
+    channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.dataframe" class="md-nav__link">
     dataframe
   </a>
@@ -351,6 +365,20 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.dataframe_as_html" class="md-nav__link">
     dataframe_as_html
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.experiment_id" class="md-nav__link">
+    experiment_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.name" class="md-nav__link">
+    name
   </a>
   
 </li>
@@ -579,6 +607,20 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.N" class="md-nav__link">
+    N
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.channels" class="md-nav__link">
+    channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.dataframe" class="md-nav__link">
     dataframe
   </a>
@@ -588,6 +630,20 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.dataframe_as_html" class="md-nav__link">
     dataframe_as_html
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.experiment_id" class="md-nav__link">
+    experiment_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.compensation.Compensation.name" class="md-nav__link">
+    name
   </a>
   
 </li>
@@ -677,17 +733,20 @@ otherwise noted.</p>
 
 <h2 class="doc doc-heading" id="cellengine.resources.compensation.Compensation">
         <code>
-cellengine.resources.compensation.Compensation            (<span title="cellengine.payloads.compensation._Compensation">_Compensation</span>)
+cellengine.resources.compensation.Compensation            (<span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span>)
         </code>
 
 
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
     <div class="doc doc-contents first">
 
-      <p>A class representing a CellEngine compensation matrix. Can be applied to
-FCS files to compensate them.</p>
+      <p>A class representing a CellEngine compensation matrix.</p>
+<p>Can be applied to FCS files to compensate them.</p>
 
 
 
@@ -703,8 +762,8 @@ FCS files to compensate them.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe">
-<code class="codehilite language-python"><span class="n">dataframe</span></code>
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.N">
+<code class="codehilite language-python"><span class="n">N</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -715,7 +774,48 @@ FCS files to compensate them.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get the compensation matrix as a Pandas DataFrame.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.channels">
+<code class="codehilite language-python"><span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
+  </span>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe">
+<code class="codehilite language-python"><span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
+  </span>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
     </div>
 
   </div>
@@ -739,6 +839,48 @@ FCS files to compensate them.</p>
     <div class="doc doc-contents ">
 
       <p>Return the compensation matrix dataframe as HTML.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.experiment_id">
+<code class="codehilite language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
+  </span>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.name">
+<code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
+  </span>
+
+</h3>
+
+    <div class="doc doc-contents ">
+
     </div>
 
   </div>
