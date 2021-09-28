@@ -2721,7 +2721,7 @@ for more information.</p>
   <tbody>
       <tr>
         <td><code>statistics</code></td>
-        <td><code>str</code></td>
+        <td><code>Union[str, List[str]]</code></td>
         <td><p>Statistical method to request. Any of "mean", "median",
 "quantile", "mad" (median absolute deviation), "geometricmean",
 "eventcount", "cv", "stddev" or "percent" (case-insensitive).</p></td>
@@ -2743,15 +2743,15 @@ to calculate statistics for.</p></td>
       </tr>
       <tr>
         <td><code>annotations</code></td>
-        <td><code>optional</code></td>
-        <td><p>bool: Include file annotations in output
+        <td><code>bool</code></td>
+        <td><p>Include file annotations in output
 (defaults to False).</p></td>
         <td><code>False</code></td>
       </tr>
       <tr>
         <td><code>compensation_id</code></td>
-        <td><code>optional</code></td>
-        <td><p>str: Compensation to use for gating and
+        <td><code>str</code></td>
+        <td><p>Compensation to use for gating and
 statistic calculation.
 Defaults to uncompensated. Three special constants may be used:
     0: Uncompensated
@@ -2764,14 +2764,14 @@ Defaults to uncompensated. Three special constants may be used:
       </tr>
       <tr>
         <td><code>fcs_file_ids</code></td>
-        <td><code>optional</code></td>
-        <td><p>List[str]: FCS files to get statistics for. If
+        <td><code>List[str]</code></td>
+        <td><p>FCS files to get statistics for. If
 omitted, statistics for all non-control FCS files will be returned.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
         <td><code>format</code></td>
-        <td><code>optional</code></td>
+        <td><code>str</code></td>
         <td><p>str: One of "TSV (with[out] header)",
 "CSV (with[out] header)" or "json" (default), "pandas",
 case-insensitive.</p></td>
@@ -2779,14 +2779,14 @@ case-insensitive.</p></td>
       </tr>
       <tr>
         <td><code>layout</code></td>
-        <td><code>optional</code></td>
+        <td><code>str</code></td>
         <td><p>str: The file (TSV/CSV) or object (JSON) layout.
 One of "tall-skinny", "medium", or "short-wide".</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
         <td><code>percent_of</code></td>
-        <td><code>optional</code></td>
+        <td><code>Union[str, List[str]]</code></td>
         <td><p>str or List[str]: Population ID or array of
 population IDs.  If omitted or the string "PARENT", will calculate
 percent of parent for each population. If a single ID, will calculate
@@ -2797,7 +2797,7 @@ those populations.</p></td>
       </tr>
       <tr>
         <td><code>population_ids</code></td>
-        <td><code>optional</code></td>
+        <td><code>List[str]</code></td>
         <td><p>List[str]: List of population IDs.
 Defaults to ungated.</p></td>
         <td><code>None</code></td>
