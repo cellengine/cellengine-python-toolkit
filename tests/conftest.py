@@ -1,4 +1,5 @@
 import os
+import socket
 import pytest
 import responses
 from cellengine.utils.api_client.APIClient import APIClient
@@ -15,13 +16,9 @@ Fixtures must be imported below using the `pytest_plugins` list.
 When writing new fixtures, the ``pytest-vcr`` plugin is not called, as
 it is with other tests. Use the "fixture_vcr" instance of VCR to write fixtures.
 
-When writing new tests, ``pytest-vcr`` hooks tests to VCR. Use the
-@pytest.mark.vcr decorator to make a .yaml with the same name as the test.
-
-For unknown reasons, ``pytest-vcr`` fails to filter the headers for a
-DELETE requests. Thus, "test_base_delete" is an unsafe test, as it saves a
-login token. I have opened an issue on ``pytest-vcr``, but for now, if you
-remake "test_base_delete.yaml", delete the two lines with the login token.
+To be completely sure that real HTTP requests are not made, you can use the
+``block_request`` fixture, which monkey-patches the ``socket`` object. It is
+best used with the ``@pytest.mark.usefixtures("block_request")`` decorator.
 """
 
 collect_ignore_glob = ["*integration.py"]
@@ -38,6 +35,14 @@ pytest_plugins = [
     "fixtures.api-events",
     "fixtures.spillstring",
 ]
+
+
+@pytest.fixture(scope="session")
+def block_request():
+    def guard(*args, **kwargs):
+        raise Exception("I told you not to use the Internet!")
+
+    socket.socket = guard
 
 
 @pytest.fixture(scope="session")
