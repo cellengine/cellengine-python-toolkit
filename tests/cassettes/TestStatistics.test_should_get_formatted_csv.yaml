@@ -1,0 +1,92 @@
+interactions:
+- request:
+    body: '{"statistics": "mean", "channels": "FSC-A", "annotations": false, "format":
+      "csv", "layout": "short-wide", "percentOf": "PARENT"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '129'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - CellEngine Python API Toolkit/0.1.0 requests/2.26.0
+    method: POST
+    uri: https://cellengine.com/api/v1/experiments/5e4fcb98bdd7ea051d703652/bulkstatistics
+  response:
+    body:
+      string: !!binary |
+        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
+        oS/pkC7tPPo3DHSJQ8sgAAA=
+    headers:
+      Alt-Svc:
+      - clear
+      Content-Disposition:
+      - attachment; filename="POK 96-1 - Statistics.csv"
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''none''; base-uri ''self''; block-all-mixed-content; connect-src
+        ''self''; font-src ''self'' https://fonts.gstatic.com; form-action ''self'';
+        frame-ancestors ''none''; img-src ''self'' data: blob:; report-uri /csp_report;
+        script-src ''self'' ''unsafe-eval''; style-src ''self'' ''unsafe-inline''
+        https://fonts.googleapis.com; worker-src ''self'''
+      Content-Type:
+      - text/csv; charset=utf-8
+      Date:
+      - Wed, 29 Sep 2021 14:26:14 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 google
+      X-Content-Type-Options:
+      - nosniff
+      X-Current-Release:
+      - /1c4456b
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      set-cookie: safetoken
+    status:
+      code: 200
+      message: OK
+version: 1
