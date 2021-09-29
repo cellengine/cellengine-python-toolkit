@@ -602,10 +602,13 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
 
 <h2 class="doc doc-heading" id="cellengine.resources.plot.Plot">
         <code>
-cellengine.resources.plot.Plot            (<span title="cellengine.payloads.plot._Plot">_Plot</span>)
+cellengine.resources.plot.Plot            (<span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span>)
         </code>
 
 
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
@@ -705,14 +708,14 @@ cellengine.resources.plot.Plot            (<span title="cellengine.payloads.plot
       </tr>
       <tr>
         <td><code>z_channel</code></td>
-        <td><code>str</code></td>
+        <td><code>Optional[str]</code></td>
         <td><p>(for dot plots colored by a 3rd channel)
 Color channel name.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
         <td><code>population_id</code></td>
-        <td><code>str</code></td>
+        <td><code>Optional[str]</code></td>
         <td><p>Defaults to ungated.</p></td>
         <td><code>None</code></td>
       </tr>
