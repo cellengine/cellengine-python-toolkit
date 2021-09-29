@@ -1,6 +1,7 @@
 from __future__ import annotations
 from cellengine.utils.dataclass_mixin import DataClassMixin
 from dataclasses import dataclass
+from typing import Optional
 
 import cellengine as ce
 from cellengine.utils.wrapped_image_opener import WrappedImageOpener
@@ -15,6 +16,7 @@ class Plot(DataClassMixin):
     fcs_file_id: str
     x_channel: str
     y_channel: str
+    z_channel: str
     plot_type: str
     population_id: Optional[str]
     data: bytes
@@ -33,8 +35,8 @@ class Plot(DataClassMixin):
         plot_type: str,
         x_channel: str,
         y_channel: str,
-        z_channel: str = None,
-        population_id: str = None,
+        z_channel: Optional[str] = None,
+        population_id: Optional[str] = None,
         as_dict: bool = False,
         **kwargs,
     ) -> Plot:
@@ -100,9 +102,10 @@ class Plot(DataClassMixin):
         return ce.APIClient().get_plot(
             experiment_id,
             fcs_file_id,
+            plot_type,
             x_channel,
             y_channel,
-            plot_type,
+            z_channel,
             population_id,
             properties,
             as_dict,

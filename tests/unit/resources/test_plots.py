@@ -106,8 +106,9 @@ def test_should_save_plot(ENDPOINT_BASE, experiment, fcs_files):
     plot = Plot(
         experiment._id,
         fcs_file._id,
-        fcs_file.channels[1],
-        fcs_file.channels[1],
+        "x-channel",
+        "y-channel",
+        "z-channel",
         "dot",
         population_id=None,
         data=b"some bytes",
