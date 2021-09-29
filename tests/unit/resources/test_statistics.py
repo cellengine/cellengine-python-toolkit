@@ -45,14 +45,14 @@ def test_should_get_statistics(client, ENDPOINT_BASE, statistics):
     assert set(expected_query_body) == set(json.loads(responses.calls[0].request.body))
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_should_get_list_of_stats(ENDPOINT_BASE, client):
     methods_to_get = ["mean", "mad", "stddev"]
     stats = client.get_statistics("5e4fcb98bdd7ea051d703652", methods_to_get, "FSC-A")
     assert all([method in stats[0].keys() for method in methods_to_get])
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_should_get_list_of_channels(ENDPOINT_BASE, client):
     channels_to_get = ["FSC-A", "FSC-H"]
     stats = client.get_statistics("5e4fcb98bdd7ea051d703652", "mean", channels_to_get)
@@ -60,7 +60,7 @@ def test_should_get_list_of_channels(ENDPOINT_BASE, client):
     assert any([channels_to_get[1] in stat["channel"] for stat in stats])
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_quantile_should_require_q(ENDPOINT_BASE, client):
     with pytest.raises(ValueError):
         client.get_statistics("5e4fcb98bdd7ea051d703652", "quantile", "FSC-A")
@@ -69,7 +69,7 @@ def test_quantile_should_require_q(ENDPOINT_BASE, client):
     client.get_statistics("5e4fcb98bdd7ea051d703652", "quantile", "FSC-A", q=0.75)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_should_get_every_statistics_type(ENDPOINT_BASE, client):
     methods = [
         "mean",
@@ -86,7 +86,7 @@ def test_should_get_every_statistics_type(ENDPOINT_BASE, client):
         assert [method in stat.keys() for stat in stats]
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_should_get_formatted_csv(ENDPOINT_BASE, client):
     stats = client.get_statistics(
         "5e4fcb98bdd7ea051d703652", "mean", "FSC-A", format="csv", layout="short-wide"

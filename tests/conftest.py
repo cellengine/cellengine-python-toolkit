@@ -12,9 +12,12 @@ Fixtures are defined in cellengine-python-toolkit/tests/tests/fixtures.
 You can write new fixtures in new files here, or in existing .py files.
 Fixtures in the ..tests/fixtures folder can use other fixtures in that folder.
 
-Fixtures must be imported below using the `pytest_plugins` list.
-When writing new fixtures, the ``pytest-vcr`` plugin is not called, as
-it is with other tests. Use the "fixture_vcr" instance of VCR to write fixtures.
+When writing new tests, ``pytest-recording`` hooks tests to VCR. Use the
+@pytest.mark.vcr decorator to automatically make a .yaml with the same name
+as the test. When writing VCR tests, you need to have an authorized APIClient
+instance the first time you run tests (to record actual API interactions).
+Do this by replacing the return value of the ``client`` fixture below
+to an APIClient() with valid credentials.
 
 To be completely sure that real HTTP requests are not made, you can use the
 ``block_request`` fixture, which monkey-patches the ``socket`` object. It is
@@ -83,10 +86,11 @@ def experiment(ENDPOINT_BASE, client, experiments):
 def vcr_config():
     """Pytest hook for vcr config"""
     return {
-        "filter_headers": ["Cookie"],
+        "filter_headers": ["Cookie", "authorization"],
+        "ignore_localhost": True,
+        "record_mode": "once",
         "before_record_response": scrub_header("set-cookie", repl="safetoken"),
         "cassette_library_dir": "tests/cassettes",
-        "record_mode": "overwrite",
     }
 
 
