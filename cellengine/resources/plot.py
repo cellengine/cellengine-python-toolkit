@@ -1,19 +1,29 @@
 from __future__ import annotations
-import attr
+from cellengine.utils.dataclass_mixin import DataClassMixin
+from dataclasses import dataclass
 
 import cellengine as ce
 from cellengine.utils.wrapped_image_opener import WrappedImageOpener
-from cellengine.payloads.plot import _Plot
 
 
-@attr.s
-class Plot(_Plot):
+@dataclass
+class Plot(DataClassMixin):
     """A class representing a CellEngine plot.
-
     """
 
-    def __attrs_post_init__(self):
+    experiment_id: str
+    fcs_file_id: str
+    x_channel: str
+    y_channel: str
+    plot_type: str
+    population_id: Optional[str]
+    data: bytes
+
+    def __post_init__(self):
         self.image = None
+
+    def __repr__(self):
+        return f"Plot(experiment_id='{self.experiment_id}', fcs_file_id='{self.fcs_file_id}', plot_type='{self.plot_type}', x_channel='{self.x_channel}', y_channel='{self.y_channel}', z_channel='{self.z_channel}', population_id='{self.population_id}') "  # noqa
 
     @classmethod
     def get(
