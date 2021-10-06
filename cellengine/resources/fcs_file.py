@@ -1,5 +1,5 @@
 from __future__ import annotations
-from cellengine.utils.dataclass_mixin import DataClassMixin
+from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
 from dataclasses_json import config
 from typing import Any, Dict, List, Optional, Union
@@ -14,12 +14,12 @@ from cellengine.resources.compensation import Compensation
 
 @dataclass
 class FcsFile(DataClassMixin):
-    _id: str = field(metadata=config(field_name="_id"))
     _annotations: str = field(metadata=config(field_name="annotations"))
     filename: str
     is_control: str
     panel_name: str
     deleted: bool
+    panel: List[Dict[str, Any]]
     _id: str = field(
         metadata=config(field_name="_id"), default=ReadOnly()
     )  # type: ignore
@@ -30,7 +30,6 @@ class FcsFile(DataClassMixin):
     has_file_internal_comp: bool = field(default=ReadOnly())  # type: ignore
     header: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
     md5: str = field(default=ReadOnly())  # type: ignore
-    panel: List[Dict[str, Any]] = field(default=ReadOnly())  # type: ignore
     sample_name: str = field(default=ReadOnly())  # type: ignore
     size: int = field(default=ReadOnly())  # type: ignore
     _spill_string: Optional[str] = field(
@@ -161,7 +160,7 @@ class FcsFile(DataClassMixin):
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "fcsfiles", self.to_dict()
         )
-        self.__dict__.update(res)
+        self.__dict__.update(FcsFile.from_dict(res).__dict__)
 
     def delete(self):
         return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
@@ -193,8 +192,7 @@ class FcsFile(DataClassMixin):
 
     def get_file_internal_compensation(self) -> Compensation:
         """Get the file-internal Compensation."""
-        file = ce.APIClient().get_fcs_file(self.experiment_id, self._id)
-        return Compensation.from_spill_string(file.spill_string)  # type: ignore
+        return Compensation.from_spill_string(self.spill_string)
 
     @property
     def events(self):
@@ -215,6 +213,15 @@ class FcsFile(DataClassMixin):
     @events.setter
     def events(self, events):
         self._events = events
+
+    @property
+    def spill_string(self):
+        if self._spill_string:
+            return self._spill_string
+        else:
+            ss = ce.APIClient().get_fcs_file(self.experiment_id, self._id).spill_string
+            self._spill_string = ss
+            return ss
 
     def get_events(
         self, inplace: bool = False, destination=None, **kwargs
