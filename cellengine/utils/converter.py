@@ -1,6 +1,10 @@
-from attr import has, fields
+from attr import define, has, fields
 from cattr.converters import GenConverter
 from cattr.gen import make_dict_unstructure_fn, make_dict_structure_fn, override
+
+@define
+class Foo:
+    pass
 
 def get_converter():
     converter = GenConverter()
@@ -42,6 +46,14 @@ def get_converter():
     )
     converter.register_structure_hook_factory(
         has, to_camel_case_structure
+    )
+
+    def _structure_gates(*args, **kwargs):
+        pass
+
+    converter.register_structure_hook_func(
+        lambda cls: issubclass(getattr(cls, '__origin__', bool), Foo),
+        _structure_gates,
     )
 
     return converter

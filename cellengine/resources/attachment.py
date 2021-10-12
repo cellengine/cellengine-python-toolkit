@@ -27,27 +27,6 @@ class Attachment:
         """Force use of cattrs"""
         return self.to_dict()
 
-    @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
-        """Get an Attachment by name or ID for a specific experiment. Either
-        `name` or `_id` must be specified.
-
-        Args:
-            experiment_id: ID of the experiment this attachment is connected with.
-            _id (optional): ID of the attachment.
-            name (optional): Name of the experiment.
-        """
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_attachment(experiment_id, **kwargs)
-
-    @staticmethod
-    def upload(experiment_id: str, filepath: str, filename: str = None) -> Attachment:
-        return ce.APIClient().post_attachment(experiment_id, filepath, filename)
-
-    def delete(self):
-        """Delete this attachment."""
-        return ce.APIClient().delete_entity(self.experiment_id, "attachments", self._id)
-
     def download(self, to_file: str = None):
         """Download the attachment.
 

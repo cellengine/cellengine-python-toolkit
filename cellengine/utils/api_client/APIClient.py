@@ -120,6 +120,18 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             json=body,
         )
 
+    def _get_path(self, entity):
+        path = entity.__module__.split(".")[-1] + "s"
+        if not entity._id:
+            import pdb; pdb.set_trace()
+        if type(entity) is Experiment:
+            fullpath = f"{self.base_url}/experiments/{entity._id}"
+        else:
+            eid = entity.experiment_id
+            _id = entity._id
+            fullpath = f"{self.base_url}/experiments/{eid}/{path}/{_id}"
+        return fullpath
+
     def update(self, entity):
         path = entity.__module__.split(".")[-1] + "s"
         if type(entity) is Experiment:
@@ -136,6 +148,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             json=data,
         )
         return converter.structure(res, entity.__class__)
+
+    def delete(self, entity) -> None:
+        path = self._get_path(entity)
+        self._delete(path)
 
     def delete_entity(self, experiment_id, entity_type, _id):
         url = f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}"
@@ -161,6 +177,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return [a for a in attachments if (a.filename == name) or (a._id == _id)][0]
         except IndexError:
             raise RuntimeError("No experiment with that name or _id found.")
+
+    def create(self, entity):
+        path = self._get_path(entity)
+        raise RuntimeError('nooooooooooooooop')
 
     def post_attachment(
         self, experiment_id, filepath: str, filename: str = None
