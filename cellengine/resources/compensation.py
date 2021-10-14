@@ -88,7 +88,7 @@ class Compensation(DataClassMixin):
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "compensations", body=self.to_dict()
         )
-        self.__dict__.update(res)
+        self.__dict__.update(Compensation.from_dict(res).__dict__)
 
     def delete(self):
         return ce.APIClient().delete_entity(
