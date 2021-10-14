@@ -48,7 +48,7 @@ class Attachment(DataClassMixin):
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "attachments", body=self.to_dict()
         )
-        self.__dict__.update(res)
+        self.__dict__.update(Attachment.from_dict(res).__dict__)
 
     def delete(self):
         """Delete this attachment."""
