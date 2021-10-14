@@ -47,7 +47,9 @@ class ScaleSet(DataClassMixin):
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "scalesets", self.to_dict()
         )
-        self.__dict__.update(self.from_dict(res).__dict__)
+        if "scaleSet" in res.keys():
+            res = res["scaleSet"]
+        self.__dict__.update(ScaleSet.from_dict(res).__dict__)
 
     def apply(self, file, clamp_q=False, in_place=True):
         """Apply the scaleset to a file.
