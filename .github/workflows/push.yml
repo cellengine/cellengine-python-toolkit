@@ -25,6 +25,7 @@ jobs:
         uses: TrueBrain/actions-flake8@master
         with:
           max_line_length: 88
+          extend-ignore: E203
   test:
     runs-on: ubuntu-latest
     strategy:
