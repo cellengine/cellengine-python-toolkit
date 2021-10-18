@@ -266,7 +266,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         fcs_files = self._get(f"{self.base_url}/experiments/{experiment_id}/fcsfiles")
         if as_dict:
             return fcs_files
-        return [FcsFile(fcs_file) for fcs_file in fcs_files]
+        return [FcsFile.from_dict(fcs_file) for fcs_file in fcs_files]
 
     def get_fcs_file(
         self, experiment_id, _id=None, name=None, as_dict=False
@@ -277,7 +277,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return fcs_file
-        return FcsFile(fcs_file)
+        return FcsFile.from_dict(fcs_file)
 
     def upload_fcs_file(
         self, experiment_id, filepath: str, filename: str = None
@@ -293,7 +293,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
         file, headers = self._read_multipart_file(filepath, filename)
-        return FcsFile(self._post(url, data=file, headers=headers))
+        return FcsFile.from_dict(self._post(url, data=file, headers=headers))
 
     def _read_multipart_file(self, filepath: str, filename: str = None):
         """Posts a MultipartEncoder of the file and its content-type"""
@@ -311,9 +311,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         used to import files from other experiments.
         """
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
-        return FcsFile(self._post(url, json=body))
+        return FcsFile.from_dict(self._post(url, json=body))
 
-    def download_fcs_file(self, experiment_id: str, fcs_file_id: str, **kwargs):
+    def download_fcs_file(
+        self, experiment_id: str, fcs_file_id: str, **kwargs
+    ) -> bytes:
         """Download events for a specific FcsFile
 
         Parameters:

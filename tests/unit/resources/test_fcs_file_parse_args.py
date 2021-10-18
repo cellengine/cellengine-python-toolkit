@@ -101,7 +101,7 @@ def test_should_create_fcs_file_and_correctly_parse_body_args(
 
 @responses.activate
 def test_should_delete_fcs_file(ENDPOINT_BASE, client, fcs_files):
-    fcs_file = FcsFile(fcs_files[0])
+    fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(
         responses.DELETE,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/{fcs_file._id}",
