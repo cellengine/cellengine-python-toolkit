@@ -1,11 +1,18 @@
 from __future__ import annotations
+from datetime import datetime
+
+from marshmallow import fields
+
+from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
+from dataclasses import dataclass, field
 import inspect
 from math import pi
 from custom_inherit import doc_inherit
-from typing import Optional, Dict, Union, List
+from typing import Any, Optional, Dict, Union, List
+
+from dataclasses_json.cfg import config
 
 import cellengine as ce
-from cellengine.payloads.experiment import _Experiment
 from cellengine.resources.population import Population
 from cellengine.resources.scaleset import ScaleSet
 from cellengine.resources.fcs_file import FcsFile
@@ -28,10 +35,104 @@ from cellengine.payloads.gate_utils import (
     format_split_gate,
     format_quadrant_gate,
 )
-from cellengine.utils.helpers import today_timestamp
+from cellengine.utils.helpers import (
+    CommentList,
+    datetime_to_timestamp,
+    timestamp_to_datetime,
+)
 
 
-class Experiment(_Experiment):
+@dataclass
+class Experiment(DataClassMixin):
+
+    name: str
+    annotation_validators: Dict[Any, Any]
+    annotation_name_order: List[str]
+    annotation_table_sort_columns: List[Union[str, int]]
+    _comments: List[Dict[str, Any]] = field(metadata=config(field_name="comments"))
+    primary_researcher: Dict[str, Any]
+    sorting_spec: Dict[Any, Any]
+    tags: List[str]
+    created: datetime = field(
+        metadata=config(
+            encoder=datetime_to_timestamp,
+            decoder=timestamp_to_datetime,
+            mm_field=fields.DateTime(),
+        ),
+        default=ReadOnly(),
+    )  # type: ignore
+    updated: datetime = field(
+        metadata=config(
+            encoder=datetime_to_timestamp,
+            decoder=timestamp_to_datetime,
+            mm_field=fields.DateTime(),
+        ),
+        default=ReadOnly(),
+    )  # type: ignore
+    _active_comp: Optional[Union[int, str]] = field(
+        default=None, metadata=config(field_name="activeCompensation")
+    )
+    data: Optional[Dict[Any, Any]] = field(default=None)
+    deleted: Optional[datetime] = field(
+        default=None,
+        metadata=config(
+            encoder=lambda t: datetime_to_timestamp(t) if t else t,
+            decoder=lambda t: timestamp_to_datetime(t) if t else t,
+            mm_field=fields.DateTime(),
+        ),
+    )
+    deep_updated: datetime = field(
+        metadata=config(
+            encoder=datetime_to_timestamp,
+            decoder=timestamp_to_datetime,
+            mm_field=fields.DateTime(),
+        ),
+        default=ReadOnly(optional=True),
+    )  # type: ignore
+    analysis_source_experiment: Optional[str] = field(
+        default=ReadOnly(optional=True)
+    )  # type: ignore
+    clone_source_experiment: Optional[str] = field(
+        default=ReadOnly(optional=True)
+    )  # type: ignore
+    locked: bool = field(default=ReadOnly())  # type: ignore
+    permissions: List[Dict[Any, Any]] = field(default=ReadOnly())  # type: ignore
+    per_file_compensations_enabled: Optional[bool] = field(default=None)
+    retention_policy: Dict[str, Any] = field(default=ReadOnly())  # type: ignore
+    revision_source_experiment: Optional[str] = field(
+        default=ReadOnly(optional=True)
+    )  # type: ignore
+    _id: str = field(
+        metadata=config(field_name="_id"), default=ReadOnly()
+    )  # type: ignore
+    revisions: List[Dict[str, Any]] = field(default=ReadOnly())  # type: ignore
+    uploader: Dict[str, Any] = field(default=ReadOnly())  # type: ignore
+
+    def __repr__(self):
+        return f"Experiment(_id='{self._id}', name='{self.name}')"
+
+    @property
+    def comments(self):
+        """Get comments for experiment.
+
+        Defaults to overwrite; append new comments with
+        experiment.comments.append(dict) with the form:
+        dict = {"insert": "some text",
+        "attributes": {"bold": False, "italic": False, "underline": False}}.
+        """
+        comments = self._comments
+        if type(comments) is not CommentList:
+            self._comments = CommentList(comments)
+        return comments
+
+    @comments.setter
+    def comments(self, comments: Dict[str, Any]):
+        comment = comments.get("insert")
+        if comment:
+            if comment.endswith("\n") is False:
+                comments.update(insert=comment + "\n")
+            self._comments = comments  # type: ignore
+
     @staticmethod
     def get(_id: str = None, name: str = None) -> Experiment:
         kwargs = {"name": name} if name else {"_id": _id}
@@ -44,7 +145,7 @@ class Experiment(_Experiment):
         uploader: str = None,
         primary_researcher: str = None,
         tags: List[str] = None,
-    ) -> Experiment:
+    ) -> Union[Experiment, Dict]:
         """Post a new experiment to CellEngine.
 
         Args:
@@ -72,8 +173,8 @@ class Experiment(_Experiment):
 
     def update(self):
         """Save changes to this Experiment to CellEngine."""
-        res = ce.APIClient().update_experiment(self._id, self._properties)
-        self._properties.update(res)
+        res = ce.APIClient().update_experiment(self._id, self.to_dict())
+        self.__dict__.update(Experiment.from_dict(res).__dict__)
 
     def clone(self, name: str = None):
         """
@@ -90,24 +191,23 @@ class Experiment(_Experiment):
         return ce.APIClient().clone_experiment(self._id, name=name)
 
     @property
-    def delete(self, confirm=False):
+    def delete(self):
         """Marks the experiment as deleted.
 
         Deleted experiments are permanently deleted after approximately
         7 days. Until then, deleted experiments can be recovered.
         """
-        if confirm:
-            self._properties["deleted"] = today_timestamp()
+        self.deleted = datetime.today()
 
     @property
     def undelete(self):
         """Clear a scheduled deletion."""
-        if self._properties.get("deleted") is not None:
-            self._properties["delete"] = None
+        if self.deleted:
+            del self.deleted
 
     @property
-    def active_compensation(self) -> Compensation:
-        active_comp = self._properties["activeCompensation"]
+    def active_compensation(self) -> Optional[Union[Compensation, int]]:
+        active_comp = self._active_comp
         if type(active_comp) is str:
             return ce.APIClient().get_compensation(self._id, active_comp)
         elif type(active_comp) is int:
@@ -119,8 +219,15 @@ class Experiment(_Experiment):
         )
 
     @active_compensation.setter
-    def active_compensation(self, compensation: str):
-        self._properties["activeCompensation"] = compensation
+    def active_compensation(self, compensation: Union[Compensation, int]):
+        if type(compensation) is Compensation:
+            self._active_comp = compensation._id  # type: ignore
+        elif (
+            compensation == "UNCOMPENSATED"
+            or compensation == "FILE_INTERNAL"
+            or compensation == "PER_FILE"
+        ):
+            self._active_comp = compensation  # type: ignore
 
     @property
     def attachments(self) -> List[Attachment]:
@@ -132,7 +239,7 @@ class Experiment(_Experiment):
 
     def download_attachment(
         self, _id: Optional[str] = None, name: Optional[str] = None
-    ) -> Attachment:
+    ) -> bytes:
         """Get a specific attachment."""
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().download_attachment(self._id, **kwargs)
@@ -274,7 +381,7 @@ class Experiment(_Experiment):
         )
 
     @property
-    def scalesets(self) -> List[ScaleSet]:
+    def scalesets(self) -> ScaleSet:
         """List all scalesets in the experiment."""
         return ce.APIClient().get_scaleset(self._id)
 
@@ -291,7 +398,7 @@ class Experiment(_Experiment):
 
     @doc_inherit(Gate.delete_gates)
     def delete_gate(
-        self, _id: str = None, gid: str = None, exclude: bool = None
+        self, _id: str = None, gid: str = None, exclude: str = None
     ) -> None:
         """Delete a gate or gate family.
         See the
@@ -320,10 +427,14 @@ class Experiment(_Experiment):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> RectangleGate:
-        args, _, _, values = inspect.getargvalues(inspect.currentframe())
+        f = inspect.currentframe()
+        args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_rectangle_gate(kwargs.pop("self")._id, **kwargs)
-        return ce.APIClient().post_gate(self._id, post_body)
+        post_body = format_rectangle_gate(
+            kwargs.pop("self")._id,  # type: ignore
+            **kwargs,
+        )
+        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
 
     @doc_inherit(format_polygon_gate)
     def create_polygon_gate(
@@ -342,10 +453,14 @@ class Experiment(_Experiment):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> PolygonGate:
-        args, _, _, values = inspect.getargvalues(inspect.currentframe())
+        f = inspect.currentframe()
+        args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_polygon_gate(kwargs.pop("self")._id, **kwargs)
-        return ce.APIClient().post_gate(self._id, post_body)
+        post_body = format_polygon_gate(
+            kwargs.pop("self")._id,  # type: ignore
+            **kwargs,
+        )
+        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
 
     @doc_inherit(format_ellipse_gate)
     def create_ellipse_gate(
@@ -368,10 +483,14 @@ class Experiment(_Experiment):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> EllipseGate:
-        args, _, _, values = inspect.getargvalues(inspect.currentframe())
+        f = inspect.currentframe()
+        args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_ellipse_gate(kwargs.pop("self")._id, **kwargs)
-        return ce.APIClient().post_gate(self._id, post_body)
+        post_body = format_ellipse_gate(
+            kwargs.pop("self")._id,  # type: ignore
+            **kwargs,
+        )
+        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
 
     @doc_inherit(format_range_gate)
     def create_range_gate(
@@ -391,10 +510,14 @@ class Experiment(_Experiment):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> RangeGate:
-        args, _, _, values = inspect.getargvalues(inspect.currentframe())
+        f = inspect.currentframe()
+        args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_range_gate(kwargs.pop("self")._id, **kwargs)
-        return ce.APIClient().post_gate(self._id, post_body)
+        post_body = format_range_gate(
+            kwargs.pop("self")._id,  # type: ignore
+            **kwargs,
+        )
+        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
 
     @doc_inherit(format_split_gate)
     def create_split_gate(
@@ -414,10 +537,14 @@ class Experiment(_Experiment):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> SplitGate:
-        args, _, _, values = inspect.getargvalues(inspect.currentframe())
+        f = inspect.currentframe()
+        args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_split_gate(kwargs.pop("self")._id, **kwargs)
-        return ce.APIClient().post_gate(self._id, post_body)
+        post_body = format_split_gate(
+            kwargs.pop("self")._id,  # type: ignore
+            **kwargs,
+        )
+        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
 
     @doc_inherit(format_quadrant_gate)
     def create_quadrant_gate(
@@ -440,10 +567,14 @@ class Experiment(_Experiment):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> QuadrantGate:
-        args, _, _, values = inspect.getargvalues(inspect.currentframe())
+        f = inspect.currentframe()
+        args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_quadrant_gate(kwargs.pop("self")._id, **kwargs)
-        return ce.APIClient().post_gate(self._id, post_body)
+        post_body = format_quadrant_gate(
+            kwargs.pop("self")._id,  # type: ignore
+            **kwargs,
+        )
+        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
 
     def create_population(self, population: Dict) -> Population:
         """Create a complex population

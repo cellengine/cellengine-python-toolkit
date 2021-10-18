@@ -85,8 +85,8 @@ def timestamp_to_datetime(value: str) -> datetime:
     return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 
-def today_timestamp() -> str:
-    """Converts today's date to a ISO 8601 date+time UTC timestamp for deleting
-    experiments.
+def datetime_to_timestamp(value: datetime) -> str:
+    """Converts ISO 8601 date+time UTC timestamps as returned by CellEngine to
+    ``datetime`` objects.
     """
-    return datetime.today().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+    return datetime.strftime(value, "%Y-%m-%dT%H:%M:%S.%fZ")

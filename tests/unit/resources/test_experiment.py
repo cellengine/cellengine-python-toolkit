@@ -20,9 +20,7 @@ POPULATION_ID = "5d3903529fae87499999a780"
 STATISTICS_ID = "5d64abe2ca9df61349ed8e79"
 
 
-@responses.activate
 def test_all_experiment_properties(ENDPOINT_BASE, experiment):
-    assert type(experiment._properties) is dict
     assert experiment._id == "5d38a6f79fae87499999a74b"
     assert experiment.name == "pytest_experiment"
     assert experiment.comments == [{"insert": "\xa0\xa0\xa0First 12 of 96 files\n\n"}]
@@ -167,7 +165,7 @@ def test_get_statistics(ENDPOINT_BASE, experiment):
 @responses.activate
 def test_should_create_experiment(ENDPOINT_BASE, experiment):
     """Tests updating experiment params"""
-    response = experiment._properties.copy()
+    response = experiment.to_dict().copy()
     response["name"] = "new_experiment"
     responses.add(
         responses.POST, ENDPOINT_BASE + "/experiments", json=response,
@@ -181,7 +179,7 @@ def test_should_create_experiment(ENDPOINT_BASE, experiment):
 @responses.activate
 def test_update_experiment(ENDPOINT_BASE, experiment):
     """Tests updating experiment params"""
-    response = experiment._properties.copy()
+    response = experiment.to_dict().copy()
     response.update({"name": "new name"})
     responses.add(
         responses.PATCH,
@@ -192,7 +190,7 @@ def test_update_experiment(ENDPOINT_BASE, experiment):
     experiment.name = "new name"
     experiment.update()
     assert experiment.name == "new name"
-    assert json.loads(responses.calls[0].request.body) == experiment._properties
+    assert json.loads(responses.calls[0].request.body) == experiment.to_dict()
 
 
 @responses.activate
