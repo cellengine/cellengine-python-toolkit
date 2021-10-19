@@ -2,6 +2,7 @@ from abc import abstractmethod
 from typing import Union, List, Dict
 
 import requests
+from requests.sessions import HTTPAdapter
 from cellengine.utils.singleton import AbstractSingleton
 from cellengine.utils.api_client.APIError import APIError
 from cellengine import __version__ as CEV
@@ -16,6 +17,8 @@ class BaseAPIClient(metaclass=AbstractSingleton):
 
     def __init__(self):
         self.requests_session = requests.Session()
+        self.requests_session.mount("http://", HTTPAdapter(max_retries=3))
+        self.requests_session.mount("https://", HTTPAdapter(max_retries=3))
         self.requests_session.headers.update(
             {
                 "Content-Type": "application/json",
