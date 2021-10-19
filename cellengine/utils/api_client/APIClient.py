@@ -1,4 +1,5 @@
 from __future__ import annotations
+from cellengine.resources.gates import RectangleGate
 import os
 import json
 import pandas
@@ -14,12 +15,13 @@ from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation
 from ...resources.experiment import Experiment
 from ...resources.fcs_file import FcsFile
-from ...resources.gate import Gate
+from ...resources.gates import Gate, EllipseGate, PolygonGate, QuadrantGate, RangeGate, SplitGate
 from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
 
 from cellengine.utils.converter import converter
+
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
@@ -83,6 +85,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     @lru_cache(maxsize=None)
     def _get_id_by_name(self, name, resource_type, experiment_id):
+        foo  = 10
         if resource_type != "experiments":
             path = f"experiments/{experiment_id}/{resource_type}"
         else:
@@ -123,7 +126,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def _get_path(self, entity):
         path = entity.__module__.split(".")[-1] + "s"
         if not entity._id:
-            import pdb; pdb.set_trace()
+            import pdb
+
+            pdb.set_trace()
         if type(entity) is Experiment:
             fullpath = f"{self.base_url}/experiments/{entity._id}"
         else:
@@ -143,10 +148,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
         data = converter.unstructure(entity)
 
-        res = self._patch(
-            fullpath,
-            json=data,
-        )
+        res = self._patch(fullpath, json=data,)
         return converter.structure(res, entity.__class__)
 
     def delete(self, entity) -> None:
@@ -180,7 +182,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def create(self, entity):
         path = self._get_path(entity)
-        raise RuntimeError('nooooooooooooooop')
+        raise RuntimeError("nooooooooooooooop")
 
     def post_attachment(
         self, experiment_id, filepath: str, filename: str = None
@@ -379,14 +381,37 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
-        return [Gate.factory(gate) for gate in gates]
+        types = {
+            "RectangleGate": RectangleGate,
+            "PolygonGate": PolygonGate,
+            "EllipseGate": EllipseGate,
+            "QuadrantGate": QuadrantGate,
+            "RangeGate": RangeGate,
+            "SplitGate": SplitGate,
+        }
+        # TODO: improve this
+        x = []
+        for gate in gates:
+            type = types[gate["type"]]
+            x.append(converter.structure(gate, type))
+        return x
 
     def get_gate(self, experiment_id: str, _id, as_dict=False) -> Gate:
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
-        return Gate.factory(gate)
+        types = {
+            "RectangleGate": RectangleGate,
+            "PolygonGate": PolygonGate,
+            "EllipseGate": EllipseGate,
+            "QuadrantGate": QuadrantGate,
+            "RangeGate": RangeGate,
+            "SplitGate": SplitGate,
+        }
+        # TODO: improve this
+        type = types[gate["type"]]
+        return converter.structure(gate, type)
 
     def delete_gate(
         self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None

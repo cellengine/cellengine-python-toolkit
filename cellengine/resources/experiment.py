@@ -434,7 +434,7 @@ class Experiment(DataClassMixin):
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        return ce.APIClient().post_gate(self._id, post_body)
 
     @doc_inherit(format_polygon_gate)
     def create_polygon_gate(
