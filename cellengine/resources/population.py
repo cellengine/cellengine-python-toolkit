@@ -38,7 +38,7 @@ class Population(DataClassMixin):
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "populations", self.to_dict()
         )
-        self.__dict__.update(res)
+        self.__dict__.update(Population.from_dict(res).__dict__)
 
     def delete(self):
         ce.APIClient().delete_entity(self.experiment_id, "populations", self._id)

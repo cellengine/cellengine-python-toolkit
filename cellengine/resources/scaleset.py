@@ -9,7 +9,7 @@ import cellengine as ce
 from cellengine.payloads.scale_utils.apply_scale import apply_scale
 from cellengine.payloads.scale_utils.scale_dict import ScaleDict
 from cellengine.resources.fcs_file import FcsFile
-from cellengine.utils.dataclass_mixin import DataClassMixin
+from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 
 
 def encode_json_scale(scales):
@@ -28,12 +28,14 @@ def decode_json_scale(scales) -> Dict[str, ScaleDict]:
 
 @dataclass
 class ScaleSet(DataClassMixin):
-    _id: str = field(metadata=config(field_name="_id"))
-    experiment_id: str
     name: str
     scales: Dict["str", Dict[str, Union[str, int]]] = field(
         metadata=config(encoder=encode_json_scale, decoder=decode_json_scale)
     )
+    _id: str = field(
+        metadata=config(field_name="_id"), default=ReadOnly()
+    )  # type: ignore
+    experiment_id: str = field(default=ReadOnly())  # type: ignore
 
     def __repr__(self):
         return "ScaleSet(_id='{}', name='{}')".format(self._id, self.name)
@@ -47,7 +49,9 @@ class ScaleSet(DataClassMixin):
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "scalesets", self.to_dict()
         )
-        self.__dict__.update(self.from_dict(res).__dict__)
+        if "scaleSet" in res.keys():
+            res = res["scaleSet"]
+        self.__dict__.update(ScaleSet.from_dict(res).__dict__)
 
     def apply(self, file, clamp_q=False, in_place=True):
         """Apply the scaleset to a file.
