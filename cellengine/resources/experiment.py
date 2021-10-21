@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 import inspect
 from math import pi
 from custom_inherit import doc_inherit
-from typing import Any, Optional, Dict, Union, List
+from typing import Any, Optional, Dict, Union, List, cast
 
 from dataclasses_json.cfg import config
 
@@ -434,7 +434,8 @@ class Experiment(DataClassMixin):
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)
+        gate = ce.APIClient().post_gate(self._id, post_body)
+        return cast(RectangleGate, gate)
 
     @doc_inherit(format_polygon_gate)
     def create_polygon_gate(

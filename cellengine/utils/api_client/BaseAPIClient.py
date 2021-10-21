@@ -81,7 +81,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         files: Dict = None,
         data=None,
         raw=False,
-    ) -> Dict:
+    ) -> Any:
         response = self.requests_session.post(
             url,
             json=json,

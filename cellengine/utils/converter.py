@@ -49,6 +49,7 @@ def get_converter():
     )
 
     def _structure_gates(*args, **kwargs):
+        import pdb; pdb.set_trace()
         pass
 
     converter.register_structure_hook_func(

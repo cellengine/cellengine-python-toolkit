@@ -4,7 +4,7 @@ import os
 import json
 import pandas
 from getpass import getpass
-from typing import Any, Dict, List, Union, Optional
+from typing import Any, Dict, List, Literal, Type, TypeVar, TypedDict, Union, Optional, cast, overload
 from functools import lru_cache
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -15,12 +15,43 @@ from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation
 from ...resources.experiment import Experiment
 from ...resources.fcs_file import FcsFile
-from ...resources.gates import Gate, EllipseGate, PolygonGate, QuadrantGate, RangeGate, SplitGate
+from ...resources.gates import Gate, EllipseGate, GateDict, PolygonGate, QuadrantGate, RangeGate, SplitGate
 from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
 
 from cellengine.utils.converter import converter
+
+G = TypeVar('G', bound=Gate)
+
+@overload
+def get_gate_type(gate: Literal["RectangleGate"]) -> RectangleGate:
+    ...
+@overload
+def get_gate_type(gate: Literal["PolygonGate"]) -> PolygonGate:
+    ...
+@overload
+def get_gate_type(gate: Literal["QuadrantGate"]) -> QuadrantGate:
+    ...
+@overload
+def get_gate_type(gate: Literal["EllipseGate"]) -> EllipseGate:
+    ...
+@overload
+def get_gate_type(gate: Literal["RangeGate"]) -> RangeGate:
+    ...
+@overload
+def get_gate_type(gate: Literal["SplitGate"]) -> SplitGate:
+    ...
+def get_gate_type(gate):
+    types = {
+        "RectangleGate": RectangleGate,
+        "PolygonGate": PolygonGate,
+        "EllipseGate": EllipseGate,
+        "QuadrantGate": QuadrantGate,
+        "RangeGate": RangeGate,
+        "SplitGate": SplitGate,
+    }
+    return types[gate]
 
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
@@ -381,37 +412,19 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
-        types = {
-            "RectangleGate": RectangleGate,
-            "PolygonGate": PolygonGate,
-            "EllipseGate": EllipseGate,
-            "QuadrantGate": QuadrantGate,
-            "RangeGate": RangeGate,
-            "SplitGate": SplitGate,
-        }
-        # TODO: improve this
         x = []
         for gate in gates:
-            type = types[gate["type"]]
-            x.append(converter.structure(gate, type))
+            _type = get_gate_type(gate["type"])
+            x.append(converter.structure(gate, _type))
         return x
 
-    def get_gate(self, experiment_id: str, _id, as_dict=False) -> Gate:
+    def get_gate(self, experiment_id: str, _id, as_dict=False):
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
-        types = {
-            "RectangleGate": RectangleGate,
-            "PolygonGate": PolygonGate,
-            "EllipseGate": EllipseGate,
-            "QuadrantGate": QuadrantGate,
-            "RangeGate": RangeGate,
-            "SplitGate": SplitGate,
-        }
-        # TODO: improve this
-        type = types[gate["type"]]
-        return converter.structure(gate, type)
+        _type = get_gate_type(gate["type"])
+        return converter.structure(gate, _type) # type: ignore
 
     def delete_gate(
         self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None
@@ -452,17 +465,23 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def post_gate(
         self, experiment_id, gate: Dict, create_population=True, as_dict=False
-    ) -> Gate:
-        res = self._post(
+    ):
+        res: Union[GateDict, List[GateDict]] = self._post(
             f"{self.base_url}/experiments/{experiment_id}/gates",
             json=gate,
             params={"createPopulation": create_population},
         )
         if as_dict:
             return res
+        # TODO: remove population
         if type(res) is list:
-            return [Gate.factory(r) for r in res]
-        return Gate.factory(res)
+            return [self.structure_gate(gate) for gate in res]
+        else:
+            return self.structure_gate(cast(GateDict, res))
+
+    def structure_gate(self, gate: GateDict) -> Gate:
+        _type = get_gate_type(gate["type"])
+        return converter.structure(gate, _type)  # type: ignore
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(
