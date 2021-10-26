@@ -6,6 +6,7 @@ from typing import Dict, List, Literal, Optional, TypedDict, Union
 from attr import define, field
 import numpy
 from cellengine.payloads.gate_utils.utils import format_common_gate
+import cellengine as ce
 
 class GateDict(TypedDict):
     _id: str
@@ -38,11 +39,14 @@ class Gate:
     y_channel: Optional[str] = field(default=None)
 
     def __repr__(self):
+        # TODO: f strings
         if self.name:
             name = self.name
         else:
             name = str(self.names)
         return "{}(_id='{}', name='{}')".format(self.type, self._id, name)
+
+    # TODO: path property?
 
     # @property
     # def model(self):
@@ -188,16 +192,21 @@ class RectangleGate(Gate):
             "model": model,
         }
 
-        return cls.from_dict(
-            format_common_gate(
-                experiment_id,
-                body=body,
-                tailored_per_file=tailored_per_file,
-                fcs_file_id=fcs_file_id,
-                fcs_file=fcs_file,
-                create_population=create_population,
-            )
-        )
+        return cls(
+                id = None,
+                experiment_id = experiment_id,
+                fcs_file_id = fcs_file_id,
+                gid = gid,
+                parent_population_id = parent_population_id,
+                tailored_per_file = tailored_per_file,
+                type = "RectangleGate",
+                x_channel = x_channel,
+                model = model,
+                y_channel = y_channel,
+                name = name,
+                # TODO: parse_fcs_file_args
+                # TODO: create_population
+                )  # type: ignore
 
 
 @define(repr=False)

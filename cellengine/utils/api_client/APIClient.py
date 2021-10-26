@@ -63,6 +63,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             "CELLENGINE_BASE_URL", "https://cellengine.com/api/v1"
         )
         self.username = username
+        # TODO: probably not a good idea
         self.password = password or os.environ.get("CELLENGINE_PASSWORD")
         self.token = token or os.environ.get("CELLENGINE_AUTH_TOKEN")
         self.user_id = None
@@ -408,23 +409,21 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raw=True,
         )
 
-    def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
+    def get_gates(self, experiment_id: str, as_dict: bool = False) -> List[Gate]:
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
-        x = []
+        structured_gates = []
         for gate in gates:
-            _type = get_gate_type(gate["type"])
-            x.append(converter.structure(gate, _type))
-        return x
+            structured_gates.append(self.structure_gate(gate))
+        return structured_gates
 
-    def get_gate(self, experiment_id: str, _id, as_dict=False):
+    def get_gate(self, experiment_id: str, _id: str, as_dict: bool = False):
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
-        _type = get_gate_type(gate["type"])
-        return converter.structure(gate, _type) # type: ignore
+        return self.structure_gate(gate)
 
     def delete_gate(
         self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None
@@ -466,6 +465,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def post_gate(
         self, experiment_id, gate: Dict, create_population=True, as_dict=False
     ):
+        import pdb; pdb.set_trace()
+        if issubclass(gate.__class__, Gate):
+            gate = converter.unstructure(gate)
         res: Union[GateDict, List[GateDict]] = self._post(
             f"{self.base_url}/experiments/{experiment_id}/gates",
             json=gate,
@@ -474,14 +476,27 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if as_dict:
             return res
         # TODO: remove population
+        import pdb; pdb.set_trace()
         if type(res) is list:
             return [self.structure_gate(gate) for gate in res]
         else:
             return self.structure_gate(cast(GateDict, res))
 
+    def parse_gate_population(self, res: Dict[Any, Any]):
+        # TODO: delete/use `structure_gate`
+        gate = res['gate']
+        pop = res['population']
+        # return (converter.structure(gate, Gate), converter.structure(pop, Population))
+        return (converter.structure(gate, Gate), "Population")
+
     def structure_gate(self, gate: GateDict) -> Gate:
-        _type = get_gate_type(gate["type"])
-        return converter.structure(gate, _type)  # type: ignore
+        # TODO
+        # _type = get_gate_type(gate["type"])
+        # return converter.structure(gate, _type)  # type: ignore
+        return (converter.structure(gate, Gate))
+        # gate = res['gate']
+        # pop = res['population']
+        # return (converter.structure(gate, Gate), converter.structure(pop, Population))
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(
