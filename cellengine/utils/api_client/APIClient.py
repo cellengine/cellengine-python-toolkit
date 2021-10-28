@@ -156,31 +156,47 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
 
     def _get_path(self, entity):
-        path = entity.__module__.split(".")[-1] + "s"
-        if not entity._id:
-            import pdb
-
-            pdb.set_trace()
+        # TODO: entity.path property
+        check_plural = lambda x: x if x[-1] == "s" else x + "s"
+        path = check_plural(entity.__module__.split(".")[-1])
+        if not entity._id:  # TODO: not so hacky
+            _id = ''
         if type(entity) is Experiment:
             fullpath = f"{self.base_url}/experiments/{entity._id}"
         else:
             eid = entity.experiment_id
             _id = entity._id
             fullpath = f"{self.base_url}/experiments/{eid}/{path}/{_id}"
+        fullpath = fullpath.rstrip("/None")
         return fullpath
 
-    def update(self, entity):
-        path = entity.__module__.split(".")[-1] + "s"
-        if type(entity) is Experiment:
-            fullpath = f"{self.base_url}/experiments/{entity._id}"
+    def create(self, entity, params: Dict[str, Any] = {}):
+        """Create a local entity on CellEngine."""
+        # TODO: deduplicate this logic
+        if type(entity) is list:
+            path = self._get_path(entity[0])
+            structure_class = entity[0].__class__
+            if structure_class.__bases__[0] is not object:
+                structure_class = structure_class.__bases__[0]
+            structure_class = List[structure_class]
         else:
-            eid = entity.experiment_id
-            _id = entity._id
-            fullpath = f"{self.base_url}/experiments/{eid}/{path}/{_id}"
+            path = self._get_path(entity)
+            structure_class = entity.__class__
+            if structure_class.__bases__[0] is not object:
+                structure_class = structure_class.__bases__[0]
 
+        body = converter.unstructure(entity)
+        if issubclass(entity.__class__, Gate):
+            params["createPopulation"] = True
+
+        res = self._post(path, json=body, params=params)
+        return converter.structure(res, structure_class)
+
+    def update(self, entity):
+        # TODO: entity.path property
+        path = self._get_path(entity)
         data = converter.unstructure(entity)
-
-        res = self._patch(fullpath, json=data,)
+        res = self._patch(path, json=data,)
         return converter.structure(res, entity.__class__)
 
     def delete(self, entity) -> None:
@@ -211,10 +227,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return [a for a in attachments if (a.filename == name) or (a._id == _id)][0]
         except IndexError:
             raise RuntimeError("No experiment with that name or _id found.")
-
-    def create(self, entity):
-        path = self._get_path(entity)
-        raise RuntimeError("nooooooooooooooop")
 
     def post_attachment(
         self, experiment_id, filepath: str, filename: str = None
@@ -463,11 +475,12 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         self._delete(url)
 
     def post_gate(
-        self, experiment_id, gate: Dict, create_population=True, as_dict=False
+        self, experiment_id, gate: Union[GateDict, Gate], create_population=True, as_dict=False
     ):
-        import pdb; pdb.set_trace()
         if issubclass(gate.__class__, Gate):
             gate = converter.unstructure(gate)
+            # TODO: not this:
+            del gate["_id"]  # https://github.com/primitybio/cellengine/issues/5800
         res: Union[GateDict, List[GateDict]] = self._post(
             f"{self.base_url}/experiments/{experiment_id}/gates",
             json=gate,
@@ -476,16 +489,24 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if as_dict:
             return res
         # TODO: remove population
-        import pdb; pdb.set_trace()
         if type(res) is list:
-            return [self.structure_gate(gate) for gate in res]
+            return [self.parse_gate_population(gate) for gate in res]
         else:
-            return self.structure_gate(cast(GateDict, res))
+            return self.parse_gate_population(cast(GateDict, res))
 
-    def parse_gate_population(self, res: Dict[Any, Any]):
+    # TODO: type for res
+    def parse_gate_population(self, res: Any):
         # TODO: delete/use `structure_gate`
-        gate = res['gate']
-        pop = res['population']
+        keys = res.keys()
+        if "gate" and "population" in keys:
+            gate = res['gate']
+            pop = res['population']
+        if "gate" and "populations" in keys:
+            gate = res['gate']
+            pop = res['populations']
+        elif "gate" and "population" not in keys:
+            return (converter.structure(res, Gate), None)
+        # TODO: return population
         # return (converter.structure(gate, Gate), converter.structure(pop, Population))
         return (converter.structure(gate, Gate), "Population")
 

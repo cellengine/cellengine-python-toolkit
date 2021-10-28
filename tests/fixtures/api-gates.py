@@ -34,7 +34,6 @@ def split_gate():
 def specific_gate(gate_type):
     gates = {
         "EllipseGate": {
-            "__v": 0,
             "_id": "5d9401613afd657e233843b3",
             "experimentId": "5d38a6f79fae87499999a74b",
             "fcsFileId": None,
@@ -58,7 +57,6 @@ def specific_gate(gate_type):
             "yChannel": "FSC-H",
         },
         "PolygonGate": {
-            "__v": 0,
             "_id": "5d9365b5117dfb76dd9ed4af",
             "experimentId": "5d38a6f79fae87499999a74b",
             "fcsFileId": None,
@@ -88,7 +86,6 @@ def specific_gate(gate_type):
             "yChannel": "FSC-H",
         },
         "QuadrantGate": {
-            "__v": 0,
             "_id": "5db01cb2c2db443d7b99ad2a",
             "experimentId": "5d38a6f79fae87499999a74b",
             "fcsFileId": None,
@@ -122,7 +119,6 @@ def specific_gate(gate_type):
             "yChannel": "FSC-W",
         },
         "RangeGate": {
-            "__v": 0,
             "_id": "5d960ae0086ef688093cfb9c",
             "experimentId": "5d38a6f79fae87499999a74b",
             "fcsFileId": None,
@@ -141,7 +137,6 @@ def specific_gate(gate_type):
             "yChannel": "FSC-W",
         },
         "RectangleGate": {
-            "__v": 0,
             "_id": "5d8d34994e84a1e661f157a1",
             "experimentId": "5d38a6f79fae87499999a74b",
             "fcsFileId": None,
@@ -160,7 +155,6 @@ def specific_gate(gate_type):
             "yChannel": "FSC-A",
         },
         "SplitGate": {
-            "__v": 0,
             "_id": "5db02affb5cde93d7c922f93",
             "experimentId": "5d38a6f79fae87499999a74b",
             "fcsFileId": None,
@@ -185,7 +179,6 @@ def specific_gate(gate_type):
 def gates():
     gates = [
         {
-            "__v": 0,
             "_id": "5d64abe2ca9df61349ed8e90",
             "experimentId": "5d64abe2ca9df61349ed8e78",
             "fcsFileId": None,
@@ -219,7 +212,6 @@ def gates():
             "yChannel": "FSC-W",
         },
         {
-            "__v": 0,
             "_id": "5d64abe2ca9df61349ed8e91",
             "experimentId": "5d64abe2ca9df61349ed8e78",
             "fcsFileId": None,
@@ -248,7 +240,6 @@ def gates():
             "yChannel": "FSC-W",
         },
         {
-            "__v": 0,
             "_id": "5d64abe2ca9df61349ed8e92",
             "experimentId": "5d64abe2ca9df61349ed8e78",
             "fcsFileId": None,
@@ -272,7 +263,6 @@ def gates():
             "yChannel": "FSC-H",
         },
         {
-            "__v": 0,
             "_id": "5d64abe2ca9df61349ed8e93",
             "experimentId": "5d64abe2ca9df61349ed8e78",
             "fcsFileId": None,

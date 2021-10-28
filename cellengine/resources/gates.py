@@ -1,12 +1,14 @@
 from __future__ import annotations
+from cellengine.utils.helpers import check_id, get_args_as_kwargs, is_good_id
 from cellengine.utils import converter
 from math import pi
 from cellengine.utils.generate_id import generate_id
 from typing import Dict, List, Literal, Optional, TypedDict, Union
 from attr import define, field
 import numpy
-from cellengine.payloads.gate_utils.utils import format_common_gate
+from cellengine.payloads.gate_utils.utils import format_common_gate, parse_fcs_file_args
 import cellengine as ce
+
 
 class GateDict(TypedDict):
     _id: str
@@ -15,7 +17,14 @@ class GateDict(TypedDict):
     gid: str
     parentPopulationId: str
     tailoredPerFile: bool
-    type: Literal["RectangleGate", "PolygonGate", "QuadrantGate", "RangeGate", "RectangleGate", "SplitGate"]
+    type: Literal[
+        "RectangleGate",
+        "PolygonGate",
+        "QuadrantGate",
+        "RangeGate",
+        "RectangleGate",
+        "SplitGate",
+    ]
     xChannel: str
     model: Dict
     names: Optional[List[str]]
@@ -48,6 +57,19 @@ class Gate:
 
     # TODO: path property?
 
+    def update(self):
+        """Save changes to this Gate to CellEngine.
+        If this gate does not exist, it will be created."""
+        if not self._id or not is_good_id(self._id):
+            props = ce.APIClient().post_gate(self.experiment_id, self)
+        else:
+            # TODO: fix update_entity, remove _properties
+            props = ce.APIClient().update(self)
+        # TODO: update self
+        # self._properties.update(props)
+        gate, _ = props
+        self.__setstate__(gate.__getstate__())
+
     # @property
     # def model(self):
     #     model = self._properties["model"]
@@ -55,96 +77,12 @@ class Gate:
     #         self._properties["model"] = munchify(model)
     #     return munchify(model)
 
-    # @classmethod
-    # def create(
-    #     cls,
-    #     experiment_id: str,
-    #     x_channel: str,
-    #     y_channel: str,
-    #     name: str,
-    #     x1: float,
-    #     x2: float,
-    #     y1: float,
-    #     y2: float,
-    #     label: List[str] = [],
-    #     gid: str = None,
-    #     locked: bool = False,
-    #     parent_population_id: str = None,
-    #     parent_population: str = None,
-    #     tailored_per_file: bool = False,
-    #     fcs_file_id: str = None,
-    #     fcs_file: str = None,
-    #     create_population: bool = True,
-    # ):
-    #     if label == []:
-    #         label = [numpy.mean([x1, x2]), numpy.mean([y1, y2])]
-    #     if gid is None:
-    #         gid = generate_id()
+    @classmethod
+    def factory(cls, gate: GateDict):
+        if '_id' not in gate.keys():
+            gate['_id'] = None
+        return converter.structure(gate, Gate)
 
-    #     model = {
-    #         "locked": locked,
-    #         "label": label,
-    #         "rectangle": {"x1": x1, "x2": x2, "y1": y1, "y2": y2},
-    #     }
-
-    #     body = {
-    #         "experimentId": experiment_id,
-    #         "name": name,
-    #         "type": "RectangleGate",
-    #         "gid": gid,
-    #         "xChannel": x_channel,
-    #         "yChannel": y_channel,
-    #         "parentPopulationId": parent_population_id,
-    #         "model": model,
-    #     }
-
-    #     return format_common_gate(
-    #         experiment_id,
-    #         body=body,
-    #         tailored_per_file=tailored_per_file,
-    #         fcs_file_id=fcs_file_id,
-    #         fcs_file=fcs_file,
-    #         create_population=create_population,
-    #     )
-
-    # @classmethod
-    # def factory(cls, gate: Union[GateDict, List[GateDict]]) -> Union[Gate, List[Gate]]:
-    #     """Build a Gate object from a dict of properties.
-
-    #     Args:
-    #         experiment_id (str): The ID of the experiment to which to add the gate. Use
-    #             when calling this as a static method; not needed when calling from an
-    #             Experiment object.
-    #         name (str): The name of the gate
-    #         x_channel (str): The name of the x channel to which the gate applies.
-    #         y_channel (str): The name of the y channel to which the gate applies.
-    #         gid (str): Group ID of the gate, used for tailoring. If this is not
-    #             specified, then a new Group ID will be created. If you wish you create
-    #             a tailored gate, you must specify the gid of the global tailored gate.
-    #         parent_population_id (str): ID of the parent population. Use ``None`` for
-    #             the 'ungated' population. If specified, do not specify
-    #             ``parent_population``.
-    #         parent_population (str): Name of the parent population. An attempt will
-    #             be made to find the population by name.  If zero or more than
-    #             one population exists with the name, an error will be thrown.
-    #             If specified, do not specify ``parent_population_id``.
-    #         tailored_per_file (bool): Whether or not this gate is tailored per FCS file.
-    #         fcs_file_id (str): ID of FCS file, if tailored per file. Use ``None`` for
-    #             the global gate in a tailored gate group. If specified, do not
-    #             specify ``fcs_file``.
-    #         fcs_file (str): Name of FCS file, if tailored per file. An attempt will
-    #             be made to find the file by name. If zero or more than one file exists
-    #             with the name, an error will be thrown. Looking up files by name is
-    #             slower than using the ID, as this requires additional requests
-    #             to the server. If specified, do not specify ``fcs_file_id``.
-    #         locked (bool): Prevents modification of the gate via the web interface.
-    #         create_population (bool): Automatically create corresponding population.
-    #     """
-    # TODO: no.
-    #     if type(gate) is list:
-    #         return [converter.structure(gate) for gate in gates]
-    #     else:
-    #         return cls._build_gate(gates)
 
 @define(repr=False)
 class RectangleGate(Gate):
@@ -159,16 +97,23 @@ class RectangleGate(Gate):
         x2: float,
         y1: float,
         y2: float,
-        label: List[str] = [],
+        label: List[float] = [],
         gid: str = None,
         locked: bool = False,
         parent_population_id: str = None,
-        parent_population: str = None,
+        parent_population: str = None,  # TODO
         tailored_per_file: bool = False,
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
     ):
+        fcs_file_id = parse_fcs_file_args(
+            experiment_id,
+            tailored_per_file,
+            fcs_file_id,
+            fcs_file,
+        )
+
         if label == []:
             label = [numpy.mean([x1, x2]), numpy.mean([y1, y2])]
         if gid is None:
@@ -180,33 +125,20 @@ class RectangleGate(Gate):
             "rectangle": {"x1": x1, "x2": x2, "y1": y1, "y2": y2},
         }
 
-        body = {
-            "experimentId": experiment_id,
-            "name": name,
-            "type": "RectangleGate",
-            "gid": gid,
-            "xChannel": x_channel,
-            "yChannel": y_channel,
-            "parentPopulationId": parent_population_id,
-            "parentPopulation": parent_population,
-            "model": model,
-        }
-
         return cls(
-                id = None,
-                experiment_id = experiment_id,
-                fcs_file_id = fcs_file_id,
-                gid = gid,
-                parent_population_id = parent_population_id,
-                tailored_per_file = tailored_per_file,
-                type = "RectangleGate",
-                x_channel = x_channel,
-                model = model,
-                y_channel = y_channel,
-                name = name,
-                # TODO: parse_fcs_file_args
-                # TODO: create_population
-                )  # type: ignore
+            id=None,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            gid=gid,
+            parent_population_id=parent_population_id,
+            tailored_per_file=tailored_per_file,
+            type="RectangleGate",
+            x_channel=x_channel,
+            model=model,
+            y_channel=y_channel,
+            name=name,
+            # TODO: create_population
+        )  # type: ignore
 
 
 @define(repr=False)
@@ -219,7 +151,7 @@ class PolygonGate(Gate):
         y_channel: str,
         name: str,
         vertices: List[float],
-        label: List = [],
+        label: List[float] = [],
         gid: str = None,
         locked: bool = False,
         parent_population_id: str = None,
@@ -268,6 +200,14 @@ class PolygonGate(Gate):
             y_channel="FSC-W", name="my gate", vertices=[[1,4], [2,5], [3,6]])
             ```
         """
+
+        fcs_file_id = parse_fcs_file_args(
+            experiment_id,
+            tailored_per_file,
+            fcs_file_id,
+            fcs_file,
+        )
+
         if label == []:
             label = [
                 numpy.mean([item[0] for item in vertices]),
@@ -282,27 +222,20 @@ class PolygonGate(Gate):
             "polygon": {"vertices": vertices},
         }
 
-        body = {
-            "experimentId": experiment_id,
-            "name": name,
-            "type": "PolygonGate",
-            "gid": gid,
-            "xChannel": x_channel,
-            "yChannel": y_channel,
-            "parentPopulationId": parent_population_id,
-            "model": model,
-        }
-
-        return cls.from_dict(
-            format_common_gate(
-                experiment_id,
-                body=body,
-                tailored_per_file=tailored_per_file,
-                fcs_file_id=fcs_file_id,
-                fcs_file=fcs_file,
-                create_population=create_population,
-            )
-        )
+        return cls(
+            id=None,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            gid=gid,
+            parent_population_id=parent_population_id,
+            tailored_per_file=tailored_per_file,
+            type="PolygonGate",
+            x_channel=x_channel,
+            model=model,
+            y_channel=y_channel,
+            name=name,
+            # TODO: create_population
+        )  # type: ignore
 
 
 @define(repr=False)
@@ -319,7 +252,7 @@ class EllipseGate(Gate):
         angle: float,
         major: float,
         minor: float,
-        label: List[str] = [],
+        label: List[float] = [],
         gid: str = None,
         locked: bool = False,
         parent_population_id: str = None,
@@ -378,6 +311,14 @@ class EllipseGate(Gate):
             major=120000, minor=70000)
             ```
         """
+
+        fcs_file_id = parse_fcs_file_args(
+            experiment_id,
+            tailored_per_file,
+            fcs_file_id,
+            fcs_file,
+        )
+
         if label == []:
             label = [x, y]
         if gid is None:
@@ -394,27 +335,20 @@ class EllipseGate(Gate):
             },
         }
 
-        body = {
-            "experimentId": experiment_id,
-            "name": name,
-            "type": "EllipseGate",
-            "gid": gid,
-            "xChannel": x_channel,
-            "yChannel": y_channel,
-            "parentPopulationId": parent_population_id,
-            "model": model,
-        }
-
-        return cls.from_dict(
-            format_common_gate(
-                experiment_id,
-                body=body,
-                tailored_per_file=tailored_per_file,
-                fcs_file_id=fcs_file_id,
-                fcs_file=fcs_file,
-                create_population=create_population,
-            )
-        )
+        return cls(
+            id=None,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            gid=gid,
+            parent_population_id=parent_population_id,
+            tailored_per_file=tailored_per_file,
+            type="EllipseGate",
+            x_channel=x_channel,
+            model=model,
+            y_channel=y_channel,
+            name=name,
+            # TODO: create_population
+        )  # type: ignore
 
 
 @define(repr=False)
@@ -428,7 +362,7 @@ class RangeGate(Gate):
         x1: float,
         x2: float,
         y: float = 0.5,
-        label: List[str] = [],
+        label: List[float] = [],
         gid: str = None,
         locked: bool = False,
         parent_population_id: str = None,
@@ -482,6 +416,13 @@ class RangeGate(Gate):
             12.502, 95.102)
             ```
         """
+        fcs_file_id = parse_fcs_file_args(
+            experiment_id,
+            tailored_per_file,
+            fcs_file_id,
+            fcs_file,
+        )
+
         if label == []:
             label = [numpy.mean([x1, x2]), y]
         if gid is None:
@@ -493,26 +434,20 @@ class RangeGate(Gate):
             "range": {"x1": x1, "x2": x2, "y": y},
         }
 
-        body = {
-            "experimentId": experiment_id,
-            "name": name,
-            "type": "RangeGate",
-            "gid": gid,
-            "xChannel": x_channel,
-            "parentPopulationId": parent_population_id,
-            "model": model,
-        }
-
-        return cls.from_dict(
-            format_common_gate(
-                experiment_id,
-                body=body,
-                tailored_per_file=tailored_per_file,
-                fcs_file_id=fcs_file_id,
-                fcs_file=fcs_file,
-                create_population=create_population,
-            )
-        )
+        return cls(
+            id=None,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            gid=gid,
+            parent_population_id=parent_population_id,
+            tailored_per_file=tailored_per_file,
+            type="RangeGate",
+            x_channel=x_channel,
+            model=model,
+            y_channel=None,
+            name=name,
+            # TODO: create_population
+        )  # type: ignore
 
 
 @define(repr=False)
@@ -526,7 +461,7 @@ class QuadrantGate(Gate):
         name: str,
         x: float,
         y: float,
-        labels: List[str] = [],
+        labels: List[List[float]] = [],
         skewable: bool = False,
         angles: List[float] = [0, pi / 2, pi, 3 * pi / 2],
         gid: str = None,
@@ -590,6 +525,14 @@ class QuadrantGate(Gate):
                 y_channel="FSC-W", name="my gate", x=160000, y=200000)
             ```
         """
+
+        fcs_file_id = parse_fcs_file_args(
+            experiment_id,
+            tailored_per_file,
+            fcs_file_id,
+            fcs_file,
+        )
+
         # set labels based on axis scale
         r = ce.APIClient().get_scaleset(experiment_id, as_dict=True)
         scale_min = min(x["scale"]["minimum"] for x in r["scales"])
@@ -628,27 +571,20 @@ class QuadrantGate(Gate):
             "quadrant": {"x": x, "y": y, "angles": angles},
         }
 
-        body = {
-            "experimentId": experiment_id,
-            "names": names,
-            "type": "QuadrantGate",
-            "gid": gid,
-            "xChannel": x_channel,
-            "yChannel": y_channel,
-            "parentPopulationId": parent_population_id,
-            "model": model,
-        }
-
-        return cls.from_dict(
-            format_common_gate(
-                experiment_id,
-                body=body,
-                tailored_per_file=tailored_per_file,
-                fcs_file_id=fcs_file_id,
-                fcs_file=fcs_file,
-                create_population=create_population,
-            )
-        )
+        return cls(
+            id=None,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            gid=gid,
+            parent_population_id=parent_population_id,
+            tailored_per_file=tailored_per_file,
+            type="QuadrantGate",
+            x_channel=x_channel,
+            model=model,
+            y_channel=y_channel,
+            names=names,
+            # TODO: create_population
+        )  # type: ignore
 
 
 @define(repr=False)
@@ -661,7 +597,7 @@ class SplitGate(Gate):
         name: str,
         x: float,
         y: float = 0.5,
-        labels: List[str] = [],
+        labels: List[List[float]] = [],
         gid: str = None,
         gids: List[str] = None,
         locked: bool = False,
@@ -721,6 +657,14 @@ class SplitGate(Gate):
                 y=100000)
             ```
         """
+
+        fcs_file_id = parse_fcs_file_args(
+            experiment_id,
+            tailored_per_file,
+            fcs_file_id,
+            fcs_file,
+        )
+
         # set labels based on axis scale
         r = ce.APIClient().get_scaleset(experiment_id, as_dict=True)
         scale_min = min(x["scale"]["minimum"] for x in r["scales"])
@@ -750,23 +694,17 @@ class SplitGate(Gate):
             "split": {"x": x, "y": y},
         }
 
-        body = {
-            "experimentId": experiment_id,
-            "names": names,
-            "type": "SplitGate",
-            "gid": gid,
-            "xChannel": x_channel,
-            "parentPopulationId": parent_population_id,
-            "model": model,
-        }
-
-        return cls.from_dict(
-            format_common_gate(
-                experiment_id,
-                body=body,
-                tailored_per_file=tailored_per_file,
-                fcs_file_id=fcs_file_id,
-                fcs_file=fcs_file,
-                create_population=create_population,
-            )
-        )
+        return cls(
+            id=None,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            gid=gid,
+            parent_population_id=parent_population_id,
+            tailored_per_file=tailored_per_file,
+            type="SplitGate",
+            x_channel=x_channel,
+            model=model,
+            y_channel=None,
+            names=names,
+            # TODO: create_population
+        )  # type: ignore

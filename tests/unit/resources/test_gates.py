@@ -2,9 +2,10 @@ import json
 import pytest
 import responses
 
-from cellengine.resources.gate import (
+from cellengine.resources.gates import (
     Gate,
     RectangleGate,
+    PolygonGate,
     EllipseGate,
 )
 from cellengine.utils.api_client.APIError import APIError
@@ -61,8 +62,9 @@ def test_create_one_gate(ENDPOINT_BASE, client, rectangle_gate):
         status=201,
         json=rectangle_gate,
     )
+    del rectangle_gate['_id']
     g = Gate.factory(rectangle_gate)
-    g.post()
+    g.update()
     gate_tester(g)
 
 
@@ -77,8 +79,8 @@ def test_create_multiple_gates_from_dicts(
         json=[rectangle_gate, rectangle_gate, polygon_gate],
     )
     new_gates = [rectangle_gate, rectangle_gate, polygon_gate]
-    gates = Gate.bulk_create(EXP_ID, new_gates)
-    [gate_tester(gate) for gate in gates]
+    gates = client.post_gate(EXP_ID, new_gates)
+    [gate_tester(gate) for gate, _ in gates]  # tuples of (Gate, Population)
 
 
 @responses.activate
@@ -122,7 +124,8 @@ def test_create_multiple_gates_from_gate_objects(
         major=120000,
         minor=70000,
     )
-    gates = Gate.bulk_create(EXP_ID, [g1, g2, g3])
+    # gates = Gate.bulk_create(EXP_ID, [g1, g2, g3])
+    gates = client.create([g1, g2, g3])
     [gate_tester(gate) for gate in gates]
 
     # gates = Gate.factory([rectangle_gate, rectangle_gate])

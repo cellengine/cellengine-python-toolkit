@@ -38,7 +38,7 @@ def format_common_gate(
     )
 
 
-def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id, fcs_file):
+def parse_fcs_file_args(experiment_id, tailored_per_file, fcs_file_id, fcs_file) -> str:
     """Find the fcs file ID if 'tailored_per_file' and either 'fcs_file' or
     'fcs_file_id' are specified.
     """
@@ -47,6 +47,4 @@ def parse_fcs_file_args(experiment_id, body, tailored_per_file, fcs_file_id, fcs
     if fcs_file is not None and tailored_per_file is True:  # lookup by name
         _file = ce.APIClient().get_fcs_file(experiment_id=experiment_id, name=fcs_file)
         fcs_file_id = _file._id
-    body["tailoredPerFile"] = tailored_per_file
-    body["fcsFileId"] = fcs_file_id
-    return body
+    return fcs_file_id
