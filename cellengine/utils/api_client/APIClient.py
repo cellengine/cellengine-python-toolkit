@@ -4,7 +4,19 @@ import os
 import json
 import pandas
 from getpass import getpass
-from typing import Any, Dict, List, Literal, Type, TypeVar, TypedDict, Union, Optional, cast, overload
+from typing import (
+    Any,
+    Dict,
+    List,
+    Literal,
+    Type,
+    TypeVar,
+    TypedDict,
+    Union,
+    Optional,
+    cast,
+    overload,
+)
 from functools import lru_cache
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -15,33 +27,54 @@ from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation
 from ...resources.experiment import Experiment
 from ...resources.fcs_file import FcsFile
-from ...resources.gates import Gate, EllipseGate, GateDict, PolygonGate, QuadrantGate, RangeGate, SplitGate
+from ...resources.gates import (
+    Gate,
+    EllipseGate,
+    GateDict,
+    PolygonGate,
+    QuadrantGate,
+    RangeGate,
+    SplitGate,
+)
 from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
 
 from cellengine.utils.converter import converter
 
-G = TypeVar('G', bound=Gate)
+G = TypeVar("G", bound=Gate)
+
 
 @overload
 def get_gate_type(gate: Literal["RectangleGate"]) -> RectangleGate:
     ...
+
+
 @overload
 def get_gate_type(gate: Literal["PolygonGate"]) -> PolygonGate:
     ...
+
+
 @overload
 def get_gate_type(gate: Literal["QuadrantGate"]) -> QuadrantGate:
     ...
+
+
 @overload
 def get_gate_type(gate: Literal["EllipseGate"]) -> EllipseGate:
     ...
+
+
 @overload
 def get_gate_type(gate: Literal["RangeGate"]) -> RangeGate:
     ...
+
+
 @overload
 def get_gate_type(gate: Literal["SplitGate"]) -> SplitGate:
     ...
+
+
 def get_gate_type(gate):
     types = {
         "RectangleGate": RectangleGate,
@@ -117,7 +150,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     @lru_cache(maxsize=None)
     def _get_id_by_name(self, name, resource_type, experiment_id):
-        foo  = 10
+        foo = 10
         if resource_type != "experiments":
             path = f"experiments/{experiment_id}/{resource_type}"
         else:
@@ -160,7 +193,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         check_plural = lambda x: x if x[-1] == "s" else x + "s"
         path = check_plural(entity.__module__.split(".")[-1])
         if not entity._id:  # TODO: not so hacky
-            _id = ''
+            _id = ""
         if type(entity) is Experiment:
             fullpath = f"{self.base_url}/experiments/{entity._id}"
         else:
@@ -170,26 +203,37 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         fullpath = fullpath.rstrip("/None")
         return fullpath
 
-    def create(self, entity, params: Dict[str, Any] = {}):
+    # TODO: add type annotation for entities
+    def create(self, entity: Any, **kwargs):
         """Create a local entity on CellEngine."""
-        # TODO: deduplicate this logic
         if type(entity) is list:
-            path = self._get_path(entity[0])
-            structure_class = entity[0].__class__
-            if structure_class.__bases__[0] is not object:
-                structure_class = structure_class.__bases__[0]
-            structure_class = List[structure_class]
-        else:
-            path = self._get_path(entity)
-            structure_class = entity.__class__
-            if structure_class.__bases__[0] is not object:
-                structure_class = structure_class.__bases__[0]
-
+            return self.create_multiple(entity, **kwargs)
+        path = self._get_path(entity)
+        structure_class = entity.__class__
+        if structure_class.__bases__[0] is not object:
+            structure_class = structure_class.__bases__[0]
         body = converter.unstructure(entity)
-        if issubclass(entity.__class__, Gate):
-            params["createPopulation"] = True
 
-        res = self._post(path, json=body, params=params)
+        if body["_id"] == "None" or body["_id"] is None:
+            del body["_id"]  # https://github.com/primitybio/cellengine/issues/5800
+
+        res = self._post(path, json=body, params=kwargs)
+        return converter.structure(res, structure_class)
+
+    # TODO: add type annotation for entities
+    def create_multiple(self, entities: List[Any], **kwargs):
+        path = self._get_path(entities[0])
+        structure_class = entities[0].__class__
+        if structure_class.__bases__[0] is not object:
+            structure_class = structure_class.__bases__[0]
+        structure_class = List[structure_class]
+
+        body = converter.unstructure(entities)
+
+        for item in body:
+            if item["_id"] == "None" or item["_id"] is None:
+                del item["_id"]
+        res = self._post(path, json=body, params=kwargs)
         return converter.structure(res, structure_class)
 
     def update(self, entity):
@@ -228,7 +272,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         except IndexError:
             raise RuntimeError("No experiment with that name or _id found.")
 
-    def post_attachment(
+    def upload_attachment(
         self, experiment_id, filepath: str, filename: str = None
     ) -> Attachment:
         """Upload an attachment
@@ -474,8 +518,21 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raise ValueError("Either _id or gid must be specified.")
         self._delete(url)
 
+    def delete_gates(self, experiment_id: str, ids: List[str], delete_populations=True):
+        url = f"{self.base_url}/experiments/{experiment_id}/gates/"
+        [self._delete(url + _id) for _id in ids]
+
+        if delete_populations:
+            url = f"{self.base_url}/experiments/{experiment_id}/populations/"
+            pop_ids = self.get_populations(experiment_id, as_dict=True)
+            [self._delete(url + _id) for _id in pop_ids]
+
     def post_gate(
-        self, experiment_id, gate: Union[GateDict, Gate], create_population=True, as_dict=False
+        self,
+        experiment_id,
+        gate: Union[GateDict, Gate],
+        create_population=False,
+        as_dict=False,
     ):
         if issubclass(gate.__class__, Gate):
             gate = converter.unstructure(gate)
@@ -488,7 +545,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return res
-        # TODO: remove population
         if type(res) is list:
             return [self.parse_gate_population(gate) for gate in res]
         else:
@@ -496,14 +552,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     # TODO: type for res
     def parse_gate_population(self, res: Any):
-        # TODO: delete/use `structure_gate`
         keys = res.keys()
         if "gate" and "population" in keys:
-            gate = res['gate']
-            pop = res['population']
+            gate = res["gate"]
+            pop = res["population"]
         if "gate" and "populations" in keys:
-            gate = res['gate']
-            pop = res['populations']
+            gate = res["gate"]
+            pop = res["populations"]
         elif "gate" and "population" not in keys:
             return (converter.structure(res, Gate), None)
         # TODO: return population
@@ -512,12 +567,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def structure_gate(self, gate: GateDict) -> Gate:
         # TODO
-        # _type = get_gate_type(gate["type"])
-        # return converter.structure(gate, _type)  # type: ignore
-        return (converter.structure(gate, Gate))
-        # gate = res['gate']
-        # pop = res['population']
-        # return (converter.structure(gate, Gate), converter.structure(pop, Population))
+        return converter.structure(gate, Gate)
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(

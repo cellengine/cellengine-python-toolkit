@@ -138,7 +138,7 @@ def test_fcs_file_and_fcs_file_id_defined(
 
 
 @responses.activate
-def test_tailored_per_file_true(ENDPOINT_BASE, experiment, rectangle_gate):
+def test_tailored_per_file_true(client, ENDPOINT_BASE, experiment, rectangle_gate):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/gates",
@@ -160,7 +160,7 @@ def test_tailored_per_file_true(ENDPOINT_BASE, experiment, rectangle_gate):
 
 @responses.activate
 def test_fcs_file_id_is_None_and_fcs_file_is_None(
-    ENDPOINT_BASE, experiment, rectangle_gate
+    client, ENDPOINT_BASE, experiment, rectangle_gate
 ):
     responses.add(
         responses.POST,
@@ -175,7 +175,7 @@ def test_fcs_file_id_is_None_and_fcs_file_is_None(
 
 
 @responses.activate
-def test_create_global_tailored_gate(ENDPOINT_BASE, experiment, rectangle_gate):
+def test_create_global_tailored_gate(client, ENDPOINT_BASE, experiment, rectangle_gate):
     global_gid = generate_id()
     responses.add(
         responses.POST,
@@ -199,7 +199,7 @@ def test_create_global_tailored_gate(ENDPOINT_BASE, experiment, rectangle_gate):
 
 
 @responses.activate
-def test_specify_fcs_file_id(ENDPOINT_BASE, experiment, rectangle_gate):
+def test_specify_fcs_file_id(client, ENDPOINT_BASE, experiment, rectangle_gate):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/gates",
@@ -224,7 +224,9 @@ def test_specify_fcs_file_id(ENDPOINT_BASE, experiment, rectangle_gate):
 
 
 @responses.activate
-def test_fcs_file_called_by_name(ENDPOINT_BASE, experiment, fcs_files, rectangle_gate):
+def test_fcs_file_called_by_name(
+    client, ENDPOINT_BASE, experiment, fcs_files, rectangle_gate
+):
     responses.add(
         responses.GET,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",

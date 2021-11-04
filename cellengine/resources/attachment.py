@@ -4,17 +4,28 @@ from attr import define, field
 import cellengine as ce
 from cellengine.utils import readonly, converter
 
+
 @define
 class Attachment:
     """A class representing a CellEngine attachment.
     Attachments are non-data files that are stored in an experiment.
     """
+
     _id: str = field(on_setattr=readonly)
     filename: str
     crc32c: str = field(on_setattr=readonly, repr=False)
     experiment_id: str = field(on_setattr=readonly, repr=False)
     md5: str = field(on_setattr=readonly, repr=False)
     size: int = field(on_setattr=readonly, repr=False)
+
+    @property
+    def client(self):
+        return ce.APIClient()
+
+    def update(self):
+        """Save changes to this Attachment to CellEngine."""
+        res = self.client.update(self)
+        self.__setstate__(res.__getstate__())  # type: ignore
 
     @classmethod
     def from_dict(cls, data: dict):
@@ -47,3 +58,6 @@ class Attachment:
                 f.write(res)
         else:
             return res
+
+    def delete(self):
+        return self.client.delete_entity(self.experiment_id, "attachments", self._id)

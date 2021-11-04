@@ -36,10 +36,10 @@ class GateDict(TypedDict):
 class Gate:
     _id: str
     experiment_id: str
-    fcs_file_id: str
-    gid: str
-    parent_population_id: str
-    tailored_per_file: bool
+    fcs_file_id: Optional[str]
+    gid: Optional[str]
+    parent_population_id: Optional[str]
+    tailored_per_file: Optional[bool]
     type: str
     x_channel: str
     model: Dict
@@ -50,38 +50,54 @@ class Gate:
     def __repr__(self):
         # TODO: f strings
         if self.name:
-            name = self.name
+            label, name = ("name", self.name)
         else:
-            name = str(self.names)
-        return "{}(_id='{}', name='{}')".format(self.type, self._id, name)
+            label, name = ("names", str(self.names))
+        return f"{self.type}(_id='{self._id}', {label}='{name}')"
 
     # TODO: path property?
+
+    @property
+    def client(self):
+        return ce.APIClient()
 
     def update(self):
         """Save changes to this Gate to CellEngine.
         If this gate does not exist, it will be created."""
         if not self._id or not is_good_id(self._id):
-            props = ce.APIClient().post_gate(self.experiment_id, self)
+            gate, _ = self.client.post_gate(self.experiment_id, self)
         else:
-            # TODO: fix update_entity, remove _properties
-            props = ce.APIClient().update(self)
-        # TODO: update self
-        # self._properties.update(props)
-        gate, _ = props
+            gate = self.client.update(self)
         self.__setstate__(gate.__getstate__())
-
-    # @property
-    # def model(self):
-    #     model = self._properties["model"]
-    #     if type(model) is not Munch:
-    #         self._properties["model"] = munchify(model)
-    #     return munchify(model)
 
     @classmethod
     def factory(cls, gate: GateDict):
-        if '_id' not in gate.keys():
-            gate['_id'] = None
+        if "_id" not in gate.keys():
+            gate["_id"] = None
         return converter.structure(gate, Gate)
+
+    def delete(self):
+        self.client.delete_gate(self.experiment_id, self._id)
+
+    @staticmethod
+    def update_family(experiment_id, gid: str, body: Dict):
+        """Update a given field for a gate family.
+
+        Warning: This method does not modify local versions of gates; use the
+        `.update()` method to ensure changes are reflected locally.
+
+        Args:
+            experiment_id: ID of experiment
+            gid: ID of gate family to modify
+            body (dict): camelCase properties to update
+
+        Returns:
+            Raises a warning if no gates are modified, else None
+        """
+
+        res = ce.APIClient().update_gate_family(experiment_id, gid, body)
+        if res["nModified"] < 1:
+            raise Warning("No gates updated.")
 
 
 @define(repr=False)
@@ -107,16 +123,62 @@ class RectangleGate(Gate):
         fcs_file: str = None,
         create_population: bool = True,
     ):
+        """Formats a rectangle gate for posting to the CellEngine API.
+
+        Args:
+            experiment_id (str): The ID of the experiment.
+            x_channel (float): The name of the x channel to which the gate applies.
+            y_channel (float): The name of the y channel to which the gate applies.
+            name (str): The name of the gate
+            x1 (float): The first x coordinate (after the channel's scale has been applied).
+            x2 (float): The second x coordinate (after the channel's scale
+                has been applied).
+            y1 (float): The first y coordinate (after the channel's scale has been applied).
+            y2 (float): The second y coordinate (after the channel's scale has
+                been applied).
+            label (float): Position of the label. Defaults to the midpoint of the gate.
+            gid (str): Group ID of the gate, used for tailoring. If this is not
+                specified, then a new Group ID will be created. To create a
+                tailored gate, the gid of the global tailored gate must be specified.
+            locked (bool): Prevents modification of the gate via the web interface.
+            parent_population_id (str): ID of the parent population. Use ``None`` for
+                the "ungated" population. If specified, do not specify
+                ``parent_population``.
+            parent_population (str): Name of the parent population. An attempt will
+                be made to find the population by name.  If zero or more than
+                one population exists with the name, an error will be thrown.
+                If specified, do not specify ``parent_population_id``.
+            tailored_per_file (bool): Whether or not this gate is tailored per FCS file.
+            fcs_file_id (str): ID of FCS file, if tailored per file. Use ``None`` for
+                the global gate in a tailored gate group. If specified, do not
+                specify ``fcs_file``.
+            fcs_file (str): Name of FCS file, if tailored per file. An attempt will be made
+                to find the file by name. If zero or more than one file exists with
+                the name, an error will be thrown. Looking up files by name is
+                slower than using the ID, as this requires additional requests
+                to the server. If specified, do not specify ``fcs_file_id``.
+            create_population (bool): Automatically create corresponding population.
+
+        Returns:
+            A RectangleGate object.
+
+        Example:
+            ```python
+            experiment.create_rectangle_gate(x_channel="FSC-A", y_channel="FSC-W",
+            name="my gate", 12.502, 95.102, 1020, 32021.2)
+            cellengine.Gate.create_rectangle_gate(experiment_id, x_channel="FSC-A",
+            y_channel="FSC-W", name="my gate", x1=12.502, x2=95.102, y1=1020, y2=32021.2,
+            gid=global_gate.gid)
+            ```
+        """
+
         fcs_file_id = parse_fcs_file_args(
-            experiment_id,
-            tailored_per_file,
-            fcs_file_id,
-            fcs_file,
+            experiment_id, tailored_per_file, fcs_file_id, fcs_file,
         )
 
         if label == []:
             label = [numpy.mean([x1, x2]), numpy.mean([y1, y2])]
-        if gid is None:
+        if not gid:
             gid = generate_id()
 
         model = {
@@ -150,20 +212,21 @@ class PolygonGate(Gate):
         x_channel: str,
         y_channel: str,
         name: str,
-        vertices: List[float],
-        label: List[float] = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
+        vertices: List[List[float]],
+        label: Optional[List[float]] = [],
+        gid: Optional[str] = None,
+        locked: Optional[bool] = False,
+        parent_population_id: Optional[str] = None,
+        parent_population: Optional[str] = None,
+        tailored_per_file: Optional[bool] = False,
+        fcs_file_id: Optional[str] = None,
+        fcs_file: Optional[str] = None,
+        create_population: Optional[bool] = True,
     ) -> PolygonGate:
         """Formats a polygon gate for posting to the CellEngine API.
 
         Args:
+            experiment_id (str): The ID of the experiment.
             x_channel (str): The name of the x channel to which the gate applies.
             y_channel (str): The name of the y channel to which the gate applies.
             vertices (list): List of coordinates, like [[x,y], [x,y], ...]
@@ -202,10 +265,7 @@ class PolygonGate(Gate):
         """
 
         fcs_file_id = parse_fcs_file_args(
-            experiment_id,
-            tailored_per_file,
-            fcs_file_id,
-            fcs_file,
+            experiment_id, tailored_per_file, fcs_file_id, fcs_file,
         )
 
         if label == []:
@@ -213,7 +273,7 @@ class PolygonGate(Gate):
                 numpy.mean([item[0] for item in vertices]),
                 numpy.mean([item[1] for item in vertices]),
             ]
-        if gid is None:
+        if not gid:
             gid = generate_id()
 
         model = {
@@ -265,6 +325,7 @@ class EllipseGate(Gate):
         """Formats an ellipse gate for posting to the CellEngine API.
 
         Args:
+            experiment_id (str): The ID of the experiment.
             x_channel (str): The name of the x channel to which the gate applies.
             y_channel (str): The name of the y channel to which the gate applies.
             name (str): The name of the gate
@@ -313,15 +374,12 @@ class EllipseGate(Gate):
         """
 
         fcs_file_id = parse_fcs_file_args(
-            experiment_id,
-            tailored_per_file,
-            fcs_file_id,
-            fcs_file,
+            experiment_id, tailored_per_file, fcs_file_id, fcs_file,
         )
 
         if label == []:
             label = [x, y]
-        if gid is None:
+        if not gid:
             gid = generate_id()
 
         model = {
@@ -375,6 +433,7 @@ class RangeGate(Gate):
         """Formats a range gate for posting to the CellEngine API.
 
         Args:
+            experiment_id (str): The ID of the experiment.
             x_channel (str): The name of the x channel to which the gate applies.
             name (str): The name of the gate
             x1 (float): The first x coordinate (after the channel's scale has been applied).
@@ -417,15 +476,12 @@ class RangeGate(Gate):
             ```
         """
         fcs_file_id = parse_fcs_file_args(
-            experiment_id,
-            tailored_per_file,
-            fcs_file_id,
-            fcs_file,
+            experiment_id, tailored_per_file, fcs_file_id, fcs_file,
         )
 
         if label == []:
             label = [numpy.mean([x1, x2]), y]
-        if gid is None:
+        if not gid:
             gid = generate_id()
 
         model = {
@@ -480,6 +536,7 @@ class QuadrantGate(Gate):
         lower-right), each with a unique gid and name.
 
         Args:
+            experiment_id (str): The ID of the experiment.
             x_channel (str): The name of the x channel to which the gate applies.
             y_channel (str): The name of the y channel to which the gate applies.
             name (str): The name of the gate
@@ -527,10 +584,7 @@ class QuadrantGate(Gate):
         """
 
         fcs_file_id = parse_fcs_file_args(
-            experiment_id,
-            tailored_per_file,
-            fcs_file_id,
-            fcs_file,
+            experiment_id, tailored_per_file, fcs_file_id, fcs_file,
         )
 
         # set labels based on axis scale
@@ -551,7 +605,7 @@ class QuadrantGate(Gate):
         else:
             raise ValueError("Labels must be a list of four length-2 lists.")
 
-        if gid is None:
+        if not gid:
             gid = generate_id()
         if gids is None:
             gids = [
@@ -615,6 +669,7 @@ class SplitGate(Gate):
         each with a unique gid and name.
 
         Args:
+            experiment_id (str): The ID of the experiment.
             x_channel (str): The name of the x channel to which the gate applies.
             name (str): The name of the gate.
             x (float): The x coordinate of the center point (after the channel's scale has
@@ -659,10 +714,7 @@ class SplitGate(Gate):
         """
 
         fcs_file_id = parse_fcs_file_args(
-            experiment_id,
-            tailored_per_file,
-            fcs_file_id,
-            fcs_file,
+            experiment_id, tailored_per_file, fcs_file_id, fcs_file,
         )
 
         # set labels based on axis scale
@@ -680,7 +732,7 @@ class SplitGate(Gate):
         else:
             raise ValueError("Labels must be a list of two length-2 lists.")
 
-        if gid is None:
+        if not gid:
             gid = generate_id()
             if gids is None:
                 gids = [generate_id(), generate_id()]

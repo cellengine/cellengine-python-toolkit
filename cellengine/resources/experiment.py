@@ -5,10 +5,8 @@ from marshmallow import fields
 
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
-import inspect
-from math import pi
 from custom_inherit import doc_inherit
-from typing import Any, Optional, Dict, Union, List, cast
+from typing import Any, Optional, Dict, Union, List
 
 from dataclasses_json.cfg import config
 
@@ -18,7 +16,7 @@ from cellengine.resources.scaleset import ScaleSet
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachment import Attachment
-from cellengine.resources.gate import (
+from cellengine.resources.gates import (
     Gate,
     RectangleGate,
     PolygonGate,
@@ -27,19 +25,19 @@ from cellengine.resources.gate import (
     EllipseGate,
     QuadrantGate,
 )
-from cellengine.payloads.gate_utils import (
-    format_rectangle_gate,
-    format_polygon_gate,
-    format_ellipse_gate,
-    format_range_gate,
-    format_split_gate,
-    format_quadrant_gate,
-)
 from cellengine.utils.helpers import (
     CommentList,
     datetime_to_timestamp,
     timestamp_to_datetime,
 )
+
+
+def _strip_experiment_id(*args):
+    if len(args[0]) < 1:
+        return
+    lines = args[0].split("\n")
+    lines.pop(lines.index([l for l in lines if "experiment_id (str)" in l][0]))
+    return "\n".join(lines)
 
 
 @dataclass
@@ -110,6 +108,10 @@ class Experiment(DataClassMixin):
 
     def __repr__(self):
         return f"Experiment(_id='{self._id}', name='{self.name}')"
+
+    @property
+    def client(self):
+        return ce.APIClient()
 
     @property
     def comments(self):
@@ -246,7 +248,7 @@ class Experiment(DataClassMixin):
 
     def upload_attachment(self, filepath: str, filename: str = None):
         """Upload an attachment to this experiment."""
-        ce.APIClient().post_attachment(self._id, filepath, filename)
+        ce.APIClient().upload_attachment(self._id, filepath, filename)
 
     @property
     def compensations(self) -> List[Compensation]:
@@ -296,10 +298,9 @@ class Experiment(DataClassMixin):
         """List all gates on the experiment."""
         return ce.APIClient().get_gates(self._id)
 
-    def get_gate(self, _id: Optional[str] = None, name: Optional[str] = None) -> Gate:
-        """Get a specific gate."""
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_gate(self._id, **kwargs)
+    def get_gate(self, _id: str) -> Gate:
+        """Get a specific gate by _id."""
+        return ce.APIClient().get_gate(self._id, _id)
 
     @property
     def populations(self) -> List[Population]:
@@ -392,11 +393,10 @@ class Experiment(DataClassMixin):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_scaleset(self._id, **kwargs)
 
-    def create_gates(self, gates: List):
-        """Save a collection of gate objects."""
-        return Gate.bulk_create(self._id, gates)
+    def create_gates(self, gates: List[Gate]):
+        """Save a collection of gate objects. Does not create populations."""
+        return self.client.create(gates)
 
-    @doc_inherit(Gate.delete_gates)
     def delete_gate(
         self, _id: str = None, gid: str = None, exclude: str = None
     ) -> None:
@@ -407,175 +407,41 @@ class Experiment(DataClassMixin):
         """
         return ce.APIClient().delete_gate(self._id, _id, gid, exclude)
 
-    @doc_inherit(format_rectangle_gate)
-    def create_rectangle_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        x1: float,
-        x2: float,
-        y1: float,
-        y2: float,
-        label: List[str] = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> RectangleGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_rectangle_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        gate = ce.APIClient().post_gate(self._id, post_body)
-        return cast(RectangleGate, gate)
+    @doc_inherit(RectangleGate.create, style=_strip_experiment_id)
+    def create_rectangle_gate(self, *args, **kwargs):
+        gate = RectangleGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
-    @doc_inherit(format_polygon_gate)
-    def create_polygon_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        vertices: List[float],
-        label: List[str] = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> PolygonGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_polygon_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    @doc_inherit(PolygonGate.create, style=_strip_experiment_id)
+    def create_polygon_gate(self, *args, **kwargs):
+        gate = PolygonGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
-    @doc_inherit(format_ellipse_gate)
-    def create_ellipse_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        x: float,
-        y: float,
-        angle: float,
-        major: float,
-        minor: float,
-        label: List = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> EllipseGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_ellipse_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    @doc_inherit(EllipseGate.create, style=_strip_experiment_id)
+    def create_ellipse_gate(self, *args, **kwargs):
+        gate = EllipseGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
-    @doc_inherit(format_range_gate)
-    def create_range_gate(
-        self,
-        x_channel: str,
-        name: str,
-        x1: float,
-        x2: float,
-        y: float = 0.5,
-        label: List[str] = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> RangeGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_range_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    @doc_inherit(RangeGate.create, style=_strip_experiment_id)
+    def create_range_gate(self, *args, **kwargs):
+        gate = RangeGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
-    @doc_inherit(format_split_gate)
-    def create_split_gate(
-        self,
-        x_channel: str,
-        name: str,
-        x: str,
-        y: float = 0.5,
-        labels: List[str] = [],
-        gid: str = None,
-        gids: List[str] = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> SplitGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_split_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    @doc_inherit(SplitGate.create, style=_strip_experiment_id)
+    def create_split_gate(self, *args, **kwargs):
+        gate = SplitGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
-    @doc_inherit(format_quadrant_gate)
-    def create_quadrant_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        x: float,
-        y: float,
-        labels: List[str] = [],
-        skewable: bool = False,
-        angles: List[float] = [0, pi / 2, pi, 3 * pi / 2],
-        gid: str = None,
-        gids: List[str] = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> QuadrantGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_quadrant_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    @doc_inherit(QuadrantGate.create, style=_strip_experiment_id)
+    def create_quadrant_gate(self, *args, **kwargs):
+        gate = QuadrantGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
     def create_population(self, population: Dict) -> Population:
         """Create a complex population

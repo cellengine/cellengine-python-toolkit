@@ -7,7 +7,7 @@ from cellengine.resources.attachment import Attachment
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.experiment import Experiment
 from cellengine.resources.fcs_file import FcsFile
-from cellengine.resources.gate import Gate
+from cellengine.resources.gates import Gate
 from cellengine.resources.plot import Plot
 from cellengine.resources.population import Population
 from cellengine.resources.scaleset import ScaleSet
@@ -135,9 +135,9 @@ def _assert_gate(gate):
     if type(gate) is dict:
         assert "Gate" in gate["type"]
     elif type(gate) is list:
-        assert all([str(g.__module__) == "cellengine.resources.gate" for g in gate])
+        assert all([str(g.__module__) == "cellengine.resources.gates" for g in gate])
     else:
-        assert str(gate.__module__) == "cellengine.resources.gate"
+        assert str(gate.__module__) == "cellengine.resources.gates"
 
 
 def _get_entity_name(_func: str) -> str:

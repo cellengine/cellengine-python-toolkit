@@ -59,9 +59,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         except Exception as error:
             raise APIError(response.url, response.status_code, repr(error))
 
-    def _get(
-        self, url, params: Dict = None, headers: Dict = None, raw=False
-    ) -> Any:
+    def _get(self, url, params: Dict = None, headers: Dict = None, raw=False) -> Any:
         try:
             response = self.requests_session.get(
                 url,

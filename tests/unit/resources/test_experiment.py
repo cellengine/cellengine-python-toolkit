@@ -8,7 +8,7 @@ from cellengine.resources.population import Population
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachment import Attachment
-from cellengine.resources.gate import Gate
+from cellengine.resources.gates import Gate
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -77,6 +77,7 @@ list_params = [
 @responses.activate
 @pytest.mark.parametrize("entity,_type", list_params)
 def test_should_get_list_of_entities(
+    client,
     ENDPOINT_BASE,
     experiment,
     attachments,
@@ -98,12 +99,7 @@ def test_should_get_list_of_entities(
     )
     all_entities = getattr(experiment, entity)
     assert type(all_entities) is list
-    if entity == "gates":
-        assert all(
-            [str(ent.__module__) == "cellengine.resources.gate" for ent in all_entities]
-        )
-    else:
-        assert all([type(ent) is _type for ent in all_entities])
+    assert all([type(ent) is _type for ent in all_entities])
 
 
 get_params = [
@@ -118,6 +114,7 @@ get_params = [
 @responses.activate
 @pytest.mark.parametrize("entity,entity_id,get_func,_type", get_params)
 def test_get_one_entity(
+    client,
     ENDPOINT_BASE,
     experiment,
     attachments,
@@ -141,14 +138,11 @@ def test_get_one_entity(
     )
     _func = getattr(experiment, get_func)
     ent = _func(_id=entity_id)
-    if entity == "gates":
-        assert str(ent.__module__) == "cellengine.resources.gate"
-    else:
-        assert type(ent) is _type
+    assert type(ent) is _type
 
 
 @responses.activate
-def test_get_statistics(ENDPOINT_BASE, experiment):
+def test_get_statistics(client, ENDPOINT_BASE, experiment):
     """Tests getting statistics for an experiment"""
     responses.add(
         responses.POST,
@@ -163,7 +157,7 @@ def test_get_statistics(ENDPOINT_BASE, experiment):
 
 
 @responses.activate
-def test_should_create_experiment(ENDPOINT_BASE, experiment):
+def test_should_create_experiment(client, ENDPOINT_BASE, experiment):
     """Tests updating experiment params"""
     response = experiment.to_dict().copy()
     response["name"] = "new_experiment"
@@ -177,7 +171,7 @@ def test_should_create_experiment(ENDPOINT_BASE, experiment):
 
 
 @responses.activate
-def test_update_experiment(ENDPOINT_BASE, experiment):
+def test_update_experiment(client, ENDPOINT_BASE, experiment):
     """Tests updating experiment params"""
     response = experiment.to_dict().copy()
     response.update({"name": "new name"})
@@ -194,7 +188,7 @@ def test_update_experiment(ENDPOINT_BASE, experiment):
 
 
 @responses.activate
-def test_should_clone_experiment(ENDPOINT_BASE, experiment, experiments):
+def test_should_clone_experiment(client, ENDPOINT_BASE, experiment, experiments):
     responses.add(
         responses.POST,
         f"{ENDPOINT_BASE}/experiments/{experiment._id}/clone",

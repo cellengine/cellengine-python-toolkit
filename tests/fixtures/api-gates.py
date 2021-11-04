@@ -1,32 +1,32 @@
 import pytest
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def rectangle_gate():
     return specific_gate("RectangleGate")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def ellipse_gate():
     return specific_gate("EllipseGate")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def polygon_gate():
     return specific_gate("PolygonGate")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def range_gate():
     return specific_gate("RangeGate")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def quadrant_gate():
     return specific_gate("QuadrantGate")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def split_gate():
     return specific_gate("SplitGate")
 
