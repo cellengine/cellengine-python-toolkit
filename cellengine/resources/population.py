@@ -1,44 +1,46 @@
 from __future__ import annotations
-from dataclasses import field
-from typing import Optional
+from typing import Dict, Optional
+from attr import define, field
 
-from dataclasses_json.cfg import config
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
-
-from dataclasses import dataclass
 import cellengine as ce
+from cellengine.utils import converter
+from cellengine.utils.readonly import readonly
 
 
-@dataclass
-class Population(DataClassMixin):
+@define
+class Population:
+    _id: str = field(on_setattr=readonly)
+    experiment_id: str = field(on_setattr=readonly)
     name: str
     gates: str
+    unique_name: Optional[str] = field(default=None, on_setattr=readonly)
     parent_id: Optional[str] = None
     terminal_gate_gid: Optional[str] = None
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    experiment_id: str = field(default=ReadOnly())  # type: ignore
-    unique_name: str = field(default=ReadOnly())  # type: ignore
 
     def __repr__(self):
         return f"Population(_id='{self._id}', name='{self.name}')"
 
-    @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None):
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_population(experiment_id, **kwargs)
+    @property
+    def client(self):
+        return ce.APIClient()
+
+    @property
+    def path(self):
+        return f"experiments/{self.experiment_id}/populations/{self._id}".rstrip(
+            "/None"
+        )
 
     @classmethod
-    def create(cls, experiment_id: str, population: dict) -> Population:
-        return ce.APIClient().post_population(experiment_id, population)
+    def from_dict(cls, data: Dict):
+        return converter.structure(data, cls)
+
+    def to_dict(self) -> Dict:
+        return converter.unstructure(self)
 
     def update(self):
         """Save changes to this Population to CellEngine."""
-        res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "populations", self.to_dict()
-        )
-        self.__dict__.update(Population.from_dict(res).__dict__)
+        res = self.client.update(self)
+        self.__setstate__(res.__getstate__())  # type: ignore
 
     def delete(self):
-        ce.APIClient().delete_entity(self.experiment_id, "populations", self._id)
+        self.client.delete_entity(self.experiment_id, "populations", self._id)

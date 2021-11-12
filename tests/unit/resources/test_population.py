@@ -28,25 +28,25 @@ def population_tester(population):
 
 
 @responses.activate
-def test_should_get_population(ENDPOINT_BASE, population, populations):
+def test_should_get_population(client, ENDPOINT_BASE, population, populations):
     responses.add(
         responses.GET,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/populations/{population._id}",
         json=populations[0],
     )
-    pop = Population.get(EXP_ID, population._id)
+    pop = client.get_population(EXP_ID, population._id)
     population_tester(pop)
 
 
 @responses.activate
-def test_should_post_population(ENDPOINT_BASE, population, populations):
+def test_should_post_population(client, ENDPOINT_BASE, population, populations):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/populations",
         json=populations[0],
     )
     payload = populations[0].copy()
-    pop = Population.create(EXP_ID, payload)
+    pop = client.post_population(EXP_ID, payload)
     population_tester(pop)
 
 

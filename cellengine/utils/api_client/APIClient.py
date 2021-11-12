@@ -455,8 +455,22 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if as_dict:
             return res
         if type(res) is list:
-            return [Gate.factory(r) for r in res]
-        return Gate.factory(res)
+            return [self.parse_gate_population(gate) for gate in res]
+        else:
+            return self.parse_gate_population(cast(GateDict, res))
+
+    def parse_gate_population(self, res: Any) -> Tuple[Gate, Population]:
+        keys = res.keys()
+        if "population" in keys:
+            gate = res["gate"]
+            pop = res["population"]
+        elif "populations" in keys:
+            gate = res["gate"]
+            pop = res["populations"]
+        else:
+            gate = res
+            pop = None
+        return (converter.structure(gate, Gate), converter.structure(pop, Population) if pop else None)  # type: ignore
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(
