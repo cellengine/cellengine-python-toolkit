@@ -3,7 +3,14 @@ import os
 import json
 import pandas
 from getpass import getpass
-from typing import Any, Dict, List, Union, Optional
+from typing import (
+    Any,
+    Dict,
+    List,
+    TypeVar,
+    Union,
+    Optional,
+)
 from functools import lru_cache
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -20,6 +27,8 @@ from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
 
 from cellengine.utils.converter import converter
+
+CE = TypeVar("CE", bound=Union[Attachment, Compensation, Experiment, FcsFile, Gate, Plot, Population, ScaleSet])
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
@@ -119,6 +128,53 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}",
             json=body,
         )
+
+    def _get_path(self, entity: CE) -> str:
+        fullpath = f"{self.base_url}/{entity.path}"
+        return fullpath
+
+    def create(self, entity: CE, **kwargs) -> CE:
+        """Create a local entity on CellEngine."""
+        if type(entity) is list:
+            return self.create_multiple(entity, **kwargs)  # type: ignore
+        path = self._get_path(entity)
+        structure_class = entity.__class__
+        if structure_class.__bases__[0] is not object:
+            structure_class = structure_class.__bases__[0]
+        body = converter.unstructure(entity)
+
+        if body["_id"] == "None" or body["_id"] is None:
+            del body["_id"]  # https://github.com/primitybio/cellengine/issues/5800
+
+        res = self._post(path, json=body, params=kwargs)
+        return converter.structure(res, structure_class)  # type: ignore
+
+    # TODO: add type annotation for entities
+    def create_multiple(self, entities: List[CE], **kwargs) -> List[CE]:
+        path = self._get_path(entities[0])
+        structure_class = entities[0].__class__
+        if structure_class.__bases__[0] is not object:
+            structure_class = structure_class.__bases__[0]
+        structure_class = List[structure_class]
+
+        body = converter.unstructure(entities)
+
+        for item in body:
+            if item["_id"] == "None" or item["_id"] is None:
+                del item["_id"]
+        res = self._post(path, json=body, params=kwargs)
+        return converter.structure(res, structure_class)
+
+    def update(self, entity):
+        # TODO: entity.path property
+        path = self._get_path(entity)
+        data = converter.unstructure(entity)
+        res = self._patch(path, json=data,)
+        return converter.structure(res, entity.__class__)
+
+    def delete(self, entity) -> None:
+        path = self._get_path(entity)
+        self._delete(path)
 
     def delete_entity(self, experiment_id, entity_type, _id):
         url = f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}"
