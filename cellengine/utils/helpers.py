@@ -18,6 +18,13 @@ def check_id(_id):
         ValueError("Object has an invalid ID.", e)
 
 
+def to_camel_case(snake_str: str) -> str:
+    if snake_str == "_id":
+        return snake_str
+    components = snake_str.split("_")
+    return components[0] + "".join(x.title() for x in components[1:])
+
+
 def get_args_as_kwargs(cls_context, locals):
     # fmt: off
     arg_names = cls_context.create.__code__.co_varnames[

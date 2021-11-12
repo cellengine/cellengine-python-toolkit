@@ -19,6 +19,7 @@ from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
 
+from cellengine.utils.converter import converter
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
