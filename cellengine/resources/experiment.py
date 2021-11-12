@@ -397,7 +397,6 @@ class Experiment(DataClassMixin):
         """Save a collection of gate objects."""
         return Gate.bulk_create(self._id, gates)
 
-    @doc_inherit(Gate.delete_gates)
     def delete_gate(
         self, _id: str = None, gid: str = None, exclude: str = None
     ) -> None:

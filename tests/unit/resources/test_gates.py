@@ -4,10 +4,13 @@ import responses
 
 from cellengine.resources.gate import (
     Gate,
+    QuadrantGate,
     RectangleGate,
+    PolygonGate,
     EllipseGate,
+    RangeGate,
+    SplitGate,
 )
-from cellengine.utils.api_client.APIError import APIError
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -61,24 +64,24 @@ def test_create_one_gate(ENDPOINT_BASE, client, rectangle_gate):
         status=201,
         json=rectangle_gate,
     )
+    del rectangle_gate["_id"]
     g = Gate.factory(rectangle_gate)
-    g.post()
+    g.update()
     gate_tester(g)
 
 
 @responses.activate
-def test_create_multiple_gates_from_dicts(
-    ENDPOINT_BASE, client, rectangle_gate, polygon_gate
-):
+def test_should_create_gate(ENDPOINT_BASE, client, rectangle_gate):
     responses.add(
         responses.POST,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
-        json=[rectangle_gate, rectangle_gate, polygon_gate],
+        json=rectangle_gate,
     )
-    new_gates = [rectangle_gate, rectangle_gate, polygon_gate]
-    gates = Gate.bulk_create(EXP_ID, new_gates)
-    [gate_tester(gate) for gate in gates]
+    del rectangle_gate["_id"]
+    g = Gate.factory(rectangle_gate)
+    client.create(g)
+    gate_tester(g)
 
 
 @responses.activate
@@ -122,19 +125,14 @@ def test_create_multiple_gates_from_gate_objects(
         major=120000,
         minor=70000,
     )
-    gates = Gate.bulk_create(EXP_ID, [g1, g2, g3])
-    [gate_tester(gate) for gate in gates]
 
-    # gates = Gate.factory([rectangle_gate, rectangle_gate])
-    # gate_tester(gates[0])
-    # gate_tester(gates[1])
-    # Gate.post(gates)
+    gates = client.create([g1, g2, g3])
+    [gate_tester(gate) for gate in gates]
 
 
 @pytest.fixture
 def bad_gate():
     bad_gate = {
-        "__v": 0,
         "experimentId": "5d38a6f79fae87499999a74b",
         # "name": "my gate",
         "type": "PolygonGate",
@@ -155,17 +153,9 @@ def bad_gate():
     return bad_gate
 
 
-@responses.activate
-def test_create_gate_with_bad_params(ENDPOINT_BASE, client, bad_gate):
-    responses.add(
-        responses.POST,
-        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
-        status=400,
-        json={"error": '"gid" is required.'},
-    )
-    with pytest.raises(APIError):
-        g = Gate.factory(bad_gate)
-        g.post()
+def test_create_gate_with_bad_params(client, bad_gate):
+    with pytest.raises(TypeError):
+        client.post_gate(bad_gate)
 
 
 @responses.activate
@@ -187,11 +177,11 @@ def test_update_gate(ENDPOINT_BASE, client, experiment, rectangle_gate):
     gate.update()
 
     gate_tester(gate)
-    assert json.loads(responses.calls[0].request.body) == gate._properties
+    assert json.loads(responses.calls[0].request.body)["name"] == "newname"  # type: ignore
 
 
 @responses.activate
-def test_update_gate_family(ENDPOINT_BASE, experiment, rectangle_gate):
+def test_update_gate_family(client, ENDPOINT_BASE, experiment, rectangle_gate):
     gid = rectangle_gate["gid"]
     responses.add(
         responses.PATCH,
@@ -199,7 +189,7 @@ def test_update_gate_family(ENDPOINT_BASE, experiment, rectangle_gate):
         status=201,
         json={"nModified": 1},
     )
-    Gate.update_gate_family(experiment._id, gid, {"xChannel": "newChannel"})
+    Gate.update_family(experiment._id, gid, {"xChannel": "newChannel"})
 
 
 @responses.activate
@@ -214,8 +204,8 @@ def test_should_delete_gate(ENDPOINT_BASE, client, rectangle_gate):
         responses.DELETE,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates/{rectangle_gate['_id']}",
     )
-    g = Gate.factory(rectangle_gate)
-    g.post()
+    del rectangle_gate["_id"]
+    g = client.create(Gate.factory(rectangle_gate))
     gate_tester(g)
     g.delete()
 
@@ -242,7 +232,7 @@ class TestShouldDeleteGates:
         responses.add(
             responses.DELETE, f"{ENDPOINT_BASE}" + url,
         )
-        Gate.delete_gates(experiment._id, **args)
+        client.delete_gate(experiment._id, **args)
 
 
 @responses.activate
@@ -259,7 +249,8 @@ def test_create_rectangle_gate(ENDPOINT_BASE, client, experiment, rectangle_gate
         status=201,
         json=rectangle_gate,
     )
-    rectangle_gate = experiment.create_rectangle_gate(
+    rectangle_gate = RectangleGate.create(
+        experiment_id=EXP_ID,
         x_channel="FSC-A",
         y_channel="FSC-W",
         name="my gate",
@@ -268,12 +259,13 @@ def test_create_rectangle_gate(ENDPOINT_BASE, client, experiment, rectangle_gate
         y1=75000,
         y2=215000,
     )
-    rectangle_gate.post()
+    rectangle_gate.update()
     gate_tester(rectangle_gate)
-    assert rectangle_gate.model.rectangle.x1 == 60000
-    assert rectangle_gate.model.rectangle.x2 == 200000
-    assert rectangle_gate.model.rectangle.y1 == 75000
-    assert rectangle_gate.model.rectangle.y2 == 215000
+    m = rectangle_gate.model["rectangle"]
+    assert m["x1"] == 60000
+    assert m["x2"] == 200000
+    assert m["y1"] == 75000
+    assert m["y2"] == 215000
 
 
 @responses.activate
@@ -284,7 +276,8 @@ def test_create_ellipse_gate(ENDPOINT_BASE, client, experiment, ellipse_gate):
         status=201,
         json=ellipse_gate,
     )
-    ellipse_gate = experiment.create_ellipse_gate(
+    ellipse_gate = EllipseGate.create(
+        experiment_id=EXP_ID,
         x_channel="FSC-A",
         y_channel="FSC-W",
         name="my gate",
@@ -294,12 +287,13 @@ def test_create_ellipse_gate(ENDPOINT_BASE, client, experiment, ellipse_gate):
         major=113446.7481834943,
         minor=70116.01916918601,
     )
-    ellipse_gate.post()
+    ellipse_gate.update()
     gate_tester(ellipse_gate)
-    assert ellipse_gate.model.ellipse.center == [259441.51377370575, 63059.462213950595]
-    assert ellipse_gate.model.ellipse.major == 113446.7481834943
-    assert ellipse_gate.model.ellipse.minor == 70116.01916918601
-    assert ellipse_gate.model.ellipse.angle == -0.16875182756633697
+    m = ellipse_gate.model["ellipse"]
+    assert m["center"] == [259441.51377370575, 63059.462213950595]
+    assert m["major"] == 113446.7481834943
+    assert m["minor"] == 70116.01916918601
+    assert m["angle"] == -0.16875182756633697
 
 
 @responses.activate
@@ -310,15 +304,16 @@ def test_create_polygon_gate(ENDPOINT_BASE, client, experiment, polygon_gate):
         status=201,
         json=polygon_gate,
     )
-    polygon_gate = experiment.create_polygon_gate(
+    polygon_gate = PolygonGate.create(
+        experiment_id=EXP_ID,
         x_channel="FSC-A",
         y_channel="FSC-W",
         name="my gate",
         vertices=[[1, 4], [2, 5], [3, 6]],
     )
-    polygon_gate.post()
+    polygon_gate.update()
     gate_tester(polygon_gate)
-    assert polygon_gate.model.polygon.vertices == [
+    assert polygon_gate.model["polygon"]["vertices"] == [
         [59456.113402061856, 184672.1855670103],
         [141432.10309278348, 181068.84536082475],
         [82877.82474226804, 124316.23711340204],
@@ -331,25 +326,28 @@ def test_create_polygon_gate(ENDPOINT_BASE, client, experiment, polygon_gate):
 
 
 @responses.activate
-def test_create_range_gate(ENDPOINT_BASE, experiment, range_gate):
+def test_create_range_gate(ENDPOINT_BASE, client, range_gate):
     responses.add(
         responses.POST,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
         json=range_gate,
     )
-    range_gate = experiment.create_range_gate(
-        x_channel="FSC-A", name="my gate", x1=12.502, x2=95.102
+    range_gate = RangeGate.create(
+        experiment_id=EXP_ID, x_channel="FSC-A", name="my gate", x1=12.502, x2=95.102
     )
-    range_gate.post()
+    range_gate.update()
     gate_tester(range_gate)
-    assert range_gate.model.range.x1 == 12.502
-    assert range_gate.model.range.x2 == 95.102
-    assert range_gate.model.range.y == 0.5
+    m = range_gate.model["range"]
+    assert m["x1"] == 12.502
+    assert m["x2"] == 95.102
+    assert m["y"] == 0.5
 
 
 @responses.activate
-def test_create_quadrant_gate(ENDPOINT_BASE, experiment, scalesets, quadrant_gate):
+def test_create_quadrant_gate(
+    ENDPOINT_BASE, client, experiment, scalesets, quadrant_gate
+):
     responses.add(
         responses.GET,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/scalesets",
@@ -361,24 +359,26 @@ def test_create_quadrant_gate(ENDPOINT_BASE, experiment, scalesets, quadrant_gat
         status=201,
         json=quadrant_gate,
     )
-    quadrant_gate = experiment.create_quadrant_gate(
+    quadrant_gate = QuadrantGate.create(
+        experiment_id=EXP_ID,
         name="test_quadrant_gate",
         x_channel="FSC-A",
         y_channel="FSC-W",
         x=160000,
         y=200000,
     )
-    quadrant_gate.post()
+    quadrant_gate.update()
     gate_tester(quadrant_gate)
-    assert quadrant_gate.model.quadrant.x == 160000
-    assert quadrant_gate.model.quadrant.y == 200000
-    assert quadrant_gate.model.quadrant.angles == [
+    m = quadrant_gate.model
+    assert m["quadrant"]["x"] == 160000
+    assert m["quadrant"]["y"] == 200000
+    assert m["quadrant"]["angles"] == [
         1.5707963267948966,
         3.141592653589793,
         4.71238898038469,
         0,
     ]
-    assert quadrant_gate.model.gids == [
+    assert m["gids"] == [
         "5db01cb2e4eb52e0c1047306",
         "5db01cb265909ddcfd6e2807",
         "5db01cb2486959d467563e08",
@@ -390,11 +390,11 @@ def test_create_quadrant_gate(ENDPOINT_BASE, experiment, scalesets, quadrant_gat
         "my gate (LL)",
         "my gate (LR)",
     ]
-    assert quadrant_gate.model.labels == [[1, 1], [-200, 1], [-200, -200], [1, -200]]
+    assert quadrant_gate.model["labels"] == [[1, 1], [-200, 1], [-200, -200], [1, -200]]
 
 
 @responses.activate
-def test_create_split_gate(ENDPOINT_BASE, experiment, scalesets, split_gate):
+def test_create_split_gate(client, ENDPOINT_BASE, experiment, scalesets, split_gate):
     responses.add(
         responses.GET,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/scalesets",
@@ -406,16 +406,17 @@ def test_create_split_gate(ENDPOINT_BASE, experiment, scalesets, split_gate):
         status=201,
         json=split_gate,
     )
-    split_gate = experiment.create_split_gate(
-        x_channel="FSC-A", name="my gate", x=160000, y=100000
+    split_gate = SplitGate.create(
+        experiment_id=EXP_ID, x_channel="FSC-A", name="my gate", x=160000, y=100000
     )
-    split_gate.post()
+    split_gate.update()
     gate_tester(split_gate)
-    assert split_gate.model.split.x == 160000
-    assert split_gate.model.split.y == 1
-    assert split_gate.model.gids == [
+    m = split_gate.model["split"]
+    assert m["x"] == 160000
+    assert m["y"] == 1
+    assert split_gate.model["gids"] == [
         "5db02aff9375ffe04e55b801",
         "5db02aff556563a0f01c7a02",
     ]
     assert split_gate.names == ["my gate (L)", "my gate (R)"]
-    assert split_gate.model.labels == [[-199.9, 0.916], [0.9, 0.916]]
+    assert split_gate.model["labels"] == [[-199.9, 0.916], [0.9, 0.916]]

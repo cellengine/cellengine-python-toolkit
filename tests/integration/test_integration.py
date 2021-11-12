@@ -182,11 +182,11 @@ def test_experiment_gates(setup_experiment, client):
     split_gate = SplitGate.create(
         experiment._id, fcs_file.channels[0], "split_gate", 2300000, 250000
     )
-    split_gate.post()
+    split_gate.update()
     range_gate = RangeGate.create(
         experiment._id, fcs_file.channels[0], "range_gate", 2100000, 2500000,
     )
-    range_gate.post()
+    range_gate.update()
 
     # UPDATE
     range_gate.tailor_to(fcs_file._id)

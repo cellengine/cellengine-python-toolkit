@@ -7,6 +7,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Tuple,
     TypeVar,
     Union,
     Optional,
@@ -166,10 +167,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return converter.structure(res, structure_class)
 
     def update(self, entity):
-        # TODO: entity.path property
         path = self._get_path(entity)
         data = converter.unstructure(entity)
-        res = self._patch(path, json=data,)
+        res = self._patch(path, json=data)
         return converter.structure(res, entity.__class__)
 
     def delete(self, entity) -> None:
@@ -398,14 +398,19 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
-        return [Gate.factory(gate) for gate in gates]
+        structured_gates = []
+        for gate in gates:
+            structured_gates.append(
+                self._parse_gate_population(gate)[0]
+            )  # return only Gate
+        return structured_gates
 
-    def get_gate(self, experiment_id: str, _id, as_dict=False) -> Gate:
+    def get_gate(self, experiment_id: str, _id: str, as_dict: bool = False):
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
-        return Gate.factory(gate)
+        return self._parse_gate_population(gate)[0]  # return only Gate
 
     def delete_gate(
         self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None
@@ -444,22 +449,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raise ValueError("Either _id or gid must be specified.")
         self._delete(url)
 
-    def post_gate(
-        self, experiment_id, gate: Dict, create_population=True, as_dict=False
-    ) -> Gate:
-        res = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/gates",
-            json=gate,
-            params={"createPopulation": create_population},
-        )
-        if as_dict:
-            return res
-        if type(res) is list:
-            return [self.parse_gate_population(gate) for gate in res]
-        else:
-            return self.parse_gate_population(cast(GateDict, res))
+    def delete_gates(self, experiment_id: str, ids: List[str]):
+        url = f"{self.base_url}/experiments/{experiment_id}/gates/"
+        [self._delete(url + _id) for _id in ids]
 
-    def parse_gate_population(self, res: Any) -> Tuple[Gate, Population]:
+    def _parse_gate_population(self, res: Any) -> Tuple[Gate, Population]:
         keys = res.keys()
         if "population" in keys:
             gate = res["gate"]
@@ -479,10 +473,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def tailor_to(self, experiment_id, gate_id, fcs_file_id):
         """Tailor a gate to a file."""
-        gate = self.get_gate(experiment_id, gate_id)
-        gate._properties["tailoredPerFile"] = True
-        gate._properties["fcsFileId"] = fcs_file_id
-        return self.update_entity(experiment_id, gate_id, "gates", gate._properties)
+        gate = self.get_gate(experiment_id, gate_id, as_dict=True)
+        gate["tailoredPerFile"] = True
+        gate["fcsFileId"] = fcs_file_id
+        return self.update_entity(experiment_id, gate_id, "gates", gate)
 
     def get_plot(
         self,
