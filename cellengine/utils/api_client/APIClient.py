@@ -1,15 +1,18 @@
 from __future__ import annotations
-import os
-import json
-import pandas
-from getpass import getpass
-from typing import Any, Dict, List, Union, Optional
 from functools import lru_cache
+from getpass import getpass
+import json
+import os
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union, overload
+
+import pandas
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
+from cellengine.utils import converter
 from cellengine.utils.api_client.APIError import APIError
+from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
 from cellengine.utils.singleton import Singleton
+
 from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation
 from ...resources.experiment import Experiment
@@ -18,6 +21,33 @@ from ...resources.gate import Gate
 from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
+
+
+CE = TypeVar(
+    "CE",
+    Attachment,
+    Compensation,
+    Experiment,
+    FcsFile,
+    Gate,
+    Plot,
+    Population,
+    ScaleSet,
+)
+
+
+def create_many(client: APIClient, entities: List[Gate], **kwargs) -> List[Gate]:
+    body = [client.unstructure_and_clean(e) for e in entities]
+    (classes, paths, payload) = list(zip(*body))
+    _class = set(classes)
+    if len(_class) != 1 or Gate not in _class:
+        raise TypeError(f"Type or types {_class} cannot be created in bulk.")
+    return client.post_and_structure(
+        List[_class.pop()],  # type: ignore
+        set(paths).pop(),
+        list(payload),
+        kwargs=kwargs,
+    )
 
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
@@ -118,6 +148,66 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}",
             json=body,
         )
+
+    def _get_path(self, entity: CE) -> str:
+        return f"{self.base_url}/{entity.path}"
+
+    def post_and_structure(
+        self,
+        _class: type,
+        path: str,
+        body: Union[List[Dict[Any, Any]], Dict[Any, Any]],
+        **kwargs,
+    ) -> Union[CE, List[CE]]:
+        res = self._post(f"{self.base_url}/{path}", json=body, params=kwargs)
+        return converter.structure(res, _class)
+
+    def unstructure_and_clean(self, entity) -> Tuple[type, str, Dict[Any, Any]]:
+        (cls, path, body) = (
+            entity.__class__,
+            entity.path,
+            converter.unstructure(entity),
+        )
+        if body["_id"] == "None" or body["_id"] is None:
+            del body["_id"]  # https://github.com/primitybio/cellengine/issues/5800
+        return (cls, path, body)
+
+    # fmt: off
+    # temporary fix for https://github.com/psf/black/issues/1797
+    @overload
+    def create(self, entity: Attachment, **kwargs) -> Attachment: ...
+    @overload
+    def create(self, entity: Compensation, **kwargs) -> Compensation: ...
+    @overload
+    def create(self, entity: Experiment, **kwargs) -> Experiment: ...
+    @overload
+    def create(self, entity: FcsFile, **kwargs) -> FcsFile: ...
+    @overload
+    def create(self, entity: Gate, **kwargs) -> Gate: ...
+    @overload
+    def create(self, entity: Population, **kwargs) -> Population: ...
+    @overload
+    def create(self, entity: ScaleSet, **kwargs) -> ScaleSet: ...
+    @overload
+    def create(self, entity: List[Gate], **kwargs) -> List[Gate]: ...
+    # fmt: on
+
+    def create(self, entity, **kwargs):
+        """Create a local entity on CellEngine."""
+        if isinstance(entity, list):
+            return create_many(self, entity, **kwargs)
+        body = self.unstructure_and_clean(entity)
+        return self.post_and_structure(*body)
+
+    def update(self, entity, params: Dict = None):
+        path = self._get_path(entity)
+        data = converter.unstructure(entity)
+        res = self._patch(path, json=data, params=params)
+        return converter.structure(res, entity.__class__)
+
+    def delete(self, entity, params: Dict = None) -> None:
+        path = self._get_path(entity)
+        self._delete(path, params=params)
 
     def delete_entity(self, experiment_id, entity_type, _id):
         url = f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}"
