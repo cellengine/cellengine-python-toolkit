@@ -36,7 +36,7 @@ class Attachment(DataClassMixin):
 
     @staticmethod
     def upload(experiment_id: str, filepath: str, filename: str = None) -> Attachment:
-        return ce.APIClient().post_attachment(experiment_id, filepath, filename)
+        return ce.APIClient().upload_attachment(experiment_id, filepath, filename)
 
     def update(self):
         """Save changes to this Attachment to CellEngine.

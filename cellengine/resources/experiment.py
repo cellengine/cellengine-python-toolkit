@@ -247,7 +247,7 @@ class Experiment(DataClassMixin):
 
     def upload_attachment(self, filepath: str, filename: str = None):
         """Upload an attachment to this experiment."""
-        ce.APIClient().post_attachment(self._id, filepath, filename)
+        ce.APIClient().upload_attachment(self._id, filepath, filename)
 
     @property
     def compensations(self) -> List[Compensation]:
