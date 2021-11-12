@@ -27,6 +27,12 @@ from cellengine.resources.gate import (
     EllipseGate,
     QuadrantGate,
 )
+from cellengine.utils.helpers import (
+    CommentList,
+    datetime_to_timestamp,
+    timestamp_to_datetime,
+)
+
 from cellengine.payloads.gate_utils import (
     format_rectangle_gate,
     format_polygon_gate,
@@ -34,11 +40,6 @@ from cellengine.payloads.gate_utils import (
     format_range_gate,
     format_split_gate,
     format_quadrant_gate,
-)
-from cellengine.utils.helpers import (
-    CommentList,
-    datetime_to_timestamp,
-    timestamp_to_datetime,
 )
 
 
