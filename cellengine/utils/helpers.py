@@ -7,9 +7,13 @@ first_cap_re = re.compile("(.)([A-Z][a-z]+)")
 all_cap_re = re.compile("([a-z0-9])([A-Z])")
 
 
+def is_valid_id(_id: str) -> bool:
+    return bool(ID_REGEX.match(_id))
+
+
 def check_id(_id):
     try:
-        assert bool(ID_REGEX.match(_id)) is True
+        assert is_valid_id(_id)
     except Exception as e:
         ValueError("Object has an invalid ID.", e)
 
