@@ -144,7 +144,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         except IndexError:
             raise RuntimeError("No experiment with that name or _id found.")
 
-    def post_attachment(
+    def upload_attachment(
         self, experiment_id, filepath: str, filename: str = None
     ) -> Attachment:
         """Upload an attachment
