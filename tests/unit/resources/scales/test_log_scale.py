@@ -3,7 +3,7 @@ from math import isclose
 from numpy import log10
 from pandas import Series
 
-from cellengine.payloads.scale_utils.apply_scale import apply_scale
+from cellengine.utils.scale_utils import apply_scale
 
 
 @pytest.fixture(scope="module")

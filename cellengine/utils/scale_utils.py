@@ -1,9 +1,16 @@
 from collections import defaultdict
-from numpy import log10, arcsinh, clip
-from typing import List
+from typing import Dict
+
+from numpy import arcsinh, clip, log10
+
+from cellengine.utils.limited_dict import LimitedDict
 
 
-def apply_scale(scale: List, item, clamp_q=False):
+class ScaleDict(LimitedDict):
+    _keys = {"type", "minimum", "maximum", "cofactor"}
+
+
+def apply_scale(scale: Dict, item, clamp_q=False):
     _type = scale["type"]
 
     def bad_scale_error(_):
