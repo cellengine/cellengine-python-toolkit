@@ -1,5 +1,5 @@
 class LimitedDict(dict):
-    """ Extend this class and define `_keys` to limit the keys
+    """Extend this class and define `_keys` to limit the keys
     available in a dict.
     """
 

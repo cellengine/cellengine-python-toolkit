@@ -9,8 +9,7 @@ from cellengine.utils.wrapped_image_opener import WrappedImageOpener
 
 @dataclass
 class Plot(DataClassMixin):
-    """A class representing a CellEngine plot.
-    """
+    """A class representing a CellEngine plot."""
 
     experiment_id: str
     fcs_file_id: str

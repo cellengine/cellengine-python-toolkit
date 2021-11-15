@@ -5,9 +5,6 @@ from marshmallow import fields
 
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
-import inspect
-from math import pi
-from custom_inherit import doc_inherit
 from typing import Any, Optional, Dict, Union, List
 
 from dataclasses_json.cfg import config
@@ -33,19 +30,9 @@ from cellengine.utils.helpers import (
     timestamp_to_datetime,
 )
 
-from cellengine.payloads.gate_utils import (
-    format_rectangle_gate,
-    format_polygon_gate,
-    format_ellipse_gate,
-    format_range_gate,
-    format_split_gate,
-    format_quadrant_gate,
-)
-
 
 @dataclass
 class Experiment(DataClassMixin):
-
     name: str
     annotation_validators: Dict[Any, Any]
     annotation_name_order: List[str]
@@ -405,176 +392,67 @@ class Experiment(DataClassMixin):
         [`APIClient`][cellengine.utils.api_client.APIClient.APIClient.delete_gate]
         for more information.
         """
-        return ce.APIClient().delete_gate(self._id, _id, gid, exclude)
+        return self.client.delete_gate(self._id, _id, gid, exclude)
 
-    @doc_inherit(format_rectangle_gate)
-    def create_rectangle_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        x1: float,
-        x2: float,
-        y1: float,
-        y2: float,
-        label: List[str] = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> RectangleGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_rectangle_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    def create_rectangle_gate(self, *args, **kwargs) -> RectangleGate:
+        """Create a RectangleGate.
 
-    @doc_inherit(format_polygon_gate)
-    def create_polygon_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        vertices: List[float],
-        label: List[str] = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> PolygonGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_polygon_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        Accepts all args and kwargs available for
+        [`RectangleGate.create()`][cellengine.resources.gate.RectangleGate.create].
+        """
+        gate = RectangleGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
-    @doc_inherit(format_ellipse_gate)
-    def create_ellipse_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        x: float,
-        y: float,
-        angle: float,
-        major: float,
-        minor: float,
-        label: List = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> EllipseGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_ellipse_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    def create_polygon_gate(self, *args, **kwargs) -> PolygonGate:
+        """Create a PolygonGate.
 
-    @doc_inherit(format_range_gate)
-    def create_range_gate(
-        self,
-        x_channel: str,
-        name: str,
-        x1: float,
-        x2: float,
-        y: float = 0.5,
-        label: List[str] = [],
-        gid: str = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> RangeGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_range_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        Accepts all args and kwargs available for
+        [`PolygonGate.create()`][cellengine.resources.gate.PolygonGate.create].
+        """
+        gate = PolygonGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
-    @doc_inherit(format_split_gate)
-    def create_split_gate(
-        self,
-        x_channel: str,
-        name: str,
-        x: str,
-        y: float = 0.5,
-        labels: List[str] = [],
-        gid: str = None,
-        gids: List[str] = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> SplitGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_split_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+    def create_ellipse_gate(self, *args, **kwargs):
+        """Create a EllipseGate.
 
-    @doc_inherit(format_quadrant_gate)
-    def create_quadrant_gate(
-        self,
-        x_channel: str,
-        y_channel: str,
-        name: str,
-        x: float,
-        y: float,
-        labels: List[str] = [],
-        skewable: bool = False,
-        angles: List[float] = [0, pi / 2, pi, 3 * pi / 2],
-        gid: str = None,
-        gids: List[str] = None,
-        locked: bool = False,
-        parent_population_id: str = None,
-        parent_population: str = None,
-        tailored_per_file: bool = False,
-        fcs_file_id: str = None,
-        fcs_file: str = None,
-        create_population: bool = True,
-    ) -> QuadrantGate:
-        f = inspect.currentframe()
-        args, _, _, values = inspect.getargvalues(f)  # type: ignore
-        kwargs = {arg: values.get(arg, None) for arg in args}
-        post_body = format_quadrant_gate(
-            kwargs.pop("self")._id,  # type: ignore
-            **kwargs,
-        )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        Accepts all args and kwargs available for
+        [`EllipseGate.create()`][cellengine.resources.gate.EllipseGate.create].
+        """
+        gate = EllipseGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
+
+    def create_range_gate(self, *args, **kwargs) -> RangeGate:
+        """Create a RangeGate.
+
+        Accepts all args and kwargs available for
+        [`RangeGate.create()`][cellengine.resources.gate.RangeGate.create].
+        """
+        gate = RangeGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
+
+    def create_split_gate(self, *args, **kwargs) -> SplitGate:
+        """Create a SplitGate.
+
+        Accepts all args and kwargs available for
+        [`SplitGate.create()`][cellengine.resources.gate.SplitGate.create].
+        """
+        gate = SplitGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
+
+    def create_quadrant_gate(self, *args, **kwargs) -> QuadrantGate:
+        """Create a QuadrantGate.
+
+        Accepts all args and kwargs available for
+        [`QuadrantGate.create()`][cellengine.resources.gate.QuadrantGate.create].
+        """
+        gate = QuadrantGate.create(self._id, *args, **kwargs)
+        gate.update()
+        return gate
 
     def create_population(self, population: Dict) -> Population:
         """Create a complex population

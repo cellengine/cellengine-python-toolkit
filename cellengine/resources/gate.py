@@ -108,7 +108,7 @@ class RectangleGate(Gate):
         fcs_file_id: str = None,
         fcs_file: str = None,
         create_population: bool = True,
-    ):
+    ) -> RectangleGate:
         """Formats a rectangle gate for posting to the CellEngine API.
 
         Args:

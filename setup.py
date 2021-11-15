@@ -50,7 +50,6 @@ setup(
         "requests~=2.22",
         "requests-toolbelt~=0.9",
         "urllib3~=1.25",
-        "custom_inherit~=2.3",
     ],
     extras_require={"interactive": ["Pillow~=8.2"]},
     tests_require=["pytest", "pytest-vcr"],

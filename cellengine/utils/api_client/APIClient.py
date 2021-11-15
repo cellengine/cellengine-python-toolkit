@@ -1,6 +1,7 @@
 from __future__ import annotations
 import os
 import json
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
 import pandas
 from getpass import getpass
 from typing import (
@@ -29,7 +30,13 @@ from ...resources.scaleset import ScaleSet
 
 from cellengine.utils.converter import converter
 
-CE = TypeVar("CE", bound=Union[Attachment, Compensation, Experiment, FcsFile, Gate, Plot, Population, ScaleSet])
+CE = TypeVar(
+    "CE",
+    bound=Union[
+        Attachment, Compensation, Experiment, FcsFile, Gate, Plot, Population, ScaleSet
+    ],
+)
+
 
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
