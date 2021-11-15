@@ -14,7 +14,7 @@ def test_generates_an_id():
 
 def test_generates_unique_ids():
     id_list = []
-    for i in range(0, 1000):
+    for _ in range(0, 1000):
         _id = generate_id()
         assert _id not in id_list
         id_list.append(_id)

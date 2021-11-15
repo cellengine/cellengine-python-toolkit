@@ -37,7 +37,7 @@ def test_lru_cache(ENDPOINT_BASE, client, experiments):
 
 
 @responses.activate
-def test_lru_cache_paths(ENDPOINT_BASE, client, experiments, fcs_files, experiment):
+def test_lru_cache_paths(ENDPOINT_BASE, client, experiments):
     """Test whether the cache returns a url with a name query on the first
     request and then an ID on the second request."""
     client.cache_clear()

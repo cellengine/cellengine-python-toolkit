@@ -1,6 +1,5 @@
 from collections import defaultdict
 from typing import Dict
-
 from numpy import arcsinh, clip, log10
 
 from cellengine.utils.limited_dict import LimitedDict
