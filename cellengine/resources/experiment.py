@@ -100,6 +100,10 @@ class Experiment(DataClassMixin):
         return f"Experiment(_id='{self._id}', name='{self.name}')"
 
     @property
+    def client(self):
+        return ce.APIClient()
+
+    @property
     def comments(self):
         """Get comments for experiment.
 
@@ -161,7 +165,7 @@ class Experiment(DataClassMixin):
 
     def update(self):
         """Save changes to this Experiment to CellEngine."""
-        res = ce.APIClient().update_experiment(self._id, self.to_dict())
+        res = self.client.update_experiment(self._id, self.to_dict())
         self.__dict__.update(Experiment.from_dict(res).__dict__)
 
     def clone(self, name: str = None):
@@ -176,7 +180,7 @@ class Experiment(DataClassMixin):
         Returns:
             Experiment: A deep copy of the experiment.
         """
-        return ce.APIClient().clone_experiment(self._id, name=name)
+        return self.client.clone_experiment(self._id, name=name)
 
     @property
     def delete(self):
@@ -197,7 +201,7 @@ class Experiment(DataClassMixin):
     def active_compensation(self) -> Optional[Union[Compensation, int]]:
         active_comp = self._active_comp
         if type(active_comp) is str:
-            return ce.APIClient().get_compensation(self._id, active_comp)
+            return self.client.get_compensation(self._id, active_comp)
         elif type(active_comp) is int:
             return active_comp
         elif active_comp is None:
@@ -220,17 +224,17 @@ class Experiment(DataClassMixin):
     @property
     def attachments(self) -> List[Attachment]:
         """List all attachments on the experiment."""
-        return ce.APIClient().get_attachments(self._id)
+        return self.client.get_attachments(self._id)
 
     def get_attachment(self, _id: Optional[str] = None, name: Optional[str] = None):
-        return ce.APIClient().get_attachment(self._id, _id, name)
+        return self.client.get_attachment(self._id, _id, name)
 
     def download_attachment(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> bytes:
         """Get a specific attachment."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().download_attachment(self._id, **kwargs)
+        return self.client.download_attachment(self._id, **kwargs)
 
     def upload_attachment(self, filepath: str, filename: str = None):
         """Upload an attachment to this experiment."""
@@ -239,14 +243,14 @@ class Experiment(DataClassMixin):
     @property
     def compensations(self) -> List[Compensation]:
         """List all compensations on the experiment."""
-        return ce.APIClient().get_compensations(self._id)
+        return self.client.get_compensations(self._id)
 
     def get_compensation(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> Compensation:
         """Get a specific compensation."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_compensation(self._id, **kwargs)
+        return self.client.get_compensation(self._id, **kwargs)
 
     def create_compensation(
         self, name: str, channels: List[str], spill_matrix: List[float]
@@ -261,45 +265,44 @@ class Experiment(DataClassMixin):
                 length of the array must be the number of channels squared.
         """
         body = {"name": name, "channels": channels, "spillMatrix": spill_matrix}
-        ce.APIClient().post_compensation(self._id, body)
+        self.client.post_compensation(self._id, body)
 
     @property
     def fcs_files(self) -> List[FcsFile]:
         """List all FCS files on the experiment."""
-        return ce.APIClient().get_fcs_files(self._id)
+        return self.client.get_fcs_files(self._id)
 
     def get_fcs_file(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> FcsFile:
         """Get a specific FCS file."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_fcs_file(self._id, **kwargs)
+        return self.client.get_fcs_file(self._id, **kwargs)
 
     def upload_fcs_file(self, filepath, filename: str = None):
         """Upload an FCS file to this experiment."""
-        ce.APIClient().upload_fcs_file(self._id, filepath, filename)
+        self.client.upload_fcs_file(self._id, filepath, filename)
 
     @property
     def gates(self) -> List[Gate]:
         """List all gates on the experiment."""
-        return ce.APIClient().get_gates(self._id)
+        return self.client.get_gates(self._id)
 
-    def get_gate(self, _id: Optional[str] = None, name: Optional[str] = None) -> Gate:
-        """Get a specific gate."""
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_gate(self._id, **kwargs)
+    def get_gate(self, _id: str) -> Gate:
+        """Get a specific gate by _id."""
+        return self.client.get_gate(self._id, _id)
 
     @property
-    def populations(self) -> List[Population]:
+    def populations(self):
         """List all populations in the experiment."""
-        return ce.APIClient().get_populations(self._id)
+        return self.client.get_populations(self._id)
 
     def get_population(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> Population:
         """Get a specific population."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_population(self._id, **kwargs)
+        return self.client.get_population(self._id, **kwargs)
 
     def get_statistics(
         self,
@@ -354,7 +357,7 @@ class Experiment(DataClassMixin):
         Returns:
             statistics: Dict, String, or pandas.Dataframe
         """
-        return ce.APIClient().get_statistics(
+        return self.client.get_statistics(
             self._id,
             statistics,
             channels,
@@ -370,19 +373,19 @@ class Experiment(DataClassMixin):
 
     @property
     def scalesets(self) -> ScaleSet:
-        """Gets the experiment's ScaleSet"""
-        return ce.APIClient().get_scaleset(self._id)
+        """List all scalesets in the experiment."""
+        return self.client.get_scaleset(self._id)
 
     def get_scaleset(
         self, _id: Optional[str] = None, name: Optional[str] = None
     ) -> ScaleSet:
         """Get a specific scaleset."""
         kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_scaleset(self._id, **kwargs)
+        return self.client.get_scaleset(self._id, **kwargs)
 
-    def create_gates(self, gates: List):
-        """Save a collection of gate objects."""
-        return Gate.bulk_create(self._id, gates)
+    def create_gates(self, gates: List[Gate]):
+        """Save a collection of gate objects. Does not create populations."""
+        return self.client.create(gates)
 
     def delete_gate(
         self, _id: str = None, gid: str = None, exclude: str = None
@@ -474,4 +477,4 @@ class Experiment(DataClassMixin):
         Returns:
             The new population.
         """
-        return ce.APIClient().post_population(self._id, population)
+        return self.client.post_population(self._id, population)
