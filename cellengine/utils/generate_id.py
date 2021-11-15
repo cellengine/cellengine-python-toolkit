@@ -7,13 +7,10 @@ from random import SystemRandom
 
 
 class OID:
-    pass
-
-
-OID._pid = os.getpid()
-OID._max_counter_value = 0xFFFFFF
-OID._inc = SystemRandom().randint(0, OID._max_counter_value)
-OID._random = os.urandom(5)
+    _pid: int = os.getpid()
+    _max_counter_value: int = 0xFFFFFF
+    _inc: int = SystemRandom().randint(0, _max_counter_value)
+    _random: bytes = os.urandom(5)
 
 
 def _random():
