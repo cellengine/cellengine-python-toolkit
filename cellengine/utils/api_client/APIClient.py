@@ -14,21 +14,27 @@ from typing import (
     Optional,
 )
 from functools import lru_cache
+from getpass import getpass
+import json
+import os
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
+
+import pandas
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
+from cellengine.resources.gate import Gate
 from cellengine.utils.api_client.APIError import APIError
+from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
+from cellengine.utils.converter import converter
 from cellengine.utils.singleton import Singleton
+
 from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation
 from ...resources.experiment import Experiment
 from ...resources.fcs_file import FcsFile
-from ...resources.gate import Gate
 from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
-
-from cellengine.utils.converter import converter
 
 CE = TypeVar(
     "CE",
@@ -191,7 +197,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         attachments = self._get(
             f"{self.base_url}/experiments/{experiment_id}/attachments"
         )
-        return [Attachment.from_dict(attachment) for attachment in attachments]
+        return converter.structure(attachments, List[Attachment])
 
     def download_attachment(self, experiment_id, _id=None, name=None) -> bytes:
         """Download an attachment"""
@@ -401,7 +407,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raw=True,
         )
 
-    def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
+    def get_gates(self, experiment_id: str, as_dict: bool = False) -> List[Gate]:
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
@@ -471,7 +477,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         else:
             gate = res
             pop = None
-        return (converter.structure(gate, Gate), converter.structure(pop, Population) if pop else None)  # type: ignore
+        return (
+            converter.structure(gate, Gate),
+            converter.structure(pop, Population) if pop else None,
+        )  # type: ignore
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(

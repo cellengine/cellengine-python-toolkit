@@ -86,13 +86,13 @@ def test_should_create_gate(ENDPOINT_BASE, client, rectangle_gate):
 
 @responses.activate
 def test_create_multiple_gates_from_gate_objects(
-    ENDPOINT_BASE, client, rectangle_gate, polygon_gate
+    ENDPOINT_BASE, client, rectangle_gate, ellipse_gate
 ):
     responses.add(
         responses.POST,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
         status=201,
-        json=[rectangle_gate, rectangle_gate, polygon_gate],
+        json=[rectangle_gate, rectangle_gate, ellipse_gate],
     )
     g1 = RectangleGate.create(
         EXP_ID,
@@ -153,9 +153,10 @@ def bad_gate():
     return bad_gate
 
 
-def test_create_gate_with_bad_params(client, bad_gate):
-    with pytest.raises(TypeError):
-        client.post_gate(bad_gate)
+def test_create_gate_with_bad_params(client, ENDPOINT_BASE, bad_gate):
+    """Bad keys are caught by cattrs before sending a request"""
+    with pytest.raises(KeyError):
+        Gate.factory(bad_gate)
 
 
 @responses.activate
@@ -165,6 +166,7 @@ def test_update_gate(ENDPOINT_BASE, client, experiment, rectangle_gate):
     test.
     """
     gate = Gate.factory(rectangle_gate)
+
     # patch the mocked response with the correct values
     response = rectangle_gate.copy()
     response.update({"name": "newname"})
@@ -174,6 +176,7 @@ def test_update_gate(ENDPOINT_BASE, client, experiment, rectangle_gate):
         json=response,
     )
     gate.name = "newname"
+
     gate.update()
 
     gate_tester(gate)
