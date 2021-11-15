@@ -3,9 +3,9 @@ import attr
 
 @attr.s(auto_exc=True)
 class APIError(BaseException):
-    url = attr.ib()
-    status_code = attr.ib()
-    message = attr.ib()
+    url: str = attr.ib()
+    status_code: int = attr.ib()
+    message: str = attr.ib()
 
     def __str__(self):
         if self.status_code:

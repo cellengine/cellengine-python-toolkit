@@ -1,11 +1,14 @@
+from __future__ import annotations
 from abc import abstractmethod
-from typing import Any, Union, List, Dict
+from typing import Any, Dict, List, Union
 
 import requests
+from requests import Response
 from requests.sessions import HTTPAdapter
-from cellengine.utils.singleton import AbstractSingleton
-from cellengine.utils.api_client.APIError import APIError
+
 from cellengine import __version__ as CEV
+from cellengine.utils.api_client.APIError import APIError
+from cellengine.utils.singleton import AbstractSingleton
 
 
 class BaseAPIClient(metaclass=AbstractSingleton):
@@ -39,7 +42,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
             request_headers.update(headers)
         return request_headers
 
-    def _parse_response(self, response, raw=False):
+    def _parse_response(self, response: Response, raw: bool = False) -> Any:
         success = 200 <= response.status_code < 300
 
         if success and raw:
@@ -73,13 +76,13 @@ class BaseAPIClient(metaclass=AbstractSingleton):
     def _post(
         self,
         url,
-        json: Union[Dict, List[Dict]] = None,
+        json: Union[Dict[Any, Any], List[Dict[Any, Any]]] = None,
         params: Dict = None,
         headers: Dict = None,
         files: Dict = None,
         data=None,
         raw=False,
-    ) -> Dict:
+    ) -> Any:
         response = self.requests_session.post(
             url,
             json=json,
@@ -98,7 +101,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         headers: Dict = None,
         files: Dict = None,
         raw=False,
-    ) -> Dict:
+    ):
         response = self.requests_session.patch(
             url,
             json=json,
@@ -108,9 +111,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         )
         return self._parse_response(response, raw=raw)
 
-    def _delete(
-        self, url, params: dict = None, headers: dict = None, raw=False
-    ) -> dict:
+    def _delete(self, url, params: dict = None, headers: dict = None):
         response = self.requests_session.delete(
             url, headers=self._make_headers(headers), params=params if params else {},
         )
@@ -118,11 +119,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
             if response.ok:
                 return response.content
             else:
-                raise APIError(
-                    response.url,
-                    response.status_code,
-                    response.json() or response["error"],
-                )
+                raise APIError(response.url, response.status_code, response.json())
         except APIError:
             raise
         except Exception as error:
