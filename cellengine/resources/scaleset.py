@@ -6,8 +6,8 @@ from dataclasses_json.cfg import config
 from pandas import DataFrame
 
 import cellengine as ce
-from cellengine.payloads.scale_utils.apply_scale import apply_scale
-from cellengine.payloads.scale_utils.scale_dict import ScaleDict
+from cellengine.utils.scale_utils import apply_scale
+from cellengine.utils.scale_utils import ScaleDict
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 
