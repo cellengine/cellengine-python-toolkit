@@ -44,10 +44,7 @@ class Gate:
     def update(self):
         """Save changes to this Gate to CellEngine.
         If this gate does not exist, it will be created."""
-        if not self._id or not is_good_id(self._id):
-            gate = self.client.create(self)
-        else:
-            gate = self.client.update(self)
+        gate = self.client.update(self)
         self.__setstate__(gate.__getstate__())  # type: ignore
 
     @classmethod

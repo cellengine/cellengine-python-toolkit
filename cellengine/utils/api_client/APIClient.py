@@ -147,6 +147,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         fullpath = f"{self.base_url}/{entity.path}"
         return fullpath
 
+    def _build_entity(self, raw_body, entity):
+        return converter.structure(raw_body, entity)
+
     def create(self, entity: CE, **kwargs) -> CE:
         """Create a local entity on CellEngine."""
         if type(entity) is list:
@@ -161,7 +164,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             del body["_id"]  # https://github.com/primitybio/cellengine/issues/5800
 
         res = self._post(path, json=body, params=kwargs)
-        return converter.structure(res, structure_class)  # type: ignore
+        return self._build_entity(res, structure_class)  # type: ignore
 
     # TODO: add type annotation for entities
     def create_multiple(self, entities: List[CE], **kwargs) -> List[CE]:
@@ -177,13 +180,16 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             if item["_id"] == "None" or item["_id"] is None:
                 del item["_id"]
         res = self._post(path, json=body, params=kwargs)
-        return converter.structure(res, structure_class)
+        return self._build_entity(res, structure_class)
 
     def update(self, entity):
+        if not entity._id or entity._id == "None":
+            return self.create(entity)
+
         path = self._get_path(entity)
         data = converter.unstructure(entity)
         res = self._patch(path, json=data)
-        return converter.structure(res, entity.__class__)
+        return self._build_entity(res, entity.__class__)
 
     def delete(self, entity) -> None:
         path = self._get_path(entity)
@@ -197,7 +203,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         attachments = self._get(
             f"{self.base_url}/experiments/{experiment_id}/attachments"
         )
-        return converter.structure(attachments, List[Attachment])
+        return self._build_entity(attachments, List[Attachment])
 
     def download_attachment(self, experiment_id, _id=None, name=None) -> bytes:
         """Download an attachment"""
@@ -236,7 +242,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return compensations
-        return converter.structure(compensations, List[Compensation])
+        return self._build_entity(compensations, List[Compensation])
 
     def get_compensation(
         self, experiment_id, _id=None, name=None, as_dict=False
@@ -247,7 +253,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return comp
-        return converter.structure(comp, Compensation)
+        return self._build_entity(comp, Compensation)
 
     def create_compensation(
         self,
@@ -260,7 +266,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             f"{self.base_url}/experiments/{experiment_id}/compensations",
             json={"channels": channels, "name": name, "spillMatrix": spill_matrix},
         )
-        return converter.structure(res, Compensation)
+        return self._build_entity(res, Compensation)
 
     def get_experiments(self, as_dict=False) -> List[Experiment]:
         experiments = self._get(f"{self.base_url}/experiments")
@@ -484,8 +490,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             gate = res
             pop = None
         return (
-            converter.structure(gate, Gate),
-            converter.structure(pop, Population) if pop else None,
+            self._build_entity(gate, Gate),
+            self._build_entity(pop, Population) if pop else None,
         )  # type: ignore
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
