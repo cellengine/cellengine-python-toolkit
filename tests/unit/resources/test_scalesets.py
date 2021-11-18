@@ -13,6 +13,13 @@ EXP_ID = "5d38a6f79fae87499999a74b"
 SCALESET_ID = "5d38a6f79fae87499999a74c"
 
 
+@pytest.fixture(scope="function")
+def fcs_file(ENDPOINT_BASE, client, fcs_files):
+    file = fcs_files[0]
+    file.update({"experimentId": EXP_ID})
+    return converter.structure(file, FcsFile)
+
+
 @responses.activate
 def test_should_get_scaleset(ENDPOINT_BASE, client, scalesets):
     responses.add(

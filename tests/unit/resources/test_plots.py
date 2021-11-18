@@ -8,9 +8,12 @@ from cellengine.utils.converter import converter
 
 EXP_ID = "5d38a6f79fae87499999a74b"
 
+
 @pytest.fixture(scope="function")
 def fcs_file(ENDPOINT_BASE, client, fcs_files):
-    return FcsFile.from_dict(fcs_files[0])
+    file = fcs_files[0]
+    file.update({"experimentId": EXP_ID})
+    return converter.structure(file, FcsFile)
 
 
 def plot_tester(plot):

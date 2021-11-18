@@ -1,3 +1,4 @@
+from cellengine.utils import converter
 import json
 import pytest
 import responses
@@ -9,6 +10,13 @@ EXP_ID = "5d38a6f79fae87499999a74b"
 FCSFILE_ID = "5d64abe2ca9df61349ed8e7c"
 
 
+@pytest.fixture(scope="function")
+def fcs_file(ENDPOINT_BASE, client, fcs_files):
+    file = fcs_files[0]
+    file.update({"experimentId": EXP_ID})
+    return converter.structure(file, FcsFile)
+
+
 @responses.activate
 def test_should_get_fcs_file(ENDPOINT_BASE, client, fcs_files):
     file_id = fcs_files[0]["_id"]
@@ -17,7 +25,7 @@ def test_should_get_fcs_file(ENDPOINT_BASE, client, fcs_files):
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/{file_id}",
         json=fcs_files[0],
     )
-    file = FcsFile.get(EXP_ID, file_id)
+    file = client.get_fcs_file(EXP_ID, file_id)
     assert type(file) is FcsFile
 
 
@@ -30,7 +38,7 @@ def test_should_create_fcs_file(ENDPOINT_BASE, client, fcs_files):
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[1],
     )
-    FcsFile.create(EXP_ID, [fcs_files[0]["_id"]], "new file")
+    client.create_fcs_file(EXP_ID, [fcs_files[0]["_id"]], "new file")
     assert json.loads(responses.calls[0].request.body) == {
         "fcsFiles": ["5d64abe2ca9df61349ed8e79"],
         "filename": "new file",
@@ -61,7 +69,7 @@ def test_should_create_fcs_file_and_correctly_parse_fcs_file_args(
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[1],
     )
-    FcsFile.create(EXP_ID, fcs_file_args, "new file")
+    client.create_fcs_file(EXP_ID, fcs_file_args, "new file")
     assert json.loads(responses.calls[0].request.body) == {
         "fcsFiles": expected_response,
         "filename": "new file",
@@ -79,7 +87,7 @@ def test_should_create_fcs_file_and_correctly_parse_body_args(
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
         json=fcs_files[1],
     )
-    FcsFile.create(
+    client.create_fcs_file(
         EXP_ID,
         FCSFILE_ID,
         "new name",
@@ -100,8 +108,7 @@ def test_should_create_fcs_file_and_correctly_parse_body_args(
 
 
 @responses.activate
-def test_should_delete_fcs_file(ENDPOINT_BASE, client, fcs_files):
-    fcs_file = FcsFile.from_dict(fcs_files[0])
+def test_should_delete_fcs_file(ENDPOINT_BASE, client, fcs_file, fcs_files):
     responses.add(
         responses.DELETE,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles/{fcs_file._id}",

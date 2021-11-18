@@ -310,7 +310,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         fcs_files = self._get(f"{self.base_url}/experiments/{experiment_id}/fcsfiles")
         if as_dict:
             return fcs_files
-        return [FcsFile.from_dict(fcs_file) for fcs_file in fcs_files]
+        return self._build_entity(fcs_files, List[FcsFile])
 
     def get_fcs_file(
         self, experiment_id, _id=None, name=None, as_dict=False
@@ -321,7 +321,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return fcs_file
-        return FcsFile.from_dict(fcs_file)
+        return self._build_entity(fcs_file, FcsFile)
+
+    def get_spill_string(self, experiment_id, fcs_file_id) -> str:
+        fcs_file = self._get(
+            f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}",
+        )
+        return fcs_file["spillString"]
 
     def upload_fcs_file(
         self, experiment_id, filepath: str, filename: str = None
@@ -349,13 +355,67 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return mpe, {"Content-Type": mpe.content_type}
 
-    def create_fcs_file(self, experiment_id, body):
-        """Creates an FCS file by copying, concatenating and/or
-        subsampling existing file(s) from this or other experiments. Can be
-        used to import files from other experiments.
+    def create_fcs_file(
+        self,
+        experiment_id: str,
+        fcs_files: List[str],
+        filename: str = None,
+        add_file_number: bool = False,
+        add_event_number: bool = False,
+        pre_subsample_n: int = None,
+        pre_subsample_p: float = None,
+        seed: int = None,
+    ) -> FcsFile:
+        """Creates an FCS file by copying, concatenating and/or subsampling
+        existing file(s) from this or other experiments.
+
+        Args:
+            experiment_id: ID of the experiment to which the file belongs
+            fcs_files: ID of file or list of IDs of files or objects to process.
+                If more than one file is provided, they will be concatenated in
+                order. To import files from other experiments, pass a list of dicts
+                with _id and experimentId properties.
+            filename (optional): Rename the uploaded file.
+            add_file_number (optional): If
+                concatenating files, adds a file number channel to the
+                resulting file.
+            add_event_number (bool): Add an event number column to the
+                exported file. This number corresponds to the index of the event in
+                the original file; when concatenating files, the same event number
+                will appear more than once.
+            pre_subsample_n (int): Randomly subsample the file to contain
+                this many events.
+            pre_subsample_p (float): Randomly subsample the file to contain
+                this percent of events (0 to 1).
+            seed (int): Seed for random number generator used for subsampling.
+                Use for deterministic (reproducible) subsampling. If omitted, a
+                pseudo-random value is used.
+
+        Returns:
+            FcsFile
         """
-        url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
-        return FcsFile.from_dict(self._post(url, json=body))
+
+        def _parse_fcs_file_args(args):
+            if type(args) is list:
+                return args
+            else:
+                return [args]
+
+        body = {"fcsFiles": _parse_fcs_file_args(fcs_files), "filename": filename}
+        optional_params = {
+            "addFileNumber": add_file_number,
+            "addEventNumber": add_event_number,
+            "preSubsampleN": pre_subsample_n,
+            "preSubsampleP": pre_subsample_p,
+            "seed": seed,
+        }
+        body.update(
+            {key: val for key, val in optional_params.items() if optional_params[key]}
+        )
+        res = self._post(
+            f"{self.base_url}/experiments/{experiment_id}/fcsfiles", json=body
+        )
+        return self._build_entity(res, FcsFile)
 
     def download_fcs_file(
         self, experiment_id: str, fcs_file_id: str, **kwargs

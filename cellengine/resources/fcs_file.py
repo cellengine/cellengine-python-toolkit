@@ -1,8 +1,9 @@
 from __future__ import annotations
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
-from dataclasses import dataclass, field
-from dataclasses_json import config
+from cellengine.utils import readonly
+
+from attr import define, field
 from typing import Any, Dict, List, Optional, Union
+
 from fcsparser.api import FCSParser
 import pandas
 from pandas.core.frame import DataFrame
@@ -12,32 +13,47 @@ from cellengine.resources.plot import Plot
 from cellengine.resources.compensation import Compensation
 
 
-@dataclass
-class FcsFile(DataClassMixin):
-    _annotations: str = field(metadata=config(field_name="annotations"))
+def check_annotation(_, annotation, values):
+    try:
+        assert type(values) is list
+        assert all([type(val) is dict and "name" and "value" in val for val in values])
+    except Exception:
+        raise TypeError(
+            'Annotations must be a List[Dict[str,str]] with a "name" and a "value" key.'
+        )
+
+
+@define
+class FcsFile:
+    _id: str = field(on_setattr=readonly)
+    experiment_id: str = field(on_setattr=readonly)
+    # TODO:
+    annotations: Optional[List[Dict[str, str]]] = field(validator=check_annotation)
+    crc32c: str = field(on_setattr=readonly)
+    event_count: int = field(on_setattr=readonly)
     filename: str
-    is_control: str
+    has_file_internal_comp: bool = field(on_setattr=readonly)
+    is_control: bool
+    md5: str = field(on_setattr=readonly)
     panel_name: str
-    deleted: Optional[bool]
     panel: List[Dict[str, Any]]
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    compensation: Optional[int] = None
-    crc32c: str = field(default=ReadOnly())  # type: ignore
-    event_count: int = field(default=ReadOnly())  # type: ignore
-    experiment_id: str = field(default=ReadOnly())  # type: ignore
-    has_file_internal_comp: bool = field(default=ReadOnly())  # type: ignore
-    header: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
-    md5: str = field(default=ReadOnly())  # type: ignore
-    sample_name: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
-    size: int = field(default=ReadOnly())  # type: ignore
-    _spill_string: Optional[str] = field(
-        metadata=config(field_name="spillString"), default=None
-    )
+    size: int = field(on_setattr=readonly)
+    compensation: Optional[int] = field(default=None)
+    deleted: Optional[bool] = field(default=False)
+    header: Optional[str] = field(on_setattr=readonly, default=None)
+    sample_name: Optional[str] = field(on_setattr=readonly, default=None)
+    _spill_string: Optional[str] = field(default=None)
 
     def __repr__(self):
         return f"FcsFile(_id='{self._id}', name='{self.name}')"
+
+    @property
+    def client(self):
+        return ce.APIClient()
+
+    @property
+    def path(self):
+        return f"experiments/{self.experiment_id}/fcsfiles/{self._id}".rstrip("/None")
 
     @property
     def name(self):
@@ -48,35 +64,30 @@ class FcsFile(DataClassMixin):
     def name(self, val):
         self.filename = val
 
-    @property
-    def annotations(self):
-        """Return file annotations.
-        New annotations may be added with file.annotations.append or
-        redefined by setting file.annotations to a dict with a 'name'
-        and 'value' key (i.e. {'name': 'plate row', 'value': 'A'}) or
-        a list of such dicts.
-        """
-        return self._annotations
+    # @property
+    # def annotations(self):
+    #     """Return file annotations.
+    #     New annotations may be added with file.annotations.append or
+    #     redefined by setting file.annotations to a dict with a 'name'
+    #     and 'value' key (i.e. {'name': 'plate row', 'value': 'A'}) or
+    #     a list of such dicts.
+    #     """
+    #     return self._annotations
 
-    @annotations.setter
-    def annotations(self, val):
-        """Set new annotations.
-        Warning: This will overwrite current annotations!
-        """
-        if type(val) is not dict or "name" and "value" not in val:
-            raise TypeError('Input must be a dict with a "name" and a "value" item.')
-        else:
-            self._annotations = val
+    # @annotations.setter
+    # def annotations(self, val):
+    #     """Set new annotations.
+    #     Warning: This will overwrite current annotations!
+    #     """
+    #     if type(val) is not dict or "name" and "value" not in val:
+    #         raise TypeError('Input must be a dict with a "name" and a "value" item.')
+    #     else:
+    #         self._annotations = val
 
     @property
     def channels(self) -> List:
         """Return all channels in the file"""
         return [f["channel"] for f in self.panel]  # type: ignore
-
-    @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> FcsFile:
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_fcs_file(experiment_id=experiment_id, **kwargs)
 
     @classmethod
     def upload(cls, experiment_id: str, filepath: str) -> FcsFile:
@@ -93,77 +104,13 @@ class FcsFile(DataClassMixin):
         """
         return ce.APIClient().upload_fcs_file(experiment_id, filepath)
 
-    @classmethod
-    def create(
-        cls,
-        experiment_id: str,
-        fcs_files: List[str],
-        filename: str = None,
-        add_file_number: bool = False,
-        add_event_number: bool = False,
-        pre_subsample_n: int = None,
-        pre_subsample_p: float = None,
-        seed: int = None,
-    ) -> FcsFile:
-        """Creates an FCS file by copying, concatenating and/or subsampling
-        existing file(s) from this or other experiments.
-
-        This endpoint can be used to import files from other experiments.
-
-        Args:
-            experiment_id: ID of the experiment to which the file belongs
-            fcs_files: ID of file or list of IDs of files or objects to process.
-                If more than one file is provided, they will be concatenated in
-                order. To import files from other experiments, pass a list of dicts
-                with _id and experimentId properties.
-            filename (optional): Rename the uploaded file.
-            add_file_number (optional): If
-                concatenating files, adds a file number channel to the
-                resulting file.
-            add_event_number (bool): Add an event number column to the
-                exported file. This number corresponds to the index of the event in
-                the original file; when concatenating files, the same event number
-                will appear more than once.
-            pre_subsample_n (int): Randomly subsample the file to contain
-                this many events.
-            pre_subsample_p (float): Randomly subsample the file to contain
-                this percent of events (0 to 1).
-            seed (int): Seed for random number generator used for subsampling.
-                Use for deterministic (reproducible) subsampling. If omitted, a
-                pseudo-random value is used.
-
-        Returns:
-            FcsFile
-        """
-
-        def _parse_fcs_file_args(args):
-            if type(args) is list:
-                return args
-            else:
-                return [args]
-
-        body = {"fcsFiles": _parse_fcs_file_args(fcs_files), "filename": filename}
-        optional_params = {
-            "addFileNumber": add_file_number,
-            "addEventNumber": add_event_number,
-            "preSubsampleN": pre_subsample_n,
-            "preSubsampleP": pre_subsample_p,
-            "seed": seed,
-        }
-        body.update(
-            {key: val for key, val in optional_params.items() if optional_params[key]}
-        )
-        return ce.APIClient().create_fcs_file(experiment_id, body)
-
     def update(self):
-        """Save changes to this FcsFile to CellEngine."""
-        res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "fcsfiles", self.to_dict()
-        )
-        self.__dict__.update(FcsFile.from_dict(res).__dict__)
+        """Save changes to CellEngine."""
+        res = self.client.update(self)
+        self.__setstate__(res.__getstate__())  # type: ignore
 
     def delete(self):
-        return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
+        return self.client.delete_entity(self.experiment_id, "fcsfiles", self._id)
 
     def plot(
         self,
@@ -176,12 +123,8 @@ class FcsFile(DataClassMixin):
     ) -> Plot:
         """Buid a plot for an FcsFile.
 
-        <<<<<<< HEAD
-                See [`Plot.get`][cellengine.resources.plot.Plot.get] for more information.
-        =======
                 See [`APIClient.get_plot()`][cellengine.APIClient.get_plot]
                 for more information.
-        >>>>>>> f79a391 (src(): run black and fix mkdocs errors)
         """
         plot = Plot.get(
             experiment_id=self.experiment_id,
@@ -226,7 +169,7 @@ class FcsFile(DataClassMixin):
         if self._spill_string:
             return self._spill_string
         else:
-            ss = ce.APIClient().get_fcs_file(self.experiment_id, self._id).spill_string
+            ss = self.client.get_spill_string(self.experiment_id, self._id)
             self._spill_string = ss
             return ss
 
@@ -281,7 +224,7 @@ class FcsFile(DataClassMixin):
             If destination is a string, saves file to the destination and returns None.
         """
 
-        fresp = ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
+        fresp = self.client.download_fcs_file(self.experiment_id, self._id, **kwargs)
         if destination:
             with open(destination, "wb") as file:
                 file.write(fresp)
