@@ -1,3 +1,5 @@
+from cellengine.utils.api_client.APIClient import APIClient
+from cellengine.utils import converter
 import json
 from numpy import array
 import pytest
@@ -9,11 +11,11 @@ from cellengine.resources.compensation import Compensation
 EXP_ID = "5d38a6f79fae87499999a74b"
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def compensation(ENDPOINT_BASE, client, compensations):
     comp = compensations[0]
     comp.update({"experimentId": EXP_ID})
-    return Compensation.from_dict(comp)
+    return converter.structure(comp, Compensation)
 
 
 def properties_tester(comp):
@@ -36,14 +38,25 @@ def test_compensation_properties(ENDPOINT_BASE, compensation):
 
 
 @responses.activate
-def test_should_post_compensation(ENDPOINT_BASE, experiment, compensations):
+def test_should_post_compensation(client, ENDPOINT_BASE, compensations):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
         json=compensations[0],
     )
-    payload = compensations[0].copy()
-    comp = Compensation.create(experiment._id, payload)
+    comp = Compensation(None, EXP_ID, "test_comp", ["a", "b"], [1, 0, 0, 1])
+    comp = client.create(comp)
+    properties_tester(comp)
+
+
+@responses.activate
+def test_should_create_compensation(client, ENDPOINT_BASE, compensations):
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
+        json=compensations[0],
+    )
+    comp = client.create_compensation(EXP_ID, ["a", "b"], "test-comp", [1, 0, 0, 1])
     properties_tester(comp)
 
 
@@ -64,7 +77,7 @@ def test_should_update_compensation(ENDPOINT_BASE, compensation):
     test.
     """
     # patch the mocked response with the correct values
-    response = compensation.to_dict().copy()
+    response = converter.unstructure(compensation)
     response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
@@ -74,7 +87,7 @@ def test_should_update_compensation(ENDPOINT_BASE, compensation):
     compensation.name = "newname"
     compensation.update()
     properties_tester(compensation)
-    assert json.loads(responses.calls[0].request.body) == compensation.to_dict()
+    assert json.loads(responses.calls[0].request.body) == response
 
 
 def test_create_from_spill_string(spillstring):
