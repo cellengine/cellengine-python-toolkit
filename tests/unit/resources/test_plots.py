@@ -29,8 +29,10 @@ def plot_tester(plot):
 
 @responses.activate
 def test_should_get_plot(ENDPOINT_BASE, client, experiment, fcs_file):
-    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
-    plot = Plot.get(
+    responses.add(
+        responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot", body=b"whoop"
+    )
+    plot = client.get_plot(
         experiment._id, fcs_file._id, "dot", fcs_file.channels[0], fcs_file.channels[1],
     )
     plot_tester(plot)
@@ -47,14 +49,14 @@ def test_should_get_plot_from_fcs_file(ENDPOINT_BASE, client, fcs_file):
 def test_should_get_each_plot_type(ENDPOINT_BASE, client, fcs_file):
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     for plot_type in ["contour", "dot", "density", "histogram"]:
-        Plot.get(
+        client.get_plot(
             EXP_ID, fcs_file._id, plot_type, fcs_file.channels[0], fcs_file.channels[1]
         )
 
 
 @responses.activate
 def test_should_get_plot_for_each_query_parameter(
-    ENDPOINT_BASE, experiment, fcs_file, compensations, populations
+    client, ENDPOINT_BASE, experiment, fcs_file, compensations, populations
 ):
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     parameters = {
@@ -84,7 +86,7 @@ def test_should_get_plot_for_each_query_parameter(
     }
     i = 0
     for item in parameters.items():
-        plot = Plot.get(
+        plot = client.get_plot(
             experiment._id,
             fcs_file._id,
             fcs_file.channels[0],
@@ -104,6 +106,58 @@ def test_should_get_plot_for_each_query_parameter(
 
 
 @responses.activate
+def test_accepts_snake_case_kwargs(
+    client, ENDPOINT_BASE, experiment, fcs_file, compensations, populations
+):
+    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
+    kwargs = {
+        "axes_q": False,
+        "ticks_q": False,
+        "tick_labels_q": True,
+        "axis_labels_q": False,
+    }
+    plot = client.get_plot(
+        experiment._id,
+        fcs_file._id,
+        fcs_file.channels[0],
+        fcs_file.channels[1],
+        "dot",
+        **kwargs,
+        render_gates=True,
+    )
+
+    assert "axesQ" in responses.calls[0].request.url  # type: ignore
+    assert "axisLabelsQ" in responses.calls[0].request.url  # type: ignore
+    assert "renderGates" in responses.calls[0].request.url  # type: ignore
+    plot_tester(plot)
+
+
+@responses.activate
+def test_accepts_properties(
+    client, ENDPOINT_BASE, experiment, fcs_file, compensations, populations
+):
+    responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
+    kwargs = {
+        "axes_q": False,
+        "ticks_q": False,
+        "tick_labels_q": True,
+        "axis_labels_q": False,
+    }
+    plot = client.get_plot(
+        experiment._id,
+        fcs_file._id,
+        fcs_file.channels[0],
+        fcs_file.channels[1],
+        "dot",
+        properties=kwargs,
+    )
+
+    assert "axesQ" in responses.calls[0].request.url  # type: ignore
+    assert "axisLabelsQ" in responses.calls[0].request.url  # type: ignore
+    plot_tester(plot)
+
+
+@responses.activate
 def test_should_save_plot(ENDPOINT_BASE, experiment, fcs_file):
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     # instantiate Plot directly instead of using .get because the attrs are frozen
@@ -116,7 +170,7 @@ def test_should_save_plot(ENDPOINT_BASE, experiment, fcs_file):
         "dot",
         population_id=None,
         data=b"some bytes",
-    )
+    )  # type: ignore
     plot.save("test_file.png")
     with open("test_file.png", "r") as f:
         assert f.readline() == "some bytes"

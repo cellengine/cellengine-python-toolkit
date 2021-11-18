@@ -4,6 +4,10 @@ from cellengine.utils import readonly
 from attr import define, field
 from typing import Any, Dict, List, Optional, Union
 
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 from fcsparser.api import FCSParser
 import pandas
 from pandas.core.frame import DataFrame
@@ -114,19 +118,20 @@ class FcsFile:
 
     def plot(
         self,
+        plot_type: Literal["contour", "dot", "density", "histogram"],
         x_channel: str,
         y_channel: str,
-        plot_type: str,
         z_channel: str = None,
         population_id: str = None,
-        **kwargs,
+        properties: Dict = None,
+        raw: bool = False,
     ) -> Plot:
         """Buid a plot for an FcsFile.
 
-                See [`APIClient.get_plot()`][cellengine.APIClient.get_plot]
-                for more information.
+        See [`APIClient.get_plot()`][cellengine.APIClient.get_plot]
+        for more information.
         """
-        plot = Plot.get(
+        plot = self.client.get_plot(
             experiment_id=self.experiment_id,
             fcs_file_id=self._id,
             plot_type=plot_type,
@@ -134,7 +139,8 @@ class FcsFile:
             y_channel=y_channel,
             z_channel=z_channel,
             population_id=population_id,
-            **kwargs,
+            properties=properties,
+            raw=raw,
         )
         return plot
 

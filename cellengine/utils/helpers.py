@@ -21,7 +21,7 @@ def check_id(_id):
 def to_camel_case(snake_str: str) -> str:
     if snake_str == "_id":
         return snake_str
-    components = snake_str.split("_")
+    components = snake_str.lstrip("_").split("_")
     return components[0] + "".join(x.title() for x in components[1:])
 
 

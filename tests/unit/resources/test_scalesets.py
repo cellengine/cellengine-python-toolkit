@@ -7,6 +7,7 @@ from math import isclose
 
 from cellengine.resources.scaleset import ScaleSet
 from cellengine.resources.fcs_file import FcsFile
+from cellengine.utils.converter import converter
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -20,6 +21,13 @@ def fcs_file(ENDPOINT_BASE, client, fcs_files):
     return converter.structure(file, FcsFile)
 
 
+@pytest.fixture(scope="function")
+def scaleset(ENDPOINT_BASE, client, scalesets):
+    ss = scalesets
+    ss.update({"experimentId": EXP_ID})
+    return converter.structure(ss, ScaleSet)
+
+
 @responses.activate
 def test_should_get_scaleset(ENDPOINT_BASE, client, scalesets):
     responses.add(
@@ -31,9 +39,8 @@ def test_should_get_scaleset(ENDPOINT_BASE, client, scalesets):
 
 
 @responses.activate
-def test_should_update_scaleset(ENDPOINT_BASE, client, scalesets):
+def test_should_update_scaleset(ENDPOINT_BASE, client, scaleset, scalesets):
     # Given: a ScaleSet and the proper respones from the API
-    s = ScaleSet.from_dict(scalesets)
 
     patched_response = scalesets.copy()
     patched_response["name"] = "new scaleset"
@@ -45,22 +52,20 @@ def test_should_update_scaleset(ENDPOINT_BASE, client, scalesets):
     )
 
     # When:
-    s.name = "new scaleset"
-    s.scales["FSC-A"]["maximum"] = 10
-    s.update()
+    scaleset.name = "new scaleset"
+    scaleset.scales["FSC-A"]["maximum"] = 10
+    scaleset.update()
 
     # Then:
-    assert s.name == "new scaleset"
-    assert s.scales["FSC-A"]["maximum"] == 10
+    assert scaleset.name == "new scaleset"
+    assert scaleset.scales["FSC-A"]["maximum"] == 10
 
 
-def test_should_contain_scale_entities(scalesets):
-    s = ScaleSet.from_dict(scalesets)
-    assert s.scales["FSC-A"]["type"] == "LinearScale"
+def test_should_contain_scale_entities(scalesets, scaleset):
+    assert scaleset.scales["FSC-A"]["type"] == "LinearScale"
 
 
-def test_should_update_scale_value(scalesets):
-    scaleset = ScaleSet.from_dict(scalesets)
+def test_should_update_scale_value(scalesets, scaleset):
     assert scaleset.scales["Time"]["minimum"] == 1
     scaleset.scales["Time"]["minimum"] = 5
     assert scaleset.scales["Time"]["minimum"] == 5
@@ -69,15 +74,14 @@ def test_should_update_scale_value(scalesets):
 @mock.patch(
     "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
 )
-def test_raise_when_scale_type_does_not_exist(fcs_events_mock, fcs_files):
+def test_raise_when_scale_type_does_not_exist(fcs_events_mock, fcs_file):
     # Given:
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile.from_dict(fcs_files[0])
 
     # When: scale is of nonexistent type
-    scaleset = ScaleSet.from_dict(
+    scaleset = converter.structure(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -88,27 +92,27 @@ def test_raise_when_scale_type_does_not_exist(fcs_events_mock, fcs_files):
                     "scale": {"type": "NotAScale", "minimum": 1, "maximum": 1},
                 },
             ],
-        }
+        },
+        ScaleSet,
     )
     # Then:
     with pytest.raises(ValueError, match="'NotAScale' is not a valid scale type."):
-        scaleset.apply(file, clamp_q=True)
+        scaleset.apply(fcs_file, clamp_q=True)
 
 
 @mock.patch(
     "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
 )
 def test_should_apply_simple_scale_from_scaleset(
-    fcs_events_mock, ENDPOINT_BASE, client, fcs_files
+    fcs_events_mock, ENDPOINT_BASE, client, fcs_file
 ):
     # Given:
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile.from_dict(fcs_files[0])
 
     # When:
-    scaleset = ScaleSet.from_dict(
+    scaleset = converter.structure(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -123,15 +127,16 @@ def test_should_apply_simple_scale_from_scaleset(
                     "scale": {"maximum": 100, "minimum": 5, "type": "LinearScale"},
                 },
             ],
-        }
+        },
+        ScaleSet,
     )
 
-    data = file.events
+    data = fcs_file.events
     assert all(data["Time"] == [10, 7, 1.2, 9, 40])
     assert all(data["Light"] == [0, 1, 9.4, 100, 1])
 
     # Then: scales should be correctly applied
-    output = scaleset.apply(file, clamp_q=True, in_place=False)
+    output = scaleset.apply(fcs_file, clamp_q=True, in_place=False)
     assert all(output["Time"] == [10.0, 7.0, 5.0, 9.0, 10.0])
     assert all(output["Light"] == [5.0, 5.0, 9.4, 100.0, 5.0])
 
@@ -140,14 +145,13 @@ def test_should_apply_simple_scale_from_scaleset(
     "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
 )
 def test_should_apply_scale_when_scaleset_is_updated(
-    fcs_events_mock, ENDPOINT_BASE, client, fcs_files
+    fcs_events_mock, ENDPOINT_BASE, client, fcs_file
 ):
     # Given:
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile.from_dict(fcs_files[0])
-    scaleset = ScaleSet.from_dict(
+    scaleset = converter.structure(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -162,10 +166,11 @@ def test_should_apply_scale_when_scaleset_is_updated(
                     "scale": {"maximum": 100, "minimum": 5, "type": "LinearScale"},
                 },
             ],
-        }
+        },
+        ScaleSet,
     )
 
-    data = file.events
+    data = fcs_file.events
     assert all(data["Time"] == [10, 7, 1.2, 9, 40])
     assert all(data["Light"] == [0, 1, 9.4, 100, 1])
 
@@ -175,7 +180,7 @@ def test_should_apply_scale_when_scaleset_is_updated(
     scaleset.scales["Light"] = {"maximum": 100, "minimum": 1, "type": "LinearScale"}
 
     # Then: scales should be correctly applied
-    output = scaleset.apply(file, clamp_q=True, in_place=False)
+    output = scaleset.apply(fcs_file, clamp_q=True, in_place=False)
     assert all(output["Time"] == [10, 7, 5, 9, 40])
     assert all(output["Light"] == [1, 1, 9.4, 100.0, 1])
 
@@ -183,9 +188,7 @@ def test_should_apply_scale_when_scaleset_is_updated(
 @mock.patch(
     "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
 )
-def test_should_apply_all_scale_types(
-    fcs_events_mock, ENDPOINT_BASE, client, fcs_files
-):
+def test_should_apply_all_scale_types(fcs_events_mock, ENDPOINT_BASE, client, fcs_file):
     # Given:
     # fmt: off
     fcs_events_mock.return_value = DataFrame(
@@ -196,10 +199,9 @@ def test_should_apply_all_scale_types(
         }
     )
     # fmt: on
-    file = FcsFile.from_dict(fcs_files[0])
 
     # When:
-    scaleset = ScaleSet.from_dict(
+    scaleset = converter.structure(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -223,16 +225,17 @@ def test_should_apply_all_scale_types(
                     "scale": {"maximum": 10, "minimum": 5, "type": "LogScale"},
                 },
             ],
-        }
+        },
+        ScaleSet,
     )
 
     # Then: scales should be correctly applied
-    data = file.events
+    data = fcs_file.events
     assert all(data["Time"] == [10, 7, 1.2, 9, 10, 11, 12, 40])
     assert all(data["Light"] == [-250, -20, -2, -0.01, 0, 0.2, 0.5, 1])
     assert all(data["Fear"] == [-20, 0.01, 0.5, 2, 10, 250, 1000, 10000])
 
-    output = scaleset.apply(file, clamp_q=True, in_place=False)
+    output = scaleset.apply(fcs_file, clamp_q=True, in_place=False)
 
     assert all(output["Time"] == [10, 7, 5, 9, 10, 10, 10, 10])
     assert all(
@@ -267,23 +270,22 @@ def test_should_apply_all_scale_types(
     "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
 )
 def test_should_apply_scale_to_file(
-    fcs_events_mock, ENDPOINT_BASE, client, scalesets, fcs_files, events
+    fcs_events_mock, ENDPOINT_BASE, client, scalesets, scaleset, fcs_file, events
 ):
     # Given:
-    file = FcsFile.from_dict(fcs_files[0])
     responses.add(
-        responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{fcs_file._id}.fcs",
     )
 
     keys = ["FSC-A", "FSC-W", "Time"]  # limit to a few keys
     trimmed_scales = [a for a in scalesets["scales"] if a["channelName"] in keys]
     scalesets.update({"scales": trimmed_scales})
-    scaleset = ScaleSet.from_dict(scalesets)
 
     # patch FcsFile().events() to directly return a dataframe
     fcs_events_mock.return_value = events[keys]
 
-    data = file.events
+    data = fcs_file.events
     assert isclose(data["FSC-A"].iloc[0], 191267.86, rel_tol=0.00001)
 
     # When: scalesets are updated
@@ -291,7 +293,7 @@ def test_should_apply_scale_to_file(
     scaleset.scales["FSC-A"]["maximum"] = 100
 
     # Then: scales should be correctly applied
-    output = scaleset.apply(file, clamp_q=True, in_place=False)
+    output = scaleset.apply(fcs_file, clamp_q=True, in_place=False)
     assert output["FSC-A"].max() <= 100
     assert output["FSC-A"].min() >= 10
 
@@ -300,16 +302,16 @@ def test_should_apply_scale_to_file(
     "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
 )
 def test_should_only_apply_channels_that_exist_on_an_fcsfile(
-    fcs_events_mock, ENDPOINT_BASE, client, fcs_files
+    fcs_events_mock, ENDPOINT_BASE, client, fcs_file
 ):
     # Given:
     fcs_events_mock.return_value = DataFrame(
         {"Time": [10, 7, 1.2, 9, 40], "Light": [0, 1, 9.4, 100, 1]}
     )
-    file = FcsFile.from_dict(fcs_files[0])
 
     # When:
-    scaleset = ScaleSet.from_dict(
+
+    scaleset = converter.structure(
         {
             "_id": SCALESET_ID,
             "experimentId": EXP_ID,
@@ -328,14 +330,15 @@ def test_should_only_apply_channels_that_exist_on_an_fcsfile(
                     "scale": {"maximum": 100, "minimum": 5, "type": "LinearScale"},
                 },
             ],
-        }
+        },
+        ScaleSet,
     )
 
-    data = file.events
+    data = fcs_file.events
     assert all(data["Time"] == [10, 7, 1.2, 9, 40])
     assert all(data["Light"] == [0, 1, 9.4, 100, 1])
 
     # Then: scales should be correctly applied
-    output = scaleset.apply(file, clamp_q=True, in_place=False)
+    output = scaleset.apply(fcs_file, clamp_q=True, in_place=False)
     assert all(output["Time"] == [10.0, 7.0, 5.0, 9.0, 10.0])
     assert all(output["Light"] == [5.0, 5.0, 9.4, 100.0, 5.0])

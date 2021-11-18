@@ -1,18 +1,4 @@
 from __future__ import annotations
-import os
-import json
-from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
-import pandas
-from getpass import getpass
-from typing import (
-    Any,
-    Dict,
-    List,
-    Tuple,
-    TypeVar,
-    Union,
-    Optional,
-)
 from functools import lru_cache
 from getpass import getpass
 import json
@@ -26,6 +12,7 @@ from cellengine.resources.gate import Gate
 from cellengine.utils.api_client.APIError import APIError
 from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
 from cellengine.utils.converter import converter
+from cellengine.utils.helpers import to_camel_case
 from cellengine.utils.singleton import Singleton
 
 from ...resources.attachment import Attachment
@@ -35,6 +22,12 @@ from ...resources.fcs_file import FcsFile
 from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
 
 CE = TypeVar(
     "CE",
@@ -189,6 +182,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         path = self._get_path(entity)
         data = converter.unstructure(entity)
         res = self._patch(path, json=data)
+
+        if "scaleSet" in res.keys():
+            res = res["scaleSet"]
+
         return self._build_entity(res, entity.__class__)
 
     def delete(self, entity) -> None:
@@ -272,21 +269,54 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         experiments = self._get(f"{self.base_url}/experiments")
         if as_dict:
             return experiments
-        return [Experiment.from_dict(experiment) for experiment in experiments]
+        return self._build_entity(experiments, List[Experiment])
 
     def get_experiment(self, _id=None, name=None, as_dict=False) -> Experiment:
         _id = _id or self._get_id_by_name(name, "experiments", _id)
         experiment = self._get(f"{self.base_url}/experiments/{_id}")
         if as_dict:
             return experiment
-        return Experiment.from_dict(experiment)
+        return self._build_entity(experiment, Experiment)
 
     def post_experiment(self, experiment: dict, as_dict=False) -> Experiment:
         """Create a new experiment on CellEngine."""
-        experiment = self._post(f"{self.base_url}/experiments", json=experiment)
+        exp = self._post(f"{self.base_url}/experiments", json=experiment)
         if as_dict:
-            return experiment
-        return Experiment.from_dict(experiment)
+            return exp
+        return self._build_entity(exp, Experiment)
+
+    def create_experiment(
+        self,
+        name: str = None,
+        comments: str = None,
+        uploader: str = None,
+        primary_researcher: str = None,
+        tags: List[str] = None,
+    ) -> Union[Experiment, Dict]:
+        """Post a new experiment to CellEngine.
+
+        Args:
+            name: Defaults to "Untitled Experiment".
+            comments: Defaults to None.
+            uploader: Defaults to user making request.
+            primary_researcher: Defaults to user making request.
+            tags: Defaults to empty list.
+
+        Returns:
+            Creates the Experiment in CellEngine and returns it.
+        """
+        experiment_body = {
+            k: v
+            for (k, v) in {
+                "name": name,
+                "comments": comments,
+                "uploader": uploader,
+                "primaryResearcher": primary_researcher,
+                "tags": tags,
+            }.items()
+            if v
+        }
+        return self.post_experiment(experiment_body)
 
     def clone_experiment(self, _id, name=None, as_dict=False) -> Experiment:
         experiment = self._post(
@@ -294,7 +324,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return experiment
-        return Experiment.from_dict(experiment)
+        return self._build_entity(experiment, Experiment)
 
     def update_experiment(self, _id, body) -> Dict:
         return self._patch(f"{self.base_url}/experiments/{_id}", json=body)
@@ -570,14 +600,73 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         self,
         experiment_id,
         fcs_file_id,
-        plot_type: str,
+        plot_type: Literal["contour", "dot", "density", "histogram"],
         x_channel: str,
         y_channel: str,
         z_channel: Optional[str] = None,
         population_id: str = None,
-        properties: Dict = None,
         raw=False,
+        properties: Dict = None,
+        **kwargs,
     ) -> Plot:
+        """
+        Create and retrieve a plot from CellEngine.
+
+        Args:
+            experiment_id: ID of the experiment to which the file belongs.
+            fcs_file_id: ID of file for which to build a plot.
+            plot_type: "contour", "dot", "density" or
+                "histogram" (case-insensitive)
+            x_channel: X channel name.
+            y_channel: (for 2D plots) Y channel name.
+            z_channel: (for dot plots colored by a 3rd channel)
+                Color channel name.
+            population_id: Defaults to ungated.
+            properties (Dict):
+                - axesQ (bool): Display axes lines. Defaults to true.
+                - axisLabelsQ (bool): Display axis labels. Defaults to true.
+                - compensation (ID): Compensation to use for gating and display.
+                - color (str): Case-insensitive string in the format
+                    #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e.
+                    color of curve in "histogram" plots and dots in "dot" plots.
+                - gateLabel (str): One of "eventcount", "mean", "median",
+                    "percent", "mad", "cv", "stddev", "geometricmean",
+                    "name", "none".
+                - gateLabelFontSize (float): Font size for gate labels.
+                - height (int): Image height. Defaults to 228.
+                - percentileStart (float): For contour plots, the percentile of the
+                    first contour.
+                - percentileStep (float): For contour plots, the percentile
+                    step between each contour.
+                - postSubsampleN (int): Randomly subsample the file to contain
+                    this many events after gating.
+                - postSubsampleP (float): Randomly subsample the file to contain this
+                    percent of events (0 to 1) after gating.
+                - preSubsampleN (int): Randomly subsample the file to contain this
+                    many events before gating.
+                - preSubsampleP (float): Randomly subsample the file to contain this
+                    percent of events (0 to 1) before gating.
+                - renderGates (bool): Render gates into the image.
+                - seed (int): Seed for random number generator used for
+                    subsampling. Use for deterministic (reproducible) subsampling.
+                    If omitted, a pseudo-random value is used.
+                - smoothing (float): For density and contour plots, adjusts the
+                - strokeThickness (float): The thickness of histogram and contour
+                    plot lines. Defaults to 1.
+                - tickLabelsQ (bool): Display tick labels. Defaults to false.
+                - ticksQ (bool): Display ticks. Defaults to true.
+                - width (int): Image width. Defaults to 228.
+                - xAxisLabelQ (bool): Display x axis label. Overrides axisLabelsQ.
+                - xAxisQ (bool): Display x axis line. Overrides axesQ.
+                - xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.
+                - xTicksQ (bool): Display x ticks. Overrides ticksQ.
+                - yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.
+                    amount of smoothing. Defaults to 0 (no smoothing). Set to 1 for
+                    typical smoothing. Higher values (up to 10) increase smoothing.
+                - yAxisQ (bool): Display y axis line. Overrides axesQ.
+                - yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.
+                - yTicksQ (bool): Display y ticks. Overrides ticksQ.
+        """
 
         req_params = {
             "fcsFileId": fcs_file_id,
@@ -589,7 +678,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         }
 
         if properties:
+            properties = {to_camel_case(k): v for k, v in properties.items()}
             req_params.update(properties)
+        if kwargs:
+            kwargs = {to_camel_case(k): v for k, v in kwargs.items()}
+            req_params.update(dict(kwargs))
 
         data = self._get(
             f"{self.base_url}/experiments/{experiment_id}/plot",
@@ -599,15 +692,15 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if raw:
             return data
         return Plot(
-            experiment_id,
-            fcs_file_id,
-            x_channel,
-            y_channel,
-            z_channel,
-            plot_type,
-            population_id,
-            data,
-        )
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            x_channel=x_channel,
+            y_channel=y_channel,
+            z_channel=z_channel,
+            plot_type=plot_type,
+            population_id=population_id,
+            data=data,
+        )  # type: ignore
 
     def get_populations(
         self, experiment_id, as_dict=False
@@ -643,7 +736,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         ]
         if as_dict:
             return scaleset
-        return ScaleSet.from_dict(scaleset)
+        return self._build_entity(scaleset, ScaleSet)
 
     def post_statistics(self, experiment_id, req_params, raw=True):
         return self._post(

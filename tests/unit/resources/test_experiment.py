@@ -9,6 +9,7 @@ from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.gate import Gate
+from cellengine.utils import converter
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -157,23 +158,23 @@ def test_get_statistics(client, ENDPOINT_BASE, experiment):
 
 
 @responses.activate
-def test_should_create_experiment(client, ENDPOINT_BASE, experiment):
+def test_should_create_experiment(client, ENDPOINT_BASE, experiment, experiments):
     """Tests updating experiment params"""
-    response = experiment.to_dict().copy()
+    response = experiments[0]
     response["name"] = "new_experiment"
     responses.add(
         responses.POST, ENDPOINT_BASE + "/experiments", json=response,
     )
-    Experiment.create("new_experiment")
+    client.create_experiment("new_experiment")
     assert json.loads(responses.calls[0].request.body) == {
         "name": "new_experiment",
     }
 
 
 @responses.activate
-def test_update_experiment(client, ENDPOINT_BASE, experiment):
+def test_update_experiment(client, ENDPOINT_BASE, experiment, experiments):
     """Tests updating experiment params"""
-    response = experiment.to_dict().copy()
+    response = experiments[0]
     response.update({"name": "new name"})
     responses.add(
         responses.PATCH,
@@ -184,7 +185,9 @@ def test_update_experiment(client, ENDPOINT_BASE, experiment):
     experiment.name = "new name"
     experiment.update()
     assert experiment.name == "new name"
-    assert json.loads(responses.calls[0].request.body) == experiment.to_dict()
+    assert json.loads(responses.calls[0].request.body) == converter.unstructure(
+        experiment
+    )
 
 
 @responses.activate

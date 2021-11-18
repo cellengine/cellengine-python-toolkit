@@ -4,6 +4,7 @@ import socket
 import pytest
 import responses
 from cellengine.utils.api_client.APIClient import APIClient
+from cellengine.utils import converter
 
 
 """
@@ -73,7 +74,7 @@ def client(ENDPOINT_BASE):
 
 @pytest.fixture(scope="session")
 def experiment(experiments):
-    return Experiment.from_dict(experiments[0])
+    return converter.structure(experiments[0], Experiment)
 
 
 @pytest.fixture(scope="module")

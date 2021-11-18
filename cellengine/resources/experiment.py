@@ -1,13 +1,9 @@
 from __future__ import annotations
+from cellengine.utils.readonly import readonly
 from datetime import datetime
+from attr import define, field
 
-from marshmallow import fields
-
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
-from dataclasses import dataclass, field
 from typing import Any, Optional, Dict, Union, List
-
-from dataclasses_json.cfg import config
 
 import cellengine as ce
 from cellengine.resources.population import Population
@@ -26,75 +22,37 @@ from cellengine.resources.gate import (
 )
 from cellengine.utils.helpers import (
     CommentList,
-    datetime_to_timestamp,
-    timestamp_to_datetime,
+    is_valid_id,
 )
 
 
-@dataclass
-class Experiment(DataClassMixin):
+@define
+class Experiment:
+
+    _id: str = field(on_setattr=readonly)
     name: str
     annotation_validators: Dict[Any, Any]
     annotation_name_order: List[str]
-    annotation_table_sort_columns: List[Union[str, int]]
-    _comments: List[Dict[str, Any]] = field(metadata=config(field_name="comments"))
+    annotation_table_sort_columns: List[Any]
+    _comments: List[Dict[str, Any]]
+    locked: bool = field(on_setattr=readonly)
+    permissions: List[Dict[Any, Any]] = field(on_setattr=readonly)
     primary_researcher: Dict[str, Any]
+    retention_policy: Dict[str, Any] = field(on_setattr=readonly)
+    revisions: List[Dict[str, Any]] = field(on_setattr=readonly)
     sorting_spec: Dict[Any, Any]
+    uploader: Dict[str, Any] = field(on_setattr=readonly)
     tags: List[str]
-    created: datetime = field(
-        metadata=config(
-            encoder=datetime_to_timestamp,
-            decoder=timestamp_to_datetime,
-            mm_field=fields.DateTime(),
-        ),
-        default=ReadOnly(),
-    )  # type: ignore
-    updated: datetime = field(
-        metadata=config(
-            encoder=datetime_to_timestamp,
-            decoder=timestamp_to_datetime,
-            mm_field=fields.DateTime(),
-        ),
-        default=ReadOnly(),
-    )  # type: ignore
-    _active_comp: Optional[Union[int, str, Compensation]] = field(
-        default=None, metadata=config(field_name="activeCompensation")
-    )
+    created: datetime = field(on_setattr=readonly)
+    updated: datetime = field(on_setattr=readonly)
+    _active_compensation: Optional[Any] = field(default=None)
     data: Optional[Dict[Any, Any]] = field(default=None)
-    deleted: Optional[datetime] = field(
-        default=None,
-        metadata=config(
-            encoder=lambda t: datetime_to_timestamp(t) if t else t,
-            decoder=lambda t: timestamp_to_datetime(t) if t else t,
-            mm_field=fields.DateTime(),
-        ),
-    )
-    deep_updated: datetime = field(
-        metadata=config(
-            encoder=datetime_to_timestamp,
-            decoder=timestamp_to_datetime,
-            mm_field=fields.DateTime(),
-        ),
-        default=ReadOnly(optional=True),
-    )  # type: ignore
-    analysis_source_experiment: Optional[str] = field(
-        default=ReadOnly(optional=True)
-    )  # type: ignore
-    clone_source_experiment: Optional[str] = field(
-        default=ReadOnly(optional=True)
-    )  # type: ignore
-    locked: bool = field(default=ReadOnly())  # type: ignore
-    permissions: List[Dict[Any, Any]] = field(default=ReadOnly())  # type: ignore
+    deleted: Optional[datetime] = field(on_setattr=readonly, default=None)
+    deep_updated: Optional[datetime] = field(on_setattr=readonly, default=None)
+    analysis_source_experiment: Optional[str] = field(on_setattr=readonly, default=None)
+    clone_source_experiment: Optional[str] = field(on_setattr=readonly, default=None)
     per_file_compensations_enabled: Optional[bool] = field(default=None)
-    retention_policy: Dict[str, Any] = field(default=ReadOnly())  # type: ignore
-    revision_source_experiment: Optional[str] = field(
-        default=ReadOnly(optional=True)
-    )  # type: ignore
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    revisions: List[Dict[str, Any]] = field(default=ReadOnly())  # type: ignore
-    uploader: Dict[str, Any] = field(default=ReadOnly())  # type: ignore
+    revision_source_experiment: Optional[str] = field(on_setattr=readonly, default=None)
 
     def __repr__(self):
         return f"Experiment(_id='{self._id}', name='{self.name}')"
@@ -102,6 +60,10 @@ class Experiment(DataClassMixin):
     @property
     def client(self):
         return ce.APIClient()
+
+    @property
+    def path(self):
+        return f"experiments/{self._id}".rstrip("/None")
 
     @property
     def comments(self):
@@ -125,48 +87,10 @@ class Experiment(DataClassMixin):
                 comments.update(insert=comment + "\n")
             self._comments = comments  # type: ignore
 
-    @staticmethod
-    def get(_id: str = None, name: str = None) -> Experiment:
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_experiment(**kwargs)
-
-    @staticmethod
-    def create(
-        name: str = None,
-        comments: str = None,
-        uploader: str = None,
-        primary_researcher: str = None,
-        tags: List[str] = None,
-    ) -> Union[Experiment, Dict]:
-        """Post a new experiment to CellEngine.
-
-        Args:
-            name: Defaults to "Untitled Experiment".
-            comments: Defaults to None.
-            uploader: Defaults to user making request.
-            primary_researcher: Defaults to user making request.
-            tags: Defaults to empty list.
-
-        Returns:
-            Creates the Experiment in CellEngine and returns it.
-        """
-        experiment_body = {
-            k: v
-            for (k, v) in {
-                "name": name,
-                "comments": comments,
-                "uploader": uploader,
-                "primaryResearcher": primary_researcher,
-                "tags": tags,
-            }.items()
-            if v
-        }
-        return ce.APIClient().post_experiment(experiment_body)
-
     def update(self):
         """Save changes to this Experiment to CellEngine."""
-        res = self.client.update_experiment(self._id, self.to_dict())
-        self.__dict__.update(Experiment.from_dict(res).__dict__)
+        res = self.client.update(self)
+        self.__setstate__(res.__getstate__())  # type: ignore
 
     def clone(self, name: str = None):
         """
@@ -199,10 +123,12 @@ class Experiment(DataClassMixin):
 
     @property
     def active_compensation(self) -> Optional[Union[Compensation, int]]:
-        active_comp = self._active_comp
-        if type(active_comp) is str:
-            return self.client.get_compensation(self._id, active_comp)
-        elif type(active_comp) is int:
+        active_comp = self._active_compensation
+        if type(active_comp) is int:
+            return active_comp
+        elif type(active_comp) is str:
+            if is_valid_id(active_comp):  # type: ignore
+                return self.client.get_compensation(self._id, active_comp)
             return active_comp
         elif active_comp is None:
             return None
@@ -213,13 +139,14 @@ class Experiment(DataClassMixin):
     @active_compensation.setter
     def active_compensation(self, compensation: Union[Compensation, int]):
         if type(compensation) is Compensation:
-            self._active_comp = compensation._id
+            self._active_compensation = compensation._id
         elif (
             compensation == "UNCOMPENSATED"
             or compensation == "FILE_INTERNAL"
             or compensation == "PER_FILE"
+            or -1 <= int(compensation) <= 1
         ):
-            self._active_comp = compensation
+            self._active_compensation = compensation
 
     @property
     def attachments(self) -> List[Attachment]:

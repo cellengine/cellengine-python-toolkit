@@ -1,57 +1,41 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-from typing import Dict, Union
+from cellengine.utils.readonly import readonly
+from attr import define, field
 
-from dataclasses_json.cfg import config
 from pandas import DataFrame
 
 import cellengine as ce
 from cellengine.utils.scale_utils import apply_scale
 from cellengine.utils.scale_utils import ScaleDict
 from cellengine.resources.fcs_file import FcsFile
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 
 
-def encode_json_scale(scales):
-    """Encode a ScaleDict to JSON
-    See https://github.com/lidatong/dataclasses-json#Overriding for more info.
-    """
-    return [{"channelName": key, "scale": val} for key, val in scales.items()]
-
-
-def decode_json_scale(scales) -> Dict[str, ScaleDict]:
-    """Decode a ScaleSet from JSON to a ScaleDict
-    See https://github.com/lidatong/dataclasses-json#Overriding for more info.
-    """
-    return {item["channelName"]: ScaleDict(item["scale"]) for item in scales}
-
-
-@dataclass
-class ScaleSet(DataClassMixin):
+@define
+class ScaleSet:
+    _id: str = field(on_setattr=readonly)
+    experiment_id: str = field(on_setattr=readonly)
     name: str
-    scales: Dict["str", Dict[str, Union[str, int]]] = field(
-        metadata=config(encoder=encode_json_scale, decoder=decode_json_scale)
-    )
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    experiment_id: str = field(default=ReadOnly())  # type: ignore
+    scales: ScaleDict
 
     def __repr__(self):
         return "ScaleSet(_id='{}', name='{}')".format(self._id, self.name)
 
+    @property
+    def client(self):
+        return ce.APIClient()
+
+    @property
+    def path(self):
+        return f"experiments/{self.experiment_id}/scalesets/{self._id}".rstrip("/None")
+
     @classmethod
     def get(cls, experiment_id: str) -> ScaleSet:
-        return ce.APIClient().get_scaleset(experiment_id)  # type: ignore
+        return ce.APIClient().get_scaleset(experiment_id)
 
     def update(self):
-        """Save changes to this ScaleSet to CellEngine."""
-        res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "scalesets", self.to_dict()
-        )
-        if "scaleSet" in res.keys():
-            res = res["scaleSet"]
-        self.__dict__.update(ScaleSet.from_dict(res).__dict__)
+        """Save changes to this Population to CellEngine."""
+        res = self.client.update(self)
+        self.__setstate__(res.__getstate__())  # type: ignore
 
     def apply(self, file, clamp_q=False, in_place=True):
         """Apply the scaleset to a file.
@@ -65,7 +49,7 @@ class ScaleSet(DataClassMixin):
                 False, returns a DataFrame
         """
         if type(file) is not FcsFile:
-            file = FcsFile.get(file)
+            file = self.client.get_fcs_file(self.experiment_id, file)
 
         data = file.events
         dest = DataFrame()
