@@ -18,7 +18,7 @@ class FcsFile(DataClassMixin):
     filename: str
     is_control: str
     panel_name: str
-    deleted: bool
+    deleted: Optional[bool]
     panel: List[Dict[str, Any]]
     _id: str = field(
         metadata=config(field_name="_id"), default=ReadOnly()
@@ -30,7 +30,7 @@ class FcsFile(DataClassMixin):
     has_file_internal_comp: bool = field(default=ReadOnly())  # type: ignore
     header: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
     md5: str = field(default=ReadOnly())  # type: ignore
-    sample_name: str = field(default=ReadOnly())  # type: ignore
+    sample_name: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
     size: int = field(default=ReadOnly())  # type: ignore
     _spill_string: Optional[str] = field(
         metadata=config(field_name="spillString"), default=None
