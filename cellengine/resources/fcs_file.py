@@ -204,6 +204,8 @@ class FcsFile(DataClassMixin):
         To fetch a file with specific parameters (e.g. subsampling, or
         gated to a specific population) see `FcsFile.get_events()`.
         """
+        if not hasattr(self, "_events"):
+            self._events = DataFrame()
         if self._events.empty:
             self.get_events(inplace=True)
             return self._events
