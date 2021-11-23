@@ -1,10 +1,9 @@
 from __future__ import annotations
+from cellengine.utils.parse_fcs_file import parse_fcs_file
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
 from dataclasses_json import config
 from typing import Any, Dict, List, Optional, Union
-from fcsparser.api import FCSParser
-import pandas
 from pandas.core.frame import DataFrame
 
 import cellengine as ce
@@ -14,9 +13,7 @@ from cellengine.resources.compensation import Compensation
 
 @dataclass
 class FcsFile(DataClassMixin):
-    _annotations: str = field(metadata=config(field_name="annotations"))
     filename: str
-    is_control: str
     panel_name: str
     deleted: Optional[bool]
     panel: List[Dict[str, Any]]
@@ -24,6 +21,10 @@ class FcsFile(DataClassMixin):
         metadata=config(field_name="_id"), default=ReadOnly()
     )  # type: ignore
     compensation: Optional[int] = None
+    is_control: Optional[bool] = None
+    _annotations: Optional[List[str]] = field(
+        metadata=config(field_name="annotations"), default=None
+    )
     crc32c: str = field(default=ReadOnly())  # type: ignore
     event_count: int = field(default=ReadOnly())  # type: ignore
     experiment_id: str = field(default=ReadOnly())  # type: ignore
@@ -38,6 +39,9 @@ class FcsFile(DataClassMixin):
 
     def __repr__(self):
         return f"FcsFile(_id='{self._id}', name='{self.name}')"
+
+    def __post_init__(self):
+        self._events_kwargs = {}
 
     @property
     def name(self):
@@ -276,13 +280,13 @@ class FcsFile(DataClassMixin):
             If destination is a string, saves file to the destination and returns None.
         """
 
-        fresp = ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
-        if destination:
-            with open(destination, "wb") as file:
-                file.write(fresp)
-            return
-        parser = FCSParser.from_data(fresp)
-        events = pandas.DataFrame(parser.data, columns=parser.channel_names_n)
+        if inplace is True:
+            self._events_kwargs = kwargs
+
+        fresp = parse_fcs_file(
+            ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs),
+            destination=destination,
+        )
         if inplace:
-            self._events = events
-        return events
+            self.events = fresp
+        return fresp

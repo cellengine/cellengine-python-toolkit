@@ -38,6 +38,7 @@ pytest_plugins = [
     "fixtures.api-statistics",
     "fixtures.api-events",
     "fixtures.spillstring",
+    "fixtures.compensated_events",
 ]
 
 

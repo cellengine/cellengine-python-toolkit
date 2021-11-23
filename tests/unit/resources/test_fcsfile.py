@@ -1,5 +1,7 @@
 import os
 import json
+from fcsparser.api import FCSParser
+from pandas.core.frame import DataFrame
 import responses
 from io import BufferedReader, BytesIO
 
@@ -77,11 +79,55 @@ def test_gets_file_internal_compensation(ENDPOINT_BASE, client, fcs_files, spill
     assert type(comp) == Compensation
 
 
+def test_parse_fcs_file():
+    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
+    parser = FCSParser.from_data(events_body.read())
+
+    events = DataFrame(parser.data, columns=parser.channel_names_n)
+    assert type(events) is DataFrame
+    assert tuple(events.columns) == parser.channel_names_n
+
+
+@responses.activate
+def test_parses_fcs_file_events(ENDPOINT_BASE, client, fcs_files):
+    file_data = fcs_files[0]
+    file = FcsFile.from_dict(file_data)
+    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
+    responses.add(
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
+        body=events_body,
+    )
+
+    # When:
+    data = file.get_events()
+
+    # Then:
+    type(data) is DataFrame
+
+
+@responses.activate
+def test_parses_fcs_file_events_inplace(ENDPOINT_BASE, client, fcs_files):
+    file_data = fcs_files[0]
+    file = FcsFile.from_dict(file_data)
+    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
+    responses.add(
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
+        body=events_body,
+    )
+
+    # When:
+    file.get_events(inplace=True)
+
+    # Then:
+    type(file.events) is DataFrame
+
+
 @responses.activate
 def test_save_events_to_file(ENDPOINT_BASE, client, fcs_files):
     file_data = fcs_files[0]
     file = FcsFile.from_dict(file_data)
-    events_body = open("tests/data/Acea - Novocyte.fcs")
     responses.add(
         responses.GET,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
@@ -95,3 +141,21 @@ def test_save_events_to_file(ENDPOINT_BASE, client, fcs_files):
     with open("test.fcs", "r") as events:
         assert events.readline() == "test"
     os.remove("test.fcs")
+
+
+@responses.activate
+def test_get_events_save_kwargs(ENDPOINT_BASE, client, fcs_files):
+    file_data = fcs_files[0]
+    file = FcsFile.from_dict(file_data)
+    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
+    responses.add(
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
+        body=events_body,
+    )
+
+    # When:
+    file.get_events(inplace=True, compensatedQ=False, seed=10)
+
+    # Then:
+    assert file._events_kwargs == {"compensatedQ": False, "seed": 10}
