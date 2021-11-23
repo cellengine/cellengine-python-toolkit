@@ -75,11 +75,11 @@ class Compensation(DataClassMixin):
         channels = [arr.pop(0) for _ in range(length)]
 
         properties = {
-            "_id": None,
+            "_id": "",
             "channels": channels,
             "spillMatrix": [float(n) for n in arr],
-            "experimentId": None,
-            "name": None,
+            "experimentId": "",
+            "name": "",
         }
         return Compensation.from_dict(properties)
 
