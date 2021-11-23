@@ -100,36 +100,46 @@ class Compensation(DataClassMixin):
         """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
-    def apply(self, file: "FcsFile", inplace: bool = False, **kwargs):
-        """
-        Compensate an FcsFile's data.
+    def apply(self, file: FcsFile, inplace: bool = True, **kwargs):
+        """Compensate an FcsFile's data.
 
         Args:
-            file (FcsFile): The FCS file to compensate.
-            inplace (bool): Compensate the file's data in-place.
+            file (FcsFile): The FcsFile to compensate.
+            inplace (bool): If True, modify the `FcsFile.events` with the result.
+                If False, return the compensated events.
             kwargs (Dict):
                 All arguments accepted by `FcsFile.get_events` are accepted here.
+                If the file's events have already been retrieved with the same
+                kwargs provided here, those stored events will be used.
+                Otherwise, the file's events will be retrieved from CellEngine.
         Returns:
             DataFrame: if ``inplace=True``, updates `FcsFile.events` for
                 the target FcsFile
         """
-        data = file.get_events(**kwargs, inplace=True, destination=None)
-
-        # spill -> comp by inverting
-        inverted = numpy.linalg.inv(self.dataframe)
+        if kwargs.items() == file._events_kwargs.items():
+            data = file.events
+        else:
+            data = file.get_events(inplace=inplace, destination=None, **kwargs)
 
         # Calculate matrix product for channels matching between file and comp
-        if data and data[self.channels]:
-            comped = data[self.channels]
-            comped = comped.dot(inverted)  # type: ignore
-            comped.columns = self.channels
-            data.update(comped)
+        cols = data.columns
+        ix = list(
+            filter(
+                None,
+                [channel if channel in cols else None for channel in self.channels],
+            )
+        )
+        if any(ix):
+            copy = data.copy()
+            comped = copy[ix]
+            comped = comped.dot(numpy.linalg.inv(self.dataframe))  # type: ignore
+            comped.columns = ix
+            copy.update(comped.astype(comped.dtypes[0]))
         else:
             raise IndexError(
                 "No channels from this file match those in the compensation."
             )
 
         if inplace:
-            file._events = data
-        else:
-            return data
+            file._events = copy
+        return copy
