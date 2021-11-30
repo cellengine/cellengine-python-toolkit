@@ -8,7 +8,7 @@ EXP_ID = "5d38a6f79fae87499999a74b"
 
 
 @pytest.fixture(scope="module")
-def attachment(ENDPOINT_BASE, client, attachments):
+def attachment(client, ENDPOINT_BASE, attachments):
     att = attachments[0]
     att.update({"experimentId": EXP_ID})
     return Attachment.from_dict(att)
@@ -24,7 +24,18 @@ def attachments_tester(attachment):
 
 
 @responses.activate
-def test_should_get_attachment(ENDPOINT_BASE, attachment):
+def test_client_gets_attachment(client, ENDPOINT_BASE, attachment):
+    responses.add(
+        responses.GET,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments",
+        json=[attachment.to_dict()],
+    )
+    att = client.get_attachment(EXP_ID, attachment._id)
+    attachments_tester(att)
+
+
+@responses.activate
+def test_attachment_gets_attachment(client, ENDPOINT_BASE, attachment):
     responses.add(
         responses.GET,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments",
@@ -35,7 +46,22 @@ def test_should_get_attachment(ENDPOINT_BASE, attachment):
 
 
 @responses.activate
-def test_should_create_attachment(ENDPOINT_BASE, experiment, attachments):
+def test_should_create_attachment(client, ENDPOINT_BASE, experiment, attachments):
+    """Test creation of a new attachment.
+    This test must be run from the project root directory"""
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments",
+        json=attachments[0],
+    )
+    att = client.upload_attachment(experiment._id, "tests/data/text.txt")
+    attachments_tester(att)
+
+
+@responses.activate
+def test_classmethod_should_create_attachment(
+    client, ENDPOINT_BASE, experiment, attachments
+):
     """Test creation of a new attachment.
     This test must be run from the project root directory"""
     responses.add(
@@ -58,7 +84,7 @@ def test_should_delete_attachment(ENDPOINT_BASE, attachment):
 
 
 @responses.activate
-def test_update_attachment(ENDPOINT_BASE, experiment, attachment, attachments):
+def test_update_attachment(ENDPOINT_BASE, attachment):
     """Test that the .update() method makes the correct call. Does not test
     that the correct response is made; this should be done with an integration
     test.
@@ -78,7 +104,7 @@ def test_update_attachment(ENDPOINT_BASE, experiment, attachment, attachments):
 
 
 @responses.activate
-def test_download_attachment(ENDPOINT_BASE, experiment, attachment):
+def test_download_attachment(client, ENDPOINT_BASE, attachment):
     responses.add(
         responses.GET,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/attachments/{attachment._id}",
