@@ -44,7 +44,6 @@ setup(
         "cattrs~=1.8",
         "fcsparser~=0.2",
         "dataclasses-json~=0.5",
-        "munch~=2.5",
         "numpy~=1.17",
         "pandas~=1.1",
         "python-dateutil~=2.8",
