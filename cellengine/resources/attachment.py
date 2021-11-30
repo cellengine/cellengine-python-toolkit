@@ -1,25 +1,37 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-from dataclasses_json.cfg import config
+from typing import Optional
+
+from attr import define, field
 
 import cellengine as ce
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
+from cellengine.utils import converter, readonly
 
 
-@dataclass
-class Attachment(DataClassMixin):
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
+
+@define
+class Attachment:
     """A class representing a CellEngine attachment.
     Attachments are non-data files that are stored in an experiment.
     """
 
+    _id: str = field(on_setattr=readonly)
     filename: str
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    crc32c: str = field(repr=False, default=ReadOnly())  # type: ignore
-    experiment_id: str = field(repr=False, default=ReadOnly())  # type: ignore
-    md5: str = field(repr=False, default=ReadOnly())  # type: ignore
-    size: int = field(repr=False, default=ReadOnly())  # type: ignore
+    crc32c: str = field(on_setattr=readonly, repr=False)
+    experiment_id: str = field(on_setattr=readonly, repr=False)
+    md5: str = field(on_setattr=readonly, repr=False)
+    size: int = field(on_setattr=readonly, repr=False)
+    type: Optional[Literal["textbox", "image"]] = None
+
+    @property
+    def path(self):
+        return f"experiments/{self.experiment_id}/attachments/{self._id}".rstrip(
+            "/None"
+        )
 
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
@@ -39,20 +51,16 @@ class Attachment(DataClassMixin):
         return ce.APIClient().upload_attachment(experiment_id, filepath, filename)
 
     def update(self):
-        """Save changes to this Attachment to CellEngine.
+        """Save changes to this Attachment to CellEngine."""
+        res = ce.APIClient().update(self)
+        self.__setstate__(res.__getstate__())  # type: ignore
 
-        Returns:
-            None: Updates the Attachment on CellEngine and synchronizes the
-                local Attachment object properties with remote state.
-        """
-        res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "attachments", body=self.to_dict()
-        )
-        self.__dict__.update(Attachment.from_dict(res).__dict__)
+    @classmethod
+    def from_dict(cls, data: dict):
+        return converter.structure(data, cls)
 
-    def delete(self):
-        """Delete this attachment."""
-        return ce.APIClient().delete_entity(self.experiment_id, "attachments", self._id)
+    def to_dict(self):
+        return converter.unstructure(self)
 
     def download(self, to_file: str = None):
         """Download the attachment.
@@ -74,3 +82,6 @@ class Attachment(DataClassMixin):
                 f.write(res)
         else:
             return res
+
+    def delete(self):
+        return ce.APIClient().delete_entity(self.experiment_id, "attachments", self._id)
