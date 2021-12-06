@@ -265,7 +265,8 @@ def test_should_apply_scale_to_file(
     # Given:
     file = FcsFile.from_dict(fcs_files[0])
     responses.add(
-        responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
     )
 
     keys = ["FSC-A", "FSC-W", "Time"]  # limit to a few keys

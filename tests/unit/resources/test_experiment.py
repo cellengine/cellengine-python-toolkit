@@ -168,7 +168,9 @@ def test_should_create_experiment(ENDPOINT_BASE, experiment):
     response = experiment.to_dict().copy()
     response["name"] = "new_experiment"
     responses.add(
-        responses.POST, ENDPOINT_BASE + "/experiments", json=response,
+        responses.POST,
+        ENDPOINT_BASE + "/experiments",
+        json=response,
     )
     Experiment.create("new_experiment")
     assert json.loads(responses.calls[0].request.body) == {
