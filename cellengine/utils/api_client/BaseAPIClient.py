@@ -113,7 +113,9 @@ class BaseAPIClient(metaclass=AbstractSingleton):
 
     def _delete(self, url, params: dict = None, headers: dict = None):
         response = self.requests_session.delete(
-            url, headers=self._make_headers(headers), params=params if params else {},
+            url,
+            headers=self._make_headers(headers),
+            params=params if params else {},
         )
         try:
             if response.ok:

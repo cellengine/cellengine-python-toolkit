@@ -23,7 +23,11 @@ def test_should_get_plot(ENDPOINT_BASE, client, experiment, fcs_files):
     fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
     plot = Plot.get(
-        experiment._id, fcs_file._id, "dot", fcs_file.channels[0], fcs_file.channels[1],
+        experiment._id,
+        fcs_file._id,
+        "dot",
+        fcs_file.channels[0],
+        fcs_file.channels[1],
     )
     plot_tester(plot)
 
@@ -32,7 +36,11 @@ def test_should_get_plot(ENDPOINT_BASE, client, experiment, fcs_files):
 def test_should_get_plot_from_fcs_file(ENDPOINT_BASE, client, fcs_files):
     fcs_file = FcsFile.from_dict(fcs_files[0])
     responses.add(responses.GET, f"{ENDPOINT_BASE}/experiments/{EXP_ID}/plot")
-    plot = fcs_file.plot("dot", fcs_file.channels[0], fcs_file.channels[1],)
+    plot = fcs_file.plot(
+        "dot",
+        fcs_file.channels[0],
+        fcs_file.channels[1],
+    )
     plot_tester(plot)
 
 

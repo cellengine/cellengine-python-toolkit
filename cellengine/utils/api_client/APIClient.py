@@ -133,7 +133,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """Download an attachment"""
         _id = _id or self._get_id_by_name(name, "attachments", experiment_id)
         attachment = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/attachments/{_id}", raw=True,
+            f"{self.base_url}/experiments/{experiment_id}/attachments/{_id}",
+            raw=True,
         )
         return attachment
 
@@ -403,7 +404,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(
-            f"{self.base_url}/experiments/{experiment_id}/gates?gid={gid}", json=body,
+            f"{self.base_url}/experiments/{experiment_id}/gates?gid={gid}",
+            json=body,
         )
 
     def tailor_to(self, experiment_id, gate_id, fcs_file_id):
@@ -479,7 +481,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def post_population(self, experiment_id, population: Dict) -> Population:
         res = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/populations", json=population,
+            f"{self.base_url}/experiments/{experiment_id}/populations",
+            json=population,
         )
         return Population.from_dict(res)
 

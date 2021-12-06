@@ -240,7 +240,8 @@ class TestShouldDeleteGates:
         self, ENDPOINT_BASE, client, experiment, rectangle_gate, args, url
     ):
         responses.add(
-            responses.DELETE, f"{ENDPOINT_BASE}" + url,
+            responses.DELETE,
+            f"{ENDPOINT_BASE}" + url,
         )
         Gate.delete_gates(experiment._id, **args)
 

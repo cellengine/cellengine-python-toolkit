@@ -41,7 +41,7 @@ class Gate(_Gate):
         ce.APIClient().delete_gate(self.experiment_id, self._id)
 
     def update(self):
-        """Save changes to this Gate to CellEngine.  """
+        """Save changes to this Gate to CellEngine."""
         props = ce.APIClient().update_entity(
             self.experiment_id, self._id, "gates", body=self._properties
         )

@@ -25,9 +25,24 @@ SCALESET_ID = "5d38a6f79fae87499999a74c"
 test_params = [
     # (json to return, endpoint, function to test, expected entity, function args)
     (Experiment, None, "get_experiments", None),
-    (Experiment, EXP_ID, "get_experiment", {"_id": EXP_ID},),
-    (Experiment, EXP_ID, "get_experiment", {"name": "test_experiment"},),
-    (Attachment, EXP_ID, "get_attachments", {"experiment_id": EXP_ID},),
+    (
+        Experiment,
+        EXP_ID,
+        "get_experiment",
+        {"_id": EXP_ID},
+    ),
+    (
+        Experiment,
+        EXP_ID,
+        "get_experiment",
+        {"name": "test_experiment"},
+    ),
+    (
+        Attachment,
+        EXP_ID,
+        "get_attachments",
+        {"experiment_id": EXP_ID},
+    ),
     (
         bytes,
         EXP_ID,
@@ -41,7 +56,12 @@ test_params = [
         {"experiment_id": EXP_ID, "name": "config.h"},
     ),
     (FcsFile, EXP_ID, "get_fcs_files", {"experiment_id": EXP_ID}),
-    (FcsFile, EXP_ID, "get_fcs_file", {"experiment_id": EXP_ID, "_id": FCSFILE_ID},),
+    (
+        FcsFile,
+        EXP_ID,
+        "get_fcs_file",
+        {"experiment_id": EXP_ID, "_id": FCSFILE_ID},
+    ),
     (
         FcsFile,
         EXP_ID,
@@ -62,7 +82,12 @@ test_params = [
         {"experiment_id": EXP_ID, "name": "some compensation"},
     ),
     (Gate, EXP_ID, "get_gates", {"experiment_id": EXP_ID}),
-    (Gate, EXP_ID, "get_gate", {"experiment_id": EXP_ID, "_id": GATE_ID},),
+    (
+        Gate,
+        EXP_ID,
+        "get_gate",
+        {"experiment_id": EXP_ID, "_id": GATE_ID},
+    ),
     (Population, EXP_ID, "get_populations", {"experiment_id": EXP_ID}),
     (
         Population,
@@ -173,7 +198,9 @@ def _make_endpoint(entity, exp_id, kwargs):
 
 def _mock_request(url, json_response):
     responses.add(
-        responses.GET, url, json=json_response,
+        responses.GET,
+        url,
+        json=json_response,
     )
 
 
@@ -188,7 +215,10 @@ def _mock_request_by_name(base_url, endpoint, exp_id, entity, name, json_respons
     url = base_url + f"{endpoint}?query=eq({query},%22{name}%22)&limit=2"
 
     responses.add(
-        responses.GET, url, json=json_response, match_querystring=True,
+        responses.GET,
+        url,
+        json=json_response,
+        match_querystring=True,
     )
 
     if entity == "experiments":
@@ -199,7 +229,9 @@ def _mock_request_by_name(base_url, endpoint, exp_id, entity, name, json_respons
         )
 
     responses.add(
-        responses.GET, id_url, json=json_response,
+        responses.GET,
+        id_url,
+        json=json_response,
     )
 
 
