@@ -1,12 +1,15 @@
-from cellengine.utils.parse_fcs_file import parse_fcs_file
-from cellengine.resources.fcs_file import FcsFile
 import json
-import pytest
-import responses
+
+from numpy import identity
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
-from numpy import identity
+import pytest
+import responses
+
 from cellengine.resources.compensation import Compensation
+from cellengine.resources.fcs_file import FcsFile
+from cellengine.utils import converter
+from cellengine.utils.parse_fcs_file import parse_fcs_file
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -20,10 +23,10 @@ def fcs_file(ENDPOINT_BASE, client, fcs_files):
 
 
 @pytest.fixture(scope="function")
-def compensation(ENDPOINT_BASE, client, fcs_file, compensations):
+def compensation(ENDPOINT_BASE, client, compensations):
     comp = compensations[0]
     comp.update({"experimentId": EXP_ID})
-    return Compensation.from_dict(comp)
+    return converter.structure(comp, Compensation)
 
 
 def properties_tester(comp):
@@ -46,15 +49,64 @@ def test_compensation_properties(ENDPOINT_BASE, compensation):
 
 
 @responses.activate
-def test_should_post_compensation(ENDPOINT_BASE, experiment, compensations):
+def test_should_post_compensation(client, ENDPOINT_BASE, compensations):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
         json=compensations[0],
     )
-    payload = compensations[0].copy()
-    comp = Compensation.create(experiment._id, payload)
+    comp = Compensation(None, EXP_ID, "test_comp", ["a", "b"], [1, 0, 0, 1])
+    comp = client.create(comp)
     properties_tester(comp)
+
+
+@responses.activate
+def test_creates_compensation(client, ENDPOINT_BASE, compensations):
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
+        json=compensations[0],
+    )
+    comp = Compensation.create(EXP_ID, "test-comp", ["a", "b"], [1, 0, 0, 1])
+    properties_tester(comp)
+
+
+@responses.activate
+def test_creates_compensation_with_dataframe(client, ENDPOINT_BASE, compensations):
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
+        json=compensations[0],
+    )
+    df = DataFrame([[1, 0], [0, 1]], columns=["a", "b"], index=["a", "b"])
+    comp = Compensation.create(EXP_ID, "test-comp", dataframe=df)
+    properties_tester(comp)
+
+
+@responses.activate
+def test_raises_TypeError_when_wrong_arg_combo_is_passed(
+    client, ENDPOINT_BASE, compensations
+):
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/compensations",
+        json=compensations[0],
+    )
+    with pytest.raises(TypeError) as err:
+        Compensation.create(EXP_ID, "test-comp", spill_matrix=[0, 1])
+    assert err.value.args[0] == "Both 'channels' and 'spill_matrix' are required."
+
+    with pytest.raises(TypeError) as err:
+        Compensation.create(EXP_ID, "test-comp", channels=["a", "b"])
+    assert err.value.args[0] == "Both 'channels' and 'spill_matrix' are required."
+
+    with pytest.raises(TypeError) as err:
+        Compensation.create(
+            EXP_ID, "test-comp", channels=["a", "b"], dataframe=DataFrame()
+        )
+    assert err.value.args[0] == (
+        "Only one of 'dataframe' or {'channels', 'spill_matrix'} may be assigned."
+    )
 
 
 @responses.activate
@@ -74,7 +126,7 @@ def test_should_update_compensation(ENDPOINT_BASE, compensation):
     test.
     """
     # patch the mocked response with the correct values
-    response = compensation.to_dict().copy()
+    response = converter.unstructure(compensation)
     response.update({"name": "newname"})
     responses.add(
         responses.PATCH,
@@ -84,7 +136,7 @@ def test_should_update_compensation(ENDPOINT_BASE, compensation):
     compensation.name = "newname"
     compensation.update()
     properties_tester(compensation)
-    assert json.loads(responses.calls[0].request.body) == compensation.to_dict()
+    assert json.loads(responses.calls[0].request.body) == response
 
 
 def test_create_from_spill_string(spillstring):

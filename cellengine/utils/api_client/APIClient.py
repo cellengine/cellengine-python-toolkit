@@ -257,7 +257,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return compensations
-        return [Compensation.from_dict(comp) for comp in compensations]
+        return converter.structure(compensations, List[Compensation])
 
     def get_compensation(
         self, experiment_id, _id=None, name=None, as_dict=False
@@ -268,14 +268,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         if as_dict:
             return comp
-        return Compensation.from_dict(comp)
+        return converter.structure(comp, Compensation)
 
-    def post_compensation(self, experiment_id, compensation=None) -> Compensation:
-        res = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/compensations",
-            json=compensation,
+    def post_compensation(self, experiment_id: str, body: Dict[str, Any]):
+        comp = self._post(
+            f"{self.base_url}/experiments/{experiment_id}/compensations", json=body
         )
-        return Compensation.from_dict(res)
+        return converter.structure(comp, Compensation)
 
     def get_experiments(self, as_dict=False) -> List[Experiment]:
         experiments = self._get(f"{self.base_url}/experiments")
