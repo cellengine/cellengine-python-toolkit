@@ -1,53 +1,71 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
-from typing import List, TYPE_CHECKING
+from typing import List, Optional, TYPE_CHECKING, Tuple, cast
 
-from dataclasses_json.cfg import config
-import numpy
+from attr import define, field
+from numpy import array, linalg
 from pandas import DataFrame
 
 import cellengine as ce
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
+from cellengine.utils import readonly
+from cellengine.utils.converter import converter
 
 
 if TYPE_CHECKING:
     from cellengine.resources.fcs_file import FcsFile
 
 
-@dataclass
-class Compensation(DataClassMixin):
+@define
+class Compensation:
     """A class representing a CellEngine compensation matrix.
 
     Can be applied to FCS files to compensate them.
     """
 
+    _id: str = field(on_setattr=readonly)
+    experiment_id: str = field(on_setattr=readonly)
     name: str
     channels: List[str]
-    dataframe: DataFrame = field(
-        metadata=config(
-            field_name="spillMatrix",
-            encoder=lambda x: x.to_numpy().flatten().tolist(),
-            decoder=lambda x: numpy.array(x),
-        )
-    )
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    experiment_id: str = field(default=ReadOnly())  # type: ignore
+    spill_matrix: List[float]
 
-    def __post_init__(self):
-        self.dataframe = DataFrame(
-            self.dataframe.reshape(self.N, self.N),
+    @property
+    def dataframe(self):
+        return DataFrame(
+            array(self.spill_matrix).reshape(self.N, self.N),  # type: ignore
             columns=self.channels,
             index=self.channels,
         )
+
+    @dataframe.setter
+    def dataframe(self, df: DataFrame):
+        self.channels, self.spill_matrix = self._convert_dataframe(df)
+
+    @staticmethod
+    def _convert_dataframe(df: DataFrame) -> Tuple[List[str], List[float]]:
+        try:
+            assert all(df.columns == df.index)
+            channels = cast(List[str], df.columns.tolist())
+            spill_matrix = cast(List[float], df.to_numpy().flatten().tolist())
+            return channels, spill_matrix
+        except Exception:
+            raise ValueError(
+                "Dataframe must be a square matrix with equivalent index and columns."
+            )
 
     def __repr__(self):
         return f"Compensation(_id='{self._id}', name='{self.name}')"
 
     @property
-    def N(self):
-        return len(self.channels)
+    def path(self):
+        return f"experiments/{self.experiment_id}/compensations/{self._id}".rstrip(
+            "/None"
+        )
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        return converter.structure(data, cls)
+
+    def to_dict(self):
+        return converter.unstructure(self)
 
     @classmethod
     def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Compensation:
@@ -55,14 +73,44 @@ class Compensation(DataClassMixin):
         return ce.APIClient().get_compensation(experiment_id, **kwargs)
 
     @classmethod
-    def create(cls, experiment_id: str, compensation: dict) -> Compensation:
-        """Creates a compensation
+    def create(
+        cls,
+        experiment_id: str,
+        name: str,
+        channels: Optional[List[str]] = None,
+        spill_matrix: Optional[List[float]] = None,
+        dataframe: Optional[DataFrame] = None,
+    ) -> Compensation:
+        """Create a new compensation for this experiment
 
         Args:
-            experiment_id: ID of experiment that this compensation belongs to.
-            compensation: Dict containing `channels` and `spillMatrix` properties.
+            experiment_id (str): the ID of the experiment.
+            name (str): The name of the compensation.
+            channels (List[str]): The names of the channels to which this
+                compensation matrix applies.
+            spill_matrix (List[float]): The row-wise, square spillover matrix. The
+                length of the array must be the number of channels squared.
+            spill_matrix (DataFrame): A square pandas DataFrame with channel
+                names in [df.index, df.columns].
         """
-        return ce.APIClient().post_compensation(experiment_id, compensation)
+        if dataframe is None:
+            if not (channels and spill_matrix):
+                raise TypeError("Both 'channels' and 'spill_matrix' are required.")
+        else:
+            if spill_matrix or channels:
+                raise TypeError(
+                    "Only one of 'dataframe' or {'channels', 'spill_matrix'} "
+                    "may be assigned."
+                )
+            else:
+                channels, spill_matrix = cls._convert_dataframe(dataframe)
+
+        body = {"name": name, "channels": channels, "spillMatrix": spill_matrix}
+        return ce.APIClient().post_compensation(experiment_id, body)
+
+    @property
+    def N(self):
+        return len(self.channels)
 
     @staticmethod
     def from_spill_string(spill_string: str) -> Compensation:
@@ -81,14 +129,12 @@ class Compensation(DataClassMixin):
             "experimentId": "",
             "name": "",
         }
-        return Compensation.from_dict(properties)
+        return converter.structure(properties, Compensation)
 
     def update(self):
         """Save changes to this Compensation to CellEngine."""
-        res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "compensations", body=self.to_dict()
-        )
-        self.__dict__.update(Compensation.from_dict(res).__dict__)
+        res = ce.APIClient().update(self)
+        self.__setstate__(res.__getstate__())  # type: ignore
 
     def delete(self):
         return ce.APIClient().delete_entity(
@@ -132,7 +178,7 @@ class Compensation(DataClassMixin):
         if any(ix):
             copy = data.copy()
             comped = copy[ix]
-            comped = comped.dot(numpy.linalg.inv(self.dataframe))  # type: ignore
+            comped = comped.dot(linalg.inv(self.dataframe))  # type: ignore
             comped.columns = ix
             copy.update(comped.astype(comped.dtypes[0]))
         else:
