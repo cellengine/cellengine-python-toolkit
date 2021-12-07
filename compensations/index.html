@@ -899,7 +899,7 @@ cellengine.resources.compensation.Compensation            (<span title="cellengi
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.apply">
-<code class="codehilite language-python"><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 </h3>
@@ -922,19 +922,23 @@ cellengine.resources.compensation.Compensation            (<span title="cellengi
       <tr>
         <td><code>file</code></td>
         <td><code>FcsFile</code></td>
-        <td><p>The FCS file to compensate.</p></td>
+        <td><p>The FcsFile to compensate.</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>inplace</code></td>
         <td><code>bool</code></td>
-        <td><p>Compensate the file's data in-place.</p></td>
-        <td><code>False</code></td>
+        <td><p>If True, modify the <code>FcsFile.events</code> with the result.
+If False, return the compensated events.</p></td>
+        <td><code>True</code></td>
       </tr>
       <tr>
         <td><code>kwargs</code></td>
         <td><code>Dict</code></td>
-        <td><p>All arguments accepted by <code>FcsFile.get_events</code> are accepted here.</p></td>
+        <td><p>All arguments accepted by <code>FcsFile.get_events</code> are accepted here.
+If the file's events have already been retrieved with the same
+kwargs provided here, those stored events will be used.
+Otherwise, the file's events will be retrieved from CellEngine.</p></td>
         <td><code>{}</code></td>
       </tr>
   </tbody>

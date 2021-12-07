@@ -955,7 +955,7 @@ cellengine.resources.fcs_file.FcsFile            (<span title="cellengine.utils.
 
     <div class="doc doc-contents first">
 
-      <p>FcsFile(_annotations: 'str', filename: 'str', is_control: 'str', panel_name: 'str', deleted: 'Optional[bool]', panel: 'List[Dict[str, Any]]', _id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579866b10>, compensation: 'Optional[int]' = None, crc32c: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579730a90>, event_count: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579734cd0>, experiment_id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579734850>, has_file_internal_comp: 'bool' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579744290>, header: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579744250>, md5: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579744050>, sample_name: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa5797442d0>, size: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fa579744590>, _spill_string: 'Optional[str]' = None)</p>
+      <p>FcsFile(filename: 'str', panel_name: 'str', deleted: 'Optional[bool]', panel: 'List[Dict[str, Any]]', _id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b838890>, compensation: 'Optional[int]' = None, is_control: 'Optional[bool]' = None, _annotations: 'Optional[List[str]]' = None, crc32c: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b83f990>, event_count: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b7dc0d0>, experiment_id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b7176d0>, has_file_internal_comp: 'bool' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b717690>, header: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b717490>, md5: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b717390>, sample_name: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b717710>, size: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7efc0b7179d0>, _spill_string: 'Optional[str]' = None)</p>
 
 
 
@@ -1217,7 +1217,7 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.is_control">
-<code class="codehilite language-python"><span class="n">is_control</span><span class="p">:</span> <span class="nb">str</span></code>
+<code class="codehilite language-python"><span class="n">is_control</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
