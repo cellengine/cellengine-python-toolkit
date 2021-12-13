@@ -22,7 +22,6 @@ def format_ellipse_gate(
     tailored_per_file: bool = False,
     fcs_file_id: str = None,
     fcs_file: str = None,
-    create_population: bool = True,
 ):
     """Formats an ellipse gate for posting to the CellEngine API.
 
@@ -60,8 +59,6 @@ def format_ellipse_gate(
             files by name is slower than using the ID, as this requires
             additional requests to the server. If specified, do not specify
             ``fcs_file_id``.
-        create_population (optional, bool): Automatically create corresponding
-            population.
 
     Returns:
         EllipseGate: An EllipseGate object.
@@ -101,5 +98,4 @@ def format_ellipse_gate(
         tailored_per_file=tailored_per_file,
         fcs_file_id=fcs_file_id,
         fcs_file=fcs_file,
-        create_population=create_population,
     )

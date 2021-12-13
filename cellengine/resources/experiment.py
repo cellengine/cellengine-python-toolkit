@@ -431,11 +431,14 @@ class Experiment(DataClassMixin):
         f = inspect.currentframe()
         args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
+        del kwargs["create_population"]
         post_body = format_rectangle_gate(
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        return ce.APIClient().post_gate(
+            self._id, post_body, create_population
+        )  # type: ignore
 
     @doc_inherit(format_polygon_gate)
     def create_polygon_gate(
@@ -457,11 +460,14 @@ class Experiment(DataClassMixin):
         f = inspect.currentframe()
         args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
+        del kwargs["create_population"]
         post_body = format_polygon_gate(
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        return ce.APIClient().post_gate(
+            self._id, post_body, create_population
+        )  # type: ignore
 
     @doc_inherit(format_ellipse_gate)
     def create_ellipse_gate(
@@ -487,11 +493,14 @@ class Experiment(DataClassMixin):
         f = inspect.currentframe()
         args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
+        del kwargs["create_population"]
         post_body = format_ellipse_gate(
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        return ce.APIClient().post_gate(
+            self._id, post_body, create_population
+        )  # type: ignore
 
     @doc_inherit(format_range_gate)
     def create_range_gate(
@@ -514,11 +523,14 @@ class Experiment(DataClassMixin):
         f = inspect.currentframe()
         args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
+        del kwargs["create_population"]
         post_body = format_range_gate(
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        return ce.APIClient().post_gate(
+            self._id, post_body, create_population
+        )  # type: ignore
 
     @doc_inherit(format_split_gate)
     def create_split_gate(
@@ -541,11 +553,14 @@ class Experiment(DataClassMixin):
         f = inspect.currentframe()
         args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
+        del kwargs["create_population"]
         post_body = format_split_gate(
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        return ce.APIClient().post_gate(
+            self._id, post_body, create_population
+        )  # type: ignore
 
     @doc_inherit(format_quadrant_gate)
     def create_quadrant_gate(
@@ -571,11 +586,14 @@ class Experiment(DataClassMixin):
         f = inspect.currentframe()
         args, _, _, values = inspect.getargvalues(f)  # type: ignore
         kwargs = {arg: values.get(arg, None) for arg in args}
+        del kwargs["create_population"]
         post_body = format_quadrant_gate(
             kwargs.pop("self")._id,  # type: ignore
             **kwargs,
         )
-        return ce.APIClient().post_gate(self._id, post_body)  # type: ignore
+        return ce.APIClient().post_gate(
+            self._id, post_body, create_population
+        )  # type: ignore
 
     def create_population(self, population: Dict) -> Population:
         """Create a complex population

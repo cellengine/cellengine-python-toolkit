@@ -22,7 +22,6 @@ def format_rectangle_gate(
     tailored_per_file: bool = False,
     fcs_file_id: str = None,
     fcs_file: str = None,
-    create_population: bool = True,
 ):
     """Formats a rectangle gate for posting to the CellEngine API.
 
@@ -57,7 +56,6 @@ def format_rectangle_gate(
             the name, an error will be thrown. Looking up files by name is
             slower than using the ID, as this requires additional requests
             to the server. If specified, do not specify ``fcs_file_id``.
-        create_population (bool): Automatically create corresponding population.
 
     Returns:
         A RectangleGate object.
@@ -99,5 +97,4 @@ def format_rectangle_gate(
         tailored_per_file=tailored_per_file,
         fcs_file_id=fcs_file_id,
         fcs_file=fcs_file,
-        create_population=create_population,
     )

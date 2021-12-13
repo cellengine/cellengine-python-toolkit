@@ -1,9 +1,7 @@
 import cellengine as ce
 
 
-def format_common_gate(
-    experiment_id, body, tailored_per_file, fcs_file_id, fcs_file, create_population
-):
+def format_common_gate(experiment_id, body, tailored_per_file, fcs_file_id, fcs_file):
     """
     Args:
         experiment_id (str): The ID of the experiment to which to add the gate.
@@ -30,7 +28,6 @@ def format_common_gate(
             the name, an error will be thrown. Looking up files by name is
             slower than using the ID, as this requires additional requests
             to the server. If specified, do not specify ``fcs_file_id``.
-        create_population (bool): Automatically create corresponding population.
     """
     return parse_fcs_file_args(
         experiment_id, body, tailored_per_file, fcs_file_id, fcs_file

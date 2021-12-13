@@ -203,7 +203,9 @@ class RectangleGate(Gate):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> RectangleGate:
-        g = format_rectangle_gate(**get_args_as_kwargs(cls, locals()))
+        args = get_args_as_kwargs(cls, locals())
+        del args["create_population"]
+        g = format_rectangle_gate(**args)
         return cls(g)
 
 
@@ -229,7 +231,9 @@ class PolygonGate(Gate):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> PolygonGate:
-        g = format_polygon_gate(**get_args_as_kwargs(cls, locals()))
+        args = get_args_as_kwargs(cls, locals())
+        del args["create_population"]
+        g = format_polygon_gate(**args)
         return cls(g)
 
 
@@ -259,7 +263,9 @@ class EllipseGate(Gate):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> EllipseGate:
-        g = format_ellipse_gate(**get_args_as_kwargs(cls, locals()))
+        args = get_args_as_kwargs(cls, locals())
+        del args["create_population"]
+        g = format_ellipse_gate(**args)
         return cls(g)
 
 
@@ -286,7 +292,9 @@ class RangeGate(Gate):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> RangeGate:
-        g = format_range_gate(**get_args_as_kwargs(cls, locals()))
+        args = get_args_as_kwargs(cls, locals())
+        del args["create_population"]
+        g = format_range_gate(**args)
         return cls(g)
 
 
@@ -316,7 +324,9 @@ class QuadrantGate(Gate):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> QuadrantGate:
-        g = format_quadrant_gate(**get_args_as_kwargs(cls, locals()))
+        args = get_args_as_kwargs(cls, locals())
+        del args["create_population"]
+        g = format_quadrant_gate(**args)
         return cls(g)
 
 
@@ -343,5 +353,7 @@ class SplitGate(Gate):
         fcs_file: str = None,
         create_population: bool = True,
     ) -> SplitGate:
-        g = format_split_gate(**get_args_as_kwargs(cls, locals()))
+        args = get_args_as_kwargs(cls, locals())
+        del args["create_population"]
+        g = format_split_gate(**args)
         return cls(g)

@@ -278,6 +278,31 @@ def test_create_rectangle_gate(ENDPOINT_BASE, client, experiment, rectangle_gate
 
 
 @responses.activate
+def test_create_rectangle_gate_without_create_population(
+    ENDPOINT_BASE, client, experiment, rectangle_gate
+):
+    """Regression test for #118."""
+    responses.add(
+        responses.POST,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/gates",
+        status=201,
+        json=rectangle_gate,
+    )
+    rectangle_gate = experiment.create_rectangle_gate(
+        x_channel="FSC-A",
+        y_channel="FSC-W",
+        name="my gate",
+        x1=60000,
+        x2=200000,
+        y1=75000,
+        y2=215000,
+        create_population=False,
+    )
+    rectangle_gate.post()
+    assert "createPopulation=false" in responses.calls[0].request.url
+
+
+@responses.activate
 def test_create_ellipse_gate(ENDPOINT_BASE, client, experiment, ellipse_gate):
     responses.add(
         responses.POST,
