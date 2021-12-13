@@ -101,7 +101,11 @@ def test_should_get_plot_for_each_query_parameter(
             item = ("color", "%23ff0000")
 
         assert item[0] in responses.calls[i].request.url
-        assert str(item[1]) in responses.calls[i].request.url
+        assert (
+            str(item[1]).lower()
+            if type(item[1]) is bool
+            else str(item[1]) in responses.calls[i].request.url
+        )
         plot_tester(plot)
         i += 1
 

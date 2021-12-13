@@ -97,7 +97,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raise RuntimeError(str(e).format(name))
 
     def _lookup_by_name(self, path, query, name):
-        params = f'query=eq({query},"{name}")&limit=2'
+        params = {"query": f'eq({query},"{name}")', "limit": 2}
         return self._get(f"{self.base_url}/{path}", params=params)
 
     def _handle_response(self, response):

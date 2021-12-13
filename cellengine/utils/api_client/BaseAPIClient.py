@@ -11,6 +11,11 @@ from cellengine.utils.api_client.APIError import APIError
 from cellengine.utils.singleton import AbstractSingleton
 
 
+def prepare_params(params: Dict) -> Dict:
+    """Converts Booleans to lower-case strings. (Requests yields upper-case.)"""
+    return {k: str(v).lower() if type(v) == bool else v for k, v in params.items()}
+
+
 class BaseAPIClient(metaclass=AbstractSingleton):
     @property
     @abstractmethod
@@ -67,7 +72,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
             response = self.requests_session.get(
                 url,
                 headers=self._make_headers(headers),
-                params=params if params else {},
+                params=prepare_params(params if params else {}),
             )
         except Exception as error:
             raise error
@@ -87,7 +92,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
             url,
             json=json,
             headers=self._make_headers(headers),
-            params=params if params else {},
+            params=prepare_params(params if params else {}),
             files=files,
             data=data,
         )
@@ -106,7 +111,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
             url,
             json=json,
             headers=self._make_headers(headers),
-            params=params if params else {},
+            params=prepare_params(params if params else {}),
             files=files,
         )
         return self._parse_response(response, raw=raw)
@@ -115,7 +120,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         response = self.requests_session.delete(
             url,
             headers=self._make_headers(headers),
-            params=params if params else {},
+            params=prepare_params(params if params else {}),
         )
         try:
             if response.ok:

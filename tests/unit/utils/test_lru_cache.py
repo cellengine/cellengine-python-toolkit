@@ -52,7 +52,8 @@ def test_lru_cache_paths(ENDPOINT_BASE, client, experiments):
     client.get_experiment(name="test_experiment")
     assert (
         responses.calls[0].request.url
-        == ENDPOINT_BASE + "/experiments?query=eq(name,%22test_experiment%22)&limit=2"
+        == ENDPOINT_BASE
+        + "/experiments?query=eq%28name%2C%22test_experiment%22%29&limit=2"
     )
 
     responses.add(responses.GET, ENDPOINT_BASE + "/experiments", json=experiments[0])
