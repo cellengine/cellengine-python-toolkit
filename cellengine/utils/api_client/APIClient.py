@@ -559,7 +559,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def get_population(
         self, experiment_id, _id=None, name=None, as_dict=False
-    ) -> Union[Population, Dict[str, Any]]:
+    ) -> Population:
         _id = _id or self._get_id_by_name(name, "populations", experiment_id)
         population = self._get(
             f"{self.base_url}/experiments/{experiment_id}/populations/{_id}"
