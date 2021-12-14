@@ -8,9 +8,12 @@ from cellengine.resources.population import Population
 EXP_ID = "5d38a6f79fae87499999a74b"
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def population(client, populations):
-    return Population.from_dict(populations[0])
+    pop = populations[0]
+    if "uniqueName" in pop.keys():
+        pop.pop("uniqueName")
+    return Population.from_dict(pop)
 
 
 def population_tester(population):
@@ -28,7 +31,18 @@ def population_tester(population):
 
 
 @responses.activate
-def test_should_get_population(ENDPOINT_BASE, population, populations):
+def test_client_gets_population(client, ENDPOINT_BASE, population, populations):
+    responses.add(
+        responses.GET,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/populations/{population._id}",
+        json=populations[0],
+    )
+    pop = client.get_population(EXP_ID, population._id)
+    population_tester(pop)
+
+
+@responses.activate
+def test_population_gets_population(client, ENDPOINT_BASE, population, populations):
     responses.add(
         responses.GET,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/populations/{population._id}",
@@ -39,14 +53,25 @@ def test_should_get_population(ENDPOINT_BASE, population, populations):
 
 
 @responses.activate
-def test_should_post_population(ENDPOINT_BASE, population, populations):
+def test_get_populations_returns_unique_name(client, ENDPOINT_BASE, populations):
+    responses.add(
+        responses.GET,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/populations",
+        json=populations,
+    )
+    pops = client.get_populations(EXP_ID)
+    assert all([pop.unique_name for pop in pops])
+
+
+@responses.activate
+def test_should_post_population(client, ENDPOINT_BASE, population, populations):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/populations",
         json=populations[0],
     )
     payload = populations[0].copy()
-    pop = Population.create(EXP_ID, payload)
+    pop = client.post_population(EXP_ID, payload)
     population_tester(pop)
 
 
