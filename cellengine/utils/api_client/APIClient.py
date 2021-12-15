@@ -296,10 +296,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return experiment
         return Experiment.from_dict(experiment)
 
-    def clone_experiment(self, _id, name=None, as_dict=False) -> Experiment:
-        experiment = self._post(
-            f"{self.base_url}/experiments/{_id}/clone", json={"name": name}
-        )
+    def clone_experiment(
+        self, _id, props: Dict[str, Any] = None, as_dict=False
+    ) -> Experiment:
+        experiment = self._post(f"{self.base_url}/experiments/{_id}/clone", json=props)
         if as_dict:
             return experiment
         return Experiment.from_dict(experiment)

@@ -177,19 +177,21 @@ class Experiment(DataClassMixin):
         res = ce.APIClient().update_experiment(self._id, self.to_dict())
         self.__dict__.update(Experiment.from_dict(res).__dict__)
 
-    def clone(self, name: str = None):
+    def clone(self, props: Optional[Dict[str, Any]] = None):
         """
         Saves a deep copy of the experiment and all of its resources, including
         attachments, FCS files, gates and populations.
 
         Args:
-            name: The name to give the new experiment. Defaults to
-                "[Original Experiment]-1"
+            props (Dict[str, Any]): Optional keys are:
+                name (str): The name to give the new experiment. Defaults to
+                    "[Original Experiment]-1"
+                path (List[str]): Array of folder IDs comprising the path.
 
         Returns:
             Experiment: A deep copy of the experiment.
         """
-        return ce.APIClient().clone_experiment(self._id, name=name)
+        return ce.APIClient().clone_experiment(self._id, props)
 
     @property
     def delete(self):

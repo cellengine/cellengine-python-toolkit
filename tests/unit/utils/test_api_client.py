@@ -291,3 +291,29 @@ def test_should_get_statistics(client, ENDPOINT_BASE, statistics):
         population_ids="some population id",
     )
     assert set(expected_query_body) == set(json.loads(responses.calls[0].request.body))
+
+
+@responses.activate
+def test_clone_experiment_with_no_name_sends_no_body(
+    client, ENDPOINT_BASE, experiments
+):
+    responses.add(
+        responses.POST,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/clone",
+        json=experiments[0],
+    )
+
+    client.clone_experiment(EXP_ID)
+    assert responses.calls[0].request.body is None
+
+
+@responses.activate
+def test_clone_experiment_send_correct_body(client, ENDPOINT_BASE, experiments):
+    responses.add(
+        responses.POST,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/clone",
+        json=experiments[0],
+    )
+
+    client.clone_experiment(EXP_ID, props={"name": "new exp name"})
+    assert responses.calls[0].request.body == b'{"name": "new exp name"}'
