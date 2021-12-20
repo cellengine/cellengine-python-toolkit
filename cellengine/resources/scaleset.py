@@ -1,15 +1,16 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Dict, Union
+from typing import Dict, Union, overload
+from typing_extensions import Literal
 
 from dataclasses_json.cfg import config
 from pandas import DataFrame
 
 import cellengine as ce
-from cellengine.utils.scale_utils import apply_scale
-from cellengine.utils.scale_utils import ScaleDict
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
+from cellengine.utils.scale_utils import apply_scale
+from cellengine.utils.scale_utils import ScaleDict
 
 
 def encode_json_scale(scales):
@@ -53,7 +54,21 @@ class ScaleSet(DataClassMixin):
             res = res["scaleSet"]
         self.__dict__.update(ScaleSet.from_dict(res).__dict__)
 
-    def apply(self, file, clamp_q=False, in_place=True):
+    # fmt: off
+    @overload
+    def apply(
+        self, file: FcsFile, clamp_q: bool = False, in_place: Literal[True] = True
+    ) -> None: ...
+
+    @overload
+    def apply(
+        self, file: FcsFile, clamp_q: bool = False, in_place: Literal[False] = False
+    ) -> DataFrame: ...
+    # fmt: on
+
+    def apply(
+        self, file: Union[FcsFile, str], clamp_q: bool = False, in_place: bool = True
+    ):
         """Apply the scaleset to a file.
 
         Args:
@@ -64,7 +79,7 @@ class ScaleSet(DataClassMixin):
             in_place (bool): If True, updates the FcsFile.events; if
                 False, returns a DataFrame
         """
-        if type(file) is not FcsFile:
+        if isinstance(file, str):
             file = FcsFile.get(file)
 
         data = file.events
@@ -76,6 +91,8 @@ class ScaleSet(DataClassMixin):
                     lambda a: apply_scale(scale, a, clamp_q)
                 )
         if in_place:
-            file.events = dest
+            file.events.update(dest)
         else:
-            return dest
+            copy = data.copy()
+            copy.update(dest)
+            return copy
