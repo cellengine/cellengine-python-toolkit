@@ -328,8 +328,59 @@ def test_should_only_apply_channels_that_exist_on_an_fcsfile(
     data = file.events
     assert all(data["Time"] == [10, 7, 1.2, 9, 40])
     assert all(data["Light"] == [0, 1, 9.4, 100, 1])
+    assert len(data.columns == 2)
 
     # Then: scales should be correctly applied
     output = scaleset.apply(file, clamp_q=True, in_place=False)
     assert all(output["Time"] == [10.0, 7.0, 5.0, 9.0, 10.0])
     assert all(output["Light"] == [5.0, 5.0, 9.4, 100.0, 5.0])
+    assert "ExtraneousScale" not in output.columns
+
+
+@mock.patch(
+    "cellengine.resources.fcs_file.FcsFile.events", new_callable=mock.PropertyMock
+)
+def test_applies_existing_scales_and_returns_all_events(
+    fcs_events_mock, ENDPOINT_BASE, client, fcs_files
+):
+    # Given:
+    fcs_events_mock.return_value = DataFrame(
+        {
+            "Light": [0, 1, 9.4, 100, 1],
+            "ExtraneousScale": [0, 1, 2, 3, 4],
+        }
+    )
+
+    file = FcsFile.from_dict(fcs_files[0])
+
+    # When:
+
+    scaleset = ScaleSet.from_dict(
+        {
+            "_id": SCALESET_ID,
+            "experimentId": EXP_ID,
+            "name": "test",
+            "scales": [
+                {
+                    "channelName": "Time",
+                    "scale": {"maximum": 10, "minimum": 5, "type": "LinearScale"},
+                },
+                {
+                    "channelName": "Light",
+                    "scale": {"maximum": 100, "minimum": 5, "type": "LinearScale"},
+                },
+            ],
+        }
+    )
+
+    data = file.events
+    assert all(data["Light"] == [0, 1, 9.4, 100, 1])
+    assert all(data["ExtraneousScale"] == [0, 1, 2, 3, 4])
+    assert len(data.columns) == 2
+
+    # Then: scales should be correctly applied
+    output = scaleset.apply(file, clamp_q=True, in_place=False)
+    assert all(output["Light"] == [5.0, 5.0, 9.4, 100.0, 5.0])  # changed
+    assert all(output["ExtraneousScale"] == [0, 1, 2, 3, 4])  # unchanged
+    assert len(output.columns) == 2
+    assert data.columns.equals(output.columns)
