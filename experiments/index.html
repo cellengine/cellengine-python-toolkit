@@ -1351,7 +1351,7 @@ cellengine.resources.experiment.Experiment            (<span title="cellengine.u
 
     <div class="doc doc-contents first">
 
-      <p>Experiment(name: 'str', annotation_validators: 'Dict[Any, Any]', annotation_name_order: 'List[str]', annotation_table_sort_columns: 'List[Union[str, int]]', _comments: 'List[Dict[str, Any]]', primary_researcher: 'Dict[str, Any]', sorting_spec: 'Dict[Any, Any]', tags: 'List[str]', created: 'datetime' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad45167090>, updated: 'datetime' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad4517afd0>, _active_comp: 'Optional[Union[int, str, Compensation]]' = None, data: 'Optional[Dict[Any, Any]]' = None, deleted: 'Optional[datetime]' = None, deep_updated: 'datetime' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faaad0>, analysis_source_experiment: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faac10>, clone_source_experiment: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faae10>, locked: 'bool' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faae50>, permissions: 'List[Dict[Any, Any]]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faae90>, per_file_compensations_enabled: 'Optional[bool]' = None, retention_policy: 'Dict[str, Any]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faaed0>, revision_source_experiment: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faaf90>, _id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad44faaf50>, revisions: 'List[Dict[str, Any]]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad4482b5d0>, uploader: 'Dict[str, Any]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fad4483cc10>)</p>
+      <p>Experiment(name: 'str', annotation_validators: 'Dict[Any, Any]', annotation_name_order: 'List[str]', annotation_table_sort_columns: 'List[Union[str, int]]', _comments: 'List[Dict[str, Any]]', primary_researcher: 'Dict[str, Any]', sorting_spec: 'Dict[Any, Any]', tags: 'List[str]', created: 'datetime' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f565fd0>, updated: 'datetime' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f4d4050>, _active_comp: 'Optional[Union[int, str, Compensation]]' = None, data: 'Optional[Dict[Any, Any]]' = None, deleted: 'Optional[datetime]' = None, deep_updated: 'datetime' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f2f4c10>, analysis_source_experiment: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f2f4cd0>, clone_source_experiment: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f2f4e50>, locked: 'bool' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f2f4e90>, permissions: 'List[Dict[Any, Any]]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f2f4ed0>, per_file_compensations_enabled: 'Optional[bool]' = None, retention_policy: 'Dict[str, Any]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f2f4f90>, revision_source_experiment: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f2f4f50>, _id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590eb76590>, revisions: 'List[Dict[str, Any]]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590f173990>, uploader: 'Dict[str, Any]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f590eb84e50>)</p>
 
 
 
@@ -2047,7 +2047,7 @@ dict = {"insert": "some text",
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.clone">
-<code class="codehilite language-python"><span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">props</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
 </h3>
@@ -2069,10 +2069,12 @@ attachments, FCS files, gates and populations.</p>
   </thead>
   <tbody>
       <tr>
-        <td><code>name</code></td>
-        <td><code>str</code></td>
-        <td><p>The name to give the new experiment. Defaults to
-"[Original Experiment]-1"</p></td>
+        <td><code>props</code></td>
+        <td><code>Dict[str, Any]</code></td>
+        <td><p>Optional keys are:
+name (str): The name to give the new experiment. Defaults to
+    "[Original Experiment]-1"
+path (List[str]): Array of folder IDs comprising the path.</p></td>
         <td><code>None</code></td>
       </tr>
   </tbody>
