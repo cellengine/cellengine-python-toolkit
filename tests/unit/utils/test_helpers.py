@@ -9,7 +9,7 @@ def test_alter_keys_converts_dict_to_camel_case():
         "fcsFile": "baz",
     }
     r = alter_keys(d, to_camel_case)
-    assert {"_id", "experimentId", "fcsFile"} <= r.keys()
+    assert {"_id", "experimentId", "fcsFile"} == r.keys()
 
 
 def test_alter_keys_converts_nested_dict_to_camel_case():
@@ -23,8 +23,8 @@ def test_alter_keys_converts_nested_dict_to_camel_case():
         },
     }
     r = alter_keys(d, to_camel_case)
-    assert {"_id", "experimentId", "fcsFile"} <= r.keys()
-    assert {"_id", "experimentId", "fcsFile"} <= r["fcsFile"].keys()
+    assert {"_id", "experimentId", "fcsFile"} == r.keys()
+    assert {"_id", "experimentId", "fcsFile"} == r["fcsFile"].keys()
 
 
 def test_alter_keys_converts_list_of_dicts_to_camel_case():
@@ -41,7 +41,7 @@ def test_alter_keys_converts_list_of_dicts_to_camel_case():
         },
     ]
     r = alter_keys(d, to_camel_case)
-    assert {"_id", "experimentId", "fcsFile"} <= r[0].keys()
+    assert {"_id", "experimentId", "fcsFile"} == r[0].keys()
 
 
 params = [

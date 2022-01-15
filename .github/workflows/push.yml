@@ -46,6 +46,9 @@ jobs:
           pip install pytest
           pip install pytest-cov
           python -m pytest --cov=./ --cov-report=xml
+        env:
+          S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY}}
+          S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY}}
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from cellengine.utils.helpers import is_valid_id
 from cellengine.utils.parse_fcs_file import parse_fcs_file
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
@@ -102,7 +103,7 @@ class FcsFile(DataClassMixin):
     def create(
         cls,
         experiment_id: str,
-        fcs_files: List[str],
+        fcs_files: Union[str, List[str], Dict[str, str]],
         filename: str = None,
         add_file_number: bool = False,
         add_event_number: bool = False,
@@ -110,17 +111,57 @@ class FcsFile(DataClassMixin):
         pre_subsample_p: float = None,
         seed: int = None,
     ) -> FcsFile:
-        """Creates an FCS file by copying, concatenating and/or subsampling
-        existing file(s) from this or other experiments.
+        """Creates an FCS file by copying, concatenating and/or
+        subsampling existing file(s) from this or other experiments, or by
+        importing from an S3-compatible service. This endpoint can be used to
+        import files from other experiments.
 
-        This endpoint can be used to import files from other experiments.
+        When concatenating and subsampling at the same time, subsampling is
+        applied to each file before concatenating.
+
+        If addFileNumber is true, a file number column (channel) will be added to the
+        output file indicating which file each event (cell) came from. The values in
+        this column have a uniform random spread (±0.25 of the integer value) to ease
+        visualization. While this column can be useful for analysis, it will cause the
+        experiment to have FCS files with different panels unless all FCS files that
+        have not been concatenated are deleted.
+
+        During concatenation, any FCS header parameters that do not match
+        between files will be removed, with some exceptions:
+
+            - $BTIM (clock time at beginning of acquisition) and $DATE will be
+            set to the earliest value among the input files.
+            - $ETIM (clock time at end of acquisition) will be set to the latest value
+            among the input files.
+            - $PnR (range for parameter n) will be set to
+            the highest value among the input files.
+
+        All channels present in the first FCS file in the fcsFiles parameter
+        must also be present in the other FCS files.
+
+        When importing from an S3-compatible service, be aware of the
+        following:
+
+            - Only a single file can be imported at a time.
+            - The host property must include the bucket and region as
+              applicable. For example, for AWS, this would look like
+              mybucket.s3.us-east-2.amazonaws.com.
+            - The path property must specify the full path to the object, e.g.
+              /Study001/Specimen01.fcs.
+            - Importing private S3 objects requires an accessKey and a
+              secretKey for a user with appropriate permissions. For AWS,
+              GetObject is required.
+            - Importing objects may incur fees from the S3 service provider.
 
         Args:
             experiment_id: ID of the experiment to which the file belongs
             fcs_files: ID of file or list of IDs of files or objects to process.
                 If more than one file is provided, they will be concatenated in
                 order. To import files from other experiments, pass a list of dicts
-                with _id and experimentId properties.
+                with _id and experimentId properties. To import a file from an
+                S3-compatible service, provide a Dict with keys "host" and
+                "path"; if the S3 object is private, additionally provide
+                "access_key" and "secret_key".
             filename (optional): Rename the uploaded file.
             add_file_number (optional): If
                 concatenating files, adds a file number channel to the
@@ -142,10 +183,17 @@ class FcsFile(DataClassMixin):
         """
 
         def _parse_fcs_file_args(args):
-            if type(args) is list:
+            if type(args) is list and all(is_valid_id(arg) for arg in args):
                 return args
-            else:
+            elif type(args) is dict:
+                if {"host", "path"} <= args.keys():
+                    return [args]
+                if {"_id", "experiment_id"} <= args.keys():
+                    return [args]
+            elif type(args) is str and is_valid_id(args):
                 return [args]
+            else:
+                raise ValueError("Invalid parameters for 'fcs_file'.")
 
         body = {"fcsFiles": _parse_fcs_file_args(fcs_files), "filename": filename}
         optional_params = {
@@ -179,7 +227,7 @@ class FcsFile(DataClassMixin):
         population_id: str = None,
         **kwargs,
     ) -> Plot:
-        """Buid a plot for an FcsFile.
+        """Build a plot for an FcsFile.
 
         See [`Plot.get`][cellengine.resources.plot.Plot.get] for more information.
         """
