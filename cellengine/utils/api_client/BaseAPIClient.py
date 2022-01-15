@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import abstractmethod
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 import requests
 from requests import Response
@@ -8,6 +8,7 @@ from requests.sessions import HTTPAdapter
 
 from cellengine import __version__ as CEV
 from cellengine.utils.api_client.APIError import APIError
+from cellengine.utils.helpers import alter_keys, to_camel_case
 from cellengine.utils.singleton import AbstractSingleton
 
 
@@ -81,16 +82,16 @@ class BaseAPIClient(metaclass=AbstractSingleton):
     def _post(
         self,
         url,
-        json: Union[Dict[Any, Any], List[Dict[Any, Any]]] = None,
-        params: Dict = None,
-        headers: Dict = None,
-        files: Dict = None,
+        json: Optional[Union[Dict, List[Dict]]] = None,
+        params: Optional[Dict] = None,
+        headers: Optional[Dict] = None,
+        files: Optional[Dict] = None,
         data=None,
         raw=False,
     ) -> Any:
         response = self.requests_session.post(
             url,
-            json=json,
+            json=alter_keys(json, to_camel_case) if json else None,
             headers=self._make_headers(headers),
             params=prepare_params(params if params else {}),
             files=files,
@@ -109,7 +110,7 @@ class BaseAPIClient(metaclass=AbstractSingleton):
     ):
         response = self.requests_session.patch(
             url,
-            json=json,
+            json=alter_keys(json, to_camel_case) if json else None,
             headers=self._make_headers(headers),
             params=prepare_params(params if params else {}),
             files=files,
