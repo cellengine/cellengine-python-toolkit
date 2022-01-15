@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from typing import Any, Dict, List, Union
 
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
@@ -23,6 +24,24 @@ def to_camel_case(snake_str: str) -> str:
         return snake_str
     components = snake_str.split("_")
     return components[0] + "".join(x.title() for x in components[1:])
+
+
+def alter_keys(payload: Union[Dict[Any, Any], List[Dict[Any, Any]]], func):
+    """Apply `func` to alter the keys of a dict or list of dicts."""
+    empty = {}
+    if isinstance(payload, list):
+        return [alter_keys(p, func) for p in payload]
+    elif type(payload) is dict:
+        for k, v in payload.items():
+            if isinstance(v, dict):
+                empty[func(k)] = alter_keys(v, func)
+            elif isinstance(v, list):
+                empty[func(k)] = [alter_keys(p, func) for p in v]
+            else:
+                empty[func(k)] = v
+        return empty
+    else:
+        return payload
 
 
 def get_args_as_kwargs(cls_context, locals):
