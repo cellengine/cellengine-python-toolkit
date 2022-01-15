@@ -1,4 +1,5 @@
 import pytest
+import json
 import requests
 import responses
 
@@ -50,10 +51,26 @@ def test_should_post(client):
 
 
 @responses.activate
+def test_should_post_params_as_camel_case(client):
+    body = {"some_param": "body"}
+    responses.add(responses.POST, BASE_URL + "test", json=body)
+    client._post("http://fake/test", body)
+    assert json.loads(responses.calls[0].request.body) == {"someParam": "body"}  # type: ignore
+
+
+@responses.activate
 def test_should_patch(client):
     body = {"some": "body"}
     responses.add(responses.PATCH, BASE_URL + "test", json=body)
     assert client._patch("http://fake/test", body) == {"some": "body"}
+
+
+@responses.activate
+def test_should_patch_params_as_camel_case(client):
+    body = {"some_param": "body"}
+    responses.add(responses.PATCH, BASE_URL + "test", json=body)
+    client._patch("http://fake/test", body)
+    assert json.loads(responses.calls[0].request.body) == {"someParam": "body"}  # type: ignore
 
 
 @responses.activate
