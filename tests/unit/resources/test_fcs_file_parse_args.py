@@ -38,14 +38,37 @@ def test_should_create_fcs_file(ENDPOINT_BASE, client, fcs_files):
 
 
 params = [
+    # (request, expected response)
     (FCSFILE_ID, [FCSFILE_ID]),
     ([FCSFILE_ID], [FCSFILE_ID]),
     (
-        ["fcs_file_id_1", "fcs_file_id_2", "fcs_file_id_3"],
-        ["fcs_file_id_1", "fcs_file_id_2", "fcs_file_id_3"],
+        [
+            "5d64abe2ca9df61349ed8e7a",
+            "5d64abe2ca9df61349ed8e7b",
+            "5d64abe2ca9df61349ed8e7c",
+        ],
+        [
+            "5d64abe2ca9df61349ed8e7a",
+            "5d64abe2ca9df61349ed8e7b",
+            "5d64abe2ca9df61349ed8e7c",
+        ],
     ),
-    ({EXP_ID: FCSFILE_ID}, [{EXP_ID: FCSFILE_ID}]),
-    ([{EXP_ID: FCSFILE_ID}], [{EXP_ID: FCSFILE_ID}]),
+    (
+        {"experiment_id": EXP_ID, "_id": FCSFILE_ID},
+        [{"experimentId": EXP_ID, "_id": FCSFILE_ID}],
+    ),
+    (
+        {
+            "host": "ce-test-s3-a.s3.us-east-2.amazonaws.com",
+            "path": "/Specimen_001_A6_A06.fcs",
+        },
+        [
+            {
+                "host": "ce-test-s3-a.s3.us-east-2.amazonaws.com",
+                "path": "/Specimen_001_A6_A06.fcs",
+            }
+        ],
+    ),
 ]
 
 

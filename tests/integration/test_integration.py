@@ -1,3 +1,4 @@
+import os
 import pytest
 import pandas
 
@@ -18,7 +19,9 @@ from cellengine.utils.complex_population_builder import ComplexPopulationBuilder
 
 @pytest.fixture(scope="module")
 def client():
-    return cellengine.APIClient("gegnew", "testpass123")
+    username = os.environ.get("CELLENGINE_USERNAME", "gegnew")
+    password = os.environ.get("CELLENGINE_PASSWORD", "testpass1")
+    return cellengine.APIClient(username=username, password=password)
 
 
 @pytest.fixture(scope="module")
@@ -255,3 +258,20 @@ def test_experiment_populations(setup_experiment, client):
     # DELETE
     complex_pop.delete()
     assert "complex pop" not in [p.name for p in experiment.populations]
+
+
+def test_create_new_fcsfile_from_s3(setup_experiment, client):
+    experiment = client.get_experiment(name="new_experiment")
+    s3_dict = {
+        "host": "ce-test-s3-a.s3.us-east-2.amazonaws.com",
+        "path": "/Specimen_001_A6_A06.fcs",
+        "access_key": os.environ.get("S3_ACCESS_KEY"),
+        "secret_key": os.environ.get("S3_SECRET_KEY"),
+    }
+
+    file = FcsFile.create(
+        experiment._id,
+        s3_dict,
+        "new name",
+    )
+    assert file.size == 22625

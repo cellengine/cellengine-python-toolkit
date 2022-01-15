@@ -7,6 +7,7 @@ from io import BufferedReader, BytesIO
 
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
+from cellengine.utils.helpers import to_camel_case
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -159,3 +160,52 @@ def test_get_events_save_kwargs(ENDPOINT_BASE, client, fcs_files):
 
     # Then:
     assert file._events_kwargs == {"compensatedQ": False, "seed": 10}
+
+
+@responses.activate
+def test_create_from_s3(ENDPOINT_BASE, client, fcs_files):
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
+        json=fcs_files[1],
+    )
+
+    s3_dict = {
+        "host": "ce-test-s3-a.s3.us-east-2.amazonaws.com",
+        "path": "/Specimen_001_A6_A06.fcs",
+        "access_key": os.environ.get("S3_ACCESS_KEY"),
+        "secret_key": os.environ.get("S3_SECRET_KEY"),
+    }
+
+    FcsFile.create(
+        EXP_ID,
+        s3_dict,
+        "new name",
+    )
+    payload = json.loads(responses.calls[0].request.body)["fcsFiles"][0]  # type: ignore
+
+    assert {"host", "path", "accessKey", "secretKey"} <= payload.keys()
+    assert payload == {to_camel_case(k): v for k, v in s3_dict.items()}
+
+
+@responses.activate
+def test_create_from_another_experiment(ENDPOINT_BASE, client, fcs_files):
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
+        json=fcs_files[1],
+    )
+
+    file_dict = {
+        "_id": fcs_files[1]["_id"],
+        "experiment_id": EXP_ID,
+    }
+
+    FcsFile.create(
+        EXP_ID,
+        file_dict,
+        "new name",
+    )
+    payload = json.loads(responses.calls[0].request.body)  # type: ignore
+
+    assert {"_id", "experimentId"} <= payload["fcsFiles"][0].keys()
