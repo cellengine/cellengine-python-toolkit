@@ -1,12 +1,14 @@
-import os
+from io import BufferedReader, BytesIO
 import json
+import os
+
 from fcsparser.api import FCSParser
 from pandas.core.frame import DataFrame
+import pytest
 import responses
-from io import BufferedReader, BytesIO
 
-from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.compensation import Compensation
+from cellengine.resources.fcs_file import FcsFile
 from cellengine.utils.helpers import to_camel_case
 
 
@@ -78,6 +80,32 @@ def test_gets_file_internal_compensation(ENDPOINT_BASE, client, fcs_files, spill
 
     # Then:
     assert type(comp) == Compensation
+
+
+@responses.activate
+def test_throws_correct_error_when_no_file_internal_compensation(
+    ENDPOINT_BASE, client, fcs_files
+):
+    # Given: An FcsFile with no spill string
+    expected_response = fcs_files[0].copy()
+    file_data = fcs_files[0].copy()
+    file_data["spillString"] = None
+    file_data["hasFileInternalComp"] = False
+    file = FcsFile.from_dict(file_data)
+    responses.add(
+        responses.GET,
+        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}",
+        json=expected_response,
+    )
+
+    # When:
+    with pytest.raises(ValueError) as err:
+        comp = file.get_file_internal_compensation()
+        # Then:
+    assert (
+        err.value.args[0]
+        == f"FCS File '{file._id}' does not have an internal compensation."
+    )
 
 
 def test_parse_fcs_file():
