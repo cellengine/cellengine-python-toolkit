@@ -320,9 +320,29 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return fcs_files
         return [FcsFile.from_dict(fcs_file) for fcs_file in fcs_files]
 
+    # fmt: off
+    @overload
     def get_fcs_file(
-        self, experiment_id, _id=None, name=None, as_dict=False
-    ) -> FcsFile:
+        self,
+        experiment_id: str,
+        _id: str = None,
+        name: str = None,
+        as_dict: bool = True,
+    ) -> Dict[str, Any]: ...
+
+    @overload
+    def get_fcs_file(
+        self,
+        experiment_id: str,
+        _id: str = None,
+        name: str = None,
+        as_dict: bool = False,
+    ) -> FcsFile: ...
+    # fmt: on
+
+    def get_fcs_file(
+        self, experiment_id: str, _id: str = None, name: str = None, as_dict=False
+    ):
         _id = _id or self._get_id_by_name(name, "fcsfiles", experiment_id)
         fcs_file = self._get(
             f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{_id}"

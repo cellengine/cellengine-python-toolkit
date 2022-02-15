@@ -36,7 +36,8 @@ class FcsFile(DataClassMixin):
     sample_name: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
     size: int = field(default=ReadOnly())  # type: ignore
     _spill_string: Optional[str] = field(
-        metadata=config(field_name="spillString"), default=None
+        metadata=config(field_name="spillString"),
+        default=None,
     )
 
     def __repr__(self):
@@ -245,7 +246,11 @@ class FcsFile(DataClassMixin):
 
     def get_file_internal_compensation(self) -> Compensation:
         """Get the file-internal Compensation."""
-        return Compensation.from_spill_string(self.spill_string)
+        if not self.has_file_internal_comp:
+            raise ValueError(
+                f"FCS File '{self._id}' does not have an internal compensation."
+            )
+        return Compensation.from_spill_string(self.spill_string)  # type: ignore
 
     @property
     def events(self):
@@ -271,12 +276,11 @@ class FcsFile(DataClassMixin):
 
     @property
     def spill_string(self):
-        if self._spill_string:
-            return self._spill_string
-        else:
-            ss = ce.APIClient().get_fcs_file(self.experiment_id, self._id).spill_string
-            self._spill_string = ss
-            return ss
+        if not self._spill_string and self.has_file_internal_comp:
+            self._spill_string = ce.APIClient().get_fcs_file(
+                self.experiment_id, self._id, as_dict=True
+            )["spillString"]
+        return self._spill_string
 
     def get_events(
         self, inplace: bool = False, destination=None, **kwargs
