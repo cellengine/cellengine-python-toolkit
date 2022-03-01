@@ -969,7 +969,7 @@ cellengine.resources.fcs_file.FcsFile            (<span title="cellengine.utils.
 
     <div class="doc doc-contents first">
 
-      <p>FcsFile(filename: 'str', gates_locked: 'str', panel_name: 'str', deleted: 'Optional[bool]', panel: 'List[Dict[str, Any]]', _id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fc19cd0>, compensation: 'Optional[int]' = None, is_control: 'Optional[bool]' = None, _annotations: 'Optional[List[str]]' = None, crc32c: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fc19e90>, event_count: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fbb9690>, experiment_id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f2571226910>, has_file_internal_comp: 'bool' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fc32ad0>, header: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fc32a90>, md5: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fc32890>, sample_name: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fc32790>, size: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f256fc32b10>, _spill_string: 'Optional[str]' = None)</p>
+      <p>FcsFile(filename: 'str', gates_locked: 'str', panel_name: 'str', deleted: 'Optional[bool]', panel: 'List[Dict[str, Any]]', _id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3ae8d0>, compensation: 'Optional[int]' = None, is_control: 'Optional[bool]' = None, _annotations: 'Optional[List[str]]' = None, crc32c: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3aea90>, event_count: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d359390>, experiment_id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3c9750>, has_file_internal_comp: 'bool' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3c9710>, header: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3c9510>, md5: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3c9410>, sample_name: 'Optional[str]' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3c9790>, size: 'int' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7f408d3c9a50>, _spill_string: 'Optional[str]' = None)</p>
 
 
 
@@ -1436,9 +1436,43 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Creates an FCS file by copying, concatenating and/or subsampling
-existing file(s) from this or other experiments.</p>
-<p>This endpoint can be used to import files from other experiments.</p>
+      <p>Creates an FCS file by copying, concatenating and/or
+subsampling existing file(s) from this or other experiments, or by
+importing from an S3-compatible service. This endpoint can be used to
+import files from other experiments.</p>
+<p>When concatenating and subsampling at the same time, subsampling is
+applied to each file before concatenating.</p>
+<p>If addFileNumber is true, a file number column (channel) will be added to the
+output file indicating which file each event (cell) came from. The values in
+this column have a uniform random spread (±0.25 of the integer value) to ease
+visualization. While this column can be useful for analysis, it will cause the
+experiment to have FCS files with different panels unless all FCS files that
+have not been concatenated are deleted.</p>
+<p>During concatenation, any FCS header parameters that do not match
+between files will be removed, with some exceptions:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">-</span> <span class="mh">$B</span><span class="nv">TIM</span> <span class="ss">(</span><span class="nv">clock</span> <span class="nv">time</span> <span class="nv">at</span> <span class="nv">beginning</span> <span class="nv">of</span> <span class="nv">acquisition</span><span class="ss">)</span> <span class="nv">and</span> <span class="mh">$DA</span><span class="nv">TE</span> <span class="nv">will</span> <span class="nv">be</span>
+<span class="nv">set</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">earliest</span> <span class="nv">value</span> <span class="nv">among</span> <span class="nv">the</span> <span class="nv">input</span> <span class="nv">files</span>.
+<span class="o">-</span> <span class="mh">$E</span><span class="nv">TIM</span> <span class="ss">(</span><span class="nv">clock</span> <span class="nv">time</span> <span class="nv">at</span> <span class="k">end</span> <span class="nv">of</span> <span class="nv">acquisition</span><span class="ss">)</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">set</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">latest</span> <span class="nv">value</span>
+<span class="nv">among</span> <span class="nv">the</span> <span class="nv">input</span> <span class="nv">files</span>.
+<span class="o">-</span> $<span class="nv">PnR</span> <span class="ss">(</span><span class="nv">range</span> <span class="k">for</span> <span class="nv">parameter</span> <span class="nv">n</span><span class="ss">)</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">set</span> <span class="nv">to</span>
+<span class="nv">the</span> <span class="nv">highest</span> <span class="nv">value</span> <span class="nv">among</span> <span class="nv">the</span> <span class="nv">input</span> <span class="nv">files</span>.
+</code></pre></div>
+
+<p>All channels present in the first FCS file in the fcsFiles parameter
+must also be present in the other FCS files.</p>
+<p>When importing from an S3-compatible service, be aware of the
+following:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">-</span><span class="w"> </span><span class="n">Only</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">imported</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kt">time</span><span class="p">.</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">host</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">bucket</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">as</span><span class="w"></span>
+<span class="w">  </span><span class="n">applicable</span><span class="p">.</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">example</span><span class="p">,</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">AWS</span><span class="p">,</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">look</span><span class="w"> </span><span class="n">like</span><span class="w"></span>
+<span class="w">  </span><span class="n">mybucket</span><span class="p">.</span><span class="n">s3</span><span class="p">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">2.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="k">specify</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="w"></span>
+<span class="w">  </span><span class="o">/</span><span class="n">Study001</span><span class="o">/</span><span class="n">Specimen01</span><span class="p">.</span><span class="n">fcs</span><span class="p">.</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="n">Importing</span><span class="w"> </span><span class="n">private</span><span class="w"> </span><span class="n">S3</span><span class="w"> </span><span class="n">objects</span><span class="w"> </span><span class="n">requires</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">accessKey</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
+<span class="w">  </span><span class="n">secretKey</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">appropriate</span><span class="w"> </span><span class="n">permissions</span><span class="p">.</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">AWS</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">GetObject</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">required</span><span class="p">.</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="n">Importing</span><span class="w"> </span><span class="n">objects</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">incur</span><span class="w"> </span><span class="n">fees</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">S3</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">provider</span><span class="p">.</span><span class="w"></span>
+</code></pre></div>
 
 <p><strong>Parameters:</strong></p>
 <table>
@@ -1459,11 +1493,14 @@ existing file(s) from this or other experiments.</p>
       </tr>
       <tr>
         <td><code>fcs_files</code></td>
-        <td><code>List[str]</code></td>
+        <td><code>Union[str, List[str], Dict[str, str]]</code></td>
         <td><p>ID of file or list of IDs of files or objects to process.
 If more than one file is provided, they will be concatenated in
 order. To import files from other experiments, pass a list of dicts
-with _id and experimentId properties.</p></td>
+with _id and experimentId properties. To import a file from an
+S3-compatible service, provide a Dict with keys "host" and
+"path"; if the S3 object is private, additionally provide
+"access_key" and "secret_key".</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
@@ -1700,7 +1737,7 @@ If destination is a string, saves file to the destination and returns None.</p><
 
     <div class="doc doc-contents ">
 
-      <p>Buid a plot for an FcsFile.</p>
+      <p>Build a plot for an FcsFile.</p>
 <p>See <a href="../plots/#cellengine.resources.plot.Plot.get"><code>Plot.get</code></a> for more information.</p>
 
     </div>
