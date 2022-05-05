@@ -20,7 +20,7 @@ POPULATION_ID = "5d3903529fae87499999a780"
 STATISTICS_ID = "5d64abe2ca9df61349ed8e79"
 
 
-def test_all_experiment_properties(ENDPOINT_BASE, experiment):
+def test_all_experiment_properties(client, ENDPOINT_BASE, experiment):
     assert experiment._id == "5d38a6f79fae87499999a74b"
     assert experiment.name == "pytest_experiment"
     assert experiment.comments == [{"insert": "\xa0\xa0\xa0First 12 of 96 files\n\n"}]
@@ -77,6 +77,7 @@ list_params = [
 @responses.activate
 @pytest.mark.parametrize("entity,_type", list_params)
 def test_should_get_list_of_entities(
+    client,
     ENDPOINT_BASE,
     experiment,
     attachments,
@@ -118,6 +119,7 @@ get_params = [
 @responses.activate
 @pytest.mark.parametrize("entity,entity_id,get_func,_type", get_params)
 def test_get_one_entity(
+    client,
     ENDPOINT_BASE,
     experiment,
     attachments,
@@ -148,7 +150,7 @@ def test_get_one_entity(
 
 
 @responses.activate
-def test_get_statistics(ENDPOINT_BASE, experiment):
+def test_get_statistics(client, ENDPOINT_BASE, experiment):
     """Tests getting statistics for an experiment"""
     responses.add(
         responses.POST,
@@ -163,7 +165,7 @@ def test_get_statistics(ENDPOINT_BASE, experiment):
 
 
 @responses.activate
-def test_should_create_experiment(ENDPOINT_BASE, experiment):
+def test_should_create_experiment(client, ENDPOINT_BASE, experiment):
     """Tests updating experiment params"""
     response = experiment.to_dict().copy()
     response["name"] = "new_experiment"
@@ -179,7 +181,7 @@ def test_should_create_experiment(ENDPOINT_BASE, experiment):
 
 
 @responses.activate
-def test_update_experiment(ENDPOINT_BASE, experiment):
+def test_update_experiment(client, ENDPOINT_BASE, experiment):
     """Tests updating experiment params"""
     response = experiment.to_dict().copy()
     response.update({"name": "new name"})
