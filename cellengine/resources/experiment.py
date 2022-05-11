@@ -45,6 +45,9 @@ from cellengine.payloads.gate_utils import (
 
 @dataclass
 class Experiment(DataClassMixin):
+    """The main container for an analysis. Don't construct directly; use
+    [`Experiment.create`][cellengine.Experiment.create] or
+    [`Experiment.get`][cellengine.Experiment.get]."""
 
     name: str
     annotation_validators: Dict[Any, Any]
