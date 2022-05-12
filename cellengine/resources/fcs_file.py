@@ -283,12 +283,13 @@ class FcsFile(DataClassMixin):
         return self._spill_string
 
     def get_events(
-        self, inplace: bool = False, destination=None, **kwargs
+        self, inplace: bool = False, destination=None, **kwargs: Any
     ) -> Union[DataFrame, None]:
         """
         Fetch a DataFrame containing this file's data.
 
         Args:
+            inplace: bool
             **kwargs:
                 - compensatedQ (bool): If true, applies the compensation
                     specified in compensationId to the exported events.

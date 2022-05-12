@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Optional, TYPE_CHECKING, Tuple, cast
+from typing import List, Optional, TYPE_CHECKING, Tuple, Union, cast
 
 from attr import define, field
 from numpy import array, linalg
@@ -146,14 +146,16 @@ class Compensation:
         """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
-    def apply(self, file: FcsFile, inplace: bool = True, **kwargs):
+    def apply(
+        self, file: FcsFile, inplace: bool = True, **kwargs
+    ) -> Union[DataFrame, None]:
         """Compensate an FcsFile's data.
 
         Args:
             file (FcsFile): The FcsFile to compensate.
             inplace (bool): If True, modify the `FcsFile.events` with the result.
                 If False, return the compensated events.
-            kwargs (Dict):
+            **kwargs (Dict):
                 All arguments accepted by `FcsFile.get_events` are accepted here.
                 If the file's events have already been retrieved with the same
                 kwargs provided here, those stored events will be used.
