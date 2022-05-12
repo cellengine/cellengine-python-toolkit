@@ -428,6 +428,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.scaleset.ScaleSet._id" class="md-nav__link">
+    _id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.scaleset.ScaleSet.experiment_id" class="md-nav__link">
     experiment_id
   </a>
@@ -444,6 +451,13 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.scaleset.ScaleSet.scales" class="md-nav__link">
     scales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.scaleset.ScaleSet.__repr__" class="md-nav__link">
+    __repr__()
   </a>
   
 </li>
@@ -569,6 +583,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.scaleset.ScaleSet._id" class="md-nav__link">
+    _id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.scaleset.ScaleSet.experiment_id" class="md-nav__link">
     experiment_id
   </a>
@@ -585,6 +606,13 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.scaleset.ScaleSet.scales" class="md-nav__link">
     scales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.scaleset.ScaleSet.__repr__" class="md-nav__link">
+    __repr__()
   </a>
   
 </li>
@@ -660,20 +688,22 @@ otherwise noted.</p>
 
 
 <h2 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet">
-        <code>
-cellengine.resources.scaleset.ScaleSet            (<span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span>)
-        </code>
+          <code>cellengine.resources.scaleset.ScaleSet</code>
 
 
   <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-dataclass"><code>dataclass</code></small>
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
 
 </h2>
 
-    <div class="doc doc-contents first">
 
-      <p>ScaleSet(name: 'str', scales: "Dict['str', Dict[str, Union[str, int]]]", _id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fabd6ed6750>, experiment_id: 'str' = <cellengine.utils.dataclass_mixin.ReadOnly object at 0x7fabd6edbad0>)</p>
+    <div class="doc doc-contents first">
+        <p class="doc doc-class-bases">
+          Bases: <code><span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span></code></p>
+
+
+
 
 
 
@@ -689,14 +719,37 @@ cellengine.resources.scaleset.ScaleSet            (<span title="cellengine.utils
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.experiment_id">
-<code class="codehilite language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span></code>
+<h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet._id">
+<code class="codehilite language-python"><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;_id&#39;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
 
   <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
+
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.experiment_id">
+<code class="codehilite language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+  </span>
+
+</h3>
+
 
     <div class="doc doc-contents ">
 
@@ -714,10 +767,11 @@ cellengine.resources.scaleset.ScaleSet            (<span title="cellengine.utils
 <code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
 
   <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
+
 
     <div class="doc doc-contents ">
 
@@ -732,13 +786,14 @@ cellengine.resources.scaleset.ScaleSet            (<span title="cellengine.utils
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.scales">
-<code class="codehilite language-python"><span class="n">scales</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span></code>
+<code class="codehilite language-python"><span class="n">scales</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">encoder</span><span class="o">=</span><span class="n">encode_json_scale</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">decode_json_scale</span><span class="p">))</span></code>
 
   <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-dataclass-field"><code>dataclass-field</code></small>
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
+
 
     <div class="doc doc-contents ">
 
@@ -750,62 +805,95 @@ cellengine.resources.scaleset.ScaleSet            (<span title="cellengine.utils
 
 
 
+  <div class="doc doc-object doc-function">
 
-  <div class="doc doc-object doc-method">
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.__repr__">
+<code class="codehilite language-python"><span class="fm">__repr__</span><span class="p">()</span></code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.apply">
-<code class="codehilite language-python"><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">clamp_q</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">apply</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clamp_q</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 
 </h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Apply the scaleset to a file.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>file</code></td>
-        <td><code>_id or FcsFile</code></td>
-        <td><p>The file to which this scaleset will be
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>file</code></td>
+          <td>
+                <code>_id or FcsFile</code>
+          </td>
+          <td><p>The file to which this scaleset will be
 applied.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>clamp_q</code></td>
-        <td><code>bool</code></td>
-        <td><p>Clamp the output to the scale's minimum and maximum
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>clamp_q</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Clamp the output to the scale's minimum and maximum
 values.</p></td>
-        <td><code>False</code></td>
-      </tr>
-      <tr>
-        <td><code>in_place</code></td>
-        <td><code>bool</code></td>
-        <td><p>If True, updates the FcsFile.events; if
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>in_place</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>If True, updates the FcsFile.events; if
 False, returns a DataFrame</p></td>
-        <td><code>True</code></td>
-      </tr>
-  </tbody>
-</table>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
     </div>
 
   </div>
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
@@ -813,10 +901,11 @@ False, returns a DataFrame</p></td>
 <code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
   </span>
 
 </h3>
+
 
     <div class="doc doc-contents ">
 
@@ -827,15 +916,16 @@ False, returns a DataFrame</p></td>
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.update">
-<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">update</span><span class="p">()</span></code>
 
 
 </h3>
+
 
     <div class="doc doc-contents ">
 
