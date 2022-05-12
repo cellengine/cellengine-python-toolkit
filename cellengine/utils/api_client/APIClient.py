@@ -6,6 +6,7 @@ import os
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union, overload
 
 import pandas
+from pandas.core.frame import DataFrame
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 from cellengine.utils import converter
@@ -76,7 +77,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         else:
             return "Client(TOKEN)"
 
-    def _authenticate(self, username, password, token):
+    def _authenticate(
+        self, username: Optional[str], password: Optional[str], token: Optional[str]
+    ):
         """Authenticate with the CellEngine API.
 
         There are two ways of authenticating:
@@ -386,14 +389,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return FcsFile.from_dict(self._post(url, json=body))
 
     def download_fcs_file(
-        self, experiment_id: str, fcs_file_id: str, **kwargs
+        self, experiment_id: str, fcs_file_id: str, **kwargs: Any
     ) -> bytes:
         """Download events for a specific FcsFile
 
         Parameters:
             experiment_id (str): ID of the experiment
             fcs_file_id (str): ID of the FcsFile
-            kwargs:
+            **kwargs:
                 - compensatedQ (bool): If true, applies the compensation
                   specified in compensationId to the exported events. For
                   TSV format, the numerical values will be the compensated
@@ -624,7 +627,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         layout: Optional[str] = None,
         percent_of: Optional[Union[str, List[str]]] = "PARENT",
         population_ids: Optional[List[str]] = None,
-    ):
+    ) -> Union[Dict, str, DataFrame]:
         """
         Request Statistics from CellEngine.
 
@@ -663,6 +666,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                 those populations.
             population_ids: List[str]: List of population IDs.
                 Defaults to ungated.
+
         Returns:
             statistics: Dict, String, or pandas.Dataframe
         """
@@ -710,3 +714,5 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                 return pandas.DataFrame.from_dict(json.loads(raw_stats))
             except Exception as e:
                 raise ValueError("Invalid data format {} for pandas".format(format), e)
+        else:
+            raise ValueError("Invalid data format selected.")

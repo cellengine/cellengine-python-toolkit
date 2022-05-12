@@ -2,6 +2,7 @@ from __future__ import annotations
 from datetime import datetime
 
 from marshmallow import fields
+from pandas.core.frame import DataFrame
 
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
@@ -177,7 +178,7 @@ class Experiment(DataClassMixin):
         res = ce.APIClient().update_experiment(self._id, self.to_dict())
         self.__dict__.update(Experiment.from_dict(res).__dict__)
 
-    def clone(self, props: Optional[Dict[str, Any]] = None):
+    def clone(self, props: Optional[Dict[str, Any]] = None) -> Experiment:
         """
         Saves a deep copy of the experiment and all of its resources, including
         attachments, FCS files, gates and populations.
@@ -328,7 +329,7 @@ class Experiment(DataClassMixin):
         layout: str = None,
         percent_of: Union[str, List[str]] = None,
         population_ids: List[str] = None,
-    ):
+    ) -> Union[Dict, str, DataFrame]:
         """
         Request Statistics from CellEngine.
 
@@ -366,6 +367,7 @@ class Experiment(DataClassMixin):
                 those populations.
             population_ids: List[str]: List of population IDs.
                 Defaults to ungated.
+
         Returns:
             statistics: Dict, String, or pandas.Dataframe
         """

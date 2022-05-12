@@ -62,7 +62,7 @@ class Attachment:
     def to_dict(self):
         return converter.unstructure(self)
 
-    def download(self, to_file: str = None):
+    def download(self, to_file: Optional[str] = None) -> Optional[bytes]:
         """Download the attachment.
 
         Defaults to returning the file as a blob. If ``to_file`` is specified,
