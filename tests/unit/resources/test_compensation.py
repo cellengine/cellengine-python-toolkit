@@ -8,8 +8,7 @@ import responses
 
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.fcs_file import FcsFile
-from cellengine.utils import converter
-from cellengine.utils.parse_fcs_file import parse_fcs_file
+from cellengine.utils import converter, FcsFileIO
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
@@ -172,7 +171,7 @@ def test_apply_comp_errors_for_nonmatching_channels(
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{fcs_file._id}.fcs",
         body=events_body,
     )
-    events = parse_fcs_file(client.download_fcs_file(EXP_ID, fcs_file._id))
+    events = FcsFileIO.parse(client.download_fcs_file(EXP_ID, fcs_file._id))
     fcs_file.events = events
 
     with pytest.raises(IndexError):

@@ -5,7 +5,7 @@ import fcsparser
 from pandas.core.frame import DataFrame
 import pytest
 
-from cellengine.utils.parse_fcs_file import parse_fcs_file
+from cellengine.utils import FcsFileIO
 
 
 @pytest.fixture(scope="class")
@@ -29,7 +29,7 @@ class TestFcsFileIO:
         rmtree(cls.test_dir)
 
     def test_reads_fcs_from_binary(self, file_bytes):
-        file = parse_fcs_file(file_bytes)
+        file = FcsFileIO.parse(file_bytes)
         assert isinstance(file, DataFrame)
         assert (211974, 24) == file.shape
 
@@ -62,7 +62,7 @@ class TestFcsFileIO:
 
     def test_writes_fcs_to_file(self, file_bytes):
         filename = f"{self.test_dir}test_write.fcs"
-        parse_fcs_file(file_bytes, destination=filename)
+        FcsFileIO.parse(file_bytes, destination=filename)
 
         meta, data = fcsparser.parse(filename)
         assert isinstance(meta, dict)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from cellengine.utils.helpers import is_valid_id
-from cellengine.utils.parse_fcs_file import parse_fcs_file
+from cellengine.utils import FcsFileIO
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
 from dataclasses_json import config
@@ -337,7 +337,7 @@ class FcsFile(DataClassMixin):
         if inplace is True:
             self._events_kwargs = kwargs
 
-        fresp = parse_fcs_file(
+        fresp = FcsFileIO.parse(
             ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs),
             destination=destination,
         )

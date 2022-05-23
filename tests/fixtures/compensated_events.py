@@ -1,6 +1,6 @@
 from cellengine.resources.fcs_file import FcsFile
 import json
-from cellengine.utils.parse_fcs_file import parse_fcs_file
+from cellengine.utils import FcsFileIO
 from cellengine.resources.compensation import Compensation
 import pytest
 from pandas import read_json, DataFrame
@@ -10,7 +10,7 @@ from pandas import read_json, DataFrame
 def acea_events() -> DataFrame:
     """Real events from 'Acea - Novocyte.fcs'"""
     events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
-    file = parse_fcs_file(events_body.read())
+    file = FcsFileIO.parse(events_body.read())
     return file.astype(float)
 
 
