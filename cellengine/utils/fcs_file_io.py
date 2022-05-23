@@ -1,8 +1,8 @@
 from io import BufferedReader, BytesIO
-from typing import BinaryIO, Optional, Union
+from typing import BinaryIO, List, Optional, Union
 
 import flowio
-from flowio.flowdata import FlowData
+from flowio import FlowData, create_fcs
 from numpy import reshape
 from pandas.core.frame import DataFrame
 
@@ -36,9 +36,19 @@ class FcsFileIO:
             raise FcsFileIOError("FCS file could not be read") from e
 
     @staticmethod
-    def read(file: Union[BinaryIO, str]) -> FlowData:
-        """Read an FCS file with flowio"""
-        return flowio.FlowData(file)
+    def write(destination: str, file: DataFrame, channels: List[str]) -> None:
+        """Write an FCS file
+
+        Args:
+            destination: File path to write
+            file: The FCS file as a DataFrame
+            channels: A list of channels (likely `file.columns`)
+        """
+        try:
+            with open(destination, "wb") as f:
+                create_fcs(f, file, channels)
+        except Exception as e:
+            raise FcsFileIOError("FCS file could not be written") from e
 
 
 class FcsFileIOError(Exception):

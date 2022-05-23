@@ -78,6 +78,19 @@ class TestFcsFileIO:
         assert (211974, 24) == data.shape
         assert "__header__" in meta.keys()
 
+    def test_writes_fcs_file(self, file_bytes):
+        path = f"{self.test_dir}test_writes_fcs_file.fcs"
+        file = FcsFileIO.parse(file_bytes)
+        flat_file = file.to_numpy().flatten().tolist()  # type: ignore
+        FcsFileIO.write(path, flat_file, file.columns)  # type: ignore
+
+        assert os.path.isfile(path)
+        meta, data = fcsparser.parse(path)
+        assert isinstance(meta, dict)
+        assert isinstance(data, DataFrame)
+        assert (211974, 24) == data.shape
+        assert "__header__" in meta.keys()
+
     def test_raises_for_invalid_file_input(self):
         with pytest.raises(FcsFileIOError, match="FCS file could not be read"):
             FcsFileIO.parse(b"foo")  # type: ignore
