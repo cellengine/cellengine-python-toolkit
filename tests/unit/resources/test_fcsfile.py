@@ -150,7 +150,7 @@ def test_parses_fcs_file_events_inplace(ENDPOINT_BASE, client, fcs_files):
     file.get_events(inplace=True)
 
     # Then:
-    type(file.events) is DataFrame
+    assert type(file.events) is DataFrame
 
 
 @responses.activate
