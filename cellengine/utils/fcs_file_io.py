@@ -30,4 +30,16 @@ class FcsFileIO:
     @staticmethod
     def read(file: Union[BinaryIO, str]) -> FlowData:
         """Read an FCS file with flowio"""
+        try:
+            return flowio.FlowData(file)
+        except AttributeError as e:
+            raise FcsFileIOError("FCS file could not be read") from e
+
+    @staticmethod
+    def read(file: Union[BinaryIO, str]) -> FlowData:
+        """Read an FCS file with flowio"""
         return flowio.FlowData(file)
+
+
+class FcsFileIOError(Exception):
+    """Something is wrong reading or writing an FCS File"""

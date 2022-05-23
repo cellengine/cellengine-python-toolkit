@@ -6,6 +6,7 @@ from pandas.core.frame import DataFrame
 import pytest
 
 from cellengine.utils import FcsFileIO
+from cellengine.utils.fcs_file_io import FcsFileIOError
 
 
 @pytest.fixture(scope="function")
@@ -76,3 +77,7 @@ class TestFcsFileIO:
         assert isinstance(data, DataFrame)
         assert (211974, 24) == data.shape
         assert "__header__" in meta.keys()
+
+    def test_raises_for_invalid_file_input(self):
+        with pytest.raises(FcsFileIOError, match="FCS file could not be read"):
+            FcsFileIO.parse(b"foo")  # type: ignore
