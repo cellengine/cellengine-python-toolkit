@@ -9,9 +9,11 @@ from pandas import read_json, DataFrame
 @pytest.fixture(scope="function")
 def acea_events() -> DataFrame:
     """Real events from 'Acea - Novocyte.fcs'"""
-    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
-    file = FcsFileIO.parse(events_body.read())
-    return file.astype(float)
+    with open("tests/data/Acea - Novocyte.fcs", "rb") as events_body:
+        file = FcsFileIO.parse(events_body)
+        if not isinstance(file, DataFrame):
+            raise ValueError("Test file does not exist!")
+        return file.astype(float)
 
 
 @pytest.fixture(scope="function")

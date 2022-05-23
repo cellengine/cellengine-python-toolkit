@@ -1,18 +1,20 @@
 import os
 from shutil import rmtree
 
-import fcsparser
+from flowio.flowdata import FlowData
 from pandas.core.frame import DataFrame
 import pytest
 
 from cellengine.utils import FcsFileIO
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def file_bytes():
+    """Yield a test file as raw bytes
+
+    Scopes to "function" since bytes will be read by multiple calls."""
     with open("tests/data/Acea - Novocyte.fcs", "rb") as raw:
-        content = raw.read()
-    yield content
+        yield raw
 
 
 class TestFcsFileIO:
@@ -60,7 +62,12 @@ class TestFcsFileIO:
             "TIME",
         ]
 
-    def test_writes_fcs_to_file(self, file_bytes):
+    def test_reads_fcs_from_file_path(self):
+        file = FcsFileIO.parse("tests/data/Acea - Novocyte.fcs")
+        assert isinstance(file, DataFrame)
+        assert (211974, 24) == file.shape
+
+    def test_parse_saves_file_to_destination(self, file_bytes):
         filename = f"{self.test_dir}test_write.fcs"
         FcsFileIO.parse(file_bytes, destination=filename)
 

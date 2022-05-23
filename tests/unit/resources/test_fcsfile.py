@@ -2,7 +2,6 @@ from io import BufferedReader, BytesIO
 import json
 import os
 
-from fcsparser.api import FCSParser
 from pandas.core.frame import DataFrame
 import pytest
 import responses
@@ -106,15 +105,6 @@ def test_throws_correct_error_when_no_file_internal_compensation(
         err.value.args[0]
         == f"FCS File '{file._id}' does not have an internal compensation."
     )
-
-
-def test_parse_fcs_file():
-    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
-    parser = FCSParser.from_data(events_body.read())
-
-    events = DataFrame(parser.data, columns=parser.channel_names_n)
-    assert type(events) is DataFrame
-    assert tuple(events.columns) == parser.channel_names_n
 
 
 @responses.activate

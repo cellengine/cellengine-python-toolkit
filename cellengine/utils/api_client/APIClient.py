@@ -1,6 +1,7 @@
 from __future__ import annotations
 from functools import lru_cache
 from getpass import getpass
+from io import BytesIO
 import json
 import os
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union, overload
@@ -444,11 +445,12 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if kwargs:
             params = dict(kwargs)
 
-        return self._get(
+        content = self._get(
             f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs",
             params=params,
             raw=True,
         )
+        return BytesIO(content)
 
     def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")

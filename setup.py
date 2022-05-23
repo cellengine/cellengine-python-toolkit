@@ -42,7 +42,7 @@ setup(
     install_requires=[
         "attrs~=20.2",
         "cattrs~=1.8",
-        "fcsparser~=0.2",
+        "flowio~=1.0",
         "dataclasses-json~=0.5",
         "munch~=2.5",
         "numpy~=1.17",
