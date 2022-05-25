@@ -1,8 +1,9 @@
 import json
 import pytest
 import responses
+from cellengine import FILE_INTERNAL, PER_FILE, UNCOMPENSATED
 
-from cellengine.utils import helpers
+from cellengine.utils import converter, helpers
 from cellengine.resources.experiment import Experiment
 from cellengine.resources.population import Population
 from cellengine.resources.fcs_file import FcsFile
@@ -20,7 +21,14 @@ POPULATION_ID = "5d3903529fae87499999a780"
 STATISTICS_ID = "5d64abe2ca9df61349ed8e79"
 
 
-def test_all_experiment_properties(client, ENDPOINT_BASE, experiment):
+@pytest.fixture(scope="function")
+def compensation(client, ENDPOINT_BASE, compensations):
+    comp = compensations[0]
+    comp.update({"experimentId": EXP_ID})
+    return converter.structure(comp, Compensation)
+
+
+def test_all_experiment_properties(ENDPOINT_BASE, experiment):
     assert experiment._id == "5d38a6f79fae87499999a74b"
     assert experiment.name == "pytest_experiment"
     assert experiment.comments == [{"insert": "\xa0\xa0\xa0First 12 of 96 files\n\n"}]
@@ -208,3 +216,29 @@ def test_should_clone_experiment(client, ENDPOINT_BASE, experiment, experiments)
     assert json.loads(responses.calls[0].request.body) == {
         "name": "my cloned experiment",
     }
+
+
+def test_sets_active_compensation_correctly(experiment, compensation):
+    experiment.active_compensation = 0
+    assert experiment.active_compensation == 0
+
+    experiment.active_compensation = -1
+    assert experiment.active_compensation == -1
+
+    experiment.active_compensation = -2
+    assert experiment.active_compensation == -2
+
+    experiment.active_compensation = UNCOMPENSATED
+    assert experiment.active_compensation == 0
+
+    experiment.active_compensation = FILE_INTERNAL
+    assert experiment.active_compensation == -1
+
+    experiment.active_compensation = PER_FILE
+    assert experiment.active_compensation == -2
+
+    experiment.active_compensation = compensation
+    assert experiment.active_compensation == compensation._id
+
+    experiment.active_compensation = compensation._id
+    assert experiment.active_compensation == compensation._id

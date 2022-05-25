@@ -1,46 +1,44 @@
 from __future__ import annotations
+from dataclasses import dataclass, field
 from datetime import datetime
+import inspect
+from math import pi
+from typing import Any, Dict, List, Optional, Union
 
+from custom_inherit import doc_inherit
+from dataclasses_json.cfg import config
 from marshmallow import fields
 from pandas.core.frame import DataFrame
 
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
-from dataclasses import dataclass, field
-import inspect
-from math import pi
-from custom_inherit import doc_inherit
-from typing import Any, Optional, Dict, Union, List
-
-from dataclasses_json.cfg import config
-
 import cellengine as ce
+from cellengine.payloads.gate_utils import (
+    format_ellipse_gate,
+    format_polygon_gate,
+    format_quadrant_gate,
+    format_range_gate,
+    format_rectangle_gate,
+    format_split_gate,
+)
+from cellengine.resources.attachment import Attachment
+from cellengine.resources.compensation import Compensation
+from cellengine.resources.fcs_file import FcsFile
+from cellengine.resources.gate import (
+    EllipseGate,
+    Gate,
+    PolygonGate,
+    QuadrantGate,
+    RangeGate,
+    RectangleGate,
+    SplitGate,
+)
 from cellengine.resources.population import Population
 from cellengine.resources.scaleset import ScaleSet
-from cellengine.resources.fcs_file import FcsFile
-from cellengine.resources.compensation import Compensation
-from cellengine.resources.attachment import Attachment
-from cellengine.resources.gate import (
-    Gate,
-    RectangleGate,
-    PolygonGate,
-    RangeGate,
-    SplitGate,
-    EllipseGate,
-    QuadrantGate,
-)
+from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from cellengine.utils.helpers import (
     CommentList,
     datetime_to_timestamp,
+    is_valid_id,
     timestamp_to_datetime,
-)
-
-from cellengine.payloads.gate_utils import (
-    format_rectangle_gate,
-    format_polygon_gate,
-    format_ellipse_gate,
-    format_range_gate,
-    format_split_gate,
-    format_quadrant_gate,
 )
 
 
@@ -74,7 +72,7 @@ class Experiment(DataClassMixin):
         ),
         default=ReadOnly(),
     )  # type: ignore
-    _active_comp: Optional[Union[int, str, Compensation]] = field(
+    _active_comp: Optional[Union[int, str]] = field(
         default=None, metadata=config(field_name="activeCompensation")
     )
     data: Optional[Dict[Any, Any]] = field(default=None)
@@ -213,28 +211,43 @@ class Experiment(DataClassMixin):
             del self.deleted
 
     @property
-    def active_compensation(self) -> Optional[Union[Compensation, int]]:
-        active_comp = self._active_comp
-        if type(active_comp) is str:
-            return ce.APIClient().get_compensation(self._id, active_comp)
-        elif type(active_comp) is int:
-            return active_comp
-        elif active_comp is None:
-            return None
-        raise ValueError(
-            f"Value '{active_comp}' is not a valid for activeCompensation."
-        )
+    def active_compensation(self) -> Optional[Union[str, int]]:
+        """The most recently used compensation.
+
+        Accepted values are:
+
+        - A Compensation object (value will be set to its `_id`)
+        - A Compensation ID
+        - A `cellengine` Compensation constant:
+          [`UNCOMPENSATED`][cellengine.UNCOMPENSATED],
+          [`FILE_INTERNAL`][cellengine.FILE_INTERNAL] or
+          [`PER_FILE`][cellengine.PER_FILE].
+
+        Example:
+        ```python
+        import cellengine
+        exp = cellengine.get_experiment(name='my experiment')
+        experiment.active_compensation = cellengine.UNCOMPENSATED
+        ```
+        """
+        return self._active_comp
 
     @active_compensation.setter
-    def active_compensation(self, compensation: Union[Compensation, int]):
-        if type(compensation) is Compensation:
+    def active_compensation(self, compensation: Union[Compensation, int, str]):
+        if isinstance(compensation, Compensation):
             self._active_comp = compensation._id
-        elif (
-            compensation == "UNCOMPENSATED"
-            or compensation == "FILE_INTERNAL"
-            or compensation == "PER_FILE"
-        ):
+        elif isinstance(compensation, str) and is_valid_id(compensation):
             self._active_comp = compensation
+        elif isinstance(compensation, int) and compensation in [
+            ce.UNCOMPENSATED,
+            ce.PER_FILE,
+            ce.FILE_INTERNAL,
+        ]:
+            self._active_comp = compensation
+        else:
+            raise ValueError(
+                f"Value '{compensation}' can not be set as the active compensation."
+            )
 
     @property
     def attachments(self) -> List[Attachment]:

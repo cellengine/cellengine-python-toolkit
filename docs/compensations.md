@@ -15,6 +15,14 @@ CellEngine object. Properties are the snake_case equivalent of those documented
 on the [CellEngine API](https://docs.cellengine.com/api/#compensations) unless
 otherwise noted.
 
+## Special Constants
+
+::: cellengine.UNCOMPENSATED
+
+::: cellengine.FILE_INTERNAL
+
+::: cellengine.PER_FILE
+
 ## Methods
 
 ::: cellengine.resources.compensation.Compensation
