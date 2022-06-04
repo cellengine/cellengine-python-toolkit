@@ -358,27 +358,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment._active_comp" class="md-nav__link">
-    _active_comp
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment._comments" class="md-nav__link">
-    _comments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment._id" class="md-nav__link">
-    _id
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.analysis_source_experiment" class="md-nav__link">
     analysis_source_experiment
   </a>
@@ -521,13 +500,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.uploader" class="md-nav__link">
     uploader
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment.__repr__" class="md-nav__link">
-    __repr__()
   </a>
   
 </li>
@@ -940,27 +912,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment._active_comp" class="md-nav__link">
-    _active_comp
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment._comments" class="md-nav__link">
-    _comments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment._id" class="md-nav__link">
-    _id
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.analysis_source_experiment" class="md-nav__link">
     analysis_source_experiment
   </a>
@@ -1103,13 +1054,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.uploader" class="md-nav__link">
     uploader
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.experiment.Experiment.__repr__" class="md-nav__link">
-    __repr__()
   </a>
   
 </li>
@@ -1389,33 +1333,33 @@ experiment's ID.</p>
 <h2 id="methods">Methods</h2>
 
 
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 class="doc doc-heading" id="cellengine.resources.experiment.Experiment">
-          <code>cellengine.resources.experiment.Experiment</code>
+        <code>cellengine.resources.experiment.Experiment</code>
 
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
 
 </h2>
 
 
-    <div class="doc doc-contents first">
-        <p class="doc doc-class-bases">
-          Bases: <code><span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span></code></p>
+  <div class="doc doc-contents first">
+      <p class="doc doc-class-bases">
+        Bases: <code><span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span></code></p>
 
-
+  
       <p>The main container for an analysis. Don't construct directly; use
 <a class="autorefs autorefs-internal" href="#cellengine.resources.experiment.Experiment.create"><code>Experiment.create</code></a> or
 <a class="autorefs autorefs-internal" href="#cellengine.resources.experiment.Experiment.get"><code>Experiment.get</code></a>.</p>
 
 
 
-
+  
 
   <div class="doc doc-children">
 
@@ -1424,617 +1368,479 @@ experiment's ID.</p>
 
 
 
-  <div class="doc doc-object doc-attribute">
 
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment._active_comp">
-<code class="codehilite language-python"><span class="n">_active_comp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Compensation</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;activeCompensation&#39;</span><span class="p">))</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment._comments">
-<code class="codehilite language-python"><span class="n">_comments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;comments&#39;</span><span class="p">))</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment._id">
-<code class="codehilite language-python"><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;_id&#39;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.analysis_source_experiment">
 <code class="codehilite language-python"><span class="n">analysis_source_experiment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">(</span><span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.annotation_name_order">
 <code class="codehilite language-python"><span class="n">annotation_name_order</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.annotation_table_sort_columns">
 <code class="codehilite language-python"><span class="n">annotation_table_sort_columns</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.annotation_validators">
 <code class="codehilite language-python"><span class="n">annotation_validators</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.clone_source_experiment">
 <code class="codehilite language-python"><span class="n">clone_source_experiment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">(</span><span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.created">
 <code class="codehilite language-python"><span class="n">created</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">encoder</span><span class="o">=</span><span class="n">datetime_to_timestamp</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">timestamp_to_datetime</span><span class="p">,</span> <span class="n">mm_field</span><span class="o">=</span><span class="n">fields</span><span class="o">.</span><span class="n">DateTime</span><span class="p">()),</span> <span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.data">
 <code class="codehilite language-python"><span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.deep_updated">
 <code class="codehilite language-python"><span class="n">deep_updated</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">encoder</span><span class="o">=</span><span class="n">datetime_to_timestamp</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">timestamp_to_datetime</span><span class="p">,</span> <span class="n">mm_field</span><span class="o">=</span><span class="n">fields</span><span class="o">.</span><span class="n">DateTime</span><span class="p">()),</span> <span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">(</span><span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.deleted">
 <code class="codehilite language-python"><span class="n">deleted</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">encoder</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">datetime_to_timestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">if</span> <span class="n">t</span> <span class="k">else</span> <span class="n">t</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">timestamp_to_datetime</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">if</span> <span class="n">t</span> <span class="k">else</span> <span class="n">t</span><span class="p">,</span> <span class="n">mm_field</span><span class="o">=</span><span class="n">fields</span><span class="o">.</span><span class="n">DateTime</span><span class="p">()))</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.locked">
 <code class="codehilite language-python"><span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.name">
 <code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.per_file_compensations_enabled">
 <code class="codehilite language-python"><span class="n">per_file_compensations_enabled</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.permissions">
 <code class="codehilite language-python"><span class="n">permissions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.primary_researcher">
 <code class="codehilite language-python"><span class="n">primary_researcher</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.retention_policy">
 <code class="codehilite language-python"><span class="n">retention_policy</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.revision_source_experiment">
 <code class="codehilite language-python"><span class="n">revision_source_experiment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">(</span><span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.revisions">
 <code class="codehilite language-python"><span class="n">revisions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.sorting_spec">
 <code class="codehilite language-python"><span class="n">sorting_spec</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.tags">
 <code class="codehilite language-python"><span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.updated">
 <code class="codehilite language-python"><span class="n">updated</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">encoder</span><span class="o">=</span><span class="n">datetime_to_timestamp</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">timestamp_to_datetime</span><span class="p">,</span> <span class="n">mm_field</span><span class="o">=</span><span class="n">fields</span><span class="o">.</span><span class="n">DateTime</span><span class="p">()),</span> <span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.uploader">
 <code class="codehilite language-python"><span class="n">uploader</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
 
 
-
-  <div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.__repr__">
-<code class="codehilite language-python"><span class="fm">__repr__</span><span class="p">()</span></code>
-
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.active_compensation">
 <code class="codehilite language-python"><span class="n">active_compensation</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
+  
+      <p>The most recently used compensation.</p>
+<p>Accepted values are:</p>
+<ul>
+<li>A Compensation object (value will be set to its <code>_id</code>)</li>
+<li>A Compensation ID</li>
+<li>A <code>cellengine</code> Compensation constant:
+  <a class="autorefs autorefs-internal" href="../compensations/#cellengine.UNCOMPENSATED"><code>UNCOMPENSATED</code></a>,
+  <a class="autorefs autorefs-internal" href="../compensations/#cellengine.FILE_INTERNAL"><code>FILE_INTERNAL</code></a> or
+  <a class="autorefs autorefs-internal" href="../compensations/#cellengine.PER_FILE"><code>PER_FILE</code></a>.</li>
+</ul>
+<p>Example:
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">cellengine</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">get_experiment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my experiment&#39;</span><span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">active_compensation</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">UNCOMPENSATED</span>
+</code></pre></div></p>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.attachments">
 <code class="codehilite language-python"><span class="n">attachments</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>List all attachments on the experiment.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.clone">
 <code class="codehilite language-python"><span class="n">clone</span><span class="p">(</span><span class="n">props</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Saves a deep copy of the experiment and all of its resources, including
 attachments, FCS files, gates and populations.</p>
 
@@ -2083,81 +1889,75 @@ path (List[str]): Array of folder IDs comprising the path.</p></td>
     </tbody>
   </table>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.comments">
 <code class="codehilite language-python"><span class="n">comments</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Get comments for experiment.</p>
 <p>Defaults to overwrite; append new comments with
 experiment.comments.append(dict) with the form:
 dict = {"insert": "some text",
 "attributes": {"bold": False, "italic": False, "underline": False}}.</p>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.compensations">
 <code class="codehilite language-python"><span class="n">compensations</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>List all compensations on the experiment.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uploader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_researcher</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Post a new experiment to CellEngine.</p>
 
   <p><strong>Parameters:</strong></p>
@@ -2242,25 +2042,22 @@ dict = {"insert": "some text",
     </tbody>
   </table>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_compensation">
 <code class="codehilite language-python"><span class="n">create_compensation</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">spill_matrix</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Create a new compensation to this experiment</p>
 
   <p><strong>Parameters:</strong></p>
@@ -2309,86 +2106,72 @@ length of the array must be the number of channels squared.</p></td>
     </tbody>
   </table>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_ellipse_gate">
 <code class="codehilite language-python"><span class="n">create_ellipse_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_gates">
 <code class="codehilite language-python"><span class="n">create_gates</span><span class="p">(</span><span class="n">gates</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Save a collection of gate objects.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_polygon_gate">
 <code class="codehilite language-python"><span class="n">create_polygon_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_population">
 <code class="codehilite language-python"><span class="n">create_population</span><span class="p">(</span><span class="n">population</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Create a complex population</p>
 
   <p><strong>Parameters:</strong></p>
@@ -2443,372 +2226,319 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
     </tbody>
   </table>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_quadrant_gate">
 <code class="codehilite language-python"><span class="n">create_quadrant_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">skewable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_range_gate">
 <code class="codehilite language-python"><span class="n">create_range_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_rectangle_gate">
 <code class="codehilite language-python"><span class="n">create_rectangle_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_split_gate">
 <code class="codehilite language-python"><span class="n">create_split_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.delete">
 <code class="codehilite language-python"><span class="n">delete</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Marks the experiment as deleted.</p>
 <p>Deleted experiments are permanently deleted after approximately
 7 days. Until then, deleted experiments can be recovered.</p>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.delete_gate">
 <code class="codehilite language-python"><span class="n">delete_gate</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Delete a gate or gate family.
 See the
 <a class="autorefs autorefs-internal" href="../api_client/#cellengine.utils.api_client.APIClient.APIClient.delete_gate"><code>APIClient</code></a>
 for more information.</p>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.download_attachment">
 <code class="codehilite language-python"><span class="n">download_attachment</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Get a specific attachment.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.fcs_files">
 <code class="codehilite language-python"><span class="n">fcs_files</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>List all FCS files on the experiment.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.gates">
 <code class="codehilite language-python"><span class="n">gates</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>List all gates on the experiment.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get">
 <code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_attachment">
 <code class="codehilite language-python"><span class="n">get_attachment</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_compensation">
 <code class="codehilite language-python"><span class="n">get_compensation</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Get a specific compensation.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_fcs_file">
 <code class="codehilite language-python"><span class="n">get_fcs_file</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Get a specific FCS file.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_gate">
 <code class="codehilite language-python"><span class="n">get_gate</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Get a specific gate.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_population">
 <code class="codehilite language-python"><span class="n">get_population</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Get a specific population.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_scaleset">
 <code class="codehilite language-python"><span class="n">get_scaleset</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Get a specific scaleset.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.get_statistics">
 <code class="codehilite language-python"><span class="n">get_statistics</span><span class="p">(</span><span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Request Statistics from CellEngine.</p>
 
   <p><strong>Parameters:</strong></p>
@@ -2966,154 +2696,137 @@ Defaults to ungated.</p></td>
     </tbody>
   </table>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.populations">
 <code class="codehilite language-python"><span class="n">populations</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>List all populations in the experiment.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.scalesets">
 <code class="codehilite language-python"><span class="n">scalesets</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Gets the experiment's ScaleSet</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.undelete">
 <code class="codehilite language-python"><span class="n">undelete</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Clear a scheduled deletion.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.update">
 <code class="codehilite language-python"><span class="n">update</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Save changes to this Experiment to CellEngine.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.upload_attachment">
 <code class="codehilite language-python"><span class="n">upload_attachment</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Upload an attachment to this experiment.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.upload_fcs_file">
 <code class="codehilite language-python"><span class="n">upload_fcs_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Upload an FCS file to this experiment.</p>
 
-    </div>
+  </div>
+
+</div>
+
+
 
   </div>
 
-
-
-
-
   </div>
 
-    </div>
-
-  </div>
+</div>
                 
               
               

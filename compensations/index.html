@@ -329,6 +329,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#special-constants" class="md-nav__link">
+    Special Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.UNCOMPENSATED" class="md-nav__link">
+    UNCOMPENSATED
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.FILE_INTERNAL" class="md-nav__link">
+    FILE_INTERNAL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.PER_FILE" class="md-nav__link">
+    PER_FILE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -342,13 +370,6 @@
   
     <nav class="md-nav" aria-label="Compensation">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.compensation.Compensation._id" class="md-nav__link">
-    _id
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.channels" class="md-nav__link">
@@ -381,20 +402,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.N" class="md-nav__link">
     N()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.compensation.Compensation.__repr__" class="md-nav__link">
-    __repr__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.compensation.Compensation._convert_dataframe" class="md-nav__link">
-    _convert_dataframe()
   </a>
   
 </li>
@@ -645,6 +652,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#special-constants" class="md-nav__link">
+    Special Constants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.UNCOMPENSATED" class="md-nav__link">
+    UNCOMPENSATED
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.FILE_INTERNAL" class="md-nav__link">
+    FILE_INTERNAL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cellengine.PER_FILE" class="md-nav__link">
+    PER_FILE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -658,13 +693,6 @@
   
     <nav class="md-nav" aria-label="Compensation">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.compensation.Compensation._id" class="md-nav__link">
-    _id
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.channels" class="md-nav__link">
@@ -697,20 +725,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.compensation.Compensation.N" class="md-nav__link">
     N()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.compensation.Compensation.__repr__" class="md-nav__link">
-    __repr__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.compensation.Compensation._convert_dataframe" class="md-nav__link">
-    _convert_dataframe()
   </a>
   
 </li>
@@ -826,30 +840,95 @@ compensation matrix, however.</p>
 CellEngine object. Properties are the snake_case equivalent of those documented
 on the <a href="https://docs.cellengine.com/api/#compensations">CellEngine API</a> unless
 otherwise noted.</p>
-<h2 id="methods">Methods</h2>
+<h2 id="special-constants">Special Constants</h2>
 
 
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.UNCOMPENSATED">
+<code class="codehilite language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">UNCOMPENSATED</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents first">
+  
+      <p>Apply no compensation.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.FILE_INTERNAL">
+<code class="codehilite language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">FILE_INTERNAL</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents first">
+  
+      <p>Use the file's internal compensation matrix, if available. If not available, an
+error will be returned from API requests.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 class="doc doc-heading" id="cellengine.PER_FILE">
+<code class="codehilite language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">PER_FILE</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents first">
+  
+      <p>Use the compensation assigned to each individual FCS file. Not a valid value for
+<code>FcsFile.compensation</code>.</p>
+  </div>
+
+</div><h2 id="methods">Methods</h2>
+
+
+<div class="doc doc-object doc-class">
 
 
 
 <h2 class="doc doc-heading" id="cellengine.resources.compensation.Compensation">
-          <code>cellengine.resources.compensation.Compensation</code>
-
+        <code>cellengine.resources.compensation.Compensation</code>
 
 
 </h2>
 
 
-    <div class="doc doc-contents first">
+  <div class="doc doc-contents first">
 
-
+  
       <p>A class representing a CellEngine compensation matrix.</p>
 <p>Can be applied to FCS files to compensate them.</p>
 
 
 
-
+  
 
   <div class="doc doc-children">
 
@@ -858,197 +937,117 @@ otherwise noted.</p>
 
 
 
-  <div class="doc doc-object doc-attribute">
 
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation._id">
-<code class="codehilite language-python"><span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">on_setattr</span><span class="o">=</span><span class="n">readonly</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.channels">
 <code class="codehilite language-python"><span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.experiment_id">
 <code class="codehilite language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">on_setattr</span><span class="o">=</span><span class="n">readonly</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.name">
 <code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.spill_matrix">
 <code class="codehilite language-python"><span class="n">spill_matrix</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-    </div>
-
+  <div class="doc doc-contents ">
   </div>
 
+</div>
 
 
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.N">
 <code class="codehilite language-python"><span class="n">N</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.__repr__">
-<code class="codehilite language-python"><span class="fm">__repr__</span><span class="p">()</span></code>
-
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation._convert_dataframe">
-<code class="codehilite language-python"><span class="n">_convert_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.apply">
 <code class="codehilite language-python"><span class="n">apply</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Compensate an FcsFile's data.</p>
 
   <p><strong>Parameters:</strong></p>
@@ -1118,28 +1117,26 @@ the target FcsFile</p></td>
     </tbody>
   </table>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.create">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spill_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Create a new compensation for this experiment</p>
 
   <p><strong>Parameters:</strong></p>
@@ -1209,223 +1206,194 @@ names in [df.index, df.columns].</p></td>
     </tbody>
   </table>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe">
 <code class="codehilite language-python"><span class="n">dataframe</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-writable"><code>writable</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.dataframe_as_html">
 <code class="codehilite language-python"><span class="n">dataframe_as_html</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Return the compensation matrix dataframe as HTML.</p>
-
-    </div>
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.delete">
 <code class="codehilite language-python"><span class="n">delete</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.from_dict">
 <code class="codehilite language-python"><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.from_spill_string">
 <code class="codehilite language-python"><span class="n">from_spill_string</span><span class="p">(</span><span class="n">spill_string</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Creates a Compensation from a spill string (a file-internal compensation).
 This can be used with FcsFile.spill_string. The compensation is not
 saved to CellEngine.</p>
 
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.get">
 <code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.path">
 <code class="codehilite language-python"><span class="n">path</span><span class="p">()</span></code>
-
-  <span class="doc doc-properties">
+  
+  <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.to_dict">
 <code class="codehilite language-python"><span class="n">to_dict</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
-
-    </div>
+  <div class="doc doc-contents ">
 
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.compensation.Compensation.update">
 <code class="codehilite language-python"><span class="n">update</span><span class="p">()</span></code>
 
-
 </h3>
 
 
-    <div class="doc doc-contents ">
-
+  <div class="doc doc-contents ">
+  
       <p>Save changes to this Compensation to CellEngine.</p>
 
-    </div>
+  </div>
+
+</div>
+
+
 
   </div>
 
-
-
-
-
   </div>
 
-    </div>
-
-  </div>
+</div>
                 
               
               
