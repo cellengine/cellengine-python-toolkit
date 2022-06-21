@@ -1,9 +1,9 @@
-from io import BufferedReader, BytesIO
 import json
 import os
 
 from pandas.core.frame import DataFrame
 import pytest
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 import responses
 
 from cellengine.resources.compensation import Compensation
@@ -242,3 +242,55 @@ def test_save_local_fcs_file(client, ENDPOINT_BASE, novocyte):
     saved = FcsFileIO.parse("test_save_local_fcs_file.fcs")
     assert saved.size == 5087376  # type: ignore
     os.remove("test_save_local_fcs_file.fcs")
+
+
+@responses.activate
+def test_creates_new_FcsFile_from_dataframe(client, ENDPOINT_BASE, fcs_files, request):
+    filename = request.node.name + ".fcs"
+    df = DataFrame(
+        data=[
+            [138757.0, 12964.0, 415.0, -7.0],
+            [2265460.0, 278241.0, 3353.0, 908.0],
+            [1764200.0, 113642.0, 1939.0, 4262.0],
+            [1141736.0, 101310.0, 1682.0, 622.0],
+            [1971316.0, 110507.0, 1912.0, 584.0],
+        ]
+    )
+    channels = ["FSC-H", "SSC-H", "BL1-H", "BL2-H"]
+    reagents = ["", "", "CD57-FITC-H", "Multimer-PE-H"]
+
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
+        json=fcs_files[1],
+    )
+
+    new_file = FcsFile.upload(EXP_ID, df, channels=channels, reagents=reagents)
+    assert isinstance(new_file, FcsFile)
+    body = responses.calls[0].request.body
+    raw = str(body.to_string())
+    assert isinstance(body, MultipartEncoder)
+    assert "tmp" in raw  # temp file created
+    assert "BEGINANALYSIS" in raw  # is an FCS file
+    assert "SSC-H" in raw
+
+
+@responses.activate
+def test_create_fcs_file_from_existing_file(client, ENDPOINT_BASE, fcs_files, request):
+
+    responses.add(
+        responses.POST,
+        ENDPOINT_BASE + f"/experiments/{EXP_ID}/fcsfiles",
+        json=fcs_files[1],
+    )
+    filepath = "tests/data/Acea - Novocyte.fcs"
+
+    new_file = FcsFile.upload(EXP_ID, filepath)
+
+    assert isinstance(new_file, FcsFile)
+    body = responses.calls[0].request.body
+    raw = str(body.to_string())
+    assert isinstance(body, MultipartEncoder)
+    assert "tmp" not in raw  # temp file not created
+    assert "BEGINANALYSIS" in raw  # is an FCS file
+    assert "SSC-H" in raw

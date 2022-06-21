@@ -1,15 +1,17 @@
 from __future__ import annotations
-from cellengine.utils.helpers import is_valid_id
-from cellengine.utils import FcsFileIO
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
+from tempfile import NamedTemporaryFile
+from typing import Any, Dict, List, Optional, Union, overload
+
 from dataclasses_json import config
-from typing import Any, Dict, List, Optional, Union
 from pandas.core.frame import DataFrame
 
 import cellengine as ce
-from cellengine.resources.plot import Plot
 from cellengine.resources.compensation import Compensation
+from cellengine.resources.plot import Plot
+from cellengine.utils import FcsFileIO
+from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
+from cellengine.utils.helpers import is_valid_id
 
 
 @dataclass
@@ -85,32 +87,69 @@ class FcsFile(DataClassMixin):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_fcs_file(experiment_id=experiment_id, **kwargs)
 
+    @overload
     @classmethod
-    def upload(cls, experiment_id: str, filepath: str) -> FcsFile:
+    def upload(cls, experiment_id: str, file: str) -> FcsFile:
+        ...
+
+    @overload
+    @classmethod
+    def upload(
+        cls,
+        experiment_id: str,
+        file: DataFrame,
+        channels: List[str],
+        reagents: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, str]] = None,
+    ) -> FcsFile:
+        ...
+
+    @classmethod
+    def upload(
+        cls,
+        experiment_id: str,
+        file: Union[DataFrame, str],
+        channels: Optional[List[str]] = None,
+        reagents: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, str]] = None,
+    ) -> FcsFile:
         """
-        Uploads a file. The maximum file size is approximately 2.3 GB.
-        Contact us if you need to work with larger files.
+        Uploads a file or a pandas DataFrame. The maximum file size
+        is approximately 2.3 GB. Contact us if you need to work with
+        larger files.
 
         Automatically parses panels and annotations and updates ScaleSets to
         include all channels in the file.
 
         Args:
             experiment_id: ID of the experiment to which the file belongs
-            filepath: The file contents.
+            file: The file path or a DataFrame
+            channels: A list of channels (likely `file.columns`)
+            reagents: A list of reagents, the same length as `channels`
+            metadata: Metadata keys:values
         """
+        if isinstance(file, DataFrame):
+            fp = NamedTemporaryFile()
+            filepath = fp.name
+            FcsFileIO.write(
+                destination=filepath, file=file, channels=channels, reagents=reagents
+            )
+        else:
+            filepath = file
+
         return ce.APIClient().upload_fcs_file(experiment_id, filepath)
 
     @classmethod
     def create(
         cls,
         experiment_id: str,
-        fcs_files: Union[str, List[str], Dict[str, str]],
-        filename: str = None,
+        fcs_files: Union[DataFrame, str, List[str], Dict[str, str]],
+        filename: Optional[str] = None,
         add_file_number: bool = False,
         add_event_number: bool = False,
-        pre_subsample_n: int = None,
-        pre_subsample_p: float = None,
-        seed: int = None,
+        pre_subsample_n: Optional[int] = None,
+        pre_subsample_p: Optional[float] = None,
+        seed: Optional[int] = None,
     ) -> FcsFile:
         """Creates an FCS file by copying, concatenating and/or
         subsampling existing file(s) from this or other experiments, or by
