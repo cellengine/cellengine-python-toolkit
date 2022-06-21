@@ -219,6 +219,12 @@ class FcsFile(DataClassMixin):
     def delete(self):
         return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
 
+    def save(self, filepath: str):
+        """Save an FcsFile to a local file."""
+        if not filepath.endswith(".fcs"):
+            filepath += ".fcs"
+        FcsFileIO.write(destination=filepath, file=self.events, channels=self.channels)
+
     def plot(
         self,
         x_channel: str,
@@ -337,10 +343,12 @@ class FcsFile(DataClassMixin):
         if inplace is True:
             self._events_kwargs = kwargs
 
-        fresp = FcsFileIO.parse(
-            ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs),
-            destination=destination,
+        fileio = FcsFileIO.read(
+            ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
         )
+        if destination:
+            fileio.save(destination)
+
         if inplace:
-            self.events = fresp
-        return fresp
+            self.events = fileio.dataframe
+        return fileio.dataframe

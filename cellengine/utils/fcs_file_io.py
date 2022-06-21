@@ -1,5 +1,5 @@
 from io import BufferedReader, BytesIO
-from typing import BinaryIO, List, Optional, Union
+from typing import BinaryIO, List, Optional, Union, overload
 
 import flowio
 from flowio import FlowData, create_fcs
@@ -8,35 +8,55 @@ from pandas.core.frame import DataFrame
 
 
 class FcsFileIO:
+    def __init__(self, flow_data: FlowData):
+        self.flow_data = flow_data
+
+    @property
+    def dataframe(self) -> DataFrame:
+        f = self.flow_data
+        events = reshape(f.events, (-1, f.channel_count))  # type: ignore
+        channels = [k["PnN"] for k in f.channels.values()]
+        return DataFrame(events, columns=channels)
+
+    @property
+    def flowio(self):
+        return self.flow_data
+
     @classmethod
-    def parse(
-        cls, file: Union[BinaryIO, str], destination: str = ""
-    ) -> Optional[DataFrame]:
+    def read(cls, file: Union[BinaryIO, str, bytes]):
+        """Read an FCS file with flowio"""
+        try:
+            return cls(flowio.FlowData(file))
+        except AttributeError as e:
+            raise FcsFileIOError("FCS file could not be read") from e
+
+    @classmethod
+    def parse(cls, file: Union[BinaryIO, str]) -> DataFrame:
         """Parse an FCS file to a Dataframe
 
         Args:
             file: Buffer-like or filepath (not a binary string)
-            destination: If specified, writes directly to this filepath.
         """
-        if destination and isinstance(file, (BufferedReader, BytesIO)):
-            with open(destination, "wb") as loc:
-                loc.write(file.read())
-        else:
-            f = cls.read(file)
-            events = reshape(f.events, (-1, f.channel_count))  # type: ignore
-            channels = [k["PnN"] for k in f.channels.values()]
-            return DataFrame(events, columns=channels)
+        return cls.read(file).dataframe
+
+    def save(self, destination: str) -> None:
+        self.flow_data.write_fcs(destination)
+
+    @overload
+    def write(*, destination: str, file: DataFrame, channels: List[str]) -> None:
+        ...
+
+    @overload
+    def write(*, destination: str, file: BinaryIO) -> None:
+        ...
 
     @staticmethod
-    def read(file: Union[BinaryIO, str]) -> FlowData:
-        """Read an FCS file with flowio"""
-        try:
-            return flowio.FlowData(file)
-        except AttributeError as e:
-            raise FcsFileIOError("FCS file could not be read") from e
-
-    @staticmethod
-    def write(destination: str, file: DataFrame, channels: List[str]) -> None:
+    def write(
+        *,
+        destination: str,
+        file: Union[DataFrame, BinaryIO],
+        channels: Optional[List[str]] = None
+    ) -> None:
         """Write an FCS file
 
         Args:
@@ -45,8 +65,12 @@ class FcsFileIO:
             channels: A list of channels (likely `file.columns`)
         """
         try:
-            with open(destination, "wb") as f:
-                create_fcs(f, file, channels)
+            if isinstance(file, DataFrame):
+                with open(destination, "wb") as f:
+                    create_fcs(f, file.to_numpy().flatten().tolist(), channels)
+            elif isinstance(file, (BufferedReader, BytesIO)):
+                with open(destination, "wb") as loc:
+                    loc.write(file.read())
         except Exception as e:
             raise FcsFileIOError("FCS file could not be written") from e
 

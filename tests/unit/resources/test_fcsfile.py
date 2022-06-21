@@ -8,6 +8,7 @@ import responses
 
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.fcs_file import FcsFile
+from cellengine.utils.fcs_file_io import FcsFileIO
 from cellengine.utils.helpers import to_camel_case
 
 
@@ -122,7 +123,7 @@ def test_parses_fcs_file_events(ENDPOINT_BASE, client, fcs_files):
     data = file.get_events()
 
     # Then:
-    type(data) is DataFrame
+    assert type(data) is DataFrame
 
 
 @responses.activate
@@ -147,18 +148,19 @@ def test_parses_fcs_file_events_inplace(ENDPOINT_BASE, client, fcs_files):
 def test_save_events_to_file(ENDPOINT_BASE, client, fcs_files):
     file_data = fcs_files[0]
     file = FcsFile.from_dict(file_data)
+    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
     responses.add(
         responses.GET,
         f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{file._id}.fcs",
-        body=BufferedReader(BytesIO(b"test")),
+        body=events_body,
     )
 
     # When:
     file.get_events(destination="test.fcs")
 
     # Then:
-    with open("test.fcs", "r") as events:
-        assert events.readline() == "test"
+    test_read = FcsFileIO.parse("test.fcs")
+    assert test_read.shape == (211974, 24)
     os.remove("test.fcs")
 
 
@@ -227,3 +229,16 @@ def test_create_from_another_experiment(ENDPOINT_BASE, client, fcs_files):
     payload = json.loads(responses.calls[0].request.body)  # type: ignore
 
     assert {"_id", "experimentId"} <= payload["fcsFiles"][0].keys()
+
+
+def test_save_local_fcs_file(client, ENDPOINT_BASE, novocyte):
+    # Given
+    file = novocyte
+
+    # When:
+    file.save("test_save_local_fcs_file")
+
+    # Then:
+    saved = FcsFileIO.parse("test_save_local_fcs_file.fcs")
+    assert saved.size == 5087376  # type: ignore
+    os.remove("test_save_local_fcs_file.fcs")

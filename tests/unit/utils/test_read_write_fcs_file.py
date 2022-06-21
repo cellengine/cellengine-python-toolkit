@@ -64,32 +64,38 @@ class TestFcsFileIO:
         ]
 
     def test_reads_fcs_from_file_path(self):
+        fileio = FcsFileIO.read("tests/data/Acea - Novocyte.fcs")
+        assert isinstance(fileio, FcsFileIO)
+        assert isinstance(fileio.flow_data, FlowData)
+
+    def test_saves_fcs_flow_data(self):
+        fileio = FcsFileIO.read("tests/data/Acea - Novocyte.fcs")
+        filename = f"{self.test_dir}/test_save_fcs_file_io.fcs"
+        fileio.save(filename)
+        assert os.path.isfile(filename)
+
+    def test_parses_fcs_from_file_path(self):
         file = FcsFileIO.parse("tests/data/Acea - Novocyte.fcs")
         assert isinstance(file, DataFrame)
         assert (211974, 24) == file.shape
 
-    def test_parse_saves_file_to_destination(self, file_bytes):
+    def test_writes_file_as_binary_to_destination(self, file_bytes):
         filename = f"{self.test_dir}test_write.fcs"
-        FcsFileIO.parse(file_bytes, destination=filename)
+        FcsFileIO.write(destination=filename, file=file_bytes)
 
-        meta, data = fcsparser.parse(filename)
-        assert isinstance(meta, dict)
-        assert isinstance(data, DataFrame)
-        assert (211974, 24) == data.shape
-        assert "__header__" in meta.keys()
+        file = FcsFileIO.parse(filename)
+        assert isinstance(file, DataFrame)
+        assert (211974, 24) == file.shape
 
-    def test_writes_fcs_file(self, file_bytes):
+    def test_writes_file_as_dataframe_to_destination(self, file_bytes):
         path = f"{self.test_dir}test_writes_fcs_file.fcs"
         file = FcsFileIO.parse(file_bytes)
-        flat_file = file.to_numpy().flatten().tolist()  # type: ignore
-        FcsFileIO.write(path, flat_file, file.columns)  # type: ignore
+        FcsFileIO.write(destination=path, file=file, channels=list(file.columns))
 
         assert os.path.isfile(path)
-        meta, data = fcsparser.parse(path)
-        assert isinstance(meta, dict)
+        data = FcsFileIO.parse(path)
         assert isinstance(data, DataFrame)
         assert (211974, 24) == data.shape
-        assert "__header__" in meta.keys()
 
     def test_raises_for_invalid_file_input(self):
         with pytest.raises(FcsFileIOError, match="FCS file could not be read"):
