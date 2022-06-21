@@ -3,6 +3,7 @@ from shutil import rmtree
 
 from flowio.flowdata import FlowData
 from pandas.core.frame import DataFrame
+from pandas.testing import assert_frame_equal
 import pytest
 
 from cellengine.utils import FcsFileIO
@@ -96,6 +97,23 @@ class TestFcsFileIO:
         data = FcsFileIO.parse(path)
         assert isinstance(data, DataFrame)
         assert (211974, 24) == data.shape
+
+    def test_write_saves_channel_reagents(self, file_bytes):
+        # Given: event data in a DataFrame
+        path = f"{self.test_dir}test_write_fcs_file_reagents.fcs"
+        file, reagents = FcsFileIO.parse(file_bytes, return_reagents=True)
+        channels = list(file.columns)
+        FcsFileIO.write(
+            destination=path,
+            file=file,
+            channels=channels,
+            reagents=[v for _, v in reagents.items()],
+        )
+
+        assert os.path.isfile(path)
+        saved_data, saved_reagents = FcsFileIO.parse(path, return_reagents=True)
+        assert saved_reagents == reagents
+        assert_frame_equal(saved_data, file)
 
     def test_raises_for_invalid_file_input(self):
         with pytest.raises(FcsFileIOError, match="FCS file could not be read"):
