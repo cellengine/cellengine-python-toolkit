@@ -41,7 +41,7 @@ setup(
     platforms="Posix; MacOS X; Windows",
     install_requires=[
         "attrs~=20.2",
-        "cattrs~=1.8",
+        "cattrs~=22.1",
         "fcsparser~=0.2",
         "dataclasses-json~=0.5",
         "numpy~=1.17",
