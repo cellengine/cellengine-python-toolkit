@@ -318,10 +318,20 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """
         self._delete(f"{self.base_url}/experiments/{_id}")
 
-    def get_fcs_files(self, experiment_id, as_dict=False) -> List[FcsFile]:
-        fcs_files = self._get(f"{self.base_url}/experiments/{experiment_id}/fcsfiles")
+    def get_fcs_files(
+        self, experiment_id, as_dict=False, headers=False
+    ) -> List[FcsFile]:
+        fcs_files = self._get(
+            f"{self.base_url}/experiments/{experiment_id}/fcsfiles",
+        )
+        if headers:
+            headers_dict = self._get(
+                f"{self.base_url}/experiments/{experiment_id}/fcsfiles",
+                params={"fields": "+header"},
+            )
+            fcs_files = [{**a, **b} for a, b in zip(fcs_files, headers_dict)]
         if as_dict:
-            return fcs_files
+            return fcs_files  # type: ignore
         return [FcsFile.from_dict(fcs_file) for fcs_file in fcs_files]
 
     # fmt: off
@@ -345,7 +355,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     # fmt: on
 
     def get_fcs_file(
-        self, experiment_id: str, _id: str = None, name: str = None, as_dict=False
+        self,
+        experiment_id: str,
+        _id: Optional[str] = None,
+        name: Optional[str] = None,
+        as_dict=False,
     ):
         _id = _id or self._get_id_by_name(name, "fcsfiles", experiment_id)
         fcs_file = self._get(
