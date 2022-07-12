@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Union, overload
 
 from dataclasses_json import config
 from pandas.core.frame import DataFrame
+from pandas.core.generic import json
 
 import cellengine as ce
 from cellengine.resources.compensation import Compensation
@@ -12,6 +13,18 @@ from cellengine.resources.plot import Plot
 from cellengine.utils import FcsFileIO
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from cellengine.utils.helpers import is_valid_id
+
+
+def encode_header(header) -> Optional[str]:
+    if not header:
+        return None
+    return json.dumps(header, separators=(",", ":"))
+
+
+def decode_header(header) -> Optional[Dict[str, Any]]:
+    if not header:
+        return None
+    return json.loads(header)
 
 
 @dataclass
@@ -22,8 +35,8 @@ class FcsFile(DataClassMixin):
     deleted: Optional[bool]
     panel: List[Dict[str, Any]]
     _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
+        metadata=config(field_name="_id"), default=ReadOnly()  # type: ignore
+    )
     compensation: Optional[int] = None
     is_control: Optional[bool] = None
     _annotations: Optional[List[str]] = field(
@@ -33,7 +46,9 @@ class FcsFile(DataClassMixin):
     event_count: int = field(default=ReadOnly())  # type: ignore
     experiment_id: str = field(default=ReadOnly())  # type: ignore
     has_file_internal_comp: bool = field(default=ReadOnly())  # type: ignore
-    header: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
+    header: Optional[str] = field(
+        metadata=config(encoder=encode_header, decoder=decode_header), default=None
+    )
     md5: str = field(default=ReadOnly())  # type: ignore
     sample_name: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
     size: int = field(default=ReadOnly())  # type: ignore
