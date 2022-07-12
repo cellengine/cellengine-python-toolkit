@@ -298,7 +298,7 @@ class Experiment(DataClassMixin):
     @property
     def fcs_files(self) -> List[FcsFile]:
         """List all FCS files on the experiment."""
-        return ce.APIClient().get_fcs_files(self._id)
+        return ce.APIClient().get_fcs_files(self._id, headers=True)
 
     def get_fcs_file(
         self, _id: Optional[str] = None, name: Optional[str] = None
