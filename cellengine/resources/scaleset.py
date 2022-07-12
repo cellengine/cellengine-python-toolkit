@@ -72,11 +72,11 @@ class ScaleSet(DataClassMixin):
         """Apply the scaleset to a file.
 
         Args:
-            file (_id or FcsFile): The file to which this scaleset will be
+            file: The file to which this scaleset will be
                 applied.
-            clamp_q (bool): Clamp the output to the scale's minimum and maximum
+            clamp_q: Clamp the output to the scale's minimum and maximum
                 values.
-            in_place (bool): If True, updates the FcsFile.events; if
+            in_place: If True, updates the FcsFile.events; if
                 False, returns a DataFrame
         """
         if isinstance(file, str):
