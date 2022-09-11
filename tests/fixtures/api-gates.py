@@ -3,35 +3,167 @@ import pytest
 
 @pytest.fixture(scope="function")
 def rectangle_gate():
-    return specific_gate("RectangleGate")
+    return gate_types("RectangleGate")
 
 
 @pytest.fixture(scope="function")
 def ellipse_gate():
-    return specific_gate("EllipseGate")
+    return gate_types("EllipseGate")
 
 
 @pytest.fixture(scope="function")
 def polygon_gate():
-    return specific_gate("PolygonGate")
+    return gate_types("PolygonGate")
 
 
 @pytest.fixture(scope="function")
 def range_gate():
-    return specific_gate("RangeGate")
+    return gate_types("RangeGate")
 
 
 @pytest.fixture(scope="function")
 def quadrant_gate():
-    return specific_gate("QuadrantGate")
+    return gate_types("QuadrantGate")
 
 
 @pytest.fixture(scope="function")
 def split_gate():
-    return specific_gate("SplitGate")
+    return gate_types("SplitGate")
 
 
-def specific_gate(gate_type):
+@pytest.fixture(scope="function")
+def bulk_gate_creation_dict():
+    return [
+        {
+            "experiment_id": "5d38a6f79fae87499999a74b",
+            "fcs_file_id": None,
+            "gid": "5d9401613afd657e233843b4",
+            "model": {
+                "ellipse": {
+                    "angle": -0.16875182756633697,
+                    "center": [259441.51377370575, 63059.462213950595],
+                    "major": 113446.7481834943,
+                    "minor": 70116.01916918601,
+                },
+                "label": [263044.8350515464, 66662.79381443298],
+                "locked": False,
+            },
+            "name": "ellipse-gui",
+            "names": [],
+            "tailored_per_file": False,
+            "type": "EllipseGate",
+            "x_channel": "FSC-A",
+            "y_channel": "FSC-H",
+        },
+        {
+            "experiment_id": "5d38a6f79fae87499999a74b",
+            "fcs_file_id": None,
+            "gid": "5d9365b5117dfb76dd9ed4b0",
+            "model": {
+                "label": [59456.113402061856, 193680.53608247422],
+                "locked": False,
+                "polygon": {
+                    "vertices": [
+                        [59456.113402061856, 184672.1855670103],
+                        [141432.10309278348, 181068.84536082475],
+                        [82877.82474226804, 124316.23711340204],
+                        [109002.0412371134, 63960.28865979381],
+                        [44141.9175257732, 76571.97938144332],
+                        [27926.886597938144, 107200.37113402062],
+                        [10811.0206185567, 143233.77319587627],
+                        [58555.278350515466, 145936.27835051547],
+                    ]
+                },
+            },
+            "name": "poly_gate",
+            "names": [],
+            "tailored_per_file": False,
+            "type": "PolygonGate",
+            "x_channel": "FSC-A",
+            "y_channel": "FSC-H",
+        },
+        {
+            "experiment_id": "5d38a6f79fae87499999a74b",
+            "fcs_file_id": None,
+            "gid": "5db01cb2dd879d32d2ccde05",
+            "model": {
+                "gids": [
+                    "5db01cb2e4eb52e0c1047306",
+                    "5db01cb265909ddcfd6e2807",
+                    "5db01cb2486959d467563e08",
+                    "5db01cb21b8e42bc6499c609",
+                ],
+                "labels": [[1, 1], [-200, 1], [-200, -200], [1, -200]],
+                "locked": False,
+                "quadrant": {
+                    "angles": [
+                        1.5707963267948966,
+                        3.141592653589793,
+                        4.71238898038469,
+                        0,
+                    ],
+                    "x": 160000,
+                    "y": 200000,
+                },
+                "skewable": False,
+            },
+            "names": ["my gate (UR)", "my gate (UL)", "my gate (LL)", "my gate (LR)"],
+            "tailored_per_file": False,
+            "type": "QuadrantGate",
+            "x_channel": "FSC-A",
+            "y_channel": "FSC-W",
+        },
+        {
+            "experiment_id": "5d38a6f79fae87499999a74b",
+            "fcs_file_id": None,
+            "gid": "5d960ae01070fcef1c1f5a04",
+            "model": {
+                "label": [53.802, 0.5],
+                "locked": False,
+                "range": {"x1": 12.502, "x2": 95.102, "y": 0.5},
+            },
+            "name": "my gate",
+            "names": [],
+            "tailored_per_file": False,
+            "type": "RangeGate",
+            "x_channel": "FSC-A",
+            "y_channel": "FSC-W",
+        },
+        {
+            "experiment_id": "5d38a6f79fae87499999a74b",
+            "fcs_file_id": None,
+            "gid": "5d8d34993b0bb307a31d9d04",
+            "model": {
+                "label": [130000, 145000],
+                "locked": False,
+                "rectangle": {"x1": 60000, "x2": 200000, "y1": 75000, "y2": 215000},
+            },
+            "name": "test_rect_gate",
+            "names": [],
+            "tailored_per_file": False,
+            "type": "RectangleGate",
+            "x_channel": "FSC-W",
+            "y_channel": "FSC-A",
+        },
+        {
+            "experiment_id": "5d38a6f79fae87499999a74b",
+            "fcs_file_id": None,
+            "gid": "5db02aff2299543efa9f7e00",
+            "model": {
+                "gids": ["5db02aff9375ffe04e55b801", "5db02aff556563a0f01c7a02"],
+                "labels": [[-199.9, 0.916], [0.9, 0.916]],
+                "locked": False,
+                "split": {"x": 160000, "y": 1},
+            },
+            "names": ["my gate (L)", "my gate (R)"],
+            "tailored_per_file": False,
+            "type": "SplitGate",
+            "x_channel": "FSC-A",
+        },
+    ]
+
+
+def gate_types(gate_type=None):
     gates = {
         "EllipseGate": {
             "_id": "5d9401613afd657e233843b3",
@@ -50,7 +182,6 @@ def specific_gate(gate_type):
             },
             "name": "ellipse-gui",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "EllipseGate",
             "xChannel": "FSC-A",
@@ -79,7 +210,6 @@ def specific_gate(gate_type):
             },
             "name": "poly_gate",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "PolygonGate",
             "xChannel": "FSC-A",
@@ -112,7 +242,6 @@ def specific_gate(gate_type):
                 "skewable": False,
             },
             "names": ["my gate (UR)", "my gate (UL)", "my gate (LL)", "my gate (LR)"],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "QuadrantGate",
             "xChannel": "FSC-A",
@@ -130,7 +259,6 @@ def specific_gate(gate_type):
             },
             "name": "my gate",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "RangeGate",
             "xChannel": "FSC-A",
@@ -148,7 +276,6 @@ def specific_gate(gate_type):
             },
             "name": "test_rect_gate",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "RectangleGate",
             "xChannel": "FSC-W",
@@ -166,13 +293,12 @@ def specific_gate(gate_type):
                 "split": {"x": 160000, "y": 1},
             },
             "names": ["my gate (L)", "my gate (R)"],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "SplitGate",
             "xChannel": "FSC-A",
         },
     }
-    return gates[gate_type]
+    return gates[gate_type] if gate_type else gates
 
 
 @pytest.fixture(scope="session")
@@ -205,7 +331,6 @@ def gates():
                 "test gate 2 (LL)",
                 "test gate 2 (LR)",
             ],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "QuadrantGate",
             "xChannel": "FSC-A",
@@ -233,7 +358,6 @@ def gates():
                 "skewable": False,
             },
             "names": ["subtest (UR)", "subtest (UL)", "subtest (LL)", "subtest (LR)"],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "QuadrantGate",
             "xChannel": "FSC-A",
@@ -256,7 +380,6 @@ def gates():
             },
             "name": "rect",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "RectangleGate",
             "xChannel": "FSC-A",
@@ -293,7 +416,6 @@ def gates():
                 },
             },
             "names": ["quad (UR)", "quad (UL)", "quad (LL)", "quad (LR)"],
-            "parentPopulationId": "5d64abe2ca9df61349ed8e89",
             "tailoredPerFile": False,
             "type": "QuadrantGate",
             "xChannel": "FSC-A",
@@ -311,7 +433,6 @@ def gates():
             },
             "name": "my gate",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "RectangleGate",
             "xChannel": "FSC-A",
@@ -329,7 +450,6 @@ def gates():
             },
             "name": "my gate",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "RectangleGate",
             "xChannel": "FSC-A",
@@ -347,7 +467,6 @@ def gates():
             },
             "name": "my gate",
             "names": [],
-            "parentPopulationId": None,
             "tailoredPerFile": False,
             "type": "RectangleGate",
             "xChannel": "FSC-A",

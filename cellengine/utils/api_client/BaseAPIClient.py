@@ -13,8 +13,12 @@ from cellengine.utils.singleton import AbstractSingleton
 
 
 def prepare_params(params: Dict) -> Dict:
-    """Converts Booleans to lower-case strings. (Requests yields upper-case.)"""
-    return {k: str(v).lower() if type(v) == bool else v for k, v in params.items()}
+    """Converts Boolean values to lower-case strings (whereas `requests` yields
+    upper-case) and keys to camelCase."""
+    return {
+        to_camel_case(k): str(v).lower() if type(v) == bool else v
+        for k, v in params.items()
+    }
 
 
 class BaseAPIClient(metaclass=AbstractSingleton):

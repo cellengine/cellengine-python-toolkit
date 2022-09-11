@@ -1,6 +1,7 @@
 from __future__ import annotations
 from functools import lru_cache
 from getpass import getpass
+import importlib
 import json
 import os
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union, overload
@@ -18,7 +19,15 @@ from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation
 from ...resources.experiment import Experiment
 from ...resources.fcs_file import FcsFile
-from ...resources.gate import Gate
+from ...resources.gate import (
+    EllipseGate,
+    Gate,
+    PolygonGate,
+    QuadrantGate,
+    RangeGate,
+    RectangleGate,
+    SplitGate,
+)
 from ...resources.plot import Plot
 from ...resources.population import Population
 from ...resources.scaleset import ScaleSet
@@ -36,6 +45,17 @@ CE = TypeVar(
     ScaleSet,
 )
 
+_Gate = TypeVar(
+    "_Gate",
+    Gate,
+    RectangleGate,
+    EllipseGate,
+    PolygonGate,
+    RangeGate,
+    QuadrantGate,
+    SplitGate,
+)
+
 
 def create_many(client: APIClient, entities: List[Gate], **kwargs) -> List[Gate]:
     body = [client.unstructure_and_clean(e) for e in entities]
@@ -47,7 +67,7 @@ def create_many(client: APIClient, entities: List[Gate], **kwargs) -> List[Gate]
         List[_class.pop()],  # type: ignore
         set(paths).pop(),
         list(payload),
-        kwargs=kwargs,
+        **kwargs,
     )
 
 
@@ -140,7 +160,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             response = [response]
         return response[0]
 
-    def _handle_list(self, response: List) -> RuntimeError:
+    def _handle_list(self, response: List) -> None:
         if len(response) == 0:
             raise RuntimeError("Resource with the name '{}' does not exist.")
         elif len(response) > 1:
@@ -161,9 +181,18 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         path: str,
         body: Union[List[Dict[Any, Any]], Dict[Any, Any]],
         **kwargs,
-    ) -> Union[CE, List[CE]]:
+    ) -> Union[CE, Gate, List[Gate], Tuple[Gate, Union[Population, List[Population]]]]:
         res = self._post(f"{self.base_url}/{path}", json=body, params=kwargs)
-        return converter.structure(res, _class)
+        if _class is List[Gate]:
+            return [self._parse_gate_population(gate)[0] for gate in res]
+        if _class is Gate:
+            gate, population = self._parse_gate_population(res)
+            if population:
+                return gate, population
+            else:
+                return gate
+        else:
+            return converter.structure(res, _class)
 
     def unstructure_and_clean(self, entity) -> Tuple[type, str, Dict[Any, Any]]:
         (cls, path, body) = (
@@ -186,21 +215,22 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     @overload
     def create(self, entity: FcsFile, **kwargs) -> FcsFile: ...
     @overload
-    def create(self, entity: Gate, **kwargs) -> Gate: ...
+    def create(self, entity: Gate, **kwargs) -> _Gate: ...
     @overload
     def create(self, entity: Population, **kwargs) -> Population: ...
     @overload
     def create(self, entity: ScaleSet, **kwargs) -> ScaleSet: ...
     @overload
-    def create(self, entity: List[Gate], **kwargs) -> List[Gate]: ...
+    def create(self, entity: List[Gate], **kwargs) -> List[_Gate]: ...
     # fmt: on
 
     def create(self, entity, **kwargs):
         """Create a local entity on CellEngine."""
+        # TODO expose create_many since typings are a mess otherwise.
         if isinstance(entity, list):
             return create_many(self, entity, **kwargs)
         body = self.unstructure_and_clean(entity)
-        return self.post_and_structure(*body)
+        return self.post_and_structure(*body, **kwargs)
 
     def update(self, entity, params: Dict = None):
         path = self._get_path(entity)
@@ -454,14 +484,57 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
-        return [Gate.factory(gate) for gate in gates]
+        structured_gates = []
+        for gate in gates:
+            structured_gates.append(
+                self._parse_gate_population(gate)[0]
+            )  # return only Gate
+        return structured_gates
 
-    def get_gate(self, experiment_id: str, _id, as_dict=False) -> Gate:
+    def get_gate(self, experiment_id: str, _id: str, as_dict: bool = False) -> Gate:
         """Gates cannot be retrieved by name."""
         gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
         if as_dict:
             return gate
-        return Gate.factory(gate)
+        return self._parse_gate_population(gate)[0]  # return only Gate
+
+    def post_gates(
+        self,
+        experiment_id: str,
+        body: Union[Dict[str, Any], List[Dict[str, Any]]],
+        params: Dict = {},
+        as_dict: bool = False,
+    ) -> List[Gate]:
+        gates = self._post(
+            f"{self.base_url}/experiments/{experiment_id}/gates",
+            json=body,
+            params=params,
+        )
+
+        if as_dict:
+            return gates
+        structured_gates = []
+        for gate in gates:
+            structured_gates.append(
+                self._parse_gate_population(gate)[0]
+            )  # return only Gate
+        return structured_gates
+
+    def post_gate(
+        self,
+        experiment_id: str,
+        body: Union[Dict[str, Any], List[Dict[str, Any]]],
+        params: Dict = {},
+        as_dict: bool = False,
+    ) -> Gate:
+        gate = self._post(
+            f"{self.base_url}/experiments/{experiment_id}/gates",
+            json=body,
+            params=params,
+        )
+        if as_dict:
+            return gate
+        return self._parse_gate_population(gate)[0]  # return only Gate
 
     def delete_gate(
         self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None
@@ -477,7 +550,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Args:
             experiment_id: ID of experiment.
             _id: ID of the gate to delete.
-            gid: ID of gate family to delte.
+            gid: ID of gate family to delete.
             exclude: Gate ID to exclude from deletion.
 
         Example:
@@ -500,19 +573,29 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raise ValueError("Either _id or gid must be specified.")
         self._delete(url)
 
-    def post_gate(
-        self, experiment_id, gate: Dict, create_population=True, as_dict=False
-    ) -> Gate:
-        res = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/gates",
-            json=gate,
-            params={"createPopulation": create_population},
+    def delete_gates(self, experiment_id: str, ids: List[str]):
+        url = f"{self.base_url}/experiments/{experiment_id}/gates/"
+        [self._delete(url + _id) for _id in ids]
+
+    def _parse_gate_population(
+        self, res: Any
+    ) -> Tuple[Gate, Union[Population, List[Population], None]]:
+        keys = res.keys()
+        if "population" in keys:
+            gate = res["gate"]
+            pop = converter.structure(res["population"], Population)
+        elif "populations" in keys:
+            gate = res["gate"]
+            pop = converter.structure(res["populations"], List[Population])
+        else:
+            gate = res
+            pop = None
+        module = importlib.import_module("cellengine")
+        gate_subclass = getattr(module, gate["type"])
+        return (
+            converter.structure(gate, gate_subclass),
+            pop,
         )
-        if as_dict:
-            return res
-        if type(res) is list:
-            return [Gate.factory(r) for r in res]
-        return Gate.factory(res)
 
     def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
         return self._patch(
@@ -522,10 +605,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def tailor_to(self, experiment_id, gate_id, fcs_file_id):
         """Tailor a gate to a file."""
-        gate = self.get_gate(experiment_id, gate_id)
-        gate._properties["tailoredPerFile"] = True
-        gate._properties["fcsFileId"] = fcs_file_id
-        return self.update_entity(experiment_id, gate_id, "gates", gate._properties)
+        gate = self.get_gate(experiment_id, gate_id, as_dict=True)
+        gate["tailoredPerFile"] = True
+        gate["fcsFileId"] = fcs_file_id
+        return self.update_entity(experiment_id, gate_id, "gates", gate)
 
     def get_plot(
         self,

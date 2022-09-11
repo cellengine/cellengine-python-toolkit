@@ -230,7 +230,8 @@ class FcsFile(DataClassMixin):
     ) -> Plot:
         """Build a plot for an FcsFile.
 
-        See [`Plot.get`][cellengine.resources.plot.Plot.get] for more information.
+        See [`APIClient.get_plot()`][cellengine.APIClient.get_plot]
+        for more information.
         """
         plot = Plot.get(
             experiment_id=self.experiment_id,

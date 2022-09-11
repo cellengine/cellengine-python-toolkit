@@ -1,7 +1,11 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, Union, overload
-from typing_extensions import Literal
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 from dataclasses_json.cfg import config
 from pandas import DataFrame
