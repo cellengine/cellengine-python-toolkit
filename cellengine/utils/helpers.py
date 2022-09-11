@@ -1,11 +1,13 @@
-import re
 from datetime import datetime
-from typing import Any, Dict, List, Union
+import re
+from typing import Any, Dict, List, TypeVar, Union
+import numpy.typing as npt
 
 
 ID_REGEX = re.compile(r"^[a-f0-9]{24}$", re.I)
 first_cap_re = re.compile("(.)([A-Z][a-z]+)")
 all_cap_re = re.compile("([a-z0-9])([A-Z])")
+camel_re = re.compile("((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))")
 
 
 def is_valid_id(_id: str) -> bool:
@@ -26,6 +28,10 @@ def to_camel_case(snake_str: str) -> str:
     return components[0] + "".join(x.title() for x in components[1:])
 
 
+def to_snake_case(camel_str: str) -> str:
+    return camel_re.sub(r"_\1", camel_str).lower()
+
+
 def alter_keys(payload: Union[Dict[Any, Any], List[Dict[Any, Any]]], func):
     """Apply `func` to alter the keys of a dict or list of dicts."""
     empty = {}
@@ -44,10 +50,15 @@ def alter_keys(payload: Union[Dict[Any, Any], List[Dict[Any, Any]]], func):
         return payload
 
 
-def get_args_as_kwargs(cls_context, locals):
+def get_args_as_kwargs(context, locals) -> Dict[str, Any]:
+    """
+    Args:
+        context: `self` or `cls` in a class method
+        locals: `locals()`
+    """
     # fmt: off
-    arg_names = cls_context.create.__code__.co_varnames[
-        1:cls_context.create.__code__.co_argcount
+    arg_names = context.create.__code__.co_varnames[
+        1:context.create.__code__.co_argcount
     ]
     # fmt: on
     return {key: locals[key] for key in arg_names}
@@ -120,3 +131,26 @@ def datetime_to_timestamp(value: datetime) -> str:
     ``datetime`` objects.
     """
     return datetime.strftime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
+
+
+T = TypeVar("T", float, npt.NDArray)
+
+
+def normalize(
+    value: T,
+    observed_min: float,
+    observed_max: float,
+    min: float,
+    max: float,
+) -> T:
+    return (max - min) / (observed_max - observed_min) * (value - observed_max) + max
+
+
+def remove_keys_with_none_values(d: Dict[str, Any]) -> Dict[str, Any]:
+    new_dict = {}
+    for k, v in d.items():
+        if isinstance(v, dict):
+            v = remove_keys_with_none_values(v)
+        if v is not None:
+            new_dict[k] = v
+    return new_dict

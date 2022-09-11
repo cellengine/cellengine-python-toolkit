@@ -1,8 +1,10 @@
 import os
 import pytest
 import pandas
+import uuid
 
 import cellengine
+from cellengine.utils.api_client.APIClient import APIClient
 from cellengine.utils.api_client.APIError import APIError
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.compensation import Compensation
@@ -25,7 +27,7 @@ def client():
 
 
 @pytest.fixture(scope="module")
-def setup_experiment(request, client):
+def setup_experiment(request, client: APIClient):
     print("Setting up CellEngine experiment for {}".format(__name__))
     exp = cellengine.Experiment.create("new_experiment")
     exp.upload_fcs_file("tests/data/Acea - Novocyte.fcs")
@@ -36,7 +38,7 @@ def setup_experiment(request, client):
     client.delete_experiment(exp._id)
 
 
-def test_experiment_attachments(setup_experiment, client):
+def test_experiment_attachments(setup_experiment, client: APIClient):
     experiment = client.get_experiment(name="new_experiment")
 
     # POST
@@ -61,7 +63,7 @@ def test_experiment_attachments(setup_experiment, client):
     assert len(experiment.attachments) == 0
 
 
-def test_fcs_file_events(setup_experiment, client):
+def test_fcs_file_events(setup_experiment, client: APIClient):
     experiment = client.get_experiment(name="new_experiment")
     file = experiment.fcs_files[0]
 
@@ -76,7 +78,7 @@ def test_fcs_file_events(setup_experiment, client):
     assert len(limited_events) == len(file.events)
 
 
-def test_apply_compensations(setup_experiment, client):
+def test_apply_compensations(setup_experiment, client: APIClient):
     experiment = client.get_experiment(name="new_experiment")
 
     # POST
@@ -100,15 +102,15 @@ def test_apply_compensations(setup_experiment, client):
     assert type(comp.dataframe) == pandas.DataFrame
 
     # with inplace=True it should save results to the target FcsFile
-    another_events_df = comp.apply(file1, inplace=True, preSubsampleN=10)
-    file1.events == another_events_df
+    comp.apply(file1, inplace=True, preSubsampleN=10)
+    # TODO assert
 
     # DELETE
     experiment.compensations[0].delete()
     assert experiment.compensations == []
 
 
-def test_apply_file_internal_compensation(setup_experiment, client):
+def test_apply_file_internal_compensation(setup_experiment, client: APIClient):
     experiment = client.get_experiment(name="new_experiment")
 
     file = experiment.fcs_files[0]
@@ -122,19 +124,20 @@ def test_apply_file_internal_compensation(setup_experiment, client):
     assert all([c in events_df.columns for c in comp.channels])
 
 
-def test_experiment(setup_experiment, client):
+def test_experiment(setup_experiment, client: APIClient):
+    experiment_name = uuid.uuid4().hex
+
     # POST
-    exp = cellengine.Experiment.create("new_experiment_2")
+    exp = cellengine.Experiment.create(experiment_name)
     exp.upload_fcs_file("tests/data/Acea - Novocyte.fcs")
 
     # GET
     experiments = client.get_experiments()
-    # assert len(experiments) == 2
     assert all([type(exp) is Experiment for exp in experiments])
-    exp2 = client.get_experiment(name="new_experiment_2")
+    exp2 = client.get_experiment(name=experiment_name)
 
     # UPDATE
-    clone = exp2.clone(name="clone")
+    clone = exp2.clone()
     clone.name = "edited_experiment"
     clone.update()
     assert clone.name == "edited_experiment"
@@ -177,53 +180,54 @@ def test_experiment_fcs_files(setup_experiment, client):
         client.get_fcs_file(experiment._id, file._id)
 
 
-def test_experiment_gates(setup_experiment, client):
+def test_experiment_gates(setup_experiment, client: APIClient):
     experiment = client.get_experiment(name="new_experiment")
     fcs_file = experiment.fcs_files[0]
 
     # CREATE
     split_gate = SplitGate.create(
-        experiment._id, fcs_file.channels[0], "split_gate", 2300000, 250000
+        experiment._id,
+        fcs_file.channels[0],
+        "split_gate",
+        2300000,
+        250000,
+        create_population=False,
     )
-    split_gate.post()
     range_gate = RangeGate.create(
         experiment._id,
         fcs_file.channels[0],
         "range_gate",
         2100000,
         2500000,
+        create_population=False,
     )
-    range_gate.post()
 
     # UPDATE
-    range_gate.tailor_to(fcs_file._id)
-    range_gate.update()
+    range_gate.tailor_to(fcs_file)
     assert range_gate.tailored_per_file is True
     assert range_gate.fcs_file_id == fcs_file._id
 
-    population = experiment.populations[0]
     Gate.update_gate_family(
         experiment._id,
         split_gate.gid,
-        body={"name": "new split gate name", "parentPopulationId": population._id},
+        body={"name": "new split gate name"},
     )
-    assert experiment.gates[0].parent_population_id == population._id
     assert experiment.gates[0].name == "new split gate name"
 
     # DELETE
     range_gate.delete()
     assert len(experiment.gates) == 1
 
-    Gate.delete_gates(experiment._id, gid=split_gate.gid)
+    experiment.delete_gate(gid=split_gate.gid)
     assert experiment.gates == []
 
 
-def test_experiment_populations(setup_experiment, client):
+def test_experiment_populations(setup_experiment, client: APIClient):
     experiment = client.get_experiment(name="new_experiment")
     fcs_file = experiment.fcs_files[0]
 
     # GET
-    quad_gate = QuadrantGate.create(
+    quad_gate, quad_pops = QuadrantGate.create(
         experiment._id,
         fcs_file.channels[0],
         fcs_file.channels[1],
@@ -231,20 +235,16 @@ def test_experiment_populations(setup_experiment, client):
         2300000,
         250000,
     )
-    quad_gate.post()
 
-    split_gate = SplitGate.create(
-        experiment._id, fcs_file.channels[0], "split_gate", 2300000, 250000
+    split_gate, split_pops = SplitGate.create(
+        experiment._id, fcs_file.channels[0], "split gate", 2300000, 250000
     )
-    split_gate.post()
-    assert "split_gate (L)", "split_gate (R)" in [
-        p.name for p in experiment.populations
-    ]
+    assert ["split gate (L)", "split gate (R)"] == [p.name for p in split_pops]
 
     # CREATE
     complex_payload = (
         ComplexPopulationBuilder("complex pop")
-        .Or([quad_gate.model.gids[0], quad_gate.model.gids[2]])
+        .Or([quad_gate.model["gids"][0], quad_gate.model["gids"][2]])
         .build()
     )
     client.post_population(experiment._id, complex_payload)
@@ -260,7 +260,12 @@ def test_experiment_populations(setup_experiment, client):
     assert "complex pop" not in [p.name for p in experiment.populations]
 
 
-def test_create_new_fcsfile_from_s3(setup_experiment, client):
+def test_create_new_fcsfile_from_s3(setup_experiment, client: APIClient):
+    if not "S3_ACCESS_KEY" in os.environ:
+        pytest.skip(
+            "Skipping S3 tests. Set S3_ACCESS_KEY and S3_SECRET_KEY to run them."
+        )
+
     experiment = client.get_experiment(name="new_experiment")
     s3_dict = {
         "host": "ce-test-s3-a.s3.us-east-2.amazonaws.com",

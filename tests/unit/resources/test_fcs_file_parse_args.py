@@ -161,7 +161,7 @@ def test_fcs_file_and_fcs_file_id_defined(
 
 
 @responses.activate
-def test_tailored_per_file_true(ENDPOINT_BASE, experiment, rectangle_gate):
+def test_tailored_per_file_true(client, ENDPOINT_BASE, experiment, rectangle_gate):
     responses.add(
         responses.POST,
         ENDPOINT_BASE + f"/experiments/{EXP_ID}/gates",
@@ -177,7 +177,14 @@ def test_tailored_per_file_true(ENDPOINT_BASE, experiment, rectangle_gate):
         y1=3,
         y2=4,
         tailored_per_file=True,
+        locked=True,
     )
+
+    assert json.loads(responses.calls[0].request.body)["model"]["locked"] is True
+    assert json.loads(responses.calls[0].request.body)["model"]["rectangle"]["x1"] == 1
+    assert json.loads(responses.calls[0].request.body)["model"]["rectangle"]["x2"] == 2
+    assert json.loads(responses.calls[0].request.body)["model"]["rectangle"]["y1"] == 3
+    assert json.loads(responses.calls[0].request.body)["model"]["rectangle"]["y2"] == 4
     assert json.loads(responses.calls[0].request.body)["tailoredPerFile"] is True
 
 
