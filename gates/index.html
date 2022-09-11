@@ -386,13 +386,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cellengine.resources.gate.Gate.get" class="md-nav__link">
-    get()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.resources.gate.Gate.update" class="md-nav__link">
     update()
   </a>
@@ -402,20 +395,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.gate.Gate.delete" class="md-nav__link">
     delete()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.gate.Gate.post" class="md-nav__link">
-    post()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.gate.Gate.delete_gates" class="md-nav__link">
-    delete_gates()
   </a>
   
 </li>
@@ -723,13 +702,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#cellengine.resources.gate.Gate.get" class="md-nav__link">
-    get()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.resources.gate.Gate.update" class="md-nav__link">
     update()
   </a>
@@ -739,20 +711,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.gate.Gate.delete" class="md-nav__link">
     delete()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.gate.Gate.post" class="md-nav__link">
-    post()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.resources.gate.Gate.delete_gates" class="md-nav__link">
-    delete_gates()
   </a>
   
 </li>
@@ -969,8 +927,6 @@ inherit the methods below.</p>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="cellengine.payloads.gate._Gate">_Gate</span></code></p>
 
 
 
@@ -986,28 +942,6 @@ inherit the methods below.</p>
 
 
 
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.gate.Gate.get">
-<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get a specific gate.</p>
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-function">
 
@@ -1043,130 +977,6 @@ inherit the methods below.</p>
 
 </div>
 
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.gate.Gate.post">
-<code class="codehilite language-python"><span class="n">post</span><span class="p">()</span></code>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.gate.Gate.delete_gates">
-<code class="codehilite language-python"><span class="n">delete_gates</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Deletes a gate or a tailored gate family.</p>
-<p>Specify the top-level gid when working with compound gates (specifying
-the gid of a sector (i.e. one listed in <code>model.gids</code>) will result in
-no gates being deleted). If <code>_id</code> is specified, only that gate will be
-deleted, regardless of the other parameters specified. May be called as
-a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code> instance.</p>
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>experiment_id</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>ID of experiment.</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>_id</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>ID of gate.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>gid</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>ID of gate family.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>exclude</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Gate ID to exclude from deletion.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-<details class="example">
-  <summary>Example</summary>
-  <div class="highlight"><pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">delete_gates</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">gate</span> <span class="n">family</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">)</span>
-<span class="c1"># or</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">delete_gates</span><span class="p">(</span><span class="n">_id</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">gate</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">)</span>
-<span class="c1"># or</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">delete_gates</span><span class="p">(</span><span class="n">gid</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">gate</span> <span class="n">family</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">exclude</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">gate</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">)</span>
-</code></pre></div>
-</details>
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code>None</code>
-          </td>
-          <td><p>None</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-  </div>
-
-</div>
-
 
 
   </div>
@@ -1191,8 +1001,6 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
       <p class="doc doc-class-bases">
         Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
 
-  
-      <p>Basic concrete class for Rectangle gates</p>
 
 
 
@@ -1213,7 +1021,7 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.gate.RectangleGate.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1223,6 +1031,228 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Creates a rectangle gate.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>experiment_id</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The ID of the experiment.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the gate</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x1</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The first x coordinate (after the channel's scale has been
+applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x2</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The second x coordinate (after the channel's scale has been
+applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y1</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The first y coordinate (after the channel's scale has been
+applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y2</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The second y coordinate (after the channel's scale has been
+applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>label</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[float]</code>
+          </td>
+          <td><p>Position of the label. Defaults to the midpoint of the gate.</p></td>
+          <td>
+                <code>[]</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gid</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. Must be
+specified when creating a tailored gate.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>locked</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Prevents modification of the gate via the web interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tailored_per_file</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether or not this gate is tailored per FCS
+file.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Name of FCS file, if tailored per file. An attempt will be
+made to find the file by name. If zero or more than one file
+exists with the name, an error will be thrown. Looking up files
+by name is slower than using the ID, as this requires additional
+requests to the server. If specified, do not specify
+<code>fcs_file_id</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>create_population</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>parent_population_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Use with <code>create_population</code> to specify the
+population below which to create this population.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RectangleGate" href="#cellengine.resources.gate.RectangleGate">RectangleGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RectangleGate" href="#cellengine.resources.gate.RectangleGate">RectangleGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
+          </td>
+          <td><p>A RectangleGate if <code>create_population</code> is False, or a Tuple with the
+gate and populations if <code>create_population</code> is True.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_rectangle_gate</span><span class="p">(</span>
+    <span class="n">x_channel</span><span class="o">=</span><span class="s2">&quot;FSC-A&quot;</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="o">=</span><span class="s2">&quot;FSC-W&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my gate&quot;</span><span class="p">,</span>
+    <span class="n">x1</span><span class="o">=</span><span class="mf">12.502</span><span class="p">,</span>
+    <span class="n">x2</span><span class="o">=</span><span class="mf">95.102</span><span class="p">,</span>
+    <span class="n">y1</span><span class="o">=</span><span class="mi">1020</span><span class="p">,</span>
+    <span class="n">y2</span><span class="o">=</span><span class="mf">32021.2</span><span class="p">)</span>
+</code></pre></div>
 
   </div>
 
@@ -1251,8 +1281,6 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
       <p class="doc doc-class-bases">
         Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
 
-  
-      <p>Basic concrete class for polygon gates</p>
 
 
 
@@ -1273,7 +1301,7 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.gate.PolygonGate.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1283,6 +1311,192 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Creates a polygon gate.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>experiment_id</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The ID of the experiment.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the gate</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>vertices</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
+          </td>
+          <td><p>List of coordinates, like <code>[[x,y], [x,y], ...]</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>label</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[float]</code>
+          </td>
+          <td><p>Position of the label. Defaults to the midpoint of the gate.</p></td>
+          <td>
+                <code>[]</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gid</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be
+specified.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>locked</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Prevents modification of the gate via the web interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tailored_per_file</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether or not this gate is tailored per FCS
+file.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Name of FCS file, if tailored per file. An attempt will be
+made to find the file by name. If zero or more than one file
+exists with the name, an error will be thrown. Looking up files
+by name is slower than using the ID, as this requires additional
+requests to the server. If specified, do not specify
+<code>fcs_file_id</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>create_population</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>parent_population_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Use with <code>create_population</code> to specify the
+population below which to create this populations.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.PolygonGate" href="#cellengine.resources.gate.PolygonGate">PolygonGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.PolygonGate" href="#cellengine.resources.gate.PolygonGate">PolygonGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
+          </td>
+          <td><p>A PolygonGate if <code>create_population</code> is False, or a Tuple with the
+gate and populations if <code>create_population</code> is True.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_polygon_gate</span><span class="p">(</span>
+    <span class="n">x_channel</span><span class="o">=</span><span class="s2">&quot;FSC-A&quot;</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="o">=</span><span class="s2">&quot;FSC-W&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my gate&quot;</span><span class="p">,</span>
+    <span class="n">vertices</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+</code></pre></div>
 
   </div>
 
@@ -1311,8 +1525,6 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
       <p class="doc doc-class-bases">
         Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
 
-  
-      <p>Basic concrete class for ellipse gates</p>
 
 
 
@@ -1333,7 +1545,7 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.gate.EllipseGate.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1343,6 +1555,227 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Creates an ellipse gate.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>experiment_id</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The ID of the experiment.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the gate</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>center</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[float]</code>
+          </td>
+          <td><p>The x, y centerpoint of the gate.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>angle</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The angle of the ellipse in radians.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>major</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The major radius of the ellipse.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>minor</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The minor radius of the ellipse.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>label</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[float]</code>
+          </td>
+          <td><p>Position of the label. Defaults to the midpoint of the gate.</p></td>
+          <td>
+                <code>[]</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gid</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be
+specified.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>locked</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Prevents modification of the gate via the
+web interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tailored_per_file</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether or not this gate is tailored per FCS
+file.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Name of FCS file, if tailored per file. An attempt will be
+made to find the file by name. If zero or more than one file
+exists with the name, an error will be thrown. Looking up files
+by name is slower than using the ID, as this requires additional
+requests to the server. If specified, do not specify
+<code>fcs_file_id</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>create_population</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>parent_population_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Use with <code>create_population</code> to specify the
+population below which to create this populations.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.EllipseGate" href="#cellengine.resources.gate.EllipseGate">EllipseGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.EllipseGate" href="#cellengine.resources.gate.EllipseGate">EllipseGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
+          </td>
+          <td><p>If <code>create_population</code> is <code>True</code>, a tuple containing an EllipseGate
+and a list of two Populations; otherwise, an EllipseGate.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_ellipse_gate</span><span class="p">(</span>
+    <span class="n">x_channel</span><span class="o">=</span><span class="s2">&quot;FSC-A&quot;</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="o">=</span><span class="s2">&quot;FSC-W&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my gate&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">260000</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mi">64000</span><span class="p">,</span>
+    <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">major</span><span class="o">=</span><span class="mi">120000</span><span class="p">,</span>
+    <span class="n">minor</span><span class="o">=</span><span class="mi">70000</span><span class="p">)</span>
+</code></pre></div>
 
   </div>
 
@@ -1371,8 +1804,6 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
       <p class="doc doc-class-bases">
         Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
 
-  
-      <p>Basic concrete class for range gates</p>
 
 
 
@@ -1393,7 +1824,7 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.gate.RangeGate.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1403,6 +1834,208 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Creates a range gate.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>experiment_id</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The ID of the experiment.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the gate</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x1</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The first x coordinate (after the channel's scale has
+been applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x2</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The second x coordinate (after the channel's scale has been
+applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>Position of the horizontal line between the
+vertical lines</p></td>
+          <td>
+                <code>0.5</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>label</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[float]</code>
+          </td>
+          <td><p>Position of the label. Defaults to
+the midpoint of the gate.</p></td>
+          <td>
+                <code>[]</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gid</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Group ID of the gate, used for tailoring. If
+this is not specified, then a new Group ID will be created. To
+create a tailored gate, the gid of the global tailored gate
+must be specified.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>locked</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Prevents modification of the gate via the
+web interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tailored_per_file</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether or not this gate is
+tailored per FCS file.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>ID of FCS
+file, if tailored per file. Use <code>None</code> for the global gate in
+a tailored gate group. If specified, do not specify
+<code>fcs_file</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Name of FCS file, if tailored per file.
+An attempt will be made to find the file by name. If zero or
+more than one file exists with the name, an error will be
+thrown. Looking up files by name is slower than using the ID,
+as this requires additional requests to the server. If
+specified, do not specify <code>fcs_file_id</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>create_population</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>parent_population_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Use with <code>create_population</code> to specify the
+population below which to create this populations.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RangeGate" href="#cellengine.resources.gate.RangeGate">RangeGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RangeGate" href="#cellengine.resources.gate.RangeGate">RangeGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
+          </td>
+          <td><p>If <code>create_population</code> is <code>True</code>, a tuple containing a RangeGate
+and a list of two Populations; otherwise, a RangeGate.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_range_gate</span><span class="p">(</span>
+    <span class="n">x_channel</span><span class="o">=</span><span class="s2">&quot;FSC-A&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my gate&quot;</span><span class="p">,</span>
+    <span class="n">x1</span><span class="o">=</span><span class="mf">12.502</span><span class="p">,</span>
+    <span class="n">x2</span><span class="o">=</span><span class="mf">95.102</span><span class="p">)</span>
+</code></pre></div>
 
   </div>
 
@@ -1431,8 +2064,6 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
       <p class="doc doc-class-bases">
         Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
 
-  
-      <p>Basic concrete class for split gates</p>
 
 
 
@@ -1453,7 +2084,7 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.gate.SplitGate.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1463,6 +2094,217 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Creates a split gate.</p>
+<p>Split gates have two sectors (right and left), each with a unique gid
+and name.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>experiment_id</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The ID of the experiment.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the gate.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The x coordinate of the center point (after the
+channel's scale has been applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The relative position from 0 to 1 of the horizontal dashed line
+extending from the center point.</p></td>
+          <td>
+                <code>0.5</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>labels</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
+          </td>
+          <td><p>Positions of the quadrant labels. A list of two length-2
+lists in the order: L, R. These are set automatically to the top
+corners.</p></td>
+          <td>
+                <code>[]</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gid</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be
+specified.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gids</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
+          </td>
+          <td><p>Group IDs of each sector, assigned to <code>model.gids</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>locked</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Prevents modification of the gate via the web interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tailored_per_file</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether or not this gate is tailored per FCS
+file.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+the global gate in a tailored gate group. If specified, do not
+specify <code>fcs_file</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Name of FCS file, if tailored per file. An attempt will
+be made to find the file by name. If zero or more than one file
+exists with the name, an error will be thrown. Looking up files
+by name is slower than using the ID, as this requires additional
+requests to the server. If specified, do not specify
+<code>fcs_file_id</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>create_population</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>If true, corresponding populations will be
+created and returned in a tuple with the gate.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>parent_population_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Use with <code>create_population</code> to specify the
+population below which to create these populations.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.SplitGate" href="#cellengine.resources.gate.SplitGate">SplitGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.SplitGate" href="#cellengine.resources.gate.SplitGate">SplitGate</a>, <span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]]</code>
+          </td>
+          <td><p>A SplitGate if <code>create_population</code> is False, or a Tuple with the
+gate and populations if <code>create_population</code> is True.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="c1"># With automatic creation of the corresponding populations:</span>
+<span class="n">gate</span><span class="p">,</span> <span class="n">pops</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_split_gate</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="o">=</span><span class="s2">&quot;FSC-A&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my gate&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">144000</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">parent_population_id</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<span class="c1"># Without</span>
+<span class="n">gate</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_split_gate</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="o">=</span><span class="s2">&quot;FSC-A&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my gate&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">144000</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
 
   </div>
 
@@ -1491,8 +2333,6 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
       <p class="doc doc-class-bases">
         Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
 
-  
-      <p>Basic concrete class for quadrant gates</p>
 
 
 
@@ -1513,7 +2353,7 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.gate.QuadrantGate.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">skewable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">skewable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -1523,6 +2363,240 @@ a static method on <code>cellengine.Gate</code> or on an <code>Experiment</code>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Creates a quadrant gate.</p>
+<p>Quadrant gates have four sectors (upper-right, upper-left, lower-left,
+lower-right), each with a unique gid and name.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>experiment_id</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The ID of the experiment.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y_channel</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the gate</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>x</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The x coordinate of the center point (after the channel's scale
+has been applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>The y coordinate (after the channel's scale has been applied).</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>labels</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
+          </td>
+          <td><p>Positions of the quadrant labels. A list of four length-2
+vectors in the order UR, UL, LL, LR. These are set automatically
+to the plot corners.</p></td>
+          <td>
+                <code>[]</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>skewable</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether the quadrant gate is skewable.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>angles</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[float]</code>
+          </td>
+          <td><p>List of the four angles of the quadrant demarcations</p></td>
+          <td>
+                <code>[0, pi / 2, pi, 3 * pi / 2]</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gid</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Group ID of the gate, used for tailoring. If this is not
+specified, then a new Group ID will be created. To create a
+tailored gate, the gid of the global tailored gate must be
+specified.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>gids</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
+          </td>
+          <td><p>Group IDs of each sector, assigned to <code>model.gids</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>locked</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Prevents modification of the gate via the web
+interface.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>tailored_per_file</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether or not this gate is
+tailored per FCS file.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>ID of FCS file, if tailored per file.
+Use <code>None</code> for the global gate in a tailored gate group. If
+specified, do not specify <code>fcs_file</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fcs_file</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Name of FCS file, if tailored per file.
+An attempt will be made to find the file by name. If zero or
+more than one file exists with the name, an error will be
+thrown. Looking up files by name is slower than using the ID,
+as this requires additional requests to the server. If
+specified, do not specify <code>fcs_file_id</code>.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>create_population</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>If true, corresponding populations will be
+created and returned in a tuple with the gate.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>parent_population_id</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>Use with <code>create_population</code> to specify the
+population below which to create these populations.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.QuadrantGate" href="#cellengine.resources.gate.QuadrantGate">QuadrantGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.QuadrantGate" href="#cellengine.resources.gate.QuadrantGate">QuadrantGate</a>, <span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]]</code>
+          </td>
+          <td><p>If <code>create_population</code> is <code>True</code>, a tuple containing the
+QuadrantGate and a list of two Populations; otherwise, a
+QuadrantGate.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pops</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_quadrant_gate</span><span class="p">(</span>
+    <span class="n">x_channel</span><span class="o">=</span><span class="s2">&quot;FSC-A&quot;</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="o">=</span><span class="s2">&quot;FSC-W&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my gate&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">160000</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mi">200000</span><span class="p">)</span>
+</code></pre></div>
 
   </div>
 

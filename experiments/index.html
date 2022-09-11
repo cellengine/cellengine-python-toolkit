@@ -624,6 +624,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.delete_gates" class="md-nav__link">
+    delete_gates()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.download_attachment" class="md-nav__link">
     download_attachment()
   </a>
@@ -1173,6 +1180,13 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.delete_gate" class="md-nav__link">
     delete_gate()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.delete_gates" class="md-nav__link">
+    delete_gates()
   </a>
   
 </li>
@@ -1778,8 +1792,8 @@ experiment's ID.</p>
 <code class="codehilite language-python"><span class="n">active_compensation</span><span class="p">()</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
@@ -1901,8 +1915,8 @@ path (List[str]): Array of folder IDs comprising the path.</p></td>
 <code class="codehilite language-python"><span class="n">comments</span><span class="p">()</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
@@ -2115,12 +2129,16 @@ length of the array must be the number of channels squared.</p></td>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_ellipse_gate">
-<code class="codehilite language-python"><span class="n">create_ellipse_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_ellipse_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Create an EllipseGate.</p>
+<p>Accepts all args and kwargs available for
+<a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.EllipseGate.create"><code>EllipseGate.create()</code></a>.</p>
 
   </div>
 
@@ -2149,12 +2167,16 @@ length of the array must be the number of channels squared.</p></td>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_polygon_gate">
-<code class="codehilite language-python"><span class="n">create_polygon_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_polygon_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Create a PolygonGate.</p>
+<p>Accepts all args and kwargs available for
+<a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.PolygonGate.create"><code>PolygonGate.create()</code></a>.</p>
 
   </div>
 
@@ -2172,7 +2194,7 @@ length of the array must be the number of channels squared.</p></td>
 
   <div class="doc doc-contents ">
   
-      <p>Create a complex population</p>
+      <p>Create a population.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2235,12 +2257,16 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_quadrant_gate">
-<code class="codehilite language-python"><span class="n">create_quadrant_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">skewable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_quadrant_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Create a QuadrantGate.</p>
+<p>Accepts all args and kwargs available for
+<a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.QuadrantGate.create"><code>QuadrantGate.create()</code></a>.</p>
 
   </div>
 
@@ -2251,12 +2277,16 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_range_gate">
-<code class="codehilite language-python"><span class="n">create_range_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_range_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Create a RangeGate.</p>
+<p>Accepts all args and kwargs available for
+<a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.RangeGate.create"><code>RangeGate.create()</code></a>.</p>
 
   </div>
 
@@ -2267,12 +2297,16 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_rectangle_gate">
-<code class="codehilite language-python"><span class="n">create_rectangle_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_rectangle_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Create a RectangleGate.</p>
+<p>Accepts all args and kwargs available for
+<a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.RectangleGate.create"><code>RectangleGate.create()</code></a>.</p>
 
   </div>
 
@@ -2283,12 +2317,16 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create_split_gate">
-<code class="codehilite language-python"><span class="n">create_split_gate</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent_population</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create_split_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Create a SplitGate.</p>
+<p>Accepts all args and kwargs available for
+<a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.SplitGate.create"><code>SplitGate.create()</code></a>.</p>
 
   </div>
 
@@ -2334,6 +2372,24 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 See the
 <a class="autorefs autorefs-internal" href="../api_client/#cellengine.utils.api_client.APIClient.APIClient.delete_gate"><code>APIClient</code></a>
 for more information.</p>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.delete_gates">
+<code class="codehilite language-python"><span class="n">delete_gates</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Deletes multiple gates provided a list of _ids.</p>
 
   </div>
 
