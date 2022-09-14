@@ -76,7 +76,7 @@ class FcsFile(DataClassMixin):
             self._annotations = val
 
     @property
-    def channels(self) -> List:
+    def channels(self) -> List[str]:
         """Return all channels in the file"""
         return [f["channel"] for f in self.panel]  # type: ignore
 
