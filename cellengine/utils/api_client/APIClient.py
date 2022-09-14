@@ -201,8 +201,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             entity.path,
             converter.unstructure(entity),
         )
-        if body["_id"] == "None" or body["_id"] is None:
-            del body["_id"]  # https://github.com/primitybio/cellengine/issues/5800
         return (cls, path, body)
 
     # fmt: off
