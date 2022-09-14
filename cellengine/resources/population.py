@@ -27,7 +27,9 @@ class Population:
         )
 
     @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Population:
+    def get(
+        cls, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Population:
         """Get Population by name or ID for a specific experiment. Either
         `name` or `_id` must be specified.
 

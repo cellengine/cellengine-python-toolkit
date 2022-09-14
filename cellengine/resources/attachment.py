@@ -34,7 +34,9 @@ class Attachment:
         )
 
     @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Attachment:
+    def get(
+        cls, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Attachment:
         """Get an Attachment by name or ID for a specific experiment. Either
         `name` or `_id` must be specified.
 

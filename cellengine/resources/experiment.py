@@ -131,19 +131,19 @@ class Experiment(DataClassMixin):
             self._comments = comments  # type: ignore
 
     @staticmethod
-    def get(_id: str = None, name: str = None) -> Experiment:
+    def get(_id: Optional[str] = None, name: Optional[str] = None) -> Experiment:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_experiment(**kwargs)
 
     @staticmethod
     def create(
-        name: str = None,
-        comments: str = None,
-        uploader: str = None,
-        primary_researcher: str = None,
-        tags: List[str] = None,
-    ) -> Union[Experiment, Dict]:
-        """Post a new experiment to CellEngine.
+        name: Optional[str] = None,
+        comments: Optional[str] = None,
+        uploader: Optional[str] = None,
+        primary_researcher: Optional[str] = None,
+        tags: List[str] = [],
+    ) -> Experiment:
+        """Creates a new experiment.
 
         Args:
             name: Defaults to "Untitled Experiment".
@@ -153,7 +153,7 @@ class Experiment(DataClassMixin):
             tags: Defaults to empty list.
 
         Returns:
-            Creates the Experiment in CellEngine and returns it.
+            The created Experiment.
         """
         experiment_body = {
             k: v

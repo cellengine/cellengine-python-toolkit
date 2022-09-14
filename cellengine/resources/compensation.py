@@ -68,7 +68,9 @@ class Compensation:
         return converter.unstructure(self)
 
     @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> Compensation:
+    def get(
+        cls, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Compensation:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_compensation(experiment_id, **kwargs)
 

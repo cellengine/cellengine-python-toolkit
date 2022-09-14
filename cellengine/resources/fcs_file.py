@@ -47,12 +47,12 @@ class FcsFile(DataClassMixin):
         self._events_kwargs = {}
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Alias for `filename`."""
         return self.filename
 
     @name.setter
-    def name(self, val):
+    def name(self, val: str):
         self.filename = val
 
     @property
@@ -224,8 +224,8 @@ class FcsFile(DataClassMixin):
         x_channel: str,
         y_channel: str,
         plot_type: str,
-        z_channel: str = None,
-        population_id: str = None,
+        z_channel: Optional[str] = None,
+        population_id: Optional[str] = None,
         **kwargs,
     ) -> Plot:
         """Build a plot for an FcsFile.
