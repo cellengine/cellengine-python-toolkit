@@ -1,4 +1,5 @@
 from __future__ import annotations
+from cellengine.utils.types import ApplyTailoringRes
 from functools import lru_cache
 from getpass import getpass
 import importlib
@@ -603,12 +604,15 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             json=body,
         )
 
-    def tailor_to(self, experiment_id, gate_id, fcs_file_id):
-        """Tailor a gate to a file."""
-        gate = self.get_gate(experiment_id, gate_id, as_dict=True)
-        gate["tailoredPerFile"] = True
-        gate["fcsFileId"] = fcs_file_id
-        return self.update_entity(experiment_id, gate_id, "gates", gate)
+    def apply_tailoring(
+        self, experiment_id: str, gate: Gate, fcs_file_ids: List[str]
+    ) -> ApplyTailoringRes:
+        """Tailor a gate to a file or files."""
+        return self._post(
+            f"{self.base_url}/experiments/{experiment_id}/gates/applyTailored",
+            params={"gid": gate.gid},
+            json={"gate": gate.to_dict(), "fcsFileIds": fcs_file_ids},
+        )
 
     def get_plot(
         self,

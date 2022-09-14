@@ -1,5 +1,9 @@
 from __future__ import annotations
 import importlib
+from cellengine.utils.types import (
+    ApplyTailoringInsert,
+    ApplyTailoringUpdate,
+)
 from math import pi
 from operator import itemgetter
 from typing import Any, Dict, List, Optional, Union, Tuple, overload
@@ -13,7 +17,6 @@ from attr import define, field
 from numpy import array, mean, stack
 
 import cellengine as ce
-from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.population import Population
 from cellengine.utils import parse_fcs_file_args
 from cellengine.utils import converter, generate_id, readonly
@@ -55,6 +58,13 @@ def deep_update(source, overrides):
         else:
             source[key] = overrides[key]
     return source
+
+
+class ApplyTailoringResult:
+    def __init__(self):
+        self.inserted: List[Gate] = []
+        self.updated: List[Gate] = []
+        self.deleted: List[str] = []
 
 
 @define(repr=False)
@@ -138,10 +148,22 @@ class Gate:
         if res["nModified"] < 1:
             raise Warning("No gates updated.")
 
-    def tailor_to(self, fcs_file: FcsFile):
-        self.tailored_per_file = True
-        self.fcs_file_id = fcs_file._id
-        self.update()
+    def apply_tailoring(self, fcs_file_ids: List[str]) -> ApplyTailoringResult:
+        """Apply this gate's tailoring (copy its geometry) to other FCS files."""
+        payload = ce.APIClient().apply_tailoring(self.experiment_id, self, fcs_file_ids)
+        ret = ApplyTailoringResult()
+        [ret.inserted.append(self._synthesize_gate(i)) for i in payload["inserted"]]
+        [ret.updated.append(self._synthesize_gate(i)) for i in payload["updated"]]
+        [ret.deleted.append(i["_id"]) for i in payload["deleted"]]
+        return ret
+
+    def _synthesize_gate(
+        self,
+        payload: Union[ApplyTailoringInsert, ApplyTailoringUpdate],
+    ):
+        gate = self.to_dict()
+        gate.update(payload)
+        return Gate.from_dict(gate)
 
 
 class RectangleGate(Gate):
