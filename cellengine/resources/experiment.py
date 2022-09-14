@@ -189,8 +189,7 @@ class Experiment(DataClassMixin):
         """
         return ce.APIClient().clone_experiment(self._id, props)
 
-    @property
-    def delete(self):
+    def delete(self) -> None:
         """Marks the experiment as deleted.
 
         Deleted experiments are permanently deleted after approximately
@@ -198,8 +197,7 @@ class Experiment(DataClassMixin):
         """
         self.deleted = datetime.today()
 
-    @property
-    def undelete(self):
+    def undelete(self) -> None:
         """Clear a scheduled deletion."""
         if self.deleted:
             del self.deleted
