@@ -1961,7 +1961,7 @@ dict = {"insert": "some text",
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.experiment.Experiment.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uploader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_researcher</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uploader</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_researcher</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[])</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
@@ -1972,7 +1972,7 @@ dict = {"insert": "some text",
 
   <div class="doc doc-contents ">
   
-      <p>Post a new experiment to CellEngine.</p>
+      <p>Creates a new experiment.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1988,7 +1988,7 @@ dict = {"insert": "some text",
         <tr>
           <td><code>name</code></td>
           <td>
-                <code>str</code>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
           <td><p>Defaults to "Untitled Experiment".</p></td>
           <td>
@@ -1998,7 +1998,7 @@ dict = {"insert": "some text",
         <tr>
           <td><code>comments</code></td>
           <td>
-                <code>str</code>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
           <td><p>Defaults to None.</p></td>
           <td>
@@ -2008,7 +2008,7 @@ dict = {"insert": "some text",
         <tr>
           <td><code>uploader</code></td>
           <td>
-                <code>str</code>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
           <td><p>Defaults to user making request.</p></td>
           <td>
@@ -2018,7 +2018,7 @@ dict = {"insert": "some text",
         <tr>
           <td><code>primary_researcher</code></td>
           <td>
-                <code>str</code>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
           <td><p>Defaults to user making request.</p></td>
           <td>
@@ -2032,7 +2032,7 @@ dict = {"insert": "some text",
           </td>
           <td><p>Defaults to empty list.</p></td>
           <td>
-                <code>None</code>
+                <code>[]</code>
           </td>
         </tr>
     </tbody>
@@ -2049,9 +2049,9 @@ dict = {"insert": "some text",
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.experiment.Experiment" href="#cellengine.resources.experiment.Experiment">Experiment</a>, <span title="typing.Dict">Dict</span>]</code>
+                <code><a class="autorefs autorefs-internal" title="cellengine.resources.experiment.Experiment" href="#cellengine.resources.experiment.Experiment">Experiment</a></code>
           </td>
-          <td><p>Creates the Experiment in CellEngine and returns it.</p></td>
+          <td><p>The created Experiment.</p></td>
         </tr>
     </tbody>
   </table>
