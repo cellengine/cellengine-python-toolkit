@@ -1,4 +1,4 @@
-pytest~=5.3
+pytest~=7.1.3
 pytest-recording~=0.12
 pyright~=0.0.9
 responses~=0.10
