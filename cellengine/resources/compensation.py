@@ -182,7 +182,8 @@ class Compensation:
         if any(ix):
             copy = data.copy()
             comped = copy[ix]
-            comped = comped.dot(linalg.inv(self.dataframe))  # type: ignore
+            spillover = linalg.inv(self.dataframe).astype("float32")
+            comped = comped.dot(spillover)
             comped.columns = ix
             copy.update(comped.astype(comped.dtypes[0]))
         else:

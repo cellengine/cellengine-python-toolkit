@@ -9,21 +9,20 @@ import responses
 from cellengine.resources.compensation import Compensation
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.utils import converter
-from cellengine.utils.parse_fcs_file import parse_fcs_file
 
 
 EXP_ID = "5d38a6f79fae87499999a74b"
 
 
 @pytest.fixture(scope="function")
-def fcs_file(ENDPOINT_BASE, client, fcs_files):
+def fcs_file(fcs_files):
     file = fcs_files[0]
     file.update({"experimentId": EXP_ID})
     return FcsFile.from_dict(file)
 
 
 @pytest.fixture(scope="function")
-def compensation(ENDPOINT_BASE, client, compensations):
+def compensation(compensations):
     comp = compensations[0]
     comp.update({"experimentId": EXP_ID})
     return converter.structure(comp, Compensation)
@@ -44,7 +43,7 @@ def properties_tester(comp):
     assert hasattr(comp, "dataframe_as_html")
 
 
-def test_compensation_properties(ENDPOINT_BASE, compensation):
+def test_compensation_properties(compensation):
     properties_tester(compensation)
 
 
@@ -163,25 +162,14 @@ def test_create_from_spill_string(spillstring):
 
 
 @responses.activate
-def test_apply_comp_errors_for_nonmatching_channels(
-    client, ENDPOINT_BASE, compensation, fcs_file
-):
-    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
-    responses.add(
-        responses.GET,
-        f"{ENDPOINT_BASE}/experiments/{EXP_ID}/fcsfiles/{fcs_file._id}.fcs",
-        body=events_body,
-    )
-    events = parse_fcs_file(client.download_fcs_file(EXP_ID, fcs_file._id))
-    fcs_file.events = events
-
+def test_apply_comp_errors_for_nonmatching_channels(compensation, acea_fcs_file):
     with pytest.raises(IndexError):
-        compensation.apply(fcs_file)
+        compensation.apply(acea_fcs_file)
 
 
 @responses.activate
 def test_apply_compensation_to_fcs_file_with_matching_kwargs(
-    client, ENDPOINT_BASE, compensation, fcs_file
+    ENDPOINT_BASE, compensation, fcs_file
 ):
     # Given: a Compensation with channels as a subset of the FcsFile events
     responses.add(
@@ -214,8 +202,8 @@ def test_apply_compensation_to_fcs_file_with_matching_kwargs(
 def test_apply_comp_compensates_values(
     acea_events_compensated, acea_fcs_file, acea_compensation
 ):
-    """This test compares results from a file-internal compensation conducted
-    by the Python toolkit to one conducted by CellEngine. See
+    """This test compares results from file-internal compensation calculated
+    by the Python toolkit to one calculated by CellEngine. See
     tests/fixtures/compensated_events.py for details on the fixtures used
     here."""
     # Given:
