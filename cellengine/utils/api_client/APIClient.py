@@ -7,6 +7,11 @@ import json
 import os
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union, overload
 
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
 import pandas
 from pandas.core.frame import DataFrame
 from requests_toolbelt.multipart.encoder import MultipartEncoder
@@ -352,29 +357,35 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return fcs_files
         return [FcsFile.from_dict(fcs_file) for fcs_file in fcs_files]
 
-    # fmt: off
     @overload
     def get_fcs_file(
         self,
         experiment_id: str,
-        _id: str = None,
-        name: str = None,
-        as_dict: bool = True,
-    ) -> Dict[str, Any]: ...
+        _id: Optional[str] = ...,
+        name: Optional[str] = ...,
+        *,
+        as_dict: Literal[True],
+    ) -> Dict[str, Any]:
+        ...
 
     @overload
     def get_fcs_file(
         self,
         experiment_id: str,
-        _id: str = None,
-        name: str = None,
-        as_dict: bool = False,
-    ) -> FcsFile: ...
-    # fmt: on
+        _id: Optional[str] = ...,
+        name: Optional[str] = ...,
+        as_dict: Literal[False] = ...,
+    ) -> FcsFile:
+        ...
 
     def get_fcs_file(
-        self, experiment_id: str, _id: str = None, name: str = None, as_dict=False
+        self,
+        experiment_id: str,
+        _id: Optional[str] = None,
+        name: Optional[str] = None,
+        as_dict: Optional[bool] = False,
     ):
+        # TODO this only needs to make one request to do a name lookup
         _id = _id or self._get_id_by_name(name, "fcsfiles", experiment_id)
         fcs_file = self._get(
             f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{_id}"
