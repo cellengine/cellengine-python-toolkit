@@ -484,6 +484,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.channel_for_reagent" class="md-nav__link">
+    channel_for_reagent()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.channels" class="md-nav__link">
     channels()
   </a>
@@ -830,6 +837,13 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.annotations" class="md-nav__link">
     annotations()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.channel_for_reagent" class="md-nav__link">
+    channel_for_reagent()
   </a>
   
 </li>
@@ -1301,6 +1315,24 @@ a list of such dicts.</p>
 
 
 
+<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.channel_for_reagent">
+<code class="codehilite language-python"><span class="n">channel_for_reagent</span><span class="p">(</span><span class="n">reagent</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns the channel name (<code>$PnN</code>) for the given reagent (<code>$PnS). Returns</code>None` if the channel isn't found.</p>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
 <h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.channels">
 <code class="codehilite language-python"><span class="n">channels</span><span class="p">()</span></code>
   
@@ -1583,6 +1615,10 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
   <div class="doc doc-contents ">
   
       <p>Fetch a DataFrame containing this file's data.</p>
+<p>The returned DataFrame uses the channel names (<code>$PnN</code> values) for column
+names because, unlike reagent names (<code>$PnS</code>), they are required and must
+be unique. To find the <code>$PnN</code> value for a given reagent name (<code>$PnS</code>),
+use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.FcsFile.channel_for_reagent"><code>fcs_file.channel_for_reagent(reagent)</code></a>.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1598,7 +1634,7 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
         <tr>
           <td><code>inplace</code></td>
           <td>
-                <code>bool</code>
+                <code><span title="typing.Optional">Optional</span>[bool]</code>
           </td>
           <td><p>bool</p></td>
           <td>
@@ -1611,15 +1647,16 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
                 <code><span title="typing.Any">Any</span></code>
           </td>
           <td><ul>
-<li>compensatedQ (bool): If true, applies the compensation
+<li>compensatedQ (bool): If <code>True</code>, applies the compensation
     specified in compensationId to the exported events.
     The numerical values will be unchanged, but the
     file header will contain the compensation as the spill string.</li>
 <li>compensationId ([int, str]): Required if populationId is
     specified. Compensation to use for gating.</li>
-<li>headers (bool): For TSV format only. If true, a header row
+<li>headers (bool): For TSV format only. If <code>True</code>, a header row
     containing the channel names will be included.</li>
-<li>original (bool): If true, the returned file will be
+<li>
+<p>original (bool): If <code>True</code>, the returned file will be
     byte-for-byte identical to the originally uploaded file. If
     false or unspecified (and compensatedQ is false, populationId
     is unspecified and all subsampling parameters are unspecified),
@@ -1629,24 +1666,28 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
     will always be little-endian and any extraneous information
     appended to the end of the original file will be stripped. This
     parameter takes precedence over compensatedQ, populationId and
-    the subsampling parameters.</li>
-<li>populationId (str): If provided, only events from this
-    population will be included in the output file.</li>
-<li>postSubsampleN (int): Randomly subsample the file to contain
-    this many events after gating.</li>
-<li>postSubsampleP (float): Randomly subsample the file to contain
-    this percent of events (0 to 1) after gating.</li>
-<li>preSubsampleN (int): Randomly subsample the file to contain
-    this many events before gating.</li>
-<li>preSubsampleP (float): Randomly subsample the file to contain
-    this percent of events (0 to 1) before gating.</li>
-<li>seed: (int): Seed for random number generator used for
-    subsampling. Use for deterministic (reproducible) subsampling.
-    If omitted, a pseudo-random value is used.</li>
-<li>addEventNumber (bool): Add an event number column to the
-    exported file. When a populationId is specified (when gating),
-    this number corresponds to the index of the event in the
-    original file.</li>
+    the subsampling parameters.</p>
+<p>The Python toolkit uses the FlowIO library, which cannot
+parse as many FCS files as CellEngine can. Setting this
+parameter to <code>True</code> can cause parsing errors.
+- populationId (str): If provided, only events from this
+population will be included in the output file.
+- postSubsampleN (int): Randomly subsample the file to contain
+this many events after gating.
+- postSubsampleP (float): Randomly subsample the file to contain
+this percent of events (0 to 1) after gating.
+- preSubsampleN (int): Randomly subsample the file to contain
+this many events before gating.
+- preSubsampleP (float): Randomly subsample the file to contain
+this percent of events (0 to 1) before gating.
+- seed: (int): Seed for random number generator used for
+subsampling. Use for deterministic (reproducible) subsampling.
+If omitted, a pseudo-random value is used.
+- addEventNumber (bool): Add an event number column to the
+exported file. When a populationId is specified (when gating),
+this number corresponds to the index of the event in the
+original file.</p>
+</li>
 </ul></td>
           <td>
                 <code>{}</code>
