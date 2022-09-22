@@ -694,7 +694,21 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return Population.from_dict(res)
 
-    def get_scaleset(self, experiment_id, as_dict=False) -> ScaleSet:
+    @overload
+    def get_scaleset(
+        self, experiment_id: str, as_dict: Literal[False] = ...
+    ) -> ScaleSet:
+        ...
+
+    @overload
+    def get_scaleset(
+        self, experiment_id: str, as_dict: Literal[True]
+    ) -> Dict[str, Any]:
+        ...
+
+    def get_scaleset(
+        self, experiment_id: str, as_dict: Optional[bool] = False
+    ) -> Union[ScaleSet, Dict[str, Any]]:
         """Get a scaleset for an experiment."""
         scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
             0

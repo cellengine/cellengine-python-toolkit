@@ -47,7 +47,7 @@ class ScaleSet(DataClassMixin):
 
     @classmethod
     def get(cls, experiment_id: str) -> ScaleSet:
-        return ce.APIClient().get_scaleset(experiment_id)  # type: ignore
+        return ce.APIClient().get_scaleset(experiment_id)
 
     def update(self):
         """Save changes to this ScaleSet to CellEngine."""
