@@ -15,7 +15,7 @@ class Plot(DataClassMixin):
     fcs_file_id: str
     x_channel: str
     y_channel: str
-    z_channel: str
+    z_channel: Optional[str]
     plot_type: str
     population_id: Optional[str]
     data: bytes
@@ -36,7 +36,6 @@ class Plot(DataClassMixin):
         y_channel: str,
         z_channel: Optional[str] = None,
         population_id: Optional[str] = None,
-        as_dict: bool = False,
         **kwargs,
     ) -> Plot:
         """
@@ -107,7 +106,6 @@ class Plot(DataClassMixin):
             z_channel,
             population_id,
             properties,
-            as_dict,
         )
 
     def display(self):

@@ -652,14 +652,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def get_plot(
         self,
-        experiment_id,
-        fcs_file_id,
+        experiment_id: str,
+        fcs_file_id: str,
         plot_type: str,
         x_channel: str,
         y_channel: str,
         z_channel: Optional[str] = None,
-        population_id: str = None,
-        properties: Dict = None,
+        population_id: Optional[str] = None,
+        properties: Optional[Dict] = None,
         raw=False,
     ) -> Plot:
 
