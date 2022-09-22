@@ -105,7 +105,7 @@ def test_fcs_file_events(ligands_experiment: Experiment):
     assert len(limited_events) == len(file.events)
 
 
-def test_apply_compensations(setup_experiment):
+def test_apply_compensations(setup_experiment: Experiment):
     # POST
     file1 = setup_experiment.fcs_files[0]
     setup_experiment.create_compensation("test_comp", file1.channels[0:2], [1, 2, 3, 4])

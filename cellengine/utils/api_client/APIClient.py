@@ -288,7 +288,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         file, headers = self._read_multipart_file(filepath, filename)
         return Attachment.from_dict(self._post(url, data=file, headers=headers))
 
-    def get_compensations(self, experiment_id, as_dict=False) -> List[Compensation]:
+    def get_compensations(
+        self, experiment_id: str, as_dict: Optional[bool] = False
+    ) -> List[Compensation]:
         compensations = self._get(
             f"{self.base_url}/experiments/{experiment_id}/compensations"
         )
@@ -296,9 +298,34 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             return compensations
         return converter.structure(compensations, List[Compensation])
 
+    @overload
     def get_compensation(
-        self, experiment_id, _id=None, name=None, as_dict=False
+        self,
+        experiment_id: str,
+        _id: Optional[str] = ...,
+        name: Optional[str] = ...,
+        *,
+        as_dict: Literal[True],
+    ) -> Dict[str, Any]:
+        ...
+
+    @overload
+    def get_compensation(
+        self,
+        experiment_id: str,
+        _id: Optional[str] = ...,
+        name: Optional[str] = ...,
+        as_dict: Literal[False] = ...,
     ) -> Compensation:
+        ...
+
+    def get_compensation(
+        self,
+        experiment_id: str,
+        _id: Optional[str] = None,
+        name: Optional[str] = None,
+        as_dict: Optional[bool] = False,
+    ) -> Union[Compensation, Dict[str, Any]]:
         _id = _id or self._get_id_by_name(name, "compensations", experiment_id)
         comp = self._get(
             f"{self.base_url}/experiments/{experiment_id}/compensations/{_id}"
