@@ -1,11 +1,13 @@
 from __future__ import annotations
-from cellengine.utils.helpers import is_valid_id
+
 from cellengine.utils.parse_fcs_file import parse_fcs_file
+from cellengine.utils.helpers import is_valid_id
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
 from dataclasses_json import config
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, overload
 from pandas.core.frame import DataFrame
+from io import BytesIO
 
 import cellengine as ce
 from cellengine.resources.plot import Plot
@@ -72,16 +74,26 @@ class FcsFile(DataClassMixin):
         """
         if type(val) is not dict or "name" and "value" not in val:
             raise TypeError('Input must be a dict with a "name" and a "value" item.')
-        else:
-            self._annotations = val
+
+        self._annotations = val
 
     @property
     def channels(self) -> List[str]:
         """Return all channels in the file"""
         return [f["channel"] for f in self.panel]  # type: ignore
 
+    def channel_for_reagent(self, reagent: str) -> Union[str, None]:
+        """
+        Returns the channel name (`$PnN`) for the given reagent (`$PnS). Returns
+        `None` if the channel isn't found.
+        """
+        c = [x for x in self.panel if x["reagent"] == reagent]
+        return c[0]["channel"] if c else None
+
     @classmethod
-    def get(cls, experiment_id: str, _id: str = None, name: str = None) -> FcsFile:
+    def get(
+        cls, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> FcsFile:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_fcs_file(experiment_id=experiment_id, **kwargs)
 
@@ -283,24 +295,50 @@ class FcsFile(DataClassMixin):
             )["spillString"]
         return self._spill_string
 
+    @overload
     def get_events(
-        self, inplace: bool = False, destination=None, **kwargs: Any
+        self,
+        inplace: Optional[bool] = ...,
+        destination: Optional[str] = ...,
+        **kwargs: Any,
+    ) -> DataFrame:
+        ...
+
+    @overload
+    def get_events(
+        self,
+        inplace: Optional[bool] = ...,
+        destination: Optional[str] = ...,
+        **kwargs: Any,
+    ) -> None:
+        ...
+
+    def get_events(
+        self,
+        inplace: Optional[bool] = False,
+        destination: Optional[str] = None,
+        **kwargs: Any,
     ) -> Union[DataFrame, None]:
         """
         Fetch a DataFrame containing this file's data.
 
+        The returned DataFrame uses the channel names (`$PnN` values) for column
+        names because, unlike reagent names (`$PnS`), they are required and must
+        be unique. To find the `$PnN` value for a given reagent name (`$PnS`),
+        use [`fcs_file.channel_for_reagent(reagent)`][cellengine.resources.fcs_file.FcsFile.channel_for_reagent].
+
         Args:
             inplace: bool
             **kwargs:
-                - compensatedQ (bool): If true, applies the compensation
+                - compensatedQ (bool): If `True`, applies the compensation
                     specified in compensationId to the exported events.
                     The numerical values will be unchanged, but the
                     file header will contain the compensation as the spill string.
                 - compensationId ([int, str]): Required if populationId is
                     specified. Compensation to use for gating.
-                - headers (bool): For TSV format only. If true, a header row
+                - headers (bool): For TSV format only. If `True`, a header row
                     containing the channel names will be included.
-                - original (bool): If true, the returned file will be
+                - original (bool): If `True`, the returned file will be
                     byte-for-byte identical to the originally uploaded file. If
                     false or unspecified (and compensatedQ is false, populationId
                     is unspecified and all subsampling parameters are unspecified),
@@ -311,6 +349,10 @@ class FcsFile(DataClassMixin):
                     appended to the end of the original file will be stripped. This
                     parameter takes precedence over compensatedQ, populationId and
                     the subsampling parameters.
+
+                    The Python toolkit uses the FlowIO library, which cannot
+                    parse as many FCS files as CellEngine can. Setting this
+                    parameter to `True` can cause parsing errors.
                 - populationId (str): If provided, only events from this
                     population will be included in the output file.
                 - postSubsampleN (int): Randomly subsample the file to contain
@@ -333,15 +375,20 @@ class FcsFile(DataClassMixin):
             DataFrame: This file's data, with query parameters applied.
             If inplace=True, it updates the self.events property.
             If destination is a string, saves file to the destination and returns None.
-        """
+        """  # noqa
 
         if inplace is True:
             self._events_kwargs = kwargs
 
-        fresp = parse_fcs_file(
-            ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs),
-            destination=destination,
-        )
-        if inplace:
-            self.events = fresp
-        return fresp
+        file = ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
+
+        if inplace or not destination:
+            df = parse_fcs_file(BytesIO(file))
+            if inplace:
+                self.events = df
+            if not destination:
+                return df
+
+        if destination:
+            with open(destination, "wb") as loc:
+                loc.write(file)

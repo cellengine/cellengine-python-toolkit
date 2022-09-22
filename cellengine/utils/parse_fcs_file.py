@@ -1,12 +1,11 @@
-from fcsparser.api import FCSParser
-from pandas.core.frame import DataFrame
+import flowio
+from pandas import DataFrame
+import numpy as np
+from typing import BinaryIO, Union
 
 
-def parse_fcs_file(file: bytes, destination: str = None) -> DataFrame:
-    """Parse an FCS file to a Dataframe"""
-    if destination:
-        with open(destination, "wb") as loc:
-            loc.write(file)
-    else:
-        parser = FCSParser.from_data(file)
-        return DataFrame(parser.data, columns=parser.channel_names_n)
+def parse_fcs_file(file: Union[BinaryIO, str]) -> DataFrame:
+    data = flowio.FlowData(file, True)
+    events = np.reshape(data.events, (-1, data.channel_count))  # type: ignore
+    channels = [k["PnN"] for k in data.channels.values()]
+    return DataFrame(events, columns=channels, dtype="float32")

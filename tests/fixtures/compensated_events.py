@@ -9,9 +9,9 @@ from pandas import read_json, DataFrame
 @pytest.fixture(scope="function")
 def acea_events() -> DataFrame:
     """Real events from 'Acea - Novocyte.fcs'"""
-    events_body = open("tests/data/Acea - Novocyte.fcs", "rb")
-    file = parse_fcs_file(events_body.read())
-    return file.astype("float32")
+    with open("tests/data/Acea - Novocyte.fcs", "rb") as fh:
+        file = parse_fcs_file(fh)
+        return file
 
 
 @pytest.fixture(scope="function")
