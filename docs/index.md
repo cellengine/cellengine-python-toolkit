@@ -4,13 +4,7 @@ This is the documentation for the Python toolkit for the CellEngine API. For
 API documentation visit [here](https://docs.cellengine.com/api/).
 
 ## Quick Start
-Install `cellengine` using `pip`:
-
-```bash
-pip install cellengine
-```
-
-For the development version:
+Install `cellengine` using `pip` from GitHub:
 
 ```bash
 pip install git+https://github.com/primitybio/cellengine-python-toolkit.git
@@ -25,7 +19,7 @@ client = cellengine.APIClient(username="jason")
 # CELLENGINE_AUTH_TOKEN in your environment
 
 # Get a list of all accessible experiments
-experiment = client.get_experiments()
+experiments = client.get_experiments()
 ```
 
 ### Get resources
@@ -68,7 +62,8 @@ events_df = file1.get_events(preSubsampleN=10)
 ```
 
 ### Delete resources
-Deleting all resources is final, except for Experiments, Folders and FCS files. Those resources are marked as deleted, then permanently deleted at a later date.
+Deleting all resources is final, except for Experiments, Folders and FCS files.
+Those resources are marked as deleted, then permanently deleted at a later date.
 To undelete an Experiment, use the `.undelete()` method.
 
 ```python
