@@ -43,6 +43,7 @@ setup(
         "attrs~=20.2",
         "cattrs~=22.1",
         "flowio~=1.0",
+        "flowio @ git+https://github.com/primitybio/FlowIO.git@next",
         "dataclasses-json~=0.5",
         "numpy~=1.17",
         "pandas~=1.1",

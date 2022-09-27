@@ -6,6 +6,7 @@ import importlib
 import json
 import os
 from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union, overload
+from io import BytesIO
 
 try:
     from typing import Literal
@@ -273,7 +274,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raise RuntimeError("No experiment with that name or _id found.")
 
     def upload_attachment(
-        self, experiment_id, filepath: str, filename: str = None
+        self, experiment_id, filepath: str, filename: Optional[str] = None
     ) -> Attachment:
         """Upload an attachment
 
@@ -422,28 +423,36 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return FcsFile.from_dict(fcs_file)
 
     def upload_fcs_file(
-        self, experiment_id, filepath: str, filename: str = None
+        self,
+        experiment_id: str,
+        filepath_or_data: Union[str, BytesIO],
+        filename: Optional[str] = None,
     ) -> FcsFile:
         """Upload an FCS file to CellEngine
 
         Args:
-            filepath (str): Local path to FCS file.
-            filename (str, optional): Optionally, specify a new name for the file.
+            filepath_or_data: Local path to FCS file.
+            filename: Optionally, specify a new name for the file.
 
         Returns:
             The newly-uploaded FcsFile
         """
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
-        file, headers = self._read_multipart_file(filepath, filename)
+        file, headers = self._read_multipart_file(filepath_or_data, filename)
         return FcsFile.from_dict(self._post(url, data=file, headers=headers))
 
-    def _read_multipart_file(self, filepath: str, filename: str = None):
+    def _read_multipart_file(
+        self, file: Union[str, BytesIO], filename: Optional[str] = None
+    ):
         """Posts a MultipartEncoder of the file and its content-type"""
-        filename = filename or os.path.basename(filepath)
+        if filename is None:
+            if isinstance(file, str):
+                filename = os.path.basename(file)
+            else:
+                raise ValueError("filename is required")
+        reader = open(file, "rb") if isinstance(file, str) else file
         mpe = MultipartEncoder(
-            fields={
-                "data": (filename, open(filepath, "rb"), "application/octet-stream")
-            }
+            fields={"data": (filename, reader, "application/octet-stream")}
         )
         return mpe, {"Content-Type": mpe.content_type}
 
@@ -467,7 +476,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                 - compensatedQ (bool): If true, applies the compensation
                   specified in compensationId to the exported events. For
                   TSV format, the numerical values will be the compensated
-                  values.  For FCS format, the numerical values will be
+                  values. For FCS format, the numerical values will be
                   unchanged, but the file header will contain the
                   compensation as the spill string (file-internal
                   compensation).
@@ -500,7 +509,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                     contain this percent of events (0 to 1) before gating.
                 - seed: (int): Seed for random number generator used for
                     subsampling. Use for deterministic (reproducible)
-                    subsampling.  If omitted, a pseudo-random value is
+                    subsampling. If omitted, a pseudo-random value is
                     used.
                 - addEventNumber (bool): Add an event number column to the
                     exported file. When a populationId is specified

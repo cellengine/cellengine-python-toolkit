@@ -2,6 +2,7 @@ import os
 import pytest
 import pandas
 import uuid
+import json
 
 from typing import Iterator
 
@@ -102,7 +103,7 @@ def test_fcs_file_events(ligands_experiment: Experiment):
 
     # it should update the events value
     file.get_events(preSubsampleN=10, inplace=True)
-    assert len(limited_events) == len(file.events)
+    assert len(file.events) == 10
 
 
 def test_apply_compensations(setup_experiment: Experiment):
@@ -177,7 +178,7 @@ def test_experiment_fcs_files(setup_experiment: Experiment, client: APIClient):
     files = setup_experiment.fcs_files
     assert all([type(f) is FcsFile for f in files])
 
-    # CREATE
+    # Create by copying another file in the same experiment.
     file2 = FcsFile.create(
         setup_experiment._id,
         fcs_files=files[0]._id,
@@ -346,3 +347,95 @@ def test_create_new_fcsfile_from_s3(blank_experiment: Experiment):
         "new name",
     )
     assert file.size == 22625
+
+
+def test_create_new_fcsfile_from_dataframe(blank_experiment: Experiment):
+    df = pandas.DataFrame(
+        {"Chan1": [1.0, 2.0, 3.0, 4.0], "Chan2": [10.0, 20.0, 30.0, 40.0]},
+        dtype="float32",
+    )
+    reagents = ["Reag1", "Reag2"]
+
+    created = FcsFile.create_from_dataframe(
+        blank_experiment._id,
+        filename="New file.fcs",
+        df=df,
+        reagents=reagents,
+        headers={
+            "$P1D": "Linear,0,10",
+            "$P2D": "Logarithmic,3,0.1",
+            "Not a standard key": "a/B",
+        },
+    )
+
+    assert created.filename == "New file.fcs"
+    assert created.experiment_id == blank_experiment._id
+    parsed_header = json.loads(created.header)  # type: ignore - might be none
+    assert parsed_header["$PAR"] == "2"
+    assert parsed_header["$TOT"] == "4"
+    assert parsed_header["$P1N"] == "Chan1"
+    assert parsed_header["$P1S"] == "Reag1"
+    assert parsed_header["$P1E"] == "0,0"
+    assert parsed_header["$P1D"] == "Linear,0,10"
+    assert parsed_header["$P2N"] == "Chan2"
+    assert parsed_header["$P2S"] == "Reag2"
+    assert parsed_header["$P2E"] == "0,0"
+    assert parsed_header["$P2D"] == "Logarithmic,3,0.1"
+    assert (
+        parsed_header["$COM"]
+        == f"Created by the CellEngine Python Toolkit v{cellengine.__version__}"
+    )
+    # TODO FlowIO upper-cases all keys
+    assert parsed_header["NOT A STANDARD KEY"] == "a/B"
+    # assert parsed_header["Not a standard key"] == "a/B"
+
+
+def test_create_new_fcsfile_from_dataframe_multiindex(blank_experiment: Experiment):
+    df = pandas.DataFrame(
+        [[1.0, 10.0, 1], [2.0, 20.0, 2], [3.0, 30.0, 3], [4.0, 40.0, 4]],
+        columns=[["Ax488-A", "PE-A", "Cluster ID"], ["CD3", "CD4", None]],
+        dtype="float32",
+    )
+    created = FcsFile.create_from_dataframe(
+        blank_experiment._id, "myfile.fcs", df, headers={"$P3D": "Linear,0,10"}
+    )
+
+    assert created.experiment_id == blank_experiment._id
+    parsed_header = json.loads(created.header)  # type: ignore - might be none
+    assert parsed_header["$PAR"] == "3"
+    assert parsed_header["$TOT"] == "4"
+    assert parsed_header["$P1N"] == "Ax488-A"
+    assert parsed_header["$P1S"] == "CD3"
+    assert parsed_header["$P2N"] == "PE-A"
+    assert parsed_header["$P2S"] == "CD4"
+    assert parsed_header["$P3N"] == "Cluster ID"
+    assert "$P3S" not in parsed_header
+    assert parsed_header["$P3D"] == "Linear,0,10"
+
+
+def test_create_new_fcsfile_from_dataframe_strings(blank_experiment: Experiment):
+    df = pandas.DataFrame(
+        [
+            [1.0, "T cell", 1],
+            [2.0, "T cell", 2],
+            [3.0, "B cell", 3],
+            [4.0, "T cell", 4],
+        ],
+        columns=["Ax488-A", "Cell Type", "Cluster ID"],
+    )
+    df["Cell Type"], cell_type_index = pandas.factorize(df["Cell Type"])
+    created = FcsFile.create_from_dataframe(
+        blank_experiment._id,
+        "myfile.fcs",
+        df,
+        headers={"$P2D": "Linear,0,10", "$P3D": "Linear,0,10"},
+    )
+
+    assert created.experiment_id == blank_experiment._id
+    parsed_header = json.loads(created.header)  # type: ignore - might be none
+    assert parsed_header["$PAR"] == "3"
+    assert parsed_header["$TOT"] == "4"
+    assert parsed_header["$P1N"] == "Ax488-A"
+    assert parsed_header["$P2N"] == "Cell Type"
+    assert parsed_header["$P3N"] == "Cluster ID"
+    assert parsed_header["$P3D"] == "Linear,0,10"

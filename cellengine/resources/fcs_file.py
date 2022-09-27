@@ -1,13 +1,15 @@
 from __future__ import annotations
+import io
 
 from cellengine.utils.parse_fcs_file import parse_fcs_file
 from cellengine.utils.helpers import is_valid_id
 from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from dataclasses import dataclass, field
 from dataclasses_json import config
-from typing import Any, Dict, List, Optional, Union, overload
+from typing import Any, Dict, List, Optional, Union, overload, cast
 from pandas.core.frame import DataFrame
 from io import BytesIO
+import flowio
 
 import cellengine as ce
 from cellengine.resources.plot import Plot
@@ -111,6 +113,133 @@ class FcsFile(DataClassMixin):
             filepath: The file contents.
         """
         return ce.APIClient().upload_fcs_file(experiment_id, filepath)
+
+    @classmethod
+    def create_from_dataframe(
+        cls,
+        experiment_id: str,
+        filename: str,
+        df: DataFrame,
+        reagents: Optional[List[str]] = None,
+        headers: Dict[str, str] = {},
+    ) -> FcsFile:
+        """Creates an FCS file from a DataFrame and uploads it CellEngine.
+
+        Channel names (`$PnN` values such as "FITC-A" or "530/30-A") are read
+        from the DataFrame column names.
+
+        Reagent names (`$PnS` values such as "CD3") are optional and are read
+        from the 2nd-level index of the DataFrame if present, or can be provided
+        in a list in the same order as the channels via the `reagents` argument.
+
+        Additional header keys can be provided via `headers`. In particular, it
+        can be useful to set `$PnD` values, which CellEngine uses to set the
+        initial display scaling:
+
+        * For linear scales, set `"$PnD": "Linear,<min>,<max>"` (e.g.
+          `"Linear,-200,50000"` for a linear scale ranging from -200 to 50,000).
+        * For logarithmic scales, set `"$PnD": "Logarithmic,<decades>,<min>"`
+          (e.g. `"Logarithmic,4,0.1"` for a logarithmic scale ranging from 0.1
+          to 1000).
+        * For arcsinh scales, leave `"$PnD"` unset. Aside from several
+          heuristics, CellEngine will usually default to arcsinh with a max
+          equal to the `"$PnR"` value.
+
+        FCS files created with this method always use float32 encoding. For
+        efficiency, consider using float32 arrays upstream when generating the
+        FCS file values.
+
+        Examples:
+            With reagents specified in a multi-level index:
+            ```py
+            df = pandas.DataFrame(
+                np.random.randn(6,3),
+                columns=[["Ax488-A", "PE-A", "Cluster ID"],
+                         ["CD3", "CD4", None]],
+                dtype="float32"
+            )
+            FcsFile.create_from_dataframe(
+                experiment_id,
+                "myfile.fcs",
+                df,
+                headers={
+                    "P3D": "Linear,0,20"
+                }
+            )
+            ```
+
+            With reagents specified in the `reagents` argument:
+            ```py
+            df = pandas.DataFrame(
+                np.random.randn(6,3),
+                columns=["Ax488-A", "PE-A", "Cluster ID"],
+                dtype="float32"
+            )
+            FcsFile.create_from_dataframe(
+                experiment_id,
+                "myfile.fcs",
+                df,
+                reagents=["CD3", "CD4", None],
+                headers={
+                    "P3D": "Linear,0,20"
+                }
+            )
+            ```
+
+            Factorize categorical data into numbers for encoding as FCS:
+            ```py
+            df = pandas.DataFrame(
+                [[1.0, "T cell", 1],
+                 [2.0, "T cell", 2],
+                 [3.0, "B cell", 3],
+                 [4.0, "T cell", 4]],
+                columns=["Ax488-A", "Cell Type", "Cluster ID"]
+            )
+            df["Cell Type"], cell_type_index = pandas.factorize(df["Cell Type"])
+            created = FcsFile.create_from_dataframe(
+                blank_experiment._id,
+                "myfile.fcs",
+                df,
+                headers={
+                    "$P2D": "Linear,0,10",
+                    "$P3D": "Linear,0,10"
+                }
+            )
+            ```
+        Returns:
+            The created FCS file.
+        """
+
+        if "$COM" not in headers:
+            headers[
+                "$COM"
+            ] = f"Created by the CellEngine Python Toolkit v{ce.__version__}"
+
+        if df.columns.nlevels > 1:
+            channels = df.columns.get_level_values(0).tolist()
+            if reagents is None:
+                reagents = df.columns.get_level_values(1).tolist()
+        else:
+            channels = df.columns
+
+        bytes = io.BytesIO()
+        writer = io.BufferedRandom(
+            cast(io.RawIOBase, bytes),
+            buffer_size=df.memory_usage(index=False).sum() + 16536,
+        )
+        print(channels)
+        print(reagents)
+        flowio.create_fcs(
+            file_handle=writer,
+            event_data=df.to_numpy().flatten(),
+            channel_names=channels,
+            opt_channel_names=reagents,
+            metadata_dict=headers,
+        )
+
+        writer.flush()  # not sure if this is necessary
+
+        return ce.APIClient().upload_fcs_file(experiment_id, bytes, filename)
 
     @classmethod
     def create(
