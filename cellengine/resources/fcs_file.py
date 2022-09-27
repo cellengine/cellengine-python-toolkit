@@ -245,79 +245,75 @@ class FcsFile(DataClassMixin):
     def create(
         cls,
         experiment_id: str,
-        fcs_files: Union[str, List[str], Dict[str, str]],
-        filename: str = None,
-        add_file_number: bool = False,
-        add_event_number: bool = False,
-        pre_subsample_n: int = None,
-        pre_subsample_p: float = None,
-        seed: int = None,
+        fcs_files: Optional[Union[str, List[str], Dict[str, str]]] = None,
+        filename: Optional[str] = None,
+        add_file_number: Optional[bool] = False,
+        add_event_number: Optional[bool] = False,
+        pre_subsample_n: Optional[int] = None,
+        pre_subsample_p: Optional[float] = None,
+        seed: Optional[int] = None,
     ) -> FcsFile:
-        """Creates an FCS file by copying, concatenating and/or
-        subsampling existing file(s) from this or other experiments, or by
-        importing from an S3-compatible service. This endpoint can be used to
-        import files from other experiments.
+        """Creates an FCS file by copying, concatenating and/or subsampling
+        existing file(s) from this or other experiments, or by importing from an
+        S3-compatible service.
 
         When concatenating and subsampling at the same time, subsampling is
         applied to each file before concatenating.
 
-        If addFileNumber is true, a file number column (channel) will be added to the
-        output file indicating which file each event (cell) came from. The values in
-        this column have a uniform random spread (±0.25 of the integer value) to ease
-        visualization. While this column can be useful for analysis, it will cause the
-        experiment to have FCS files with different panels unless all FCS files that
-        have not been concatenated are deleted.
+        If `addFileNumber` is true, a file number column (channel) will be added
+        to the output file indicating which file each event (cell) came from.
+        The values in this column have a uniform random spread (±0.25 of the
+        integer value) to aid visualization. While this column can be useful for
+        analysis, it will cause the experiment to have FCS files with different
+        panels unless all FCS files that have not been concatenated are deleted.
 
         During concatenation, any FCS header parameters that do not match
         between files will be removed, with some exceptions:
 
-            - $BTIM (clock time at beginning of acquisition) and $DATE will be
-            set to the earliest value among the input files.
-            - $ETIM (clock time at end of acquisition) will be set to the latest value
-            among the input files.
-            - $PnR (range for parameter n) will be set to
-            the highest value among the input files.
+        - `$BTIM` (clock time at beginning of acquisition) and `$DATE` will be
+          set to the earliest value among the input files.
+        - `$ETIM` (clock time at end of acquisition) will be set to the latest
+          value among the input files.
+        - `$PnR` (range for parameter n) will be set to the highest value among
+          the input files.
 
         All channels present in the first FCS file in the fcsFiles parameter
         must also be present in the other FCS files.
 
-        When importing from an S3-compatible service, be aware of the
-        following:
+        When importing from an S3-compatible service, be aware of the following:
 
-            - Only a single file can be imported at a time.
-            - The host property must include the bucket and region as
-              applicable. For example, for AWS, this would look like
-              mybucket.s3.us-east-2.amazonaws.com.
-            - The path property must specify the full path to the object, e.g.
-              /Study001/Specimen01.fcs.
-            - Importing private S3 objects requires an accessKey and a
-              secretKey for a user with appropriate permissions. For AWS,
-              GetObject is required.
-            - Importing objects may incur fees from the S3 service provider.
+        - Only a single file can be imported at a time.
+        - The host property must include the bucket and region as applicable.
+          For example, for AWS, this would look like
+          "mybucket.s3.us-east-2.amazonaws.com".
+        - The path property must specify the full path to the object, e.g.
+          "/Study001/Specimen01.fcs".
+        - Importing private S3 objects requires an accessKey and a secretKey for
+          a user with appropriate permissions. For AWS, GetObject is required.
+        - Importing objects may incur fees from the S3 service provider.
 
         Args:
             experiment_id: ID of the experiment to which the file belongs
             fcs_files: ID of file or list of IDs of files or objects to process.
                 If more than one file is provided, they will be concatenated in
-                order. To import files from other experiments, pass a list of dicts
-                with _id and experimentId properties. To import a file from an
-                S3-compatible service, provide a Dict with keys "host" and
-                "path"; if the S3 object is private, additionally provide
-                "access_key" and "secret_key".
-            filename (optional): Rename the uploaded file.
-            add_file_number (optional): If
-                concatenating files, adds a file number channel to the
-                resulting file.
-            add_event_number (bool): Add an event number column to the
-                exported file. This number corresponds to the index of the event in
-                the original file; when concatenating files, the same event number
+                order. To import files from other experiments, pass a list of
+                dicts with `_id` and `experimentId` properties. To import a file
+                from an S3-compatible service, provide a Dict with keys `"host"`
+                and `"path"`; if the S3 object is private, additionally provide
+                `"access_key"` and `"secret_key"`.
+            filename: Rename the uploaded file.
+            add_file_number: If concatenating files, adds a file number channel
+                to the resulting file.
+            add_event_number: Add an event number column to the exported file.
+                This number corresponds to the index of the event in the
+                original file; when concatenating files, the same event number
                 will appear more than once.
-            pre_subsample_n (int): Randomly subsample the file to contain
-                this many events.
-            pre_subsample_p (float): Randomly subsample the file to contain
-                this percent of events (0 to 1).
-            seed (int): Seed for random number generator used for subsampling.
-                Use for deterministic (reproducible) subsampling. If omitted, a
+            pre_subsample_n: Randomly subsample the file to contain this many
+                events.
+            pre_subsample_p: Randomly subsample the file to contain this percent
+                of events (0 to 1).
+            seed: Seed for random number generator used for subsampling. Use for
+                deterministic (reproducible) subsampling. If omitted, a
                 pseudo-random value is used.
 
         Returns:
@@ -482,6 +478,7 @@ class FcsFile(DataClassMixin):
                     The Python toolkit uses the FlowIO library, which cannot
                     parse as many FCS files as CellEngine can. Setting this
                     parameter to `True` can cause parsing errors.
+
                 - populationId (str): If provided, only events from this
                     population will be included in the output file.
                 - postSubsampleN (int): Randomly subsample the file to contain
