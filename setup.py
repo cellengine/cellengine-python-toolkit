@@ -1,4 +1,4 @@
-# Copyright 2018 Primity Bio
+# Copyright 2022 CellCarta
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@ setup(
     version="0.1.0",  # update this in cellengine/__init__.py as well
     description="CellEngine API toolkit for Python",
     url="https://github.com/primitybio/cellengine-python-toolkit",
-    author="Primity Bio",
+    author="CellCarta",
     author_email="support@cellengine.com",
     license="MIT",
     packages=find_packages(),
