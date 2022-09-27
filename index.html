@@ -620,10 +620,7 @@
 <p>This is the documentation for the Python toolkit for the CellEngine API. For
 API documentation visit <a href="https://docs.cellengine.com/api/">here</a>.</p>
 <h2 id="quick-start">Quick Start</h2>
-<p>Install <code>cellengine</code> using <code>pip</code>:</p>
-<div class="highlight"><pre><span></span><code>pip install cellengine
-</code></pre></div>
-<p>For the development version:</p>
+<p>Install <code>cellengine</code> using <code>pip</code> from GitHub:</p>
 <div class="highlight"><pre><span></span><code>pip install git+https://github.com/primitybio/cellengine-python-toolkit.git
 </code></pre></div>
 <h3 id="authentication">Authentication</h3>
@@ -634,7 +631,7 @@ API documentation visit <a href="https://docs.cellengine.com/api/">here</a>.</p>
 <span class="c1"># CELLENGINE_AUTH_TOKEN in your environment</span>
 
 <span class="c1"># Get a list of all accessible experiments</span>
-<span class="n">experiment</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiments</span><span class="p">()</span>
+<span class="n">experiments</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiments</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="get-resources">Get resources</h3>
 <p>All resources have a unique ID stored as <code>_id</code>, e.g. <code>Experiment()._id</code>.
@@ -667,7 +664,8 @@ Resources can be retrieved by name or by ID:
 <span class="n">events_df</span> <span class="o">=</span> <span class="n">file1</span><span class="o">.</span><span class="n">get_events</span><span class="p">(</span><span class="n">preSubsampleN</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="delete-resources">Delete resources</h3>
-<p>Deleting all resources is final, except for Experiments, Folders and FCS files. Those resources are marked as deleted, then permanently deleted at a later date.
+<p>Deleting all resources is final, except for Experiments, Folders and FCS files.
+Those resources are marked as deleted, then permanently deleted at a later date.
 To undelete an Experiment, use the <code>.undelete()</code> method.</p>
 <div class="highlight"><pre><span></span><code><span class="n">att</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_file.txt&quot;</span><span class="p">)</span>
 <span class="n">att</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
