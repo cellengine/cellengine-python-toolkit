@@ -123,10 +123,24 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             self.username = username
             self.password = password or getpass()
 
-            res = self._post(
-                f"{self.base_url}/signin",
-                {"username": self.username, "password": self.password},
-            )
+            try:
+                res = self._post(
+                    f"{self.base_url}/signin",
+                    {"username": self.username, "password": self.password},
+                )
+            except APIError as err:
+                if '"otp" is required' in err.message:
+                    otp = input("One-time code: ")
+                    res = self._post(
+                        f"{self.base_url}/signin",
+                        {
+                            "username": self.username,
+                            "password": self.password,
+                            "otp": otp,
+                        },
+                    )
+                else:
+                    raise err
 
             self.token = res["token"]
             os.environ["CELLENGINE_AUTH_TOKEN"] = self.token
