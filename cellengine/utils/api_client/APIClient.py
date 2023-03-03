@@ -90,7 +90,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         self.password = password or os.environ.get("CELLENGINE_PASSWORD")
         self.token = token or os.environ.get("CELLENGINE_AUTH_TOKEN")
         self.user_id = None
-        self.flags = None
         self.authenticated = self._authenticate(
             self.username, self.password, self.token
         )
@@ -145,7 +144,6 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             self.token = res["token"]
             os.environ["CELLENGINE_AUTH_TOKEN"] = self.token
             self.user_id = res["userId"]
-            self.flags = res["flags"]
 
         elif token:
             self.requests_session.cookies.update({"token": "{0}".format(token)})
