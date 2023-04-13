@@ -212,7 +212,10 @@ def _mock_request_by_name(base_url, endpoint, exp_id, entity, name, json_respons
     else:
         query = "name"
 
-    url = base_url + f"{endpoint}?query=eq({query},%22{name}%22)&limit=2"
+    url = (
+        base_url
+        + f"{endpoint}?query=and(eq({query},%22{name}%22),eq(deleted,null))&limit=2"
+    )
 
     responses.add(
         responses.GET,

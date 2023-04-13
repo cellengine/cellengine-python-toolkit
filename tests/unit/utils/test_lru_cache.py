@@ -53,7 +53,7 @@ def test_lru_cache_paths(ENDPOINT_BASE, client, experiments):
     assert (
         responses.calls[0].request.url
         == ENDPOINT_BASE
-        + "/experiments?query=eq%28name%2C%22test_experiment%22%29&limit=2"
+        + "/experiments?query=and%28eq%28name%2C%22test_experiment%22%29%2Ceq%28deleted%2Cnull%29%29&limit=2"
     )
 
     responses.add(responses.GET, ENDPOINT_BASE + "/experiments", json=experiments[0])
@@ -87,7 +87,8 @@ def test_different_item_cache_accessor(ENDPOINT_BASE, client, experiments, fcs_f
 
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + "/experiments?query=eq(name,%22test_experiment%22)&limit=2",
+        ENDPOINT_BASE
+        + "/experiments?query=and(eq(name,%22test_experiment%22),eq(deleted,null))&limit=2",
         json=experiments[0],
         match_querystring=True,
     )
@@ -115,7 +116,8 @@ def test_different_item_cache_accessor(ENDPOINT_BASE, client, experiments, fcs_f
 
     responses.add(
         responses.GET,
-        ENDPOINT_BASE + "/experiments?query=eq(name,%22test_experiment-1%22)&limit=2",
+        ENDPOINT_BASE
+        + "/experiments?query=and(eq(name,%22test_experiment-1%22),eq(deleted,null))&limit=2",
         json=experiments[1],
         match_querystring=True,
     )
