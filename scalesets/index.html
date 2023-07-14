@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/scalesets/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
     
     
       
@@ -696,6 +696,7 @@ otherwise noted.</p>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h3>
@@ -714,7 +715,7 @@ otherwise noted.</p>
 <code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h3>
@@ -730,10 +731,11 @@ otherwise noted.</p>
 
 
 <h3 class="doc doc-heading" id="cellengine.resources.scaleset.ScaleSet.scales">
-<code class="codehilite language-python"><span class="n">scales</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">encoder</span><span class="o">=</span><span class="n">encode_json_scale</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">decode_json_scale</span><span class="p">))</span></code>
+<code class="codehilite language-python"><span class="n">scales</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="n">encoder</span><span class="o">=</span><span class="n">encode_json_scale</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">decode_json_scale</span><span class="p">))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h3>
@@ -776,8 +778,12 @@ otherwise noted.</p>
           <td>
                 <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.fcs_file.FcsFile" href="../fcs_files/#cellengine.resources.fcs_file.FcsFile">FcsFile</a>, str]</code>
           </td>
-          <td><p>The file to which this scaleset will be
-applied.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The file to which this scaleset will be
+applied.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -787,8 +793,12 @@ applied.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Clamp the output to the scale's minimum and maximum
-values.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Clamp the output to the scale's minimum and maximum
+values.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -798,8 +808,12 @@ values.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If True, updates the FcsFile.events; if
-False, returns a DataFrame</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If True, updates the FcsFile.events; if
+False, returns a DataFrame</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>

@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/compensations/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
     
     
       
@@ -965,7 +965,7 @@ error will be returned from API requests.</p>
 <code class="codehilite language-python"><span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h3>
@@ -984,8 +984,8 @@ error will be returned from API requests.</p>
 <code class="codehilite language-python"><span class="n">dataframe</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
       <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
@@ -1026,6 +1026,7 @@ error will be returned from API requests.</p>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h3>
@@ -1044,7 +1045,7 @@ error will be returned from API requests.</p>
 <code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h3>
@@ -1082,7 +1083,7 @@ error will be returned from API requests.</p>
 <code class="codehilite language-python"><span class="n">spill_matrix</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h3>
@@ -1125,7 +1126,11 @@ error will be returned from API requests.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cellengine.resources.fcs_file.FcsFile" href="../fcs_files/#cellengine.resources.fcs_file.FcsFile">FcsFile</a></code>
           </td>
-          <td><p>The FcsFile to compensate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The FcsFile to compensate.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1135,8 +1140,12 @@ error will be returned from API requests.</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If True, modify the <code>FcsFile.events</code> with the result.
-If False, return the compensated events.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If True, modify the <code>FcsFile.events</code> with the result.
+If False, return the compensated events.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -1146,10 +1155,14 @@ If False, return the compensated events.</p></td>
           <td>
                 <code>Dict</code>
           </td>
-          <td><p>All arguments accepted by <code>FcsFile.get_events</code> are accepted here.
+          <td>
+            <div class="doc-md-description">
+              <p>All arguments accepted by <code>FcsFile.get_events</code> are accepted here.
 If the file's events have already been retrieved with the same
 kwargs provided here, those stored events will be used.
-Otherwise, the file's events will be retrieved from CellEngine.</p></td>
+Otherwise, the file's events will be retrieved from CellEngine.</p>
+            </div>
+          </td>
           <td>
                 <code>{}</code>
           </td>
@@ -1170,8 +1183,12 @@ Otherwise, the file's events will be retrieved from CellEngine.</p></td>
 <td><code>DataFrame</code></td>          <td>
                 <code><span title="typing.Union">Union</span>[<span title="pandas.DataFrame">DataFrame</span>, None]</code>
           </td>
-          <td><p>if <code>inplace=True</code>, updates <code>FcsFile.events</code> for
-the target FcsFile</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>inplace=True</code>, updates <code>FcsFile.events</code> for
+the target FcsFile</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1214,7 +1231,11 @@ the target FcsFile</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>the ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1224,7 +1245,11 @@ the target FcsFile</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the compensation.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the compensation.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1234,8 +1259,12 @@ the target FcsFile</p></td>
           <td>
                 <code><span title="typing.List">List</span>[str]</code>
           </td>
-          <td><p>The names of the channels to which this
-compensation matrix applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The names of the channels to which this
+compensation matrix applies.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1245,8 +1274,12 @@ compensation matrix applies.</p></td>
           <td>
                 <code><span title="typing.List">List</span>[float]</code>
           </td>
-          <td><p>The row-wise, square spillover matrix. The
-length of the array must be the number of channels squared.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The row-wise, square spillover matrix. The
+length of the array must be the number of channels squared.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1256,8 +1289,12 @@ length of the array must be the number of channels squared.</p></td>
           <td>
                 <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>A square pandas DataFrame with channel
-names in [df.index, df.columns].</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A square pandas DataFrame with channel
+names in [df.index, df.columns].</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>

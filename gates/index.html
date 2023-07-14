@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/gates/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
     
     
       
@@ -1050,7 +1050,11 @@ inherit the methods below.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1060,7 +1064,11 @@ inherit the methods below.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the x channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1070,7 +1078,11 @@ inherit the methods below.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the y channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1080,7 +1092,11 @@ inherit the methods below.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the gate</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the gate</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1090,8 +1106,12 @@ inherit the methods below.</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The first x coordinate (after the channel's scale has been
-applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The first x coordinate (after the channel's scale has been
+applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1101,8 +1121,12 @@ applied).</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The second x coordinate (after the channel's scale has been
-applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The second x coordinate (after the channel's scale has been
+applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1112,8 +1136,12 @@ applied).</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The first y coordinate (after the channel's scale has been
-applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The first y coordinate (after the channel's scale has been
+applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1123,8 +1151,12 @@ applied).</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The second y coordinate (after the channel's scale has been
-applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The second y coordinate (after the channel's scale has been
+applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1134,7 +1166,11 @@ applied).</p></td>
           <td>
                 <code><span title="typing.List">List</span>[float]</code>
           </td>
-          <td><p>Position of the label. Defaults to the midpoint of the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Position of the label. Defaults to the midpoint of the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>[]</code>
           </td>
@@ -1144,9 +1180,13 @@ applied).</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Group ID of the gate, used for tailoring. If this is not
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. Must be
-specified when creating a tailored gate.</p></td>
+specified when creating a tailored gate.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1156,7 +1196,11 @@ specified when creating a tailored gate.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Prevents modification of the gate via the web interface.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Prevents modification of the gate via the web interface.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1166,8 +1210,12 @@ specified when creating a tailored gate.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether or not this gate is tailored per FCS
-file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether or not this gate is tailored per FCS
+file.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1177,9 +1225,13 @@ file.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+          <td>
+            <div class="doc-md-description">
+              <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
-specify <code>fcs_file</code>.</p></td>
+specify <code>fcs_file</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1189,12 +1241,16 @@ specify <code>fcs_file</code>.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Name of FCS file, if tailored per file. An attempt will be
+          <td>
+            <div class="doc-md-description">
+              <p>Name of FCS file, if tailored per file. An attempt will be
 made to find the file by name. If zero or more than one file
 exists with the name, an error will be thrown. Looking up files
 by name is slower than using the ID, as this requires additional
 requests to the server. If specified, do not specify
-<code>fcs_file_id</code>.</p></td>
+<code>fcs_file_id</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1204,8 +1260,12 @@ requests to the server. If specified, do not specify
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If true, a corresponding population will be
-created and returned in a tuple with the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -1215,8 +1275,12 @@ created and returned in a tuple with the gate.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Use with <code>create_population</code> to specify the
-population below which to create this population.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Use with <code>create_population</code> to specify the
+population below which to create this population.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1237,8 +1301,12 @@ population below which to create this population.</p></td>
           <td>
                 <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RectangleGate" href="#cellengine.resources.gate.RectangleGate">RectangleGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RectangleGate" href="#cellengine.resources.gate.RectangleGate">RectangleGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
           </td>
-          <td><p>A RectangleGate if <code>create_population</code> is False, or a Tuple with the
-gate and populations if <code>create_population</code> is True.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A RectangleGate if <code>create_population</code> is False, or a Tuple with the
+gate and populations if <code>create_population</code> is True.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1330,7 +1398,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1340,7 +1412,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the x channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1350,7 +1426,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the y channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1360,7 +1440,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the gate</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the gate</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1370,7 +1454,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
           </td>
-          <td><p>List of coordinates, like <code>[[x,y], [x,y], ...]</code>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>List of coordinates, like <code>[[x,y], [x,y], ...]</code>.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1380,7 +1468,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code><span title="typing.List">List</span>[float]</code>
           </td>
-          <td><p>Position of the label. Defaults to the midpoint of the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Position of the label. Defaults to the midpoint of the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>[]</code>
           </td>
@@ -1390,10 +1482,14 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Group ID of the gate, used for tailoring. If this is not
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
 tailored gate, the gid of the global tailored gate must be
-specified.</p></td>
+specified.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1403,7 +1499,11 @@ specified.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Prevents modification of the gate via the web interface.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Prevents modification of the gate via the web interface.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1413,8 +1513,12 @@ specified.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether or not this gate is tailored per FCS
-file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether or not this gate is tailored per FCS
+file.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1424,9 +1528,13 @@ file.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+          <td>
+            <div class="doc-md-description">
+              <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
-specify <code>fcs_file</code>.</p></td>
+specify <code>fcs_file</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1436,12 +1544,16 @@ specify <code>fcs_file</code>.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Name of FCS file, if tailored per file. An attempt will be
+          <td>
+            <div class="doc-md-description">
+              <p>Name of FCS file, if tailored per file. An attempt will be
 made to find the file by name. If zero or more than one file
 exists with the name, an error will be thrown. Looking up files
 by name is slower than using the ID, as this requires additional
 requests to the server. If specified, do not specify
-<code>fcs_file_id</code>.</p></td>
+<code>fcs_file_id</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1451,8 +1563,12 @@ requests to the server. If specified, do not specify
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If true, a corresponding population will be
-created and returned in a tuple with the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -1462,8 +1578,12 @@ created and returned in a tuple with the gate.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Use with <code>create_population</code> to specify the
-population below which to create this populations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Use with <code>create_population</code> to specify the
+population below which to create this populations.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1484,8 +1604,12 @@ population below which to create this populations.</p></td>
           <td>
                 <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.PolygonGate" href="#cellengine.resources.gate.PolygonGate">PolygonGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.PolygonGate" href="#cellengine.resources.gate.PolygonGate">PolygonGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
           </td>
-          <td><p>A PolygonGate if <code>create_population</code> is False, or a Tuple with the
-gate and populations if <code>create_population</code> is True.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A PolygonGate if <code>create_population</code> is False, or a Tuple with the
+gate and populations if <code>create_population</code> is True.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1574,7 +1698,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1584,7 +1712,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the x channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1594,7 +1726,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the y channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1604,7 +1740,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the gate</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the gate</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1614,7 +1754,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code><span title="typing.List">List</span>[float]</code>
           </td>
-          <td><p>The x, y centerpoint of the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The x, y centerpoint of the gate.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1624,7 +1768,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The angle of the ellipse in radians.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The angle of the ellipse in radians.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1634,7 +1782,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The major radius of the ellipse.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The major radius of the ellipse.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1644,7 +1796,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The minor radius of the ellipse.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The minor radius of the ellipse.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1654,7 +1810,11 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code><span title="typing.List">List</span>[float]</code>
           </td>
-          <td><p>Position of the label. Defaults to the midpoint of the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Position of the label. Defaults to the midpoint of the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>[]</code>
           </td>
@@ -1664,10 +1824,14 @@ gate and populations if <code>create_population</code> is True.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Group ID of the gate, used for tailoring. If this is not
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
 tailored gate, the gid of the global tailored gate must be
-specified.</p></td>
+specified.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1677,8 +1841,12 @@ specified.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Prevents modification of the gate via the
-web interface.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Prevents modification of the gate via the
+web interface.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1688,8 +1856,12 @@ web interface.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether or not this gate is tailored per FCS
-file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether or not this gate is tailored per FCS
+file.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1699,9 +1871,13 @@ file.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+          <td>
+            <div class="doc-md-description">
+              <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
-specify <code>fcs_file</code>.</p></td>
+specify <code>fcs_file</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1711,12 +1887,16 @@ specify <code>fcs_file</code>.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Name of FCS file, if tailored per file. An attempt will be
+          <td>
+            <div class="doc-md-description">
+              <p>Name of FCS file, if tailored per file. An attempt will be
 made to find the file by name. If zero or more than one file
 exists with the name, an error will be thrown. Looking up files
 by name is slower than using the ID, as this requires additional
 requests to the server. If specified, do not specify
-<code>fcs_file_id</code>.</p></td>
+<code>fcs_file_id</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1726,8 +1906,12 @@ requests to the server. If specified, do not specify
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If true, a corresponding population will be
-created and returned in a tuple with the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -1737,8 +1921,12 @@ created and returned in a tuple with the gate.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Use with <code>create_population</code> to specify the
-population below which to create this populations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Use with <code>create_population</code> to specify the
+population below which to create this populations.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1759,8 +1947,12 @@ population below which to create this populations.</p></td>
           <td>
                 <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.EllipseGate" href="#cellengine.resources.gate.EllipseGate">EllipseGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.EllipseGate" href="#cellengine.resources.gate.EllipseGate">EllipseGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
           </td>
-          <td><p>If <code>create_population</code> is <code>True</code>, a tuple containing an EllipseGate
-and a list of two Populations; otherwise, an EllipseGate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If <code>create_population</code> is <code>True</code>, a tuple containing an EllipseGate
+and a list of two Populations; otherwise, an EllipseGate.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1853,7 +2045,11 @@ and a list of two Populations; otherwise, an EllipseGate.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1863,7 +2059,11 @@ and a list of two Populations; otherwise, an EllipseGate.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the x channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1873,7 +2073,11 @@ and a list of two Populations; otherwise, an EllipseGate.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the gate</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the gate</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1883,8 +2087,12 @@ and a list of two Populations; otherwise, an EllipseGate.</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The first x coordinate (after the channel's scale has
-been applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The first x coordinate (after the channel's scale has
+been applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1894,8 +2102,12 @@ been applied).</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The second x coordinate (after the channel's scale has been
-applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The second x coordinate (after the channel's scale has been
+applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1905,8 +2117,12 @@ applied).</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>Position of the horizontal line between the
-vertical lines</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Position of the horizontal line between the
+vertical lines</p>
+            </div>
+          </td>
           <td>
                 <code>0.5</code>
           </td>
@@ -1916,8 +2132,12 @@ vertical lines</p></td>
           <td>
                 <code><span title="typing.List">List</span>[float]</code>
           </td>
-          <td><p>Position of the label. Defaults to
-the midpoint of the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Position of the label. Defaults to
+the midpoint of the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>[]</code>
           </td>
@@ -1927,10 +2147,14 @@ the midpoint of the gate.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Group ID of the gate, used for tailoring. If
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID of the gate, used for tailoring. If
 this is not specified, then a new Group ID will be created. To
 create a tailored gate, the gid of the global tailored gate
-must be specified.</p></td>
+must be specified.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1940,8 +2164,12 @@ must be specified.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Prevents modification of the gate via the
-web interface.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Prevents modification of the gate via the
+web interface.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1951,8 +2179,12 @@ web interface.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether or not this gate is
-tailored per FCS file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether or not this gate is
+tailored per FCS file.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1962,10 +2194,14 @@ tailored per FCS file.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>ID of FCS
+          <td>
+            <div class="doc-md-description">
+              <p>ID of FCS
 file, if tailored per file. Use <code>None</code> for the global gate in
 a tailored gate group. If specified, do not specify
-<code>fcs_file</code>.</p></td>
+<code>fcs_file</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1975,12 +2211,16 @@ a tailored gate group. If specified, do not specify
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Name of FCS file, if tailored per file.
+          <td>
+            <div class="doc-md-description">
+              <p>Name of FCS file, if tailored per file.
 An attempt will be made to find the file by name. If zero or
 more than one file exists with the name, an error will be
 thrown. Looking up files by name is slower than using the ID,
 as this requires additional requests to the server. If
-specified, do not specify <code>fcs_file_id</code>.</p></td>
+specified, do not specify <code>fcs_file_id</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1990,8 +2230,12 @@ specified, do not specify <code>fcs_file_id</code>.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If true, a corresponding population will be
-created and returned in a tuple with the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If true, a corresponding population will be
+created and returned in a tuple with the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -2001,8 +2245,12 @@ created and returned in a tuple with the gate.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Use with <code>create_population</code> to specify the
-population below which to create this populations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Use with <code>create_population</code> to specify the
+population below which to create this populations.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2023,8 +2271,12 @@ population below which to create this populations.</p></td>
           <td>
                 <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RangeGate" href="#cellengine.resources.gate.RangeGate">RangeGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.RangeGate" href="#cellengine.resources.gate.RangeGate">RangeGate</a>, <a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]</code>
           </td>
-          <td><p>If <code>create_population</code> is <code>True</code>, a tuple containing a RangeGate
-and a list of two Populations; otherwise, a RangeGate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If <code>create_population</code> is <code>True</code>, a tuple containing a RangeGate
+and a list of two Populations; otherwise, a RangeGate.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2115,7 +2367,11 @@ and name.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2125,7 +2381,11 @@ and name.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the x channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2135,7 +2395,11 @@ and name.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the gate.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2145,8 +2409,12 @@ and name.</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The x coordinate of the center point (after the
-channel's scale has been applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The x coordinate of the center point (after the
+channel's scale has been applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2156,8 +2424,12 @@ channel's scale has been applied).</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The relative position from 0 to 1 of the horizontal dashed line
-extending from the center point.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The relative position from 0 to 1 of the horizontal dashed line
+extending from the center point.</p>
+            </div>
+          </td>
           <td>
                 <code>0.5</code>
           </td>
@@ -2167,9 +2439,13 @@ extending from the center point.</p></td>
           <td>
                 <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
           </td>
-          <td><p>Positions of the quadrant labels. A list of two length-2
+          <td>
+            <div class="doc-md-description">
+              <p>Positions of the quadrant labels. A list of two length-2
 lists in the order: L, R. These are set automatically to the top
-corners.</p></td>
+corners.</p>
+            </div>
+          </td>
           <td>
                 <code>[]</code>
           </td>
@@ -2179,10 +2455,14 @@ corners.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Group ID of the gate, used for tailoring. If this is not
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
 tailored gate, the gid of the global tailored gate must be
-specified.</p></td>
+specified.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2192,7 +2472,11 @@ specified.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>Group IDs of each sector, assigned to <code>model.gids</code>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Group IDs of each sector, assigned to <code>model.gids</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2202,7 +2486,11 @@ specified.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Prevents modification of the gate via the web interface.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Prevents modification of the gate via the web interface.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2212,8 +2500,12 @@ specified.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether or not this gate is tailored per FCS
-file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether or not this gate is tailored per FCS
+file.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2223,9 +2515,13 @@ file.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>ID of FCS file, if tailored per file. Use <code>None</code> for
+          <td>
+            <div class="doc-md-description">
+              <p>ID of FCS file, if tailored per file. Use <code>None</code> for
 the global gate in a tailored gate group. If specified, do not
-specify <code>fcs_file</code>.</p></td>
+specify <code>fcs_file</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2235,12 +2531,16 @@ specify <code>fcs_file</code>.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Name of FCS file, if tailored per file. An attempt will
+          <td>
+            <div class="doc-md-description">
+              <p>Name of FCS file, if tailored per file. An attempt will
 be made to find the file by name. If zero or more than one file
 exists with the name, an error will be thrown. Looking up files
 by name is slower than using the ID, as this requires additional
 requests to the server. If specified, do not specify
-<code>fcs_file_id</code>.</p></td>
+<code>fcs_file_id</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2250,8 +2550,12 @@ requests to the server. If specified, do not specify
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If true, corresponding populations will be
-created and returned in a tuple with the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If true, corresponding populations will be
+created and returned in a tuple with the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -2261,8 +2565,12 @@ created and returned in a tuple with the gate.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Use with <code>create_population</code> to specify the
-population below which to create these populations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Use with <code>create_population</code> to specify the
+population below which to create these populations.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2283,8 +2591,12 @@ population below which to create these populations.</p></td>
           <td>
                 <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.SplitGate" href="#cellengine.resources.gate.SplitGate">SplitGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.SplitGate" href="#cellengine.resources.gate.SplitGate">SplitGate</a>, <span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]]</code>
           </td>
-          <td><p>A SplitGate if <code>create_population</code> is False, or a Tuple with the
-gate and populations if <code>create_population</code> is True.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A SplitGate if <code>create_population</code> is False, or a Tuple with the
+gate and populations if <code>create_population</code> is True.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2384,7 +2696,11 @@ lower-right), each with a unique gid and name.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2394,7 +2710,11 @@ lower-right), each with a unique gid and name.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the x channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the x channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2404,7 +2724,11 @@ lower-right), each with a unique gid and name.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the y channel to which the gate applies.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the y channel to which the gate applies.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2414,7 +2738,11 @@ lower-right), each with a unique gid and name.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the gate</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the gate</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2424,8 +2752,12 @@ lower-right), each with a unique gid and name.</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The x coordinate of the center point (after the channel's scale
-has been applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The x coordinate of the center point (after the channel's scale
+has been applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2435,7 +2767,11 @@ has been applied).</p></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The y coordinate (after the channel's scale has been applied).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The y coordinate (after the channel's scale has been applied).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2445,9 +2781,13 @@ has been applied).</p></td>
           <td>
                 <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
           </td>
-          <td><p>Positions of the quadrant labels. A list of four length-2
+          <td>
+            <div class="doc-md-description">
+              <p>Positions of the quadrant labels. A list of four length-2
 vectors in the order UR, UL, LL, LR. These are set automatically
-to the plot corners.</p></td>
+to the plot corners.</p>
+            </div>
+          </td>
           <td>
                 <code>[]</code>
           </td>
@@ -2457,7 +2797,11 @@ to the plot corners.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether the quadrant gate is skewable.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether the quadrant gate is skewable.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2467,7 +2811,11 @@ to the plot corners.</p></td>
           <td>
                 <code><span title="typing.List">List</span>[float]</code>
           </td>
-          <td><p>List of the four angles of the quadrant demarcations</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>List of the four angles of the quadrant demarcations</p>
+            </div>
+          </td>
           <td>
                 <code>[0, pi / 2, pi, 3 * pi / 2]</code>
           </td>
@@ -2477,10 +2825,14 @@ to the plot corners.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Group ID of the gate, used for tailoring. If this is not
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID of the gate, used for tailoring. If this is not
 specified, then a new Group ID will be created. To create a
 tailored gate, the gid of the global tailored gate must be
-specified.</p></td>
+specified.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2490,7 +2842,11 @@ specified.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>Group IDs of each sector, assigned to <code>model.gids</code>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Group IDs of each sector, assigned to <code>model.gids</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2500,8 +2856,12 @@ specified.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Prevents modification of the gate via the web
-interface.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Prevents modification of the gate via the web
+interface.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2511,8 +2871,12 @@ interface.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether or not this gate is
-tailored per FCS file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether or not this gate is
+tailored per FCS file.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2522,9 +2886,13 @@ tailored per FCS file.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>ID of FCS file, if tailored per file.
+          <td>
+            <div class="doc-md-description">
+              <p>ID of FCS file, if tailored per file.
 Use <code>None</code> for the global gate in a tailored gate group. If
-specified, do not specify <code>fcs_file</code>.</p></td>
+specified, do not specify <code>fcs_file</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2534,12 +2902,16 @@ specified, do not specify <code>fcs_file</code>.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Name of FCS file, if tailored per file.
+          <td>
+            <div class="doc-md-description">
+              <p>Name of FCS file, if tailored per file.
 An attempt will be made to find the file by name. If zero or
 more than one file exists with the name, an error will be
 thrown. Looking up files by name is slower than using the ID,
 as this requires additional requests to the server. If
-specified, do not specify <code>fcs_file_id</code>.</p></td>
+specified, do not specify <code>fcs_file_id</code>.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2549,8 +2921,12 @@ specified, do not specify <code>fcs_file_id</code>.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If true, corresponding populations will be
-created and returned in a tuple with the gate.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>If true, corresponding populations will be
+created and returned in a tuple with the gate.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -2560,8 +2936,12 @@ created and returned in a tuple with the gate.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Use with <code>create_population</code> to specify the
-population below which to create these populations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Use with <code>create_population</code> to specify the
+population below which to create these populations.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2582,9 +2962,13 @@ population below which to create these populations.</p></td>
           <td>
                 <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.QuadrantGate" href="#cellengine.resources.gate.QuadrantGate">QuadrantGate</a>, <span title="typing.Tuple">Tuple</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.gate.QuadrantGate" href="#cellengine.resources.gate.QuadrantGate">QuadrantGate</a>, <span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="cellengine.resources.population.Population" href="../populations/#cellengine.resources.population.Population">Population</a>]]]</code>
           </td>
-          <td><p>If <code>create_population</code> is <code>True</code>, a tuple containing the
+          <td>
+            <div class="doc-md-description">
+              <p>If <code>create_population</code> is <code>True</code>, a tuple containing the
 QuadrantGate and a list of two Populations; otherwise, a
-QuadrantGate.</p></td>
+QuadrantGate.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>

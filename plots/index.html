@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/plots/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
     
     
       
@@ -685,7 +685,11 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of the experiment to which the file belongs.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of the experiment to which the file belongs.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -695,7 +699,11 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of file for which to build a plot.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of file for which to build a plot.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -705,8 +713,12 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
           <td>
                 <code>str</code>
           </td>
-          <td><p>"contour", "dot", "density" or
-"histogram" (case-insensitive)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>"contour", "dot", "density" or
+"histogram" (case-insensitive)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -716,7 +728,11 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
           <td>
                 <code>str</code>
           </td>
-          <td><p>X channel name.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>X channel name.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -726,7 +742,11 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
           <td>
                 <code>str</code>
           </td>
-          <td><p>(for 2D plots) Y channel name.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>(for 2D plots) Y channel name.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -736,8 +756,12 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>(for dot plots colored by a 3rd channel)
-Color channel name.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>(for dot plots colored by a 3rd channel)
+Color channel name.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -747,7 +771,11 @@ Color channel name.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Defaults to ungated.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Defaults to ungated.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -757,7 +785,9 @@ Color channel name.</p></td>
           <td>
                 <code>Dict</code>
           </td>
-          <td><ul>
+          <td>
+            <div class="doc-md-description">
+              <ul>
 <li>axesQ (bool): Display axes lines. Defaults to true.</li>
 <li>axisLabelsQ (bool): Display axis labels. Defaults to true.</li>
 <li>compensation (ID): Compensation to use for gating and display.</li>
@@ -801,7 +831,9 @@ Color channel name.</p></td>
 <li>yAxisQ (bool): Display y axis line. Overrides axesQ.</li>
 <li>yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.</li>
 <li>yTicksQ (bool): Display y ticks. Overrides ticksQ.</li>
-</ul></td>
+</ul>
+            </div>
+          </td>
           <td>
                 <code>{}</code>
           </td>

@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/api_client/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
     
     
       
@@ -1603,7 +1603,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1613,7 +1617,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of the gate to delete.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of the gate to delete.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1623,7 +1631,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of gate family to delete.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of gate family to delete.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1633,7 +1645,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Gate ID to exclude from deletion.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Gate ID to exclude from deletion.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1641,7 +1657,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <div class="highlight"><pre><span></span><code><span class="n">cellengine</span><span class="o">.</span><span class="n">Gate</span><span class="o">.</span><span class="n">delete_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span> <span class="o">=</span> <span class="p">[</span><span class="n">gate</span> <span class="n">family</span> <span class="n">ID</span><span class="p">])</span>
 <span class="c1"># or</span>
@@ -1661,7 +1677,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>None</code>
           </td>
-          <td><p>None</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>None</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -1734,7 +1754,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of the experiment</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of the experiment</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1744,7 +1768,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of the FcsFile</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of the FcsFile</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1754,7 +1782,9 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code><span title="typing.Any">Any</span></code>
           </td>
-          <td><ul>
+          <td>
+            <div class="doc-md-description">
+              <ul>
 <li>compensatedQ (bool): If true, applies the compensation
   specified in compensationId to the exported events. For
   TSV format, the numerical values will be the compensated
@@ -1797,7 +1827,9 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
     exported file. When a populationId is specified
     (when gating), this number corresponds to the index of
     the event in the original file.</li>
-</ul></td>
+</ul>
+            </div>
+          </td>
           <td>
                 <code>{}</code>
           </td>
@@ -2067,7 +2099,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>ID of the experiment.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>ID of the experiment.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2077,9 +2113,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>Statistical method to request. Any of "mean", "median",
+          <td>
+            <div class="doc-md-description">
+              <p>Statistical method to request. Any of "mean", "median",
 "quantile", "mad" (median absolute deviation), "geometricmean",
-"eventcount", "cv", "stddev" or "percent" (case-insensitive).</p></td>
+"eventcount", "cv", "stddev" or "percent" (case-insensitive).</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2089,7 +2129,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>quantile (required for "quantile" statistic)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>quantile (required for "quantile" statistic)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2099,9 +2143,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
           <td>
                 <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>for "mean", "median", "geometricMean",
+          <td>
+            <div class="doc-md-description">
+              <p>for "mean", "median", "geometricMean",
 "cv", "stddev", "mad" or "quantile" statistics. Names of channels
-to calculate statistics for.</p></td>
+to calculate statistics for.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2111,8 +2159,12 @@ to calculate statistics for.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[bool]</code>
           </td>
-          <td><p>Include file annotations in output
-(defaults to False).</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Include file annotations in output
+(defaults to False).</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2122,7 +2174,9 @@ to calculate statistics for.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Compensation to use for gating and
+          <td>
+            <div class="doc-md-description">
+              <p>Compensation to use for gating and
 statistic calculation.
 Defaults to uncompensated. Three special constants may be used:
     0: Uncompensated
@@ -2130,7 +2184,9 @@ Defaults to uncompensated. Three special constants may be used:
         compensation matrix, if available. If not, an error
         will be returned.
     -2: Per-File Compensation Use the compensation assigned to
-        each individual FCS file.</p></td>
+        each individual FCS file.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2140,8 +2196,12 @@ Defaults to uncompensated. Three special constants may be used:
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>FCS files to get statistics for. If
-omitted, statistics for all non-control FCS files will be returned.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>FCS files to get statistics for. If
+omitted, statistics for all non-control FCS files will be returned.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2151,9 +2211,13 @@ omitted, statistics for all non-control FCS files will be returned.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>str: One of "TSV (with[out] header)",
+          <td>
+            <div class="doc-md-description">
+              <p>str: One of "TSV (with[out] header)",
 "CSV (with[out] header)" or "json" (default), "pandas",
-case-insensitive.</p></td>
+case-insensitive.</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;json&#39;</code>
           </td>
@@ -2163,8 +2227,12 @@ case-insensitive.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>str: The file (TSV/CSV) or object (JSON) layout.
-One of "tall-skinny", "medium", or "short-wide".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>str: The file (TSV/CSV) or object (JSON) layout.
+One of "tall-skinny", "medium", or "short-wide".</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2174,12 +2242,16 @@ One of "tall-skinny", "medium", or "short-wide".</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]]</code>
           </td>
-          <td><p>str or List[str]: Population ID or array of
+          <td>
+            <div class="doc-md-description">
+              <p>str or List[str]: Population ID or array of
 population IDs.  If omitted or the string "PARENT", will calculate
 percent of parent for each population. If a single ID, will calculate
 percent of that population for all populations specified by
 population_ids. If a list, will calculate percent of each of
-those populations.</p></td>
+those populations.</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;PARENT&#39;</code>
           </td>
@@ -2189,8 +2261,12 @@ those populations.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
           </td>
-          <td><p>List[str]: List of population IDs.
-Defaults to ungated.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>List[str]: List of population IDs.
+Defaults to ungated.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2211,7 +2287,11 @@ Defaults to ungated.</p></td>
 <td><code>statistics</code></td>          <td>
                 <code><span title="typing.Union">Union</span>[<span title="typing.Dict">Dict</span>, str, <span title="pandas.core.frame.DataFrame">DataFrame</span>]</code>
           </td>
-          <td><p>Dict, String, or pandas.Dataframe</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Dict, String, or pandas.Dataframe</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2444,7 +2524,11 @@ Defaults to ungated.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Local path to file to upload.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Local path to file to upload.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2454,7 +2538,11 @@ Defaults to ungated.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Optionally, specify a new name for the file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optionally, specify a new name for the file.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2475,7 +2563,11 @@ Defaults to ungated.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cellengine.resources.attachment.Attachment" href="../attachments/#cellengine.resources.attachment.Attachment">Attachment</a></code>
           </td>
-          <td><p>The newly-uploaded Attachment</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The newly-uploaded Attachment</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2514,7 +2606,11 @@ Defaults to ungated.</p></td>
           <td>
                 <code><span title="typing.Union">Union</span>[str, <span title="io.BytesIO">BytesIO</span>]</code>
           </td>
-          <td><p>Local path to FCS file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Local path to FCS file.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2524,7 +2620,11 @@ Defaults to ungated.</p></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
-          <td><p>Optionally, specify a new name for the file.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optionally, specify a new name for the file.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -2545,7 +2645,11 @@ Defaults to ungated.</p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cellengine.resources.fcs_file.FcsFile" href="../fcs_files/#cellengine.resources.fcs_file.FcsFile">FcsFile</a></code>
           </td>
-          <td><p>The newly-uploaded FcsFile</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The newly-uploaded FcsFile</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
