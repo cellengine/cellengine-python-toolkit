@@ -19,7 +19,7 @@ from cellengine.resources.compensation import Compensation
 @dataclass
 class FcsFile(DataClassMixin):
     filename: str
-    gates_locked: str
+    gates_locked: bool
     panel_name: str
     deleted: Optional[bool]
     panel: List[Dict[str, Any]]
