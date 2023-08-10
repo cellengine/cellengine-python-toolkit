@@ -11,7 +11,6 @@ def statistic_response(experiment, statistics):
     return statistics
 
 
-@pytest.mark.usefixtures("block_request")
 class TestStatistics:
     @responses.activate
     def test_should_get_statistics(self, client, ENDPOINT_BASE, statistics):

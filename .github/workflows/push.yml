@@ -19,8 +19,7 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
       - name: Run Black
-        run: |
-         black --check .
+        run: black --check .
       - name: flake8
         uses: TrueBrain/actions-flake8@master
   test:
@@ -38,19 +37,13 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
-      - name: Run unit tests
+      - name: Run tests
         run: |
           pip install pytest
           pip install pytest-cov
           python -m pytest --cov=./ --cov-report=xml
         env:
-          S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY}}
-          S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY}}
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
+          CELLENGINE_USERNAME: ${{ secrets.CELLENGINE_API_TOOLKIT_TEST_USERNAME }}
+          CELLENGINE_PASSWORD: ${{ secrets.CELLENGINE_API_TOOLKIT_TEST_PASSWORD }}
+          S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
+          S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY }}
