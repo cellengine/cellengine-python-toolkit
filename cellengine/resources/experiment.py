@@ -1,5 +1,4 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Tuple, overload
 
@@ -8,13 +7,11 @@ try:
 except ImportError:
     from typing_extensions import Literal
 
-from dataclasses_json.cfg import config
-from marshmallow import fields
 from pandas.core.frame import DataFrame
 
 import cellengine as ce
 from cellengine.resources.attachment import Attachment
-from cellengine.resources.compensation import Compensation
+from cellengine.resources.compensation import Compensation, UNCOMPENSATED, Compensations
 from cellengine.resources.fcs_file import FcsFile
 from cellengine.resources.gate import (
     EllipseGate,
@@ -27,108 +24,256 @@ from cellengine.resources.gate import (
 )
 from cellengine.resources.population import Population
 from cellengine.resources.scaleset import ScaleSet
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
 from cellengine.utils.helpers import (
     CommentList,
-    datetime_to_timestamp,
-    is_valid_id,
     timestamp_to_datetime,
+    datetime_to_timestamp,
 )
 
 
-@dataclass
-class Experiment(DataClassMixin):
+class Experiment:
     """The main container for an analysis. Don't construct directly; use
     [`Experiment.create`][cellengine.Experiment.create] or
-    [`Experiment.get`][cellengine.Experiment.get]."""
+    [`Experiment.get`][cellengine.Experiment.get].
 
-    name: str
-    annotation_validators: Dict[Any, Any]
-    annotation_name_order: List[str]
-    annotation_table_sort_columns: List[Union[str, int]]
-    _comments: List[Dict[str, Any]] = field(metadata=config(field_name="comments"))
-    primary_researcher: Dict[str, Any]
-    sorting_spec: Dict[Any, Any]
-    tags: List[str]
-    created: datetime = field(
-        metadata=config(
-            encoder=datetime_to_timestamp,
-            decoder=timestamp_to_datetime,
-            mm_field=fields.DateTime(),
-        ),
-        default=ReadOnly(),
-    )  # type: ignore
-    updated: datetime = field(
-        metadata=config(
-            encoder=datetime_to_timestamp,
-            decoder=timestamp_to_datetime,
-            mm_field=fields.DateTime(),
-        ),
-        default=ReadOnly(),
-    )  # type: ignore
-    _active_comp: Optional[Union[int, str]] = field(
-        default=None, metadata=config(field_name="activeCompensation")
-    )
-    data: Optional[Dict[Any, Any]] = field(default=None)
-    deleted: Optional[datetime] = field(
-        default=None,
-        metadata=config(
-            encoder=lambda t: datetime_to_timestamp(t) if t else t,
-            decoder=lambda t: timestamp_to_datetime(t) if t else t,
-            mm_field=fields.DateTime(),
-        ),
-    )
-    deep_updated: datetime = field(
-        metadata=config(
-            encoder=datetime_to_timestamp,
-            decoder=timestamp_to_datetime,
-            mm_field=fields.DateTime(),
-        ),
-        default=ReadOnly(optional=True),
-    )  # type: ignore
-    analysis_source_experiment: Optional[str] = field(
-        default=ReadOnly(optional=True)
-    )  # type: ignore
-    clone_source_experiment: Optional[str] = field(
-        default=ReadOnly(optional=True)
-    )  # type: ignore
-    locked: bool = field(default=ReadOnly())  # type: ignore
-    permissions: List[Dict[Any, Any]] = field(default=ReadOnly())  # type: ignore
-    per_file_compensations_enabled: Optional[bool] = field(default=None)
-    retention_policy: Dict[str, Any] = field(default=ReadOnly())  # type: ignore
-    revision_source_experiment: Optional[str] = field(
-        default=ReadOnly(optional=True)
-    )  # type: ignore
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    revisions: List[Dict[str, Any]] = field(default=ReadOnly())  # type: ignore
-    uploader: Dict[str, Any] = field(default=ReadOnly())  # type: ignore
+    Not all properties have full support in the Python toolkit. Please open an
+    issue if you need to use a property that is not supported.
+    """
 
-    def __repr__(self):
-        return f"Experiment(_id='{self._id}', name='{self.name}')"
+    def __init__(self, properties: Dict[str, Any]):
+        self._properties = properties
+        self._changes = set()
 
     @property
-    def comments(self):
-        """Get comments for experiment.
+    def _id(self) -> str:
+        return self._properties["_id"]
+
+    @property
+    def id(self) -> str:
+        """Alias for ``_id``."""
+        return self._properties["_id"]
+
+    @property
+    def name(self) -> str:
+        return self._properties["name"]
+
+    @name.setter
+    def name(self, name: str):
+        self._properties["name"] = name
+        self._changes.add("name")
+
+    @property
+    def comments(self) -> List[Dict[str, Any]]:
+        """Comments for experiment.
 
         Defaults to overwrite; append new comments with
         experiment.comments.append(dict) with the form:
-        dict = {"insert": "some text",
-        "attributes": {"bold": False, "italic": False, "underline": False}}.
+        ```py
+        dict = {
+            "insert": "some text",
+            "attributes": {"bold": False, "italic": False, "underline": False}
+        }
+        ```
         """
-        comments = self._comments
-        if type(comments) is not CommentList:
-            self._comments = CommentList(comments)
-        return comments
+        return CommentList(self._properties["comments"])
 
+    # TODO this is wrong, it should accept a list of dicts or CommentList
     @comments.setter
     def comments(self, comments: Dict[str, Any]):
         comment = comments.get("insert")
         if comment:
             if comment.endswith("\n") is False:
                 comments.update(insert=comment + "\n")
-            self._comments = comments  # type: ignore
+            self._properties["comments"] = comments
+            self._changes.add("comments")
+
+    @property
+    def created(self) -> datetime:
+        created = self._properties["created"]
+        return timestamp_to_datetime(created)
+
+    @property
+    def deep_updated(self) -> datetime:
+        deep_updated = self._properties["deepUpdated"]
+        return timestamp_to_datetime(deep_updated)
+
+    @property
+    def deleted(self) -> Union[datetime, None]:
+        deleted = self._properties["deleted"]
+        return timestamp_to_datetime(deleted) if deleted else None
+
+    @deleted.setter
+    def deleted(self, deleted: Union[datetime, None]):
+        self._properties["deleted"] = (
+            datetime_to_timestamp(deleted) if deleted else None
+        )
+        self._changes.add("deleted")
+
+    @property
+    def uploader(self) -> Dict[str, Any]:
+        return self._properties["uploader"]
+
+    @property
+    def primary_researcher(self) -> Dict[str, Any]:
+        """When setting this value, use the user's `_id`."""
+        return self._properties["primaryResearcher"]
+
+    @primary_researcher.setter
+    def primary_researcher(self, primary_researcher: str):
+        self._properties["primaryResearcher"] = primary_researcher
+        self._changes.add("primaryResearcher")
+
+    @property
+    def path(self) -> List[str]:
+        return self._properties["path"]
+
+    @path.setter
+    def path(self, path: List[str]):
+        self._properties["path"] = path
+        self._changes.add("path")
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return self._properties["data"]
+
+    @data.setter
+    def data(self, data: Dict[str, Any]):
+        # TODO how do we detect changes to the dict?
+        self._properties["data"] = data
+        self._changes.add("data")
+
+    @property
+    def data_order(self) -> List[str]:
+        return self._properties["dataOrder"]
+
+    @data_order.setter
+    def data_order(self, data_order: List[str]):
+        # TODO how do we detect changes to the list?
+        self._properties["dataOrder"] = data_order
+        self._changes.add("dataOrder")
+
+    @property
+    def active_compensation(self) -> Union[Compensations, str]:
+        return self._properties["activeCompensation"]
+
+    @active_compensation.setter
+    def active_compensation(self, active_compensation: Union[Compensations, str]):
+        self._properties["activeCompensation"] = active_compensation
+        self._changes.add("activeCompensation")
+
+    @property
+    def locked(self) -> bool:
+        return self._properties["locked"]
+
+    @locked.setter
+    def locked(self, locked: bool):
+        self._properties["locked"] = locked
+        self._changes.add("locked")
+
+    @property
+    def retention_policy(self) -> Dict[str, Any]:
+        return self._properties["retentionPolicy"]
+
+    # TODO should have something like retain_until(datetime)
+
+    @property
+    def clone_source_experiment(self) -> Union[str, None]:
+        return self._properties.get("cloneSourceExperiment")
+
+    @property
+    def revision_source_experiment(self) -> Union[str, None]:
+        return self._properties.get("revisionSourceExperiment")
+
+    @property
+    def analysis_source_experiment(self) -> Union[str, None]:
+        return self._properties.get("analysisSourceExperiment")
+
+    @property
+    def analysis_task(self) -> Union[str, None]:
+        return self._properties.get("analysisTask")
+
+    @property
+    def revisions(self) -> List[Dict[str, Any]]:
+        return self._properties["revisions"]
+
+    @property
+    def per_file_compensations_enabled(self) -> bool:
+        return self._properties["perFileCompensationsEnabled"]
+
+    @per_file_compensations_enabled.setter
+    def per_file_compensations_enabled(self, per_file_compensations_enabled: bool):
+        self._properties["perFileCompensationsEnabled"] = per_file_compensations_enabled
+        self._changes.add("perFileCompensationsEnabled")
+
+    @property
+    def tags(self) -> List[str]:
+        return self._properties["tags"]
+
+    @tags.setter
+    def tags(self, tags: List[str]):
+        # TODO how do we detect changes to the list?
+        self._properties["tags"] = tags
+        self._changes.add("tags")
+
+    # TODO These are likely being reorganized. Delaying adding to Python API
+    # until they are moved or requested by a user.
+    #
+    # annotation_name_order: List[str]
+    # annotation_validators: Dict[str, Any]
+    # annotation_sources: Dict[str, Any]
+    # annotation_table_sort_columns: List[Union[str, int]]
+    # annotation_table_column_widths: Dict[str, float]
+    # annotation_table_column_wraps: Dict[str, bool]
+
+    @property
+    def sorting_spec(self) -> Dict[str, List[Union[str, None]]]:
+        return self._properties["sortingSpec"]
+
+    @sorting_spec.setter
+    def sorting_spec(self, sorting_spec: Dict[str, List[Union[str, None]]]):
+        self._properties["sortingSpec"] = sorting_spec
+        self._changes.add("sortingSpec")
+
+    @property
+    def color_spec(self) -> List[Tuple[str, Tuple[Union[str, None], float]]]:
+        return self._properties["colorSpec"]
+
+    @color_spec.setter
+    def color_spec(self, color_spec: List[Tuple[str, Tuple[Union[str, None], float]]]):
+        self._properties["colorSpec"] = color_spec
+        self._changes.add("colorSpec")
+
+    @property
+    def saved_statistics_exports(self) -> List[Dict[str, Any]]:
+        return self._properties["savedStatisticsExports"]
+
+    @saved_statistics_exports.setter
+    def saved_statistics_exports(self, saved_statistics_exports: List[Dict[str, Any]]):
+        self._properties["savedStatisticsExports"] = saved_statistics_exports
+        self._changes.add("savedStatisticsExports")
+
+    @property
+    def palettes(self) -> Dict[str, Any]:
+        return self._properties["palettes"]
+
+    @palettes.setter
+    def palettes(self, palettes: Dict[str, Any]):
+        self._properties["palettes"] = palettes
+        self._changes.add("palettes")
+
+    # TODO This might be getting removed since deep_updated is what usually
+    # matters
+    #
+    # updated: datetime = field(converter=timestamp_to_datetime)
+
+    @property
+    def permissions(self) -> List[Dict[str, Any]]:
+        return self._properties["permissions"]
+
+    # TODO set_permissions
+
+    def __repr__(self):
+        return f"Experiment(_id='{self._id}', name='{self.name}')"
 
     @staticmethod
     def get(_id: Optional[str] = None, name: Optional[str] = None) -> Experiment:
@@ -142,15 +287,17 @@ class Experiment(DataClassMixin):
         uploader: Optional[str] = None,
         primary_researcher: Optional[str] = None,
         tags: List[str] = [],
+        path: List[str] = [],
     ) -> Experiment:
         """Creates a new experiment.
 
         Args:
             name: Defaults to "Untitled Experiment".
             comments: Defaults to None.
-            uploader: Defaults to user making request.
-            primary_researcher: Defaults to user making request.
+            uploader: Defaults to the authenticated user.
+            primary_researcher: Defaults to the authenticated user.
             tags: Defaults to empty list.
+            path: List of folder IDs comprising the path. Defaults to [] (root).
 
         Returns:
             The created Experiment.
@@ -159,21 +306,34 @@ class Experiment(DataClassMixin):
             k: v
             for (k, v) in {
                 "name": name,
+                # TODO if we keep the CommentList class, it would probably make
+                # sense to use it here.
                 "comments": comments,
                 "uploader": uploader,
                 "primaryResearcher": primary_researcher,
                 "tags": tags,
+                "path": path,
             }.items()
             if v
         }
         return ce.APIClient().post_experiment(experiment_body)
 
     def update(self):
-        """Save changes to this Experiment to CellEngine."""
-        res = ce.APIClient().update_experiment(self._id, self.to_dict())
-        self.__dict__.update(Experiment.from_dict(res).__dict__)
+        """Save the specified changes to CellEngine and update this instance
+        with the new values on success.
 
-    def clone(self, props: Optional[Dict[str, Any]] = None) -> Experiment:
+        Example:
+        ```py
+        experiment.update({"name": "New Name"})
+        assert experiment.name == "New Name"
+        ```
+        """
+        update_properties = {key: self._properties[key] for key in self._changes}
+        res = ce.APIClient().update_experiment(self._id, update_properties)
+        self._properties = res
+        self._changes = set()
+
+    def clone(self, props: Dict[str, Any] = {}) -> Experiment:
         """
         Saves a deep copy of the experiment and all of its resources, including
         attachments, FCS files, gates and populations.
@@ -195,51 +355,17 @@ class Experiment(DataClassMixin):
         Deleted experiments are permanently deleted after approximately
         7 days. Until then, deleted experiments can be recovered.
         """
-        self.deleted = datetime.today()
+        deleted = datetime.today()
+        self.deleted = deleted
+        ce.APIClient().update_experiment(self._id, {"deleted": deleted.isoformat()})
 
     def undelete(self) -> None:
-        """Clear a scheduled deletion."""
+        """Clears a scheduled deletion."""
         if self.deleted:
-            del self.deleted
+            self.deleted = None
+            ce.APIClient().update_experiment(self._id, {"deleted": self.deleted})
 
-    @property
-    def active_compensation(self) -> Optional[Union[str, int]]:
-        """The most recently used compensation.
-
-        Accepted values are:
-
-        - A Compensation object (value will be set to its `_id`)
-        - A Compensation ID
-        - A `cellengine` Compensation constant:
-          [`UNCOMPENSATED`][cellengine.UNCOMPENSATED],
-          [`FILE_INTERNAL`][cellengine.FILE_INTERNAL] or
-          [`PER_FILE`][cellengine.PER_FILE].
-
-        Example:
-        ```python
-        import cellengine
-        exp = cellengine.get_experiment(name='my experiment')
-        experiment.active_compensation = cellengine.UNCOMPENSATED
-        ```
-        """
-        return self._active_comp
-
-    @active_compensation.setter
-    def active_compensation(self, compensation: Union[Compensation, int, str]):
-        if isinstance(compensation, Compensation):
-            self._active_comp = compensation._id
-        elif isinstance(compensation, str) and is_valid_id(compensation):
-            self._active_comp = compensation
-        elif isinstance(compensation, int) and compensation in [
-            ce.UNCOMPENSATED,
-            ce.PER_FILE,
-            ce.FILE_INTERNAL,
-        ]:
-            self._active_comp = compensation
-        else:
-            raise ValueError(
-                f"Value '{compensation}' can not be set as the active compensation."
-            )
+    # Attachments
 
     @property
     def attachments(self) -> List[Attachment]:
@@ -256,9 +382,28 @@ class Experiment(DataClassMixin):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().download_attachment(self._id, **kwargs)
 
-    def upload_attachment(self, filepath: str, filename: str = None):
-        """Upload an attachment to this experiment."""
-        ce.APIClient().upload_attachment(self._id, filepath, filename)
+    def upload_attachment(
+        self, filepath: str, filename: Optional[str] = None
+    ) -> Attachment:
+        """Upload an attachment to this experiment.
+
+        Args:
+            filepath (str): Local path to file to upload.
+            filename (str, optional): Optionally, specify a new name for the file.
+
+        Returns:
+            The newly uploaded Attachment.
+        """
+        return ce.APIClient().upload_attachment(self._id, filepath, filename)
+
+    def delete_attachment(
+        self, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> None:
+        """Delete an attachment from this experiment."""
+        kwargs = {"name": name} if name else {"_id": _id}
+        ce.APIClient().delete_attachment(self._id, **kwargs)
+
+    # Compensations
 
     @property
     def compensations(self) -> List[Compensation]:
@@ -272,20 +417,50 @@ class Experiment(DataClassMixin):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_compensation(self._id, **kwargs)
 
+    @overload
     def create_compensation(
         self, name: str, channels: List[str], spill_matrix: List[float]
-    ):
-        """Create a new compensation to this experiment
+    ) -> Compensation:
+        ...
+
+    @overload
+    def create_compensation(
+        self,
+        name: str,
+        *,
+        dataframe: DataFrame,
+    ) -> Compensation:
+        ...
+
+    def create_compensation(
+        self,
+        name: str,
+        channels: Optional[List[str]] = None,
+        spill_matrix: Optional[List[float]] = None,
+        dataframe: Optional[DataFrame] = None,
+    ) -> Compensation:
+        """Create a new compensation.
+
+        Specify either dataframe or channels and spill_matrix.
 
         Args:
             name (str): The name of the compensation.
             channels (List[str]): The names of the channels to which this
                 compensation matrix applies.
-            spill_matrix (List[float]): The row-wise, square spillover matrix. The
-                length of the array must be the number of channels squared.
+            spill_matrix (List[float]): The row-wise, square spillover matrix.
+                The length of the array must be the number of channels squared.
+            dataframe (DataFrame): A square pandas DataFrame with channel names
+                in [df.index, df.columns].
         """
-        body = {"name": name, "channels": channels, "spillMatrix": spill_matrix}
-        ce.APIClient().post_compensation(self._id, body)
+        return Compensation.create(
+            self._id,
+            name,
+            channels,  # type: ignore
+            spill_matrix,  # type: ignore
+            dataframe,  # type: ignore
+        )
+
+    # FCS Files
 
     @property
     def fcs_files(self) -> List[FcsFile]:
@@ -299,9 +474,11 @@ class Experiment(DataClassMixin):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_fcs_file(self._id, **kwargs)
 
-    def upload_fcs_file(self, filepath, filename: str = None):
+    def upload_fcs_file(self, filepath, filename: Optional[str] = None):
         """Upload an FCS file to this experiment."""
-        ce.APIClient().upload_fcs_file(self._id, filepath, filename)
+        return ce.APIClient().upload_fcs_file(self._id, filepath, filename)
+
+    # Gates
 
     @property
     def gates(self) -> List[Gate]:
@@ -313,104 +490,15 @@ class Experiment(DataClassMixin):
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_gate(self._id, **kwargs)
 
-    @property
-    def populations(self) -> List[Population]:
-        """List all populations in the experiment."""
-        return ce.APIClient().get_populations(self._id)
-
-    def get_population(
-        self, _id: Optional[str] = None, name: Optional[str] = None
-    ) -> Population:
-        """Get a specific population."""
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_population(self._id, **kwargs)
-
-    def get_statistics(
-        self,
-        statistics: Union[str, List[str]],
-        channels: List[str],
-        q: float = None,
-        annotations: bool = False,
-        compensation_id: str = None,
-        fcs_file_ids: List[str] = None,
-        format: str = "json",
-        layout: str = None,
-        percent_of: Union[str, List[str]] = None,
-        population_ids: List[str] = None,
-    ) -> Union[Dict, str, DataFrame]:
-        """
-        Request Statistics from CellEngine.
-
-        Args:
-            statistics: Statistical method to request. Any of "mean", "median",
-                "quantile", "mad" (median absolute deviation), "geometricmean",
-                "eventcount", "cv", "stddev" or "percent" (case-insensitive).
-            q (int): quantile (required for "quantile" statistic)
-            channels (Union[str, List[str]]): for "mean", "median", "geometricMean",
-                "cv", "stddev", "mad" or "quantile" statistics. Names of channels
-                to calculate statistics for.
-            annotations: Include file annotations in output
-                (defaults to False).
-            compensation_id: Compensation to use for gating and
-                statistic calculation.
-                Defaults to uncompensated. Three special constants may be used:
-                    0: Uncompensated
-                    -1: File-Internal Compensation Uses the file's internal
-                        compensation matrix, if available. If not, an error
-                        will be returned.
-                    -2: Per-File Compensation Use the compensation assigned to
-                        each individual FCS file.
-            fcs_file_ids: FCS files to get statistics for. If
-                omitted, statistics for all non-control FCS files will be returned.
-            format: str: One of "TSV (with[out] header)",
-                "CSV (with[out] header)" or "json" (default), "pandas",
-                case-insensitive.
-            layout: str: The file (TSV/CSV) or object (JSON) layout.
-                One of "tall-skinny", "medium", or "short-wide".
-            percent_of: str or List[str]: Population ID or array of
-                population IDs.  If omitted or the string "PARENT", will calculate
-                percent of parent for each population. If a single ID, will calculate
-                percent of that population for all populations specified by
-                population_ids. If a list, will calculate percent of each of
-                those populations.
-            population_ids: List[str]: List of population IDs.
-                Defaults to ungated.
-
-        Returns:
-            statistics: Dict, String, or pandas.Dataframe
-        """
-        return ce.APIClient().get_statistics(
-            self._id,
-            statistics,
-            channels,
-            q,
-            annotations,
-            compensation_id,
-            fcs_file_ids,
-            format,
-            layout,
-            percent_of,
-            population_ids,
-        )
-
-    @property
-    def scalesets(self) -> ScaleSet:
-        """Gets the experiment's ScaleSet"""
-        return ce.APIClient().get_scaleset(self._id)
-
-    def get_scaleset(
-        self, _id: Optional[str] = None, name: Optional[str] = None
-    ) -> ScaleSet:
-        """Get a specific scaleset."""
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_scaleset(self._id, **kwargs)
-
     def create_gates(self, gates: List):
         """Save a collection of gate objects."""
         return Gate.bulk_create(self._id, gates)
 
     def delete_gate(
-        self, _id: str = None, gid: str = None, exclude: str = None
+        self,
+        _id: Optional[str] = None,
+        gid: Optional[str] = None,
+        exclude: Optional[str] = None,
     ) -> None:
         """Delete a gate or gate family.
         See the
@@ -573,6 +661,20 @@ class Experiment(DataClassMixin):
             **kwargs,
         )
 
+    # Populations
+
+    @property
+    def populations(self) -> List[Population]:
+        """List all populations in the experiment."""
+        return ce.APIClient().get_populations(self._id)
+
+    def get_population(
+        self, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> Population:
+        """Get a specific population."""
+        kwargs = {"name": name} if name else {"_id": _id}
+        return ce.APIClient().get_population(self._id, **kwargs)
+
     def create_population(self, population: Dict) -> Population:
         """Create a population.
 
@@ -594,3 +696,42 @@ class Experiment(DataClassMixin):
             The new population.
         """
         return ce.APIClient().post_population(self._id, population)
+
+    # ScaleSets
+
+    @property
+    def scaleset(self) -> ScaleSet:
+        """Gets the experiment's ScaleSet"""
+        return ce.APIClient().get_scaleset(self._id)
+
+    def get_scaleset(self) -> ScaleSet:
+        return self.scaleset
+
+    # Statistics
+
+    def get_statistics(
+        self,
+        statistics: List[str],
+        channels: List[str],
+        q: Optional[float] = None,
+        annotations: bool = True,
+        compensation_id: Union[Compensations, str] = UNCOMPENSATED,
+        fcs_file_ids: Optional[List[str]] = None,
+        format: Literal["json", "pandas", "TSV", "CSV"] = "pandas",
+        layout: Literal["short-wide", "medium", "tall-skinny"] = "medium",
+        percent_of: Optional[Union[str, List[str]]] = "PARENT",
+        population_ids: List[str] = [],
+    ) -> Union[Dict, str, DataFrame]:
+        return ce.APIClient().get_statistics(
+            self._id,
+            statistics,
+            channels,
+            q,
+            annotations,
+            compensation_id,
+            fcs_file_ids,
+            format,
+            layout,
+            percent_of,
+            population_ids,
+        )

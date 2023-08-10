@@ -2,10 +2,9 @@
 
 ### Running tests
 
-Unit tests run with `python3 -m pytest`.
-
-The integration tests need CellEngine credentials to run. In CI, these are
-provided by GitHub secrets. Locally, you need to set environment variables:
+Tests run with `python3 -m pytest`. These need CellEngine credentials to run. In
+CI, these are provided by GitHub secrets. Locally, you need to set environment
+variables:
 
 ```sh
 CELLENGINE_USERNAME="..."

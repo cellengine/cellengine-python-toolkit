@@ -7,7 +7,7 @@ from collections import defaultdict
 class ComplexPopulationBuilder:
     """Build a complex population request.
 
-    Populations are combinations of gates. You may build complex
+    Populations are combinations of gates. You can build complex
     populations with this class using method chaining, with
     combinations of .And, .Or, .Not, and .Xor.
 

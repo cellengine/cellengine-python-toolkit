@@ -1,14 +1,15 @@
 from __future__ import annotations
-from cellengine.utils.dataclass_mixin import DataClassMixin
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Union
+
 
 import cellengine as ce
 from cellengine.utils.wrapped_image_opener import WrappedImageOpener
+from cellengine.resources.compensation import UNCOMPENSATED, FILE_INTERNAL
 
 
 @dataclass
-class Plot(DataClassMixin):
+class Plot:
     """A class representing a CellEngine plot."""
 
     experiment_id: str
@@ -18,6 +19,7 @@ class Plot(DataClassMixin):
     z_channel: Optional[str]
     plot_type: str
     population_id: Optional[str]
+    compensation: Union[str, FILE_INTERNAL, UNCOMPENSATED]
     data: bytes
 
     def __post_init__(self):
@@ -36,6 +38,7 @@ class Plot(DataClassMixin):
         y_channel: str,
         z_channel: Optional[str] = None,
         population_id: Optional[str] = None,
+        compensation: Union[str, FILE_INTERNAL, UNCOMPENSATED] = 0,
         **kwargs,
     ) -> Plot:
         """
@@ -49,10 +52,11 @@ class Plot(DataClassMixin):
             z_channel: (for dot plots colored by a 3rd channel)
                 Color channel name.
             population_id: Defaults to ungated.
+            compensation (string ID, 0 or -1): Compensation to use for gating
+                and display. Defaults to uncompensated (0).
             **kwargs (Dict):
                 - axesQ (bool): Display axes lines. Defaults to true.
                 - axisLabelsQ (bool): Display axis labels. Defaults to true.
-                - compensation (ID): Compensation to use for gating and display.
                 - color (str): Case-insensitive string in the format
                     #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e.
                     color of curve in "histogram" plots and dots in "dot" plots.
@@ -78,6 +82,9 @@ class Plot(DataClassMixin):
                     subsampling. Use for deterministic (reproducible) subsampling.
                     If omitted, a pseudo-random value is used.
                 - smoothing (float): For density and contour plots, adjusts the
+                    amount of smoothing. Defaults to 0 (no smoothing). Set to 1
+                    for typical smoothing. Higher values (up to 10) increase
+                    smoothing.
                 - strokeThickness (float): The thickness of histogram and contour
                     plot lines. Defaults to 1.
                 - tickLabelsQ (bool): Display tick labels. Defaults to false.
@@ -88,8 +95,6 @@ class Plot(DataClassMixin):
                 - xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.
                 - xTicksQ (bool): Display x ticks. Overrides ticksQ.
                 - yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.
-                    amount of smoothing. Defaults to 0 (no smoothing). Set to 1 for
-                    typical smoothing. Higher values (up to 10) increase smoothing.
                 - yAxisQ (bool): Display y axis line. Overrides axesQ.
                 - yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.
                 - yTicksQ (bool): Display y ticks. Overrides ticksQ.
@@ -98,14 +103,15 @@ class Plot(DataClassMixin):
         if kwargs:
             properties = dict(kwargs)
         return ce.APIClient().get_plot(
-            experiment_id,
-            fcs_file_id,
-            plot_type,
-            x_channel,
-            y_channel,
-            z_channel,
-            population_id,
-            properties,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            plot_type=plot_type,
+            x_channel=x_channel,
+            y_channel=y_channel,
+            z_channel=z_channel,
+            population_id=population_id,
+            compensation=compensation,
+            properties=properties,
         )
 
     def display(self):

@@ -1,37 +1,57 @@
 from __future__ import annotations
-from typing import Optional
-
-from attr import define, field
-
+from typing import Optional, Any, Dict
+from datetime import datetime
 import cellengine as ce
-from cellengine.utils import converter, readonly
+from cellengine.utils.helpers import timestamp_to_datetime
 
 
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
-
-
-@define
 class Attachment:
     """A class representing a CellEngine attachment.
     Attachments are non-data files that are stored in an experiment.
     """
 
-    _id: str = field(on_setattr=readonly)
-    filename: str
-    crc32c: str = field(on_setattr=readonly, repr=False)
-    experiment_id: str = field(on_setattr=readonly, repr=False)
-    md5: str = field(on_setattr=readonly, repr=False)
-    size: int = field(on_setattr=readonly, repr=False)
-    type: Optional[Literal["textbox", "image"]] = None
+    def __init__(self, properties: Dict[str, Any]):
+        self._properties = properties
+        self._changes = set()
 
     @property
-    def path(self):
-        return f"experiments/{self.experiment_id}/attachments/{self._id}".rstrip(
-            "/None"
-        )
+    def _id(self) -> str:
+        return self._properties["_id"]
+
+    @property
+    def id(self) -> str:
+        """Alias for ``_id``."""
+        return self._properties["_id"]
+
+    @property
+    def experiment_id(self) -> str:
+        return self._properties["experimentId"]
+
+    @property
+    def filename(self) -> str:
+        return self._properties["filename"]
+
+    @filename.setter
+    def filename(self, filename):
+        self._properties["filename"] = filename
+        self._changes.add("filename")
+
+    @property
+    def md5(self) -> str:
+        return self._properties["md5"]
+
+    @property
+    def crc32c(self) -> str:
+        return self._properties["crc32c"]
+
+    @property
+    def size(self) -> int:
+        return self._properties["size"]
+
+    @property
+    def created(self) -> datetime:
+        created = self._properties["created"]
+        return timestamp_to_datetime(created)
 
     @classmethod
     def get(
@@ -49,20 +69,28 @@ class Attachment:
         return ce.APIClient().get_attachment(experiment_id, **kwargs)
 
     @staticmethod
-    def upload(experiment_id: str, filepath: str, filename: str = None) -> Attachment:
+    def upload(
+        experiment_id: str, filepath: str, filename: Optional[str] = None
+    ) -> Attachment:
+        """Upload an attachment
+
+        Args:
+            filepath (str): Local path to file to upload.
+            filename (str, optional): Optionally, specify a new name for the file.
+
+        Returns:
+            The newly uploaded Attachment.
+        """
         return ce.APIClient().upload_attachment(experiment_id, filepath, filename)
 
-    def update(self):
+    def update(self) -> None:
         """Save changes to this Attachment to CellEngine."""
-        res = ce.APIClient().update(self)
-        self.__setstate__(res.__getstate__())  # type: ignore
-
-    @classmethod
-    def from_dict(cls, data: dict):
-        return converter.structure(data, cls)
-
-    def to_dict(self):
-        return converter.unstructure(self)
+        update_properties = {key: self._properties[key] for key in self._changes}
+        res = ce.APIClient().update_entity(
+            self.experiment_id, self._id, "attachments", update_properties
+        )
+        self._properties = res
+        self._changes = set()
 
     def download(self, to_file: Optional[str] = None) -> Optional[bytes]:
         """Download the attachment.
@@ -85,5 +113,5 @@ class Attachment:
         else:
             return res
 
-    def delete(self):
-        return ce.APIClient().delete_entity(self.experiment_id, "attachments", self._id)
+    def delete(self) -> None:
+        ce.APIClient().delete_entity(self.experiment_id, "attachments", self._id)

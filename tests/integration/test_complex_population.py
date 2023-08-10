@@ -1,6 +1,4 @@
 import json
-import pytest
-import responses
 
 from cellengine.utils.complex_population_builder import ComplexPopulationBuilder
 

@@ -1,11 +1,14 @@
-import attr
-
-
-@attr.s(auto_exc=True)
 class APIError(BaseException):
-    url: str = attr.ib()
-    status_code: int = attr.ib()
-    message: str = attr.ib()
+    """Raised when the CellEngine API responds with an error."""
+
+    url: str
+    status_code: int
+    message: str
+
+    def __init__(self, url: str, status_code: int, message: str):
+        self.url = url
+        self.status_code = status_code
+        self.message = message
 
     def __str__(self):
         if self.status_code:

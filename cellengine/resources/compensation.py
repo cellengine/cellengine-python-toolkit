@@ -1,36 +1,106 @@
 from __future__ import annotations
-from typing import List, Optional, TYPE_CHECKING, Tuple, Union, cast
+from typing import (
+    List,
+    Optional,
+    TYPE_CHECKING,
+    Tuple,
+    Union,
+    cast,
+    overload,
+    Any,
+    Dict,
+)
 
-from attr import define, field
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
 from numpy import array, linalg
 from pandas import DataFrame
 
 import cellengine as ce
-from cellengine.utils import readonly
-from cellengine.utils.converter import converter
-
 
 if TYPE_CHECKING:
     from cellengine.resources.fcs_file import FcsFile
 
 
-@define
+UncompensatedType = Literal[0]
+UNCOMPENSATED: UncompensatedType = 0
+"""Apply no compensation."""
+
+FileInternalType = Literal[-1]
+FILE_INTERNAL: FileInternalType = -1
+"""
+Use the file's internal compensation matrix, if available. If not available, an
+error will be returned from API requests.
+"""
+
+PerFileType = Literal[-2]
+PER_FILE: PerFileType = -2
+"""
+Use the compensation assigned to each individual FCS file. Not a valid value for
+`FcsFile.compensation`.
+"""
+
+FileCompensations = Literal[UncompensatedType, FileInternalType]
+"""Valid values for `FcsFile.compensation`."""
+
+Compensations = Literal[UncompensatedType, FileInternalType, PerFileType]
+"""Valid values for all compensation parameters except `fcsFile.compensation`."""
+
+
 class Compensation:
-    """A class representing a CellEngine compensation matrix.
+    """A class representing a CellEngine compensation matrix."""
 
-    Can be applied to FCS files to compensate them.
-    """
-
-    _id: str = field(on_setattr=readonly)
-    experiment_id: str = field(on_setattr=readonly)
-    name: str
-    channels: List[str]
-    spill_matrix: List[float]
+    def __init__(self, properties: Dict[str, Any]):
+        self._properties = properties
+        self._changes = set()
 
     @property
-    def dataframe(self):
+    def _id(self) -> str:
+        return self._properties["_id"]
+
+    @property
+    def id(self) -> str:
+        """Alias for ``_id``."""
+        return self._properties["_id"]
+
+    @property
+    def experiment_id(self) -> str:
+        return self._properties["experimentId"]
+
+    @property
+    def name(self) -> str:
+        return self._properties["name"]
+
+    @name.setter
+    def name(self, name: str):
+        self._properties["name"] = name
+        self._changes.add("name")
+
+    @property
+    def channels(self) -> List[str]:
+        return self._properties["channels"]
+
+    @channels.setter
+    def channels(self, channels: List[str]):
+        self._properties["channels"] = channels
+        self._changes.add("channels")
+
+    @property
+    def spill_matrix(self) -> List[float]:
+        return self._properties["spillMatrix"]
+
+    @spill_matrix.setter
+    def spill_matrix(self, spill_matrix: List[float]):
+        self._properties["spillMatrix"] = spill_matrix
+        self._changes.add("spillMatrix")
+
+    @property
+    def dataframe(self) -> DataFrame:
         return DataFrame(
-            array(self.spill_matrix).reshape(self.N, self.N),  # type: ignore
+            array(self.spill_matrix).reshape(self.N, self.N),
             columns=self.channels,
             index=self.channels,
         )
@@ -51,28 +121,35 @@ class Compensation:
                 "Dataframe must be a square matrix with equivalent index and columns."
             )
 
-    def __repr__(self):
-        return f"Compensation(_id='{self._id}', name='{self.name}')"
-
-    @property
-    def path(self):
-        return f"experiments/{self.experiment_id}/compensations/{self._id}".rstrip(
-            "/None"
-        )
-
-    @classmethod
-    def from_dict(cls, data: dict):
-        return converter.structure(data, cls)
-
-    def to_dict(self):
-        return converter.unstructure(self)
-
     @classmethod
     def get(
         cls, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
     ) -> Compensation:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_compensation(experiment_id, **kwargs)
+
+    @overload
+    @classmethod
+    def create(
+        cls,
+        experiment_id: str,
+        name: str,
+        channels: List[str],
+        spill_matrix: List[float],
+        dataframe: Optional[None],
+    ) -> Compensation:
+        ...
+
+    @overload
+    @classmethod
+    def create(
+        cls,
+        experiment_id: str,
+        name: str,
+        *,
+        dataframe: DataFrame,
+    ) -> Compensation:
+        ...
 
     @classmethod
     def create(
@@ -83,7 +160,9 @@ class Compensation:
         spill_matrix: Optional[List[float]] = None,
         dataframe: Optional[DataFrame] = None,
     ) -> Compensation:
-        """Create a new compensation for this experiment
+        """Create a new compensation.
+
+        Specify either dataframe or channels and spill_matrix.
 
         Args:
             experiment_id (str): the ID of the experiment.
@@ -92,7 +171,7 @@ class Compensation:
                 compensation matrix applies.
             spill_matrix (List[float]): The row-wise, square spillover matrix. The
                 length of the array must be the number of channels squared.
-            spill_matrix (DataFrame): A square pandas DataFrame with channel
+            dataframe (DataFrame): A square pandas DataFrame with channel
                 names in [df.index, df.columns].
         """
         if dataframe is None:
@@ -131,25 +210,37 @@ class Compensation:
             "experimentId": "",
             "name": "",
         }
-        return converter.structure(properties, Compensation)
+        return Compensation(properties)
 
     def update(self):
         """Save changes to this Compensation to CellEngine."""
-        res = ce.APIClient().update(self)
-        self.__setstate__(res.__getstate__())  # type: ignore
+        update_properties = {key: self._properties[key] for key in self._changes}
+        res = ce.APIClient().update_entity(
+            self.experiment_id, self._id, "compensations", update_properties
+        )
+        self._properties = res
+        self._changes = set()
 
     def delete(self):
-        return ce.APIClient().delete_entity(
-            self.experiment_id, "compensations", self._id
-        )
+        ce.APIClient().delete_entity(self.experiment_id, "compensations", self._id)
 
     @property
     def dataframe_as_html(self):
         """Return the compensation matrix dataframe as HTML."""
         return self.dataframe._repr_html_()
 
+    @overload
+    def apply(self, file: FcsFile, inplace: Literal[True] = ..., **kwargs) -> None:
+        ...
+
+    @overload
     def apply(
-        self, file: FcsFile, inplace: bool = True, **kwargs
+        self, file: FcsFile, inplace: Literal[False] = ..., **kwargs
+    ) -> DataFrame:
+        ...
+
+    def apply(
+        self, file: FcsFile, inplace: Optional[bool] = True, **kwargs
     ) -> Union[DataFrame, None]:
         """Compensate an FcsFile's data.
 
@@ -166,31 +257,41 @@ class Compensation:
             DataFrame: if ``inplace=True``, updates `FcsFile.events` for
                 the target FcsFile
         """
+        # [ the file's events have already been retrieved with the same
+        #   kwargs provided here -> data := file.events
+        # | true -> data := events retrieved from CellEngine ]
         if kwargs.items() == file._events_kwargs.items():
             data = file.events
         else:
             data = file.get_events(inplace=inplace, destination=None, **kwargs)
 
-        # Calculate matrix product for channels matching between file and comp
-        cols = data.columns
-        ix = list(
-            filter(
-                None,
-                [channel if channel in cols else None for channel in self.channels],
-            )
+        # [ spillover := the inverse of the dataframe matrix ]
+        spillover = DataFrame(
+            linalg.inv(self.dataframe).astype("float32"),
+            index=self.dataframe.index,
+            columns=self.dataframe.columns,
         )
-        if any(ix):
-            copy = data.copy()
-            comped = copy[ix]
-            spillover = linalg.inv(self.dataframe).astype("float32")
-            comped = comped.dot(spillover)
-            comped.columns = ix
-            copy.update(comped.astype(comped.dtypes[0]))
-        else:
-            raise IndexError(
-                "No channels from this file match those in the compensation."
-            )
 
-        if inplace:
-            file._events = copy
-        return copy
+        # Store the multi-level index so we can restore it later
+        original_columns = data.columns
+        try:
+            data.columns = data.columns.droplevel(1)
+            # [ matching_cols := the columns of data that match the channels in
+            #   the comp ]
+            # Raises KeyError is data does not contain any channels in the comp
+            matching_cols = data[self.channels]
+
+            # [ comped := the compensated data ]
+            # The column names of DataFrame and the index of other will be
+            # aligned prior to the multiplication.
+            comped = matching_cols.dot(spillover)
+
+            if inplace:
+                file._events.update(comped)
+        finally:
+            data.columns = original_columns
+
+        if not inplace:
+            copy = data.copy()
+            copy.update(comped)
+            return copy

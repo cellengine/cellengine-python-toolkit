@@ -8,17 +8,13 @@ from requests.sessions import HTTPAdapter
 
 from cellengine import __version__ as CEV
 from cellengine.utils.api_client.APIError import APIError
-from cellengine.utils.helpers import alter_keys, to_camel_case
 from cellengine.utils.singleton import AbstractSingleton
 
 
 def prepare_params(params: Dict) -> Dict:
     """Converts Boolean values to lower-case strings (whereas `requests` yields
-    upper-case) and keys to camelCase."""
-    return {
-        to_camel_case(k): str(v).lower() if type(v) == bool else v
-        for k, v in params.items()
-    }
+    upper-case)."""
+    return {k: str(v).lower() if type(v) == bool else v for k, v in params.items()}
 
 
 class BaseAPIClient(metaclass=AbstractSingleton):
@@ -72,12 +68,18 @@ class BaseAPIClient(metaclass=AbstractSingleton):
         except Exception as error:
             raise APIError(response.url, response.status_code, repr(error))
 
-    def _get(self, url, params: Dict = None, headers: Dict = None, raw=False) -> Any:
+    def _get(
+        self,
+        url,
+        params: Optional[Dict] = None,
+        headers: Optional[Dict] = None,
+        raw=False,
+    ) -> Any:
         try:
             response = self.requests_session.get(
                 url,
                 headers=self._make_headers(headers),
-                params=prepare_params(params if params else {}),
+                params=prepare_params(params or {}),
             )
         except Exception as error:
             raise error
@@ -95,9 +97,9 @@ class BaseAPIClient(metaclass=AbstractSingleton):
     ) -> Any:
         response = self.requests_session.post(
             url,
-            json=alter_keys(json, to_camel_case) if json else None,
+            json=json,
             headers=self._make_headers(headers),
-            params=prepare_params(params if params else {}),
+            params=prepare_params(params or {}),
             files=files,
             data=data,
         )
@@ -106,26 +108,28 @@ class BaseAPIClient(metaclass=AbstractSingleton):
     def _patch(
         self,
         url,
-        json: Union[Dict, List[Dict]] = None,
-        params: Dict = None,
-        headers: Dict = None,
-        files: Dict = None,
+        json: Union[Dict, List[Dict]],
+        params: Optional[Dict] = None,
+        headers: Optional[Dict] = None,
+        files: Optional[Dict] = None,
         raw=False,
     ):
         response = self.requests_session.patch(
             url,
-            json=alter_keys(json, to_camel_case) if json else None,
+            json=json,
             headers=self._make_headers(headers),
-            params=prepare_params(params if params else {}),
+            params=prepare_params(params or {}),
             files=files,
         )
         return self._parse_response(response, raw=raw)
 
-    def _delete(self, url, params: dict = None, headers: dict = None):
+    def _delete(
+        self, url, params: Optional[dict] = None, headers: Optional[dict] = None
+    ):
         response = self.requests_session.delete(
             url,
             headers=self._make_headers(headers),
-            params=prepare_params(params if params else {}),
+            params=prepare_params(params or {}),
         )
         try:
             if response.ok:

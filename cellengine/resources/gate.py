@@ -5,7 +5,6 @@ from cellengine.utils.types import (
     ApplyTailoringUpdate,
 )
 from math import pi
-from operator import itemgetter
 from typing import Any, Dict, List, Optional, Union, Tuple, overload
 
 try:
@@ -13,24 +12,20 @@ try:
 except ImportError:
     from typing_extensions import Literal
 
-from attr import define, field
-from numpy import array, mean, stack
+from numpy import mean
 
 import cellengine as ce
 from cellengine.resources.population import Population
 from cellengine.utils import parse_fcs_file_args
-from cellengine.utils import converter, generate_id, readonly
+from cellengine.utils import generate_id
 from cellengine.utils.helpers import (
     get_args_as_kwargs,
-    normalize,
     remove_keys_with_none_values,
 )
 
-import sys
-
-if sys.version_info[:2] >= (3, 8):
+try:
     from collections.abc import Mapping
-else:
+except ImportError:
     from collections import Mapping  # type: ignore
 
 
@@ -67,29 +62,66 @@ class ApplyTailoringResult:
         self.deleted: List[str] = []
 
 
-@define(repr=False)
 class Gate:
-    _id: str = field(on_setattr=readonly)
-    experiment_id: str = field(on_setattr=readonly)
-    gid: str = field(on_setattr=readonly)
-    type: str
-    x_channel: str
-    model: Dict
-    tailored_per_file: bool = False
-    fcs_file_id: Optional[str] = None
-    names: Optional[List[str]] = field(default=None)
-    name: Optional[str] = field(default=None)
-    y_channel: Optional[str] = field(default=None)
+    """Do not construct directly; use the `Experiment.create_*_gate` and
+    `__Gate.create()` methods."""
 
-    def __repr__(self):
-        if self.name:
-            label, name = ("name", self.name)
-        else:
-            label, name = ("names", str(self.names))
-        return f"{self.type}(_id='{self._id}', {label}='{name}')"
+    def __init__(self, properties: Dict[str, Any]):
+        self._properties = properties
+        self._changes = set()
+
+    @property
+    def _id(self) -> str:
+        return self._properties["_id"]
+
+    @property
+    def id(self) -> str:
+        """Alias for ``_id``."""
+        return self._properties["_id"]
+
+    @property
+    def gid(self) -> str:
+        return self._properties["gid"]
+
+    @property
+    def experiment_id(self) -> str:
+        return self._properties["experimentId"]
+
+    @property
+    def type(self) -> str:
+        return self._properties["type"]
+
+    @property
+    def x_channel(self) -> str:
+        return self._properties["xChannel"]
+
+    @property
+    def y_channel(self) -> Union[str, None]:
+        return self._properties["yChannel"]
+
+    @property
+    def model(self) -> Dict:
+        return self._properties["model"]
+
+    @property
+    def locked(self) -> bool:
+        return self._properties["locked"]
+
+    @locked.setter
+    def locked(self, value: bool) -> None:
+        self._properties["locked"] = value
+        self._changes.add("locked")
+
+    @property
+    def tailored_per_file(self) -> bool:
+        return self._properties["tailoredPerFile"]
+
+    @property
+    def fcs_file_id(self) -> Union[str, None]:
+        return self._properties["fcsFileId"]
 
     @staticmethod
-    def _format_gate(gate, **kwargs):
+    def _format_gate(gate):
         module = importlib.import_module("cellengine")
         _class = getattr(module, gate["type"])
         return _class._format(**gate)
@@ -104,28 +136,22 @@ class Gate:
             raise RuntimeError("Created gates must all be in the same Experiment.")
 
         formatted_gates = [cls._format_gate(gate) for gate in gates]
-        return ce.APIClient().create(
-            [Gate(id=None, **g) for g in formatted_gates],  # type: ignore
-            create_population=False,
+        return ce.APIClient().post_gates(
+            experiment_id.pop(),
+            formatted_gates,
+            {"create_population": False},
         )
 
-    @property
-    def path(self):
-        return f"experiments/{self.experiment_id}/gates/{self._id}".rstrip("/None")
-
-    @classmethod
-    def from_dict(cls, data: dict):
-        return converter.structure(data, cls)
-
-    def to_dict(self):
-        return converter.unstructure(self)
-
-    def update(self):
+    def update(self) -> None:
         """Save changes to this Gate to CellEngine."""
-        res = ce.APIClient().update(self)
-        self.__setstate__(res.__getstate__())  # type: ignore
+        update_properties = {key: self._properties[key] for key in self._changes}
+        res = ce.APIClient().update_entity(
+            self.experiment_id, self._id, "gates", update_properties
+        )
+        self._properties = res
+        self._changes = set()
 
-    def delete(self):
+    def delete(self) -> None:
         ce.APIClient().delete_gate(self.experiment_id, self._id)
 
     @staticmethod
@@ -157,16 +183,53 @@ class Gate:
         [ret.deleted.append(i["_id"]) for i in payload["deleted"]]
         return ret
 
+    def untailor(self) -> None:
+        # TODO
+        pass
+
     def _synthesize_gate(
         self,
         payload: Union[ApplyTailoringInsert, ApplyTailoringUpdate],
     ):
-        gate = self.to_dict()
+        gate = self._properties  # TODO review
         gate.update(payload)
-        return Gate.from_dict(gate)
+        return Gate(gate)
 
 
-class RectangleGate(Gate):
+class SimpleGate(Gate):
+    """Abstract class for gates with a single region (rectangle, ellipse,
+    polygon, range)."""
+
+    @property
+    def name(self) -> Union[str, None]:
+        return self._properties["name"]
+
+    @name.setter
+    def name(self, value: str) -> None:
+        self._properties["name"] = value
+        self._changes.add("name")
+
+    def __repr__(self):
+        return f"{self.type}(_id='{self._id}', name='{self.name}')"
+
+
+class CompoundGate(Gate):
+    """Abstract class for gates with multiple regions (quadrants and splits)."""
+
+    @property
+    def names(self) -> Union[List[str], None]:
+        return self._properties["names"]
+
+    @names.setter
+    def names(self, value: List[str]) -> None:
+        self._properties["names"] = value
+        self._changes.add("names")
+
+    def __repr__(self):
+        return f"{self.type}(_id='{self._id}', names='{self.names}')"
+
+
+class RectangleGate(SimpleGate):
     @overload
     @classmethod
     def create(
@@ -270,7 +333,7 @@ class RectangleGate(Gate):
 
         Returns:
             A RectangleGate if `create_population` is False, or a Tuple with the
-                gate and populations if `create_population` is True.
+                gate and population if `create_population` is True.
 
         Examples:
             ```python
@@ -286,11 +349,14 @@ class RectangleGate(Gate):
         """
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
-            k: kwargs.pop(k) for k in ["create_population", "parent_population_id"]
+            "createPopulation": kwargs.pop("create_population", True),
+            "parentPopulationid": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
-        return ce.APIClient().create(Gate(id=None, **gate), **params)  # type: ignore
+        r = ce.APIClient().post_gate(experiment_id, gate, params)
+        # assert isinstance(r, RectangleGate)
+        return r
 
     @classmethod
     @exception_handler
@@ -299,29 +365,26 @@ class RectangleGate(Gate):
 
         args = remove_keys_with_none_values(kwargs)
 
-        x1 = args.get("x1") or args.get("model", {}).get("rectangle", {}).get("x1")
-        x2 = args.get("x2") or args.get("model", {}).get("rectangle", {}).get("x2")
-        y1 = args.get("y1") or args.get("model", {}).get("rectangle", {}).get("y1")
-        y2 = args.get("y2") or args.get("model", {}).get("rectangle", {}).get("y2")
-        if not x1 or not x2 or not y1 or not y2:
+        x1 = args.get("x1", args.get("model", {}).get("rectangle", {}).get("x1"))
+        x2 = args.get("x2", args.get("model", {}).get("rectangle", {}).get("x2"))
+        y1 = args.get("y1", args.get("model", {}).get("rectangle", {}).get("y1"))
+        y2 = args.get("y2", args.get("model", {}).get("rectangle", {}).get("y2"))
+        if x1 is None or x2 is None or y1 is None or y2 is None:
             raise ValueError("x1, x2, y1 and y2 must be provided.")
-        label = args.get("label") or args.get("model", {}).get(
-            "label",
-            [
-                mean([x1, x2]),
-                mean([y1, y2]),
-            ],
-        )
+
+        label = args.get("label", args.get("model", {}).get("label"))
+        if label is None or label == []:
+            label = [mean([x1, x2]), mean([y1, y2])]
 
         model = {
-            "locked": args.get("locked") or args.get("model", {}).get("locked", False),
+            "locked": args.get("locked", args.get("model", {}).get("locked", False)),
             "label": label,
             "rectangle": {"x1": x1, "x2": x2, "y1": y1, "y2": y2},
         }
 
         return {
-            "experiment_id": args["experiment_id"],
-            "fcs_file_id": parse_fcs_file_args(
+            "experimentId": args["experiment_id"],
+            "fcsFileId": parse_fcs_file_args(
                 args.get("experiment_id"),
                 args.get("tailored_per_file", False),
                 args.get("fcs_file_id"),
@@ -330,14 +393,14 @@ class RectangleGate(Gate):
             "gid": args.get("gid", generate_id()),
             "model": model,
             "name": args.get("name"),
-            "tailored_per_file": args.get("tailored_per_file", False),
+            "tailoredPerFile": args.get("tailored_per_file", False),
             "type": "RectangleGate",
-            "x_channel": args.get("x_channel"),
-            "y_channel": args.get("y_channel"),
+            "xChannel": args.get("x_channel"),
+            "yChannel": args.get("y_channel"),
         }
 
 
-class PolygonGate(Gate):
+class PolygonGate(SimpleGate):
     @overload
     @classmethod
     def create(
@@ -439,11 +502,14 @@ class PolygonGate(Gate):
         """
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
-            k: kwargs.pop(k) for k in ["create_population", "parent_population_id"]
+            "createPopulation": kwargs.pop("create_population", True),
+            "parentPopulationid": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
-        return ce.APIClient().create(Gate(id=None, **gate), **params)  # type: ignore
+        r = ce.APIClient().post_gate(experiment_id, gate, params)
+        # assert isinstance(r, PolygonGate)
+        return r
 
     @classmethod
     @exception_handler
@@ -455,19 +521,20 @@ class PolygonGate(Gate):
         vertices = args.get("vertices", []) or args.get("model", {}).get(
             "polygon", {}
         ).get("vertices", [])
-        label = args.get("label") or args.get("model", {}).get(
-            "label", mean(vertices, axis=0).tolist()
-        )
+
+        label = args.get("label") or args.get("model", {}).get("label")
+        if label is None or label == []:
+            label = mean(vertices, axis=0).tolist()
 
         model = {
-            "locked": args.get("model", {}).get("locked", False),
+            "locked": args.get("locked", args.get("model", {}).get("locked", False)),
             "label": label,
             "polygon": {"vertices": vertices},
         }
 
         return {
-            "experiment_id": args["experiment_id"],
-            "fcs_file_id": parse_fcs_file_args(
+            "experimentId": args["experiment_id"],
+            "fcsFileId": parse_fcs_file_args(
                 args.get("experiment_id"),
                 args.get("tailored_per_file", False),
                 args.get("fcs_file_id"),
@@ -476,14 +543,14 @@ class PolygonGate(Gate):
             "gid": args.get("gid", generate_id()),
             "model": model,
             "name": args.get("name"),
-            "tailored_per_file": args.get("tailored_per_file", False),
+            "tailoredPerFile": args.get("tailored_per_file", False),
             "type": "PolygonGate",
-            "x_channel": args.get("x_channel"),
-            "y_channel": args.get("y_channel"),
+            "xChannel": args.get("x_channel"),
+            "yChannel": args.get("y_channel"),
         }
 
 
-class EllipseGate(Gate):
+class EllipseGate(SimpleGate):
     @overload
     @classmethod
     def create(
@@ -602,11 +669,14 @@ class EllipseGate(Gate):
         """
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
-            k: kwargs.pop(k) for k in ["create_population", "parent_population_id"]
+            "createPopulation": kwargs.pop("create_population", True),
+            "parentPopulationid": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
-        return ce.APIClient().create(Gate(id=None, **gate), **params)  # type: ignore
+        r = ce.APIClient().post_gate(experiment_id, gate, params)
+        # assert isinstance(r, EllipseGate)
+        return r
 
     @classmethod
     @exception_handler
@@ -615,29 +685,26 @@ class EllipseGate(Gate):
 
         args = remove_keys_with_none_values(kwargs)
 
-        angle = args.get("angle") or args.get("model", {}).get("ellipse", {}).get(
-            "angle"
-        )
-        major = args.get("major") or args.get("model", {}).get("ellipse", {}).get(
-            "major"
-        )
-        minor = args.get("minor") or args.get("model", {}).get("ellipse", {}).get(
-            "minor"
-        )
+        angle = args.get("angle", args.get("model", {}).get("ellipse", {}).get("angle"))
+        major = args.get("major", args.get("model", {}).get("ellipse", {}).get("major"))
+        minor = args.get("minor", args.get("model", {}).get("ellipse", {}).get("minor"))
         x = args.get("x")
         y = args.get("y")
-        if x and y:
+        if x is not None and y is not None:
             center = [x, y]
         else:
-            center = args.get("center") or args.get("model", {}).get("ellipse", {}).get(
-                "center"
+            center = args.get(
+                "center", args.get("model", {}).get("ellipse", {}).get("center")
             )
-            x, y = center  # type: ignore
+            assert isinstance(center, list)
+            x, y = center
 
-        label = args.get("label") or args.get("model", {}).get("label", [x, y])
+        label = args.get("label") or args.get("model", {}).get("label")
+        if label is None or label == []:
+            label = [x, y]
 
         model = {
-            "locked": args.get("model", {}).get("locked", False),
+            "locked": args.get("locked", args.get("model", {}).get("locked", False)),
             "label": label,
             "ellipse": {
                 "angle": angle,
@@ -648,8 +715,8 @@ class EllipseGate(Gate):
         }
 
         return {
-            "experiment_id": args["experiment_id"],
-            "fcs_file_id": parse_fcs_file_args(
+            "experimentId": args["experiment_id"],
+            "fcsFileId": parse_fcs_file_args(
                 args.get("experiment_id"),
                 args.get("tailored_per_file", False),
                 args.get("fcs_file_id"),
@@ -658,14 +725,14 @@ class EllipseGate(Gate):
             "gid": args.get("gid", generate_id()),
             "model": model,
             "name": args.get("name"),
-            "tailored_per_file": args.get("tailored_per_file", False),
+            "tailoredPerFile": args.get("tailored_per_file", False),
             "type": "EllipseGate",
-            "x_channel": args.get("x_channel"),
-            "y_channel": args.get("y_channel"),
+            "xChannel": args.get("x_channel"),
+            "yChannel": args.get("y_channel"),
         }
 
 
-class RangeGate(Gate):
+class RangeGate(SimpleGate):
     @overload
     @classmethod
     def create(
@@ -777,11 +844,14 @@ class RangeGate(Gate):
         """
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
-            k: kwargs.pop(k) for k in ["create_population", "parent_population_id"]
+            "createPopulation": kwargs.pop("create_population", True),
+            "parentPopulationid": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
-        return ce.APIClient().create(Gate(id=None, **gate), **params)  # type: ignore
+        r = ce.APIClient().post_gate(experiment_id, gate, params)
+        # assert isinstance(r, RangeGate)
+        return r
 
     @classmethod
     @exception_handler
@@ -790,25 +860,25 @@ class RangeGate(Gate):
 
         args = remove_keys_with_none_values(kwargs)
 
-        x1 = args.get("x1") or args.get("model", {}).get("range", {}).get("x1")
-        x2 = args.get("x2") or args.get("model", {}).get("range", {}).get("x2")
-        y = args.get("y") or args.get("model", {}).get("range", {}).get("y", 0.5)
-        if not x1 or not x2:
+        x1 = args.get("x1", args.get("model", {}).get("range", {}).get("x1"))
+        x2 = args.get("x2", args.get("model", {}).get("range", {}).get("x2"))
+        y = args.get("y", args.get("model", {}).get("range", {}).get("y", 0.5))
+        if x1 is None or x2 is None:
             raise ValueError("x1 and x2 must be provided.")
 
-        label = args.get("label") or args.get("model", {}).get(
-            "label", [mean([x1, x2]), y]
-        )
+        label = args.get("label", args.get("model", {}).get("label"))
+        if label is None or label == []:
+            label = [mean([x1, x2]), y]
 
         model = {
-            "locked": args.get("model", {}).get("locked", False),
+            "locked": args.get("locked", args.get("model", {}).get("locked", False)),
             "label": label,
             "range": {"x1": x1, "x2": x2, "y": y},
         }
 
         return {
-            "experiment_id": args["experiment_id"],
-            "fcs_file_id": parse_fcs_file_args(
+            "experimentId": args["experiment_id"],
+            "fcsFileId": parse_fcs_file_args(
                 args.get("experiment_id"),
                 args.get("tailored_per_file", False),
                 args.get("fcs_file_id"),
@@ -817,13 +887,13 @@ class RangeGate(Gate):
             "gid": args.get("gid", generate_id()),
             "model": model,
             "name": args.get("name"),
-            "tailored_per_file": args.get("tailored_per_file", False),
+            "tailoredPerFile": args.get("tailored_per_file", False),
             "type": "RangeGate",
-            "x_channel": args.get("x_channel"),
+            "xChannel": args.get("x_channel"),
         }
 
 
-class QuadrantGate(Gate):
+class QuadrantGate(CompoundGate):
     @overload
     @classmethod
     def create(
@@ -935,7 +1005,7 @@ class QuadrantGate(Gate):
 
         Returns:
             If `create_population` is `True`, a tuple containing the
-                QuadrantGate and a list of two Populations; otherwise, a
+                QuadrantGate and a list of four Populations; otherwise, a
                 QuadrantGate.
 
         Examples:
@@ -950,11 +1020,14 @@ class QuadrantGate(Gate):
         """
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
-            k: kwargs.pop(k) for k in ["create_population", "parent_population_id"]
+            "createPopulation": kwargs.pop("create_population", True),
+            "parentPopulationid": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
-        return ce.APIClient().create(Gate(id=None, **gate), **params)  # type: ignore
+        r = ce.APIClient().post_gate(experiment_id, gate, params)
+        # assert isinstance(r, QuadrantGate)
+        return r
 
     @classmethod
     @exception_handler
@@ -963,31 +1036,36 @@ class QuadrantGate(Gate):
 
         args = remove_keys_with_none_values(kwargs)
 
-        x = args.get("x") or args.get("model", {}).get("quadrant", {}).get("x")
-        y = args.get("y") or args.get("model", {}).get("quadrant", {}).get("y")
+        x = args.get("x", args.get("model", {}).get("quadrant", {}).get("x"))
+        y = args.get("y", args.get("model", {}).get("quadrant", {}).get("y"))
         angles = (
             args.get("model", {})
             .get("quadrant", {})
-            .get("angles", [0, pi / 2, pi, 3 * pi / 2])
+            .get("angles", [0.0, pi / 2, pi, 3 * pi / 2])
         )
-        labels = args.get("labels") or args.get("model", {}).get("labels", [])
+        labels = args.get("labels", args.get("model", {}).get("labels"))
 
-        if labels == []:
-            labels = cls._nudge_labels(
-                labels,
+        if labels is None or labels == []:
+            labels = cls._get_default_label_coords(
                 args["experiment_id"],
                 args["x_channel"],
                 args["y_channel"],
             )
-        if not (len(labels) == 4 and all(len(label) == 2 for label in labels)):
+        if not (
+            isinstance(labels, list)
+            and len(labels) == 4
+            and all(len(label) == 2 for label in labels)
+        ):
             raise ValueError("Labels must be a list of four length-2 lists.")
 
         model = {
-            "locked": args.get("gids") or args.get("model", {}).get("locked", False),
+            "locked": args.get("locked", args.get("model", {}).get("locked", False)),
             "labels": labels,
-            "gids": args.get("gids")
-            or args.get("model", {}).get(
-                "gids", [generate_id(), generate_id(), generate_id(), generate_id()]
+            "gids": args.get(
+                "gids",
+                args.get("model", {}).get(
+                    "gids", [generate_id(), generate_id(), generate_id(), generate_id()]
+                ),
             ),
             "skewable": args.get("model", {}).get("skewable", False),
             "quadrant": {
@@ -999,8 +1077,8 @@ class QuadrantGate(Gate):
 
         default_gid = generate_id()
         return {
-            "experiment_id": args["experiment_id"],
-            "fcs_file_id": parse_fcs_file_args(
+            "experimentId": args["experiment_id"],
+            "fcsFileId": parse_fcs_file_args(
                 args.get("experiment_id"),
                 args.get("tailored_per_file", False),
                 args.get("fcs_file_id"),
@@ -1015,35 +1093,29 @@ class QuadrantGate(Gate):
                     for suffix in [" (UR)", " (UL)", " (LL)", " (LR)"]
                 ],
             ),
-            "tailored_per_file": args.get("tailored_per_file", False),
+            "tailoredPerFile": args.get("tailored_per_file", False),
             "type": "QuadrantGate",
-            "x_channel": args.get("x_channel"),
-            "y_channel": args.get("y_channel"),
+            "xChannel": args.get("x_channel"),
+            "yChannel": args.get("y_channel"),
         }
 
     @classmethod
-    def _nudge_labels(
-        cls, labels: List, experiment_id: str, x_channel: str, y_channel: str
-    ) -> List:
-        # set labels based on axis scale
+    def _get_default_label_coords(
+        cls, experiment_id: str, x_channel: str, y_channel: str
+    ) -> List[List[float]]:
         scaleset = ce.APIClient().get_scaleset(experiment_id)
-        xmin, xmax = itemgetter("minimum", "maximum")(scaleset.scales[x_channel])
-        ymin, ymax = itemgetter("minimum", "maximum")(scaleset.scales[y_channel])
+        x_scale_fn = scaleset.scale_fn_for_channel(x_channel)
+        y_scale_fn = scaleset.scale_fn_for_channel(y_channel)
 
-        # nudge labels in from plot corners by pixels
-        nudged_labels = array([[290, 290], [0, 290], [0, 0], [290, 0]]) + array(
-            [[-32, -16], [40, -16], [40, 15], [-32, 15]]
-        )
-
-        # scale the nudged px labels to the actual x and y ranges
-        x_scale = normalize(nudged_labels[:, 0], 0, 290, xmin, xmax)
-        y_scale = normalize(nudged_labels[:, 1], 0, 290, ymin, ymax)
-
-        labels = stack((x_scale, y_scale)).T.astype(int).tolist()
-        return labels
+        return [
+            [x_scale_fn(1e38), y_scale_fn(1e38)],
+            [x_scale_fn(-1e38), y_scale_fn(1e38)],
+            [x_scale_fn(-1e38), y_scale_fn(-1e38)],
+            [x_scale_fn(1e38), y_scale_fn(-1e38)],
+        ]
 
 
-class SplitGate(Gate):
+class SplitGate(CompoundGate):
     @overload
     @classmethod
     def create(
@@ -1166,11 +1238,14 @@ class SplitGate(Gate):
         """
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
-            k: kwargs.pop(k) for k in ["create_population", "parent_population_id"]
+            "createPopulation": kwargs.pop("create_population", True),
+            "parentPopulationid": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
-        return ce.APIClient().create(Gate(id=None, **gate), **params)  # type: ignore
+        r = ce.APIClient().post_gate(experiment_id, gate, params)
+        # assert isinstance(r, SplitGate)
+        return r
 
     @classmethod
     @exception_handler
@@ -1179,25 +1254,28 @@ class SplitGate(Gate):
 
         args = remove_keys_with_none_values(kwargs)
 
-        x = args.get("x") or args.get("model", {}).get("split", {}).get("x")
-        y = args.get("y") or args.get("model", {}).get("split", {}).get("y", 0.5)
+        x = args.get("x", args.get("model", {}).get("split", {}).get("x"))
+        y = args.get("y", args.get("model", {}).get("split", {}).get("y", 0.5))
 
-        labels = args.get("labels") or args.get("model", {}).get("labels", [])
-
-        labels = args.get("labels") or args.get("model", {}).get("labels", [])
-
-        if labels == []:
-            labels = cls._generate_labels(
-                labels, args["experiment_id"], args["x_channel"]
+        labels = args.get("labels", args.get("model", {}).get("labels"))
+        if labels is None or labels == []:
+            labels = cls._get_default_label_coords(
+                args["experiment_id"], args["x_channel"]
             )
-        if not len(labels) == 2 and len(labels[0]) == 2 and len(labels[1]) == 2:
+        if not (
+            isinstance(labels, list)
+            and len(labels) == 2
+            and all(len(label) == 2 for label in labels)
+        ):
             raise ValueError("Labels must be a list of two length-2 lists.")
 
         model = {
-            "locked": args.get("locked") or args.get("model", {}).get("locked", False),
+            "locked": args.get("locked", args.get("model", {}).get("locked", False)),
             "labels": labels,
-            "gids": args.get("gids")
-            or args.get("model", {}).get("gids", [generate_id(), generate_id()]),
+            "gids": args.get(
+                "gids",
+                args.get("model", {}).get("gids", [generate_id(), generate_id()]),
+            ),
             "split": {
                 "x": x,
                 "y": y,
@@ -1206,8 +1284,8 @@ class SplitGate(Gate):
 
         default_gid = generate_id()
         return {
-            "experiment_id": args["experiment_id"],
-            "fcs_file_id": parse_fcs_file_args(
+            "experimentId": args["experiment_id"],
+            "fcsFileId": parse_fcs_file_args(
                 args.get("experiment_id"),
                 args.get("tailored_per_file", False),
                 args.get("fcs_file_id"),
@@ -1219,21 +1297,19 @@ class SplitGate(Gate):
                 "names",
                 [args.get("name", default_gid) + suffix for suffix in [" (L)", " (R)"]],
             ),
-            "tailored_per_file": args.get("tailored_per_file", False),
+            "tailoredPerFile": args.get("tailored_per_file", False),
             "type": "SplitGate",
-            "x_channel": args.get("x_channel"),
+            "xChannel": args.get("x_channel"),
         }
 
     @classmethod
-    def _generate_labels(cls, labels: List, experiment_id: str, x_channel: str):
-        # set labels based on axis scale
+    def _get_default_label_coords(
+        cls, experiment_id: str, x_channel: str
+    ) -> List[List[float]]:
         scaleset = ce.APIClient().get_scaleset(experiment_id)
-        scale_min, scale_max = itemgetter("minimum", "maximum")(
-            scaleset.scales[x_channel]
-        )
+        x_scale_fn = scaleset.scale_fn_for_channel(x_channel)
 
-        labels = [
-            [scale_min + 0.1 * scale_max, 0.916],
-            [scale_max - 0.1 * scale_max, 0.916],
+        return [
+            [x_scale_fn(-1e38), 1],
+            [x_scale_fn(1e38), 1],
         ]
-        return labels

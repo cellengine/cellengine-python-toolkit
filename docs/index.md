@@ -44,7 +44,7 @@ att = client.get_attachment(experiment._id, "5f3ac0ba5465db092213cff5")
 ### Create resources
 ```python
 experiment.upload_attachment("path/to/my_file.txt")
-experiment.create_compensation("My comp", ["Chan1", "Chan2", [1, 0.1, 0, 1])
+experiment.create_compensation("My comp", ["Chan1", "Chan2"], [1, 0.1, 0, 1])
 ```
 
 ### Update resources

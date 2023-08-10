@@ -9,4 +9,5 @@ def parse_fcs_file(file: Union[BinaryIO, str]) -> DataFrame:
     events = np.reshape(data.events, (-1, data.channel_count))  # type: ignore
     channels = sorted(data.channels.items(), key=lambda k: int(k[0]))
     pnn = [k[1]["PnN"] for k in channels]
-    return DataFrame(events, columns=pnn, dtype="float32")
+    pns = [k[1].get("PnS") for k in channels]
+    return DataFrame(events, columns=[pnn, pns], dtype="float32")

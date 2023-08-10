@@ -1,54 +1,72 @@
 from __future__ import annotations
 import io
+import json
 
 from cellengine.utils.parse_fcs_file import parse_fcs_file
-from cellengine.utils.helpers import is_valid_id
-from cellengine.utils.dataclass_mixin import DataClassMixin, ReadOnly
-from dataclasses import dataclass, field
-from dataclasses_json import config
+from cellengine.utils.helpers import (
+    is_valid_id,
+    timestamp_to_datetime,
+    datetime_to_timestamp,
+)
 from typing import Any, Dict, List, Optional, Union, overload, cast
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
+try:
+    from typing import TypedDict
+except ImportError:
+    from typing_extensions import TypedDict
+
 from pandas.core.frame import DataFrame
 from io import BytesIO
 import flowio
+from datetime import datetime
 
 import cellengine as ce
 from cellengine.resources.plot import Plot
-from cellengine.resources.compensation import Compensation
+from cellengine.resources.compensation import Compensation, FileCompensations
 
 
-@dataclass
-class FcsFile(DataClassMixin):
-    filename: str
-    gates_locked: bool
-    panel_name: str
-    deleted: Optional[bool]
-    panel: List[Dict[str, Any]]
-    _id: str = field(
-        metadata=config(field_name="_id"), default=ReadOnly()
-    )  # type: ignore
-    compensation: Optional[int] = None
-    is_control: Optional[bool] = None
-    _annotations: Optional[List[str]] = field(
-        metadata=config(field_name="annotations"), default=None
-    )
-    crc32c: str = field(default=ReadOnly())  # type: ignore
-    event_count: int = field(default=ReadOnly())  # type: ignore
-    experiment_id: str = field(default=ReadOnly())  # type: ignore
-    has_file_internal_comp: bool = field(default=ReadOnly())  # type: ignore
-    header: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
-    md5: str = field(default=ReadOnly())  # type: ignore
-    sample_name: Optional[str] = field(default=ReadOnly(optional=True))  # type: ignore
-    size: int = field(default=ReadOnly())  # type: ignore
-    _spill_string: Optional[str] = field(
-        metadata=config(field_name="spillString"),
-        default=None,
-    )
+Annotations = TypedDict("Annotations", {"name": str, "value": str})
+Channel = TypedDict(
+    "Channel", {"channel": str, "reagent": Union[str, None], "index": int}
+)
 
-    def __repr__(self):
-        return f"FcsFile(_id='{self._id}', name='{self.name}')"
 
-    def __post_init__(self):
+class FcsFile:
+    """A class representing a CellEngine FCS file."""
+
+    def __init__(self, properties: Dict[str, Any]):
+        self._properties = properties
+        self._changes = set()
+        # Used for caching events
         self._events_kwargs = {}
+        self._events = DataFrame()
+
+    @property
+    def _id(self) -> str:
+        return self._properties["_id"]
+
+    @property
+    def id(self) -> str:
+        """Alias for ``_id``."""
+        return self._properties["_id"]
+
+    @property
+    def experiment_id(self) -> str:
+        return self._properties["experimentId"]
+
+    @property
+    def filename(self) -> str:
+        return self._properties["filename"]
+
+    @filename.setter
+    def filename(self, filename):
+        self._properties["filename"] = filename
+        self._changes.add("filename")
 
     @property
     def name(self) -> str:
@@ -60,29 +78,101 @@ class FcsFile(DataClassMixin):
         self.filename = val
 
     @property
-    def annotations(self):
-        """Return file annotations.
-        New annotations may be added with file.annotations.append or
-        redefined by setting file.annotations to a dict with a 'name'
-        and 'value' key (i.e. {'name': 'plate row', 'value': 'A'}) or
-        a list of such dicts.
-        """
-        return self._annotations
+    def md5(self) -> str:
+        return self._properties["md5"]
 
-    @annotations.setter
-    def annotations(self, val):
-        """Set new annotations.
-        Warning: This will overwrite current annotations!
-        """
-        if type(val) is not dict or "name" and "value" not in val:
-            raise TypeError('Input must be a dict with a "name" and a "value" item.')
+    @property
+    def crc32c(self) -> str:
+        return self._properties["crc32c"]
 
-        self._annotations = val
+    @property
+    def size(self) -> int:
+        return self._properties["size"]
+
+    @property
+    def gates_locked(self) -> bool:
+        return self._properties["gatesLocked"]
+
+    @gates_locked.setter
+    def gates_locked(self, val: bool):
+        self._properties["gatesLocked"] = val
+        self._changes.add("gatesLocked")
+
+    @property
+    def deleted(self) -> Union[datetime, None]:
+        deleted = self._properties["deleted"]
+        return timestamp_to_datetime(deleted) if deleted else None
+
+    @deleted.setter
+    def deleted(self, deleted: Union[datetime, None]):
+        self._properties["deleted"] = (
+            datetime_to_timestamp(deleted) if deleted else None
+        )
+        self._changes.add("deleted")
+
+    @property
+    def is_control(self) -> bool:
+        return self._properties["isControl"]
+
+    @property
+    def panel_name(self) -> str:
+        return self._properties["panelName"]
+
+    @property
+    def panel(self) -> List[Channel]:
+        return self._properties["panel"]
+
+    @property
+    def compensation(self) -> Union[FileCompensations, None]:
+        return self._properties["compensation"]
+
+    @property
+    def annotations(self) -> List[Annotations]:
+        return self._properties["annotations"]
+
+    @property
+    def event_count(self) -> int:
+        return self._properties["eventCount"]
+
+    @property
+    def has_file_internal_comp(self) -> bool:
+        return self._properties["hasFileInternalComp"]
+
+    @property
+    def spill_string(self) -> str:
+        """Note: this property may be fetched lazily."""
+        if "spillString" not in self._properties and self.has_file_internal_comp:
+            base_url = ce.APIClient().base_url
+            self._properties["spillString"] = ce.APIClient()._get(
+                f"{base_url}/experiments/{self.experiment_id}/fcsfiles/{self._id}"
+            )["spillString"]
+        return self._properties["spillString"]
+
+    @property
+    def header(self) -> Dict[str, str]:
+        """Note: this property may be fetched lazily."""
+        if "header" not in self._properties:
+            base_url = ce.APIClient().base_url
+            self._properties["header"] = ce.APIClient()._get(
+                f"{base_url}/experiments/{self.experiment_id}/fcsfiles/{self._id}"
+            )["header"]
+        return json.loads(self._properties["header"])
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return self._properties["data"]
+
+    @property
+    def sample_name(self) -> Optional[str]:
+        return self._properties["sampleName"]
+
+    def __repr__(self):
+        return f"FcsFile(_id='{self._id}', name='{self.filename}')"
 
     @property
     def channels(self) -> List[str]:
         """Return all channels in the file"""
-        return [f["channel"] for f in self.panel]  # type: ignore
+        return [f["channel"] for f in self.panel]
 
     def channel_for_reagent(self, reagent: str) -> Union[str, None]:
         """
@@ -90,6 +180,7 @@ class FcsFile(DataClassMixin):
         `None` if the channel isn't found.
         """
         c = [x for x in self.panel if x["reagent"] == reagent]
+        # TODO reagents are not necessarily unique. This needs to throw if so
         return c[0]["channel"] if c else None
 
     @classmethod
@@ -227,8 +318,6 @@ class FcsFile(DataClassMixin):
             cast(io.RawIOBase, bytes),
             buffer_size=df.memory_usage(index=False).sum() + 16536,
         )
-        print(channels)
-        print(reagents)
         flowio.create_fcs(
             file_handle=writer,
             event_data=df.to_numpy().flatten(),
@@ -325,7 +414,14 @@ class FcsFile(DataClassMixin):
                 return args
             elif type(args) is dict:
                 if {"host", "path"} <= args.keys():
-                    return [args]
+                    return [
+                        {
+                            "host": args["host"],
+                            "path": args["path"],
+                            "accessKey": args.get("access_key"),
+                            "secretKey": args.get("secret_key"),
+                        }
+                    ]
                 if {"_id", "experiment_id"} <= args.keys():
                     return [args]
             elif type(args) is str and is_valid_id(args):
@@ -346,29 +442,31 @@ class FcsFile(DataClassMixin):
         )
         return ce.APIClient().create_fcs_file(experiment_id, body)
 
-    def update(self):
+    def update(self) -> None:
         """Save changes to this FcsFile to CellEngine."""
+        update_properties = {key: self._properties[key] for key in self._changes}
         res = ce.APIClient().update_entity(
-            self.experiment_id, self._id, "fcsfiles", self.to_dict()
+            self.experiment_id, self._id, "fcsfiles", update_properties
         )
-        self.__dict__.update(FcsFile.from_dict(res).__dict__)
+        self._properties = res
+        self._changes = set()
 
-    def delete(self):
+    def delete(self) -> None:
         return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)
 
     def plot(
         self,
+        plot_type: str,
         x_channel: str,
         y_channel: str,
-        plot_type: str,
         z_channel: Optional[str] = None,
         population_id: Optional[str] = None,
+        compensation: Union[str, Literal[-1], Literal[0]] = 0,
         **kwargs,
     ) -> Plot:
         """Build a plot for an FcsFile.
 
-        See [`APIClient.get_plot()`][cellengine.APIClient.get_plot]
-        for more information.
+        See [`Plot.get()`][cellengine.Plot.get] for more information.
         """
         plot = Plot.get(
             experiment_id=self.experiment_id,
@@ -378,6 +476,7 @@ class FcsFile(DataClassMixin):
             y_channel=y_channel,
             z_channel=z_channel,
             population_id=population_id,
+            compensation=compensation,
             **kwargs,
         )
         return plot
@@ -392,39 +491,23 @@ class FcsFile(DataClassMixin):
 
     @property
     def events(self):
-        """A DataFrame containing this file's data.
+        """A DataFrame containing this file's events (typically cells).
 
-        This is fetched from the server on-demand the first time that
-        this property is accessed.
-
-        To fetch a file with specific parameters (e.g. subsampling, or
-        gated to a specific population) see `FcsFile.get_events()`.
+        This is the last result from `FcsFile.get_events(inplace=True)`. If that
+        method has not been called, a DataFrame will be fetched with all events
+        (ungated, no compensation, no subsampling). To fetch events with
+        subsampling, compensation and/or gating to a specific population, use
+        `FcsFile.get_events()`.
         """
-        if not hasattr(self, "_events"):
-            self._events = DataFrame()
         if self._events.empty:
             self.get_events(inplace=True)
-            return self._events
-        else:
-            return self._events
-
-    @events.setter
-    def events(self, events):
-        self._events = events
-
-    @property
-    def spill_string(self):
-        if not self._spill_string and self.has_file_internal_comp:
-            self._spill_string = ce.APIClient().get_fcs_file(
-                self.experiment_id, self._id, as_dict=True
-            )["spillString"]
-        return self._spill_string
+        return self._events
 
     @overload
     def get_events(
         self,
         inplace: Optional[bool] = ...,
-        destination: Optional[str] = ...,
+        destination: None = ...,
         **kwargs: Any,
     ) -> DataFrame:
         ...
@@ -433,7 +516,7 @@ class FcsFile(DataClassMixin):
     def get_events(
         self,
         inplace: Optional[bool] = ...,
-        destination: Optional[str] = ...,
+        destination: str = ...,
         **kwargs: Any,
     ) -> None:
         ...
@@ -508,13 +591,11 @@ class FcsFile(DataClassMixin):
 
         file = ce.APIClient().download_fcs_file(self.experiment_id, self._id, **kwargs)
 
-        if inplace or not destination:
-            df = parse_fcs_file(BytesIO(file))
-            if inplace:
-                self.events = df
-            if not destination:
-                return df
-
         if destination:
             with open(destination, "wb") as loc:
                 loc.write(file)
+        else:
+            df = parse_fcs_file(BytesIO(file))
+            if inplace:
+                self._events = df
+            return df

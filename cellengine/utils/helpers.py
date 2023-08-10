@@ -1,6 +1,6 @@
 from datetime import datetime
 import re
-from typing import Any, Dict, List, TypeVar, Union
+from typing import Any, Dict, TypeVar
 import numpy.typing as npt
 
 
@@ -22,7 +22,7 @@ def check_id(_id):
 
 
 def to_camel_case(snake_str: str) -> str:
-    if snake_str == "_id":
+    if snake_str.startswith("_"):
         return snake_str
     components = snake_str.split("_")
     return components[0] + "".join(x.title() for x in components[1:])
@@ -30,24 +30,6 @@ def to_camel_case(snake_str: str) -> str:
 
 def to_snake_case(camel_str: str) -> str:
     return camel_re.sub(r"_\1", camel_str).lower()
-
-
-def alter_keys(payload: Union[Dict[Any, Any], List[Dict[Any, Any]]], func):
-    """Apply `func` to alter the keys of a dict or list of dicts."""
-    empty = {}
-    if isinstance(payload, list):
-        return [alter_keys(p, func) for p in payload]
-    elif type(payload) is dict:
-        for k, v in payload.items():
-            if isinstance(v, dict):
-                empty[func(k)] = alter_keys(v, func)
-            elif isinstance(v, list):
-                empty[func(k)] = [alter_keys(p, func) for p in v]
-            else:
-                empty[func(k)] = v
-        return empty
-    else:
-        return payload
 
 
 def get_args_as_kwargs(context, locals) -> Dict[str, Any]:
@@ -80,70 +62,17 @@ class CommentList(list):
         super(CommentList, self).extend(comment)
 
 
-class GetSet:
-    """Generator class for getters and setters of API objects.
-
-    Allows for much less verbose declaration of object properties from the
-    underlying ``_properties`` dict, i.e.:
-
-    ``name = helpers.GetSet("name")``
-
-    instead of:
-
-    ```
-    @property
-    def name(self):
-        name = self._properties["name"]
-
-    @name.setter
-    def name(self, name):
-    ```
-    """
-
-    def __init__(self, name, read_only=False):
-        self.name = name
-        self.read_only = read_only
-
-    def __get__(self, instance, owner):
-        if instance is None:
-            return self
-        elif self.name in instance._properties.keys():
-            return instance._properties[self.name]
-        else:
-            return None
-
-    def __set__(self, instance, value):
-        if self.read_only is True:
-            print("Cannnot set read-only property.")
-        else:
-            instance._properties[self.name] = value
-
-
 def timestamp_to_datetime(value: str) -> datetime:
-    """Converts ISO 8601 date+time UTC timestamps as returned by CellEngine to
-    ``datetime`` objects.
-    """
+    """Converts an ISO 8601 date+time UTC timestamp to a ``datetime`` object."""
     return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 def datetime_to_timestamp(value: datetime) -> str:
-    """Converts ISO 8601 date+time UTC timestamps as returned by CellEngine to
-    ``datetime`` objects.
-    """
+    """Converts a ``datetime`` object to an ISO 8601 date+time UTC timestamp."""
     return datetime.strftime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 
 T = TypeVar("T", float, npt.NDArray)
-
-
-def normalize(
-    value: T,
-    observed_min: float,
-    observed_max: float,
-    min: float,
-    max: float,
-) -> T:
-    return (max - min) / (observed_max - observed_min) * (value - observed_max) + max
 
 
 def remove_keys_with_none_values(d: Dict[str, Any]) -> Dict[str, Any]:

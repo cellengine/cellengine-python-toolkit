@@ -47,3 +47,19 @@ jobs:
           CELLENGINE_PASSWORD: ${{ secrets.CELLENGINE_API_TOOLKIT_TEST_PASSWORD }}
           S3_ACCESS_KEY: ${{ secrets.S3_ACCESS_KEY }}
           S3_SECRET_KEY: ${{ secrets.S3_SECRET_KEY }}
+  verify-docs:
+    name: Verify docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          pip install -e .
+      - name: Verify site builds
+        run: mkdocs build --strict

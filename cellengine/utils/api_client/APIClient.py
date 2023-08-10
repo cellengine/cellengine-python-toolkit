@@ -5,7 +5,8 @@ from getpass import getpass
 import importlib
 import json
 import os
-from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union, overload
+from warnings import warn
+from typing import Any, Dict, List, Optional, Tuple, TypeVar, Union
 from io import BytesIO
 
 try:
@@ -17,13 +18,12 @@ import pandas
 from pandas.core.frame import DataFrame
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-from cellengine.utils import converter
 from cellengine.utils.api_client.APIError import APIError
 from cellengine.utils.api_client.BaseAPIClient import BaseAPIClient
 from cellengine.utils.singleton import Singleton
 
 from ...resources.attachment import Attachment
-from ...resources.compensation import Compensation
+from ...resources.compensation import Compensation, Compensations, UNCOMPENSATED
 from ...resources.experiment import Experiment
 from ...resources.fcs_file import FcsFile
 from ...resources.gate import (
@@ -64,20 +64,6 @@ _Gate = TypeVar(
 )
 
 
-def create_many(client: APIClient, entities: List[Gate], **kwargs) -> List[Gate]:
-    body = [client.unstructure_and_clean(e) for e in entities]
-    (classes, paths, payload) = list(zip(*body))
-    _class = set(classes)
-    if len(_class) != 1 or Gate not in _class:
-        raise TypeError(f"Type or types {_class} cannot be created in bulk.")
-    return client.post_and_structure(
-        List[_class.pop()],  # type: ignore
-        set(paths).pop(),
-        list(payload),
-        **kwargs,
-    )
-
-
 class APIClient(BaseAPIClient, metaclass=Singleton):
     _API_NAME = "CellEngine Python Toolkit"
 
@@ -86,7 +72,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         self.base_url = os.environ.get(
             "CELLENGINE_BASE_URL", "https://cellengine.com/api/v1"
         )
-        self.username = username
+        self.username = username or os.environ.get("CELLENGINE_USERNAME")
         self.password = password or os.environ.get("CELLENGINE_PASSWORD")
         self.token = token or os.environ.get("CELLENGINE_AUTH_TOKEN")
         self.user_id = None
@@ -109,9 +95,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """Authenticate with the CellEngine API.
 
         There are two ways of authenticating:
-            1. Username and password. Use this to authenticate a user.
-            2. API token. Use this to authenticate an application that is
-                not associated with a user, such as a LIMS integration.
+            1. Username and password. Use this to authenticate a user in a
+               dynamic session.
+            1. API token. This is the preferred method for unattended
+               applications (such as LIMS integrations) because it allows a
+               limited set of permissions to be granted to the application.
 
         Args:
             username: Login credential set during CellEngine registration
@@ -149,8 +137,35 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             self.requests_session.cookies.update({"token": "{0}".format(token)})
 
         else:
-            raise APIError("Authentication failed: Username or token must be provided.")
+            raise RuntimeError(
+                "Authentication failed: Username or token must be provided."
+            )
         return True
+
+    def _get_by_name(
+        self, name: str, resource_type: str, experiment_id: Optional[str] = None
+    ) -> Any:
+        if resource_type == "experiments":
+            path = "experiments"
+        else:
+            path = f"experiments/{experiment_id}/{resource_type}"
+
+        if (resource_type == "fcsfiles") or (resource_type == "attachments"):
+            query = "filename"
+        else:
+            query = "name"
+
+        params = {"query": f'and(eq({query},"{name}"),eq(deleted,null))', "limit": 2}
+        res = self._get(f"{self.base_url}/{path}", params=params)
+
+        if type(res) is not list:
+            raise RuntimeError("Unexpected non-list response.")
+
+        if len(res) == 0:
+            raise RuntimeError("Resource with the name '{}' does not exist.")
+        elif len(res) > 1:
+            raise RuntimeError("More than one resource with the name '{}' exists.")
+        return res[0]
 
     @lru_cache(maxsize=None)
     def _get_id_by_name(self, name, resource_type, experiment_id):
@@ -191,83 +206,17 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             json=body,
         )
 
-    def _get_path(self, entity: CE) -> str:
-        return f"{self.base_url}/{entity.path}"
-
-    def post_and_structure(
-        self,
-        _class: type,
-        path: str,
-        body: Union[List[Dict[Any, Any]], Dict[Any, Any]],
-        **kwargs,
-    ) -> Union[CE, Gate, List[Gate], Tuple[Gate, Union[Population, List[Population]]]]:
-        res = self._post(f"{self.base_url}/{path}", json=body, params=kwargs)
-        if _class is List[Gate]:
-            return [self._parse_gate_population(gate)[0] for gate in res]
-        if _class is Gate:
-            gate, population = self._parse_gate_population(res)
-            if population:
-                return gate, population
-            else:
-                return gate
-        else:
-            return converter.structure(res, _class)
-
-    def unstructure_and_clean(self, entity) -> Tuple[type, str, Dict[Any, Any]]:
-        (cls, path, body) = (
-            entity.__class__,
-            entity.path,
-            converter.unstructure(entity),
-        )
-        return (cls, path, body)
-
-    # fmt: off
-    # temporary fix for https://github.com/psf/black/issues/1797
-    @overload
-    def create(self, entity: Attachment, **kwargs) -> Attachment: ...
-    @overload
-    def create(self, entity: Compensation, **kwargs) -> Compensation: ...
-    @overload
-    def create(self, entity: Experiment, **kwargs) -> Experiment: ...
-    @overload
-    def create(self, entity: FcsFile, **kwargs) -> FcsFile: ...
-    @overload
-    def create(self, entity: Gate, **kwargs) -> _Gate: ...
-    @overload
-    def create(self, entity: Population, **kwargs) -> Population: ...
-    @overload
-    def create(self, entity: ScaleSet, **kwargs) -> ScaleSet: ...
-    @overload
-    def create(self, entity: List[Gate], **kwargs) -> List[_Gate]: ...
-    # fmt: on
-
-    def create(self, entity, **kwargs):
-        """Create a local entity on CellEngine."""
-        # TODO expose create_many since typings are a mess otherwise.
-        if isinstance(entity, list):
-            return create_many(self, entity, **kwargs)
-        body = self.unstructure_and_clean(entity)
-        return self.post_and_structure(*body, **kwargs)
-
-    def update(self, entity, params: Dict = None):
-        path = self._get_path(entity)
-        data = converter.unstructure(entity)
-        res = self._patch(path, json=data, params=params)
-        return converter.structure(res, entity.__class__)
-
-    def delete(self, entity, params: Dict = None) -> None:
-        path = self._get_path(entity)
-        self._delete(path, params=params)
-
     def delete_entity(self, experiment_id, entity_type, _id):
         url = f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}"
         self._delete(url)
+
+    # ------------------------------ Attachments -------------------------------
 
     def get_attachments(self, experiment_id) -> List[Attachment]:
         attachments = self._get(
             f"{self.base_url}/experiments/{experiment_id}/attachments"
         )
-        return [Attachment.from_dict(attachment) for attachment in attachments]
+        return [Attachment(attachment) for attachment in attachments]
 
     def download_attachment(self, experiment_id, _id=None, name=None) -> bytes:
         """Download an attachment"""
@@ -278,12 +227,31 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return attachment
 
-    def get_attachment(self, experiment_id, _id=None, name=None) -> Attachment:
-        attachments = self.get_attachments(experiment_id)
-        try:
-            return [a for a in attachments if (a.filename == name) or (a._id == _id)][0]
-        except IndexError:
-            raise RuntimeError("No experiment with that name or _id found.")
+    def get_attachment(
+        self,
+        experiment_id: str,
+        _id: Optional[str] = None,
+        name: Optional[str] = None,
+    ) -> Attachment:
+        if _id is None and name is None:
+            raise RuntimeError("Either _id or name must be specified.")
+        if _id is not None and name is not None:
+            raise RuntimeError("Only one of _id or name may be specified.")
+        # Attachments are somewhat unusual in the CellEngine API: the GET route
+        # can currently only return the file content, not the metadata, so we
+        # have to list attachments.
+        if name is not None:
+            attachment = self._get_by_name(name, "attachments", experiment_id)
+        else:  # _id is not None
+            params = {"query": f'eq(_id,"{_id}")'}
+            attachments = self._get(
+                f"{self.base_url}/experiments/{experiment_id}/attachments",
+                params=params,
+            )
+            if len(attachments) == 0:
+                raise RuntimeError(f"Attachment with ID {_id} not found.")
+            attachment = attachments[0]
+        return Attachment(attachment)
 
     def upload_attachment(
         self, experiment_id, filepath: str, filename: Optional[str] = None
@@ -295,144 +263,109 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             filename (str, optional): Optionally, specify a new name for the file.
 
         Returns:
-            The newly-uploaded Attachment
+            The newly uploaded Attachment.
         """
         url = f"{self.base_url}/experiments/{experiment_id}/attachments"
         file, headers = self._read_multipart_file(filepath, filename)
-        return Attachment.from_dict(self._post(url, data=file, headers=headers))
+        return Attachment(self._post(url, data=file, headers=headers))
+
+    def delete_attachment(
+        self, experiment_id: str, _id: Optional[str] = None, name: Optional[str] = None
+    ) -> None:
+        """Delete an attachment"""
+        _id = _id or self._get_id_by_name(name, "attachments", experiment_id)
+        self._delete(f"{self.base_url}/experiments/{experiment_id}/attachments/{_id}")
+
+    # ----------------------------- Compensations ------------------------------
 
     def get_compensations(
         self, experiment_id: str, as_dict: Optional[bool] = False
     ) -> List[Compensation]:
+        # TODO Union[List[Compensation], List[Dict[str, Any]]] or get rid of as_dict
         compensations = self._get(
             f"{self.base_url}/experiments/{experiment_id}/compensations"
         )
         if as_dict:
             return compensations
-        return converter.structure(compensations, List[Compensation])
-
-    @overload
-    def get_compensation(
-        self,
-        experiment_id: str,
-        _id: Optional[str] = ...,
-        name: Optional[str] = ...,
-        *,
-        as_dict: Literal[True],
-    ) -> Dict[str, Any]:
-        ...
-
-    @overload
-    def get_compensation(
-        self,
-        experiment_id: str,
-        _id: Optional[str] = ...,
-        name: Optional[str] = ...,
-        as_dict: Literal[False] = ...,
-    ) -> Compensation:
-        ...
+        return [Compensation(c) for c in compensations]
 
     def get_compensation(
         self,
         experiment_id: str,
         _id: Optional[str] = None,
         name: Optional[str] = None,
-        as_dict: Optional[bool] = False,
-    ) -> Union[Compensation, Dict[str, Any]]:
-        _id = _id or self._get_id_by_name(name, "compensations", experiment_id)
-        comp = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/compensations/{_id}"
-        )
-        if as_dict:
-            return comp
-        return converter.structure(comp, Compensation)
+    ) -> Compensation:
+        if name is not None:
+            res = self._get_by_name(name, "compensations", experiment_id)
+        elif _id is not None:
+            res = self._get(
+                f"{self.base_url}/experiments/{experiment_id}/compensations/{_id}"
+            )
+        else:
+            raise RuntimeError("Either _id or name must be specified.")
+        return Compensation(res)
 
     def post_compensation(self, experiment_id: str, body: Dict[str, Any]):
-        comp = self._post(
+        res = self._post(
             f"{self.base_url}/experiments/{experiment_id}/compensations", json=body
         )
-        return converter.structure(comp, Compensation)
+        return Compensation(res)
 
-    def get_experiments(self, as_dict=False) -> List[Experiment]:
-        experiments = self._get(f"{self.base_url}/experiments")
-        if as_dict:
-            return experiments
-        return [Experiment.from_dict(experiment) for experiment in experiments]
+    # ------------------------------ Experiments -------------------------------
 
-    def get_experiment(self, _id=None, name=None, as_dict=False) -> Experiment:
-        _id = _id or self._get_id_by_name(name, "experiments", _id)
-        experiment = self._get(f"{self.base_url}/experiments/{_id}")
-        if as_dict:
-            return experiment
-        return Experiment.from_dict(experiment)
+    def get_experiments(self) -> List[Experiment]:
+        res = self._get(f"{self.base_url}/experiments")
+        return [Experiment(experiment) for experiment in res]
 
-    def post_experiment(self, experiment: dict, as_dict=False) -> Experiment:
+    def get_experiment(self, _id=None, name=None) -> Experiment:
+        if name is not None:
+            res = self._get_by_name(name, "experiments")
+        elif _id is not None:
+            res = self._get(f"{self.base_url}/experiments/{_id}")
+        else:
+            raise RuntimeError("Either _id or name must be specified.")
+        return Experiment(res)
+
+    def post_experiment(self, experiment: dict) -> Experiment:
         """Create a new experiment on CellEngine."""
-        experiment = self._post(f"{self.base_url}/experiments", json=experiment)
-        if as_dict:
-            return experiment
-        return Experiment.from_dict(experiment)
+        res = self._post(f"{self.base_url}/experiments", json=experiment)
+        return Experiment(res)
 
-    def clone_experiment(
-        self, _id, props: Dict[str, Any] = None, as_dict=False
-    ) -> Experiment:
-        experiment = self._post(f"{self.base_url}/experiments/{_id}/clone", json=props)
-        if as_dict:
-            return experiment
-        return Experiment.from_dict(experiment)
+    def clone_experiment(self, _id, props: Dict[str, Any] = {}) -> Experiment:
+        res = self._post(f"{self.base_url}/experiments/{_id}/clone", json=props)
+        return Experiment(res)
 
     def update_experiment(self, _id, body) -> Dict:
         return self._patch(f"{self.base_url}/experiments/{_id}", json=body)
 
     def delete_experiment(self, _id):
-        """Hard-delete an experiment.
+        """Marks the experiment as deleted.
 
-        Warning: This action is irreversible!
+        Deleted experiments are permanently deleted after approximately
+        7 days. Until then, deleted experiments can be recovered.
         """
         self._delete(f"{self.base_url}/experiments/{_id}")
+
+    # ------------------------------- FCS Files --------------------------------
 
     def get_fcs_files(self, experiment_id, as_dict=False) -> List[FcsFile]:
         fcs_files = self._get(f"{self.base_url}/experiments/{experiment_id}/fcsfiles")
         if as_dict:
             return fcs_files
-        return [FcsFile.from_dict(fcs_file) for fcs_file in fcs_files]
-
-    @overload
-    def get_fcs_file(
-        self,
-        experiment_id: str,
-        _id: Optional[str] = ...,
-        name: Optional[str] = ...,
-        *,
-        as_dict: Literal[True],
-    ) -> Dict[str, Any]:
-        ...
-
-    @overload
-    def get_fcs_file(
-        self,
-        experiment_id: str,
-        _id: Optional[str] = ...,
-        name: Optional[str] = ...,
-        as_dict: Literal[False] = ...,
-    ) -> FcsFile:
-        ...
+        return [FcsFile(fcs_file) for fcs_file in fcs_files]
 
     def get_fcs_file(
         self,
         experiment_id: str,
         _id: Optional[str] = None,
         name: Optional[str] = None,
-        as_dict: Optional[bool] = False,
-    ):
+    ) -> FcsFile:
         # TODO this only needs to make one request to do a name lookup
         _id = _id or self._get_id_by_name(name, "fcsfiles", experiment_id)
         fcs_file = self._get(
             f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{_id}"
         )
-        if as_dict:
-            return fcs_file
-        return FcsFile.from_dict(fcs_file)
+        return FcsFile(fcs_file)
 
     def upload_fcs_file(
         self,
@@ -451,7 +384,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
         file, headers = self._read_multipart_file(filepath_or_data, filename)
-        return FcsFile.from_dict(self._post(url, data=file, headers=headers))
+        return FcsFile(self._post(url, data=file, headers=headers))
 
     def _read_multipart_file(
         self, file: Union[str, BytesIO], filename: Optional[str] = None
@@ -468,13 +401,13 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         )
         return mpe, {"Content-Type": mpe.content_type}
 
-    def create_fcs_file(self, experiment_id, body):
+    def create_fcs_file(self, experiment_id, body) -> FcsFile:
         """Creates an FCS file by copying, concatenating and/or
         subsampling existing file(s) from this or other experiments. Can be
         used to import files from other experiments.
         """
         url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
-        return FcsFile.from_dict(self._post(url, json=body))
+        return FcsFile(self._post(url, json=body))
 
     def download_fcs_file(
         self, experiment_id: str, fcs_file_id: str, **kwargs: Any
@@ -538,6 +471,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raw=True,
         )
 
+    # -------------------------------- Gates -----------------------------------
+
     def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
         gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
         if as_dict:
@@ -559,43 +494,39 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     def post_gates(
         self,
         experiment_id: str,
-        body: Union[Dict[str, Any], List[Dict[str, Any]]],
+        body: List[Dict[str, Any]],
         params: Dict = {},
-        as_dict: bool = False,
     ) -> List[Gate]:
-        gates = self._post(
+        r = self._post(
             f"{self.base_url}/experiments/{experiment_id}/gates",
             json=body,
             params=params,
         )
-
-        if as_dict:
-            return gates
-        structured_gates = []
-        for gate in gates:
-            structured_gates.append(
-                self._parse_gate_population(gate)[0]
-            )  # return only Gate
-        return structured_gates
+        return [self._parse_gate_population(g)[0] for g in r]
 
     def post_gate(
         self,
         experiment_id: str,
-        body: Union[Dict[str, Any], List[Dict[str, Any]]],
+        body: Dict[str, Any],
         params: Dict = {},
-        as_dict: bool = False,
-    ) -> Gate:
-        gate = self._post(
+    ) -> Union[Gate, Tuple[Gate, Union[Population, List[Population], None]]]:
+        r = self._post(
             f"{self.base_url}/experiments/{experiment_id}/gates",
             json=body,
             params=params,
         )
-        if as_dict:
-            return gate
-        return self._parse_gate_population(gate)[0]  # return only Gate
+        p = self._parse_gate_population(r)
+        if params.get("createPopulation"):
+            return p
+        else:
+            return p[0]
 
     def delete_gate(
-        self, experiment_id: str, _id: str = None, gid: str = None, exclude: str = None
+        self,
+        experiment_id: str,
+        _id: Optional[str] = None,
+        gid: Optional[str] = None,
+        exclude: Optional[str] = None,
     ) -> None:
         """Deletes a gate or a tailored gate family.
 
@@ -609,7 +540,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             experiment_id: ID of experiment.
             _id: ID of the gate to delete.
             gid: ID of gate family to delete.
-            exclude: Gate ID to exclude from deletion.
+            exclude: Gate ID to exclude from deletion. **Deprecated**. Use the
+                    untailoring API instead.
 
         Example:
             ```python
@@ -621,6 +553,11 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Returns:
             None
         """
+        if exclude:
+            warn(
+                "'exclude' is deprecated and will be removed in a future release."
+                " To untailor gates, use the untailoring API."
+            )
         if _id:
             url = f"{self.base_url}/experiments/{experiment_id}/gates/{_id}"
         elif gid:
@@ -641,21 +578,21 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         keys = res.keys()
         if "population" in keys:
             gate = res["gate"]
-            pop = converter.structure(res["population"], Population)
+            pop = Population(res["population"])
         elif "populations" in keys:
             gate = res["gate"]
-            pop = converter.structure(res["populations"], List[Population])
+            pop = [Population(p) for p in res["populations"]]
         else:
             gate = res
             pop = None
         module = importlib.import_module("cellengine")
         gate_subclass = getattr(module, gate["type"])
         return (
-            converter.structure(gate, gate_subclass),
+            gate_subclass(gate),
             pop,
         )
 
-    def update_gate_family(self, experiment_id, gid, body: dict = None) -> dict:
+    def update_gate_family(self, experiment_id, gid, body: dict = {}) -> dict:
         return self._patch(
             f"{self.base_url}/experiments/{experiment_id}/gates?gid={gid}",
             json=body,
@@ -668,8 +605,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return self._post(
             f"{self.base_url}/experiments/{experiment_id}/gates/applyTailored",
             params={"gid": gate.gid},
-            json={"gate": gate.to_dict(), "fcsFileIds": fcs_file_ids},
+            json={"gate": gate._properties, "fcsFileIds": fcs_file_ids},
         )
+
+    # -------------------------------- Plots -----------------------------------
 
     def get_plot(
         self,
@@ -680,6 +619,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         y_channel: str,
         z_channel: Optional[str] = None,
         population_id: Optional[str] = None,
+        compensation: Union[str, Literal[-1], Literal[0]] = 0,
         properties: Optional[Dict] = None,
         raw=False,
     ) -> Plot:
@@ -691,6 +631,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             "zChannel": y_channel,
             "plotType": plot_type,
             "populationId": population_id,
+            "compensation": compensation,
         }
 
         if properties:
@@ -704,84 +645,60 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         if raw:
             return data
         return Plot(
-            experiment_id,
-            fcs_file_id,
-            x_channel,
-            y_channel,
-            z_channel,
-            plot_type,
-            population_id,
-            data,
+            experiment_id=experiment_id,
+            fcs_file_id=fcs_file_id,
+            plot_type=plot_type,
+            x_channel=x_channel,
+            y_channel=y_channel,
+            z_channel=z_channel,
+            population_id=population_id,
+            compensation=compensation,
+            data=data,
         )
 
-    def get_populations(
-        self, experiment_id, as_dict=False
-    ) -> Union[List[Population], List[Dict[str, Any]]]:
+    # ----------------------------- Populations --------------------------------
+
+    def get_populations(self, experiment_id) -> List[Population]:
         populations: List[Dict[str, Any]] = self._get(
             f"{self.base_url}/experiments/{experiment_id}/populations"
         )
-        if as_dict:
-            return populations
-        return [Population.from_dict(pop) for pop in populations]
+        return [Population(pop) for pop in populations]
 
-    def get_population(
-        self, experiment_id, _id=None, name=None, as_dict=False
-    ) -> Population:
+    def get_population(self, experiment_id, _id=None, name=None) -> Population:
         _id = _id or self._get_id_by_name(name, "populations", experiment_id)
         population = self._get(
             f"{self.base_url}/experiments/{experiment_id}/populations/{_id}"
         )
-        if as_dict:
-            return population
-        return Population.from_dict(population)
+        return Population(population)
 
-    def post_population(self, experiment_id, population: Dict) -> Population:
+    def post_population(self, experiment_id, population: Dict[str, Any]) -> Population:
         res = self._post(
             f"{self.base_url}/experiments/{experiment_id}/populations",
             json=population,
         )
-        return Population.from_dict(res)
+        return Population(res)
 
-    @overload
-    def get_scaleset(
-        self, experiment_id: str, as_dict: Literal[False] = ...
-    ) -> ScaleSet:
-        ...
+    # ------------------------------ ScaleSets ---------------------------------
 
-    @overload
-    def get_scaleset(
-        self, experiment_id: str, as_dict: Literal[True]
-    ) -> Dict[str, Any]:
-        ...
-
-    def get_scaleset(
-        self, experiment_id: str, as_dict: Optional[bool] = False
-    ) -> Union[ScaleSet, Dict[str, Any]]:
-        """Get a scaleset for an experiment."""
+    def get_scaleset(self, experiment_id: str) -> ScaleSet:
+        """Get the scaleset for an experiment."""
         scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
             0
         ]
-        if as_dict:
-            return scaleset
-        return ScaleSet.from_dict(scaleset)
+        return ScaleSet(scaleset)
 
-    def post_statistics(self, experiment_id, req_params, raw=True):
-        return self._post(
-            f"{self.base_url}/experiments/{experiment_id}/bulkstatistics",
-            json=req_params,
-            raw=raw,
-        )
+    # ------------------------------ Statistics --------------------------------
 
     def get_statistics(
         self,
         experiment_id: str,
-        statistics: Union[str, List[str]],
+        statistics: List[str],
         channels: List[str],
-        q: float = None,
-        annotations: Optional[bool] = False,
-        compensation_id: Optional[str] = None,
+        q: Optional[float] = None,
+        annotations: bool = False,
+        compensation_id: Union[Compensations, str] = UNCOMPENSATED,
         fcs_file_ids: Optional[List[str]] = None,
-        format: Optional[str] = "json",
+        format: str = "json",
         layout: Optional[str] = None,
         percent_of: Optional[Union[str, List[str]]] = "PARENT",
         population_ids: Optional[List[str]] = None,
@@ -791,24 +708,21 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
         Args:
             experiment_id: ID of the experiment.
-            statistics: Statistical method to request. Any of "mean", "median",
+            statistics: Statistics to calculate. Any of "mean", "median",
                 "quantile", "mad" (median absolute deviation), "geometricmean",
                 "eventcount", "cv", "stddev" or "percent" (case-insensitive).
             q (int): quantile (required for "quantile" statistic)
-            channels (Union[str, List[str]]): for "mean", "median", "geometricMean",
+            channels (List[str]): for "mean", "median", "geometricMean",
                 "cv", "stddev", "mad" or "quantile" statistics. Names of channels
                 to calculate statistics for.
             annotations: Include file annotations in output
                 (defaults to False).
-            compensation_id: Compensation to use for gating and
-                statistic calculation.
-                Defaults to uncompensated. Three special constants may be used:
-                    0: Uncompensated
-                    -1: File-Internal Compensation Uses the file's internal
-                        compensation matrix, if available. If not, an error
-                        will be returned.
-                    -2: Per-File Compensation Use the compensation assigned to
-                        each individual FCS file.
+            compensation_id: Compensation to use for gating and statistics
+                calculation. Defaults to uncompensated. In addition to a
+                compensation ID, three special constants may be used:
+                    [`UNCOMPENSATED`][cellengine.UNCOMPENSATED],
+                    [`FILE_INTERNAL`][cellengine.FILE_INTERNAL] or
+                    [`PER_FILE`][cellengine.PER_FILE].
             fcs_file_ids: FCS files to get statistics for. If
                 omitted, statistics for all non-control FCS files will be returned.
             format: str: One of "TSV (with[out] header)",
@@ -829,19 +743,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             statistics: Dict, String, or pandas.Dataframe
         """
 
-        def determine_format(f):
-            if f == "pandas":
-                return "json"
-            else:
-                return f
-
-        if "quantile" == statistics:
-            try:
-                assert q
-            except AssertionError:
-                raise ValueError(
-                    "'q' is a required parameter for 'quantile' statistics."
-                )
+        if "quantile" == statistics and not isinstance(q, float):
+            raise ValueError("'q' must be a number for 'quantile' statistic.")
 
         params = {
             "statistics": statistics,
@@ -850,14 +753,18 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             "annotations": annotations,
             "compensationId": compensation_id,
             "fcsFileIds": fcs_file_ids,
-            "format": determine_format(format),
+            "format": "json" if format == "pandas" else format,
             "layout": layout,
             "percentOf": percent_of,
             "populationIds": population_ids,
         }
         req_params = {key: val for key, val in params.items() if val is not None}
 
-        raw_stats = self.post_statistics(experiment_id, req_params)
+        raw_stats = self._post(
+            f"{self.base_url}/experiments/{experiment_id}/bulkstatistics",
+            json=req_params,
+            raw=True,
+        )
 
         format = format.lower()
         if format == "json":

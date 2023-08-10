@@ -1,10 +1,9 @@
 from __future__ import annotations
-import sys
 from typing import List
 
-if sys.version_info >= (3, 8):
+try:
     from typing import TypedDict
-else:
+except ImportError:
     from typing_extensions import TypedDict
 
 ApplyTailoringInsert = TypedDict("ApplyTailoringInsert", {"_id": str, "fcsFileId": str})

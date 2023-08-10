@@ -1,30 +1,74 @@
 from __future__ import annotations
-from typing import Dict, Optional
-from attr import define, field
+from typing import Optional, Any, Union, Dict
 
 import cellengine as ce
-from cellengine.utils import converter
-from cellengine.utils.readonly import readonly
 
 
-@define
 class Population:
-    _id: str = field(on_setattr=readonly)
-    experiment_id: str = field(on_setattr=readonly)
-    name: str
-    gates: str
-    unique_name: Optional[str] = field(default=None, on_setattr=readonly)
-    parent_id: Optional[str] = None
-    terminal_gate_gid: Optional[str] = None
+    def __init__(self, properties: Dict[str, Any]):
+        self._properties = properties
+        self._changes = set()
+
+    @property
+    def _id(self) -> str:
+        return self._properties["_id"]
+
+    @property
+    def id(self) -> str:
+        """Alias for ``_id``."""
+        return self._properties["_id"]
+
+    @property
+    def experiment_id(self) -> str:
+        return self._properties["experimentId"]
+
+    @property
+    def name(self) -> str:
+        return self._properties["name"]
+
+    @name.setter
+    def name(self, value: str):
+        self._properties["name"] = value
+        self._changes.add("name")
+
+    @property
+    def gates(self) -> str:
+        return self._properties["gates"]
+
+    @gates.setter
+    def gates(self, value: str):
+        self._properties["gates"] = value
+        self._changes.add("gates")
+
+    @property
+    def parent_id(self) -> Union[str, None]:
+        return self._properties["parentId"]
+
+    @parent_id.setter
+    def parent_id(self, value: Union[str, None]):
+        self._properties["parentId"] = value
+        self._changes.add("parentId")
+
+    @property
+    def terminal_gate_gid(self) -> Union[str, None]:
+        return self._properties["terminalGateGid"]
+
+    @terminal_gate_gid.setter
+    def terminal_gate_gid(self, value: Union[str, None]):
+        self._properties["terminalGateGid"] = value
+        self._changes.add("terminalGateGid")
+
+    @property
+    def unique_name(self) -> str:
+        """The unique name for this population (has ancestor names prepended and
+        numerical suffixes appended until the name is unique).
+
+        This value is calculated by CellEngine; if the population is renamed,
+        this value will not be correct until `pop.update()` is called."""
+        return self._properties["uniqueName"]
 
     def __repr__(self):
         return f"Population(_id='{self._id}', name='{self.name}')"
-
-    @property
-    def path(self):
-        return f"experiments/{self.experiment_id}/populations/{self._id}".rstrip(
-            "/None"
-        )
 
     @classmethod
     def get(
@@ -41,17 +85,16 @@ class Population:
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_population(experiment_id, **kwargs)
 
-    @classmethod
-    def from_dict(cls, data: Dict):
-        return converter.structure(data, cls)
+    # TODO classmethod create
 
-    def to_dict(self) -> Dict:
-        return converter.unstructure(self)
-
-    def update(self):
+    def update(self) -> None:
         """Save changes to this Population to CellEngine."""
-        res = ce.APIClient().update(self)
-        self.__setstate__(res.__getstate__())  # type: ignore
+        update_properties = {key: self._properties[key] for key in self._changes}
+        res = ce.APIClient().update_entity(
+            self.experiment_id, self._id, "populations", update_properties
+        )
+        self._properties = res
+        self._changes = set()
 
-    def delete(self):
+    def delete(self) -> None:
         ce.APIClient().delete_entity(self.experiment_id, "populations", self._id)
