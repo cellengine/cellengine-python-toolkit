@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/">
       
       <link rel="icon" href="images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-7.3.6">
     
     
       
@@ -651,7 +651,7 @@ Resources can be retrieved by name or by ID:
 </code></pre></div></p>
 <h3 id="create-resources">Create resources</h3>
 <div class="highlight"><pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">upload_attachment</span><span class="p">(</span><span class="s2">&quot;path/to/my_file.txt&quot;</span><span class="p">)</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">create_compensation</span><span class="p">(</span><span class="s2">&quot;My comp&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Chan1&quot;</span><span class="p">,</span> <span class="s2">&quot;Chan2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">create_compensation</span><span class="p">(</span><span class="s2">&quot;My comp&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Chan1&quot;</span><span class="p">,</span> <span class="s2">&quot;Chan2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 </code></pre></div>
 <h3 id="update-resources">Update resources</h3>
 <div class="highlight"><pre><span></span><code><span class="n">att</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_attachment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_file.txt&quot;</span><span class="p">)</span>

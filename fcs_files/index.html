@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/fcs_files/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-7.3.6">
     
     
       
@@ -400,6 +400,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.data" class="md-nav__link">
+    data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.deleted" class="md-nav__link">
     deleted
   </a>
@@ -451,6 +458,13 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.header" class="md-nav__link">
     header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.id" class="md-nav__link">
+    id
   </a>
   
 </li>
@@ -765,6 +779,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.data" class="md-nav__link">
+    data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.deleted" class="md-nav__link">
     deleted
   </a>
@@ -816,6 +837,13 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.fcs_file.FcsFile.header" class="md-nav__link">
     header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.fcs_file.FcsFile.id" class="md-nav__link">
+    id
   </a>
   
 </li>
@@ -983,22 +1011,17 @@ metadata such as the panel and annotations.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile">
-        <code>cellengine.resources.fcs_file.FcsFile</code>
+<h2 id="cellengine.resources.fcs_file.FcsFile" class="doc doc-heading">
+          <code>cellengine.resources.fcs_file.FcsFile</code>
 
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span></code></p>
 
-
+  
+      <p>A class representing a CellEngine FCS file.</p>
 
 
   
@@ -1015,24 +1038,17 @@ metadata such as the panel and annotations.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.annotations">
-<code class="codehilite language-python"><span class="n">annotations</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.annotations" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">annotations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Annotations</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
-      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
 
 
   <div class="doc doc-contents ">
-  
-      <p>Return file annotations.
-New annotations may be added with file.annotations.append or
-redefined by setting file.annotations to a dict with a 'name'
-and 'value' key (i.e. {'name': 'plate row', 'value': 'A'}) or
-a list of such dicts.</p>
   </div>
 
 </div>
@@ -1041,7 +1057,7 @@ a list of such dicts.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.channels">
+<h3 id="cellengine.resources.fcs_file.FcsFile.channels" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
@@ -1062,12 +1078,11 @@ a list of such dicts.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.compensation">
-<code class="codehilite language-python"><span class="n">compensation</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.compensation" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">compensation</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">FileCompensations</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
@@ -1082,12 +1097,11 @@ a list of such dicts.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.crc32c">
-<code class="codehilite language-python"><span class="n">crc32c</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.crc32c" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">crc32c</span><span class="p">:</span> <span class="nb">str</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
@@ -1102,11 +1116,11 @@ a list of such dicts.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.deleted">
-<code class="codehilite language-python"><span class="n">deleted</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.data" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
@@ -1121,28 +1135,8 @@ a list of such dicts.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.event_count">
-<code class="codehilite language-python"><span class="n">event_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.events">
-<code class="codehilite language-python"><span class="n">events</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.deleted" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">deleted</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">datetime</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1153,12 +1147,6 @@ a list of such dicts.</p>
 
 
   <div class="doc doc-contents ">
-  
-      <p>A DataFrame containing this file's data.</p>
-<p>This is fetched from the server on-demand the first time that
-this property is accessed.</p>
-<p>To fetch a file with specific parameters (e.g. subsampling, or
-gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
   </div>
 
 </div>
@@ -1167,12 +1155,11 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.experiment_id">
-<code class="codehilite language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.event_count" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">event_count</span><span class="p">:</span> <span class="nb">int</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
@@ -1187,11 +1174,57 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.filename">
+<h3 id="cellengine.resources.fcs_file.FcsFile.events" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">events</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>A DataFrame containing this file's events (typically cells).</p>
+<p>This is the last result from <code>FcsFile.get_events(inplace=True)</code>. If that
+method has not been called, a DataFrame will be fetched with all events
+(ungated, no compensation, no subsampling). To fetch events with
+subsampling, compensation and/or gating to a specific population, use
+<code>FcsFile.get_events()</code>.</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="cellengine.resources.fcs_file.FcsFile.experiment_id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="cellengine.resources.fcs_file.FcsFile.filename" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
@@ -1206,11 +1239,12 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.gates_locked">
+<h3 id="cellengine.resources.fcs_file.FcsFile.gates_locked" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">gates_locked</span><span class="p">:</span> <span class="nb">bool</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
@@ -1225,12 +1259,11 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.has_file_internal_comp">
-<code class="codehilite language-python"><span class="n">has_file_internal_comp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.has_file_internal_comp" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">has_file_internal_comp</span><span class="p">:</span> <span class="nb">bool</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
@@ -1245,18 +1278,19 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.header">
-<code class="codehilite language-python"><span class="n">header</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">(</span><span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.header" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Note: this property may be fetched lazily.</p>
   </div>
 
 </div>
@@ -1265,18 +1299,19 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.is_control">
-<code class="codehilite language-python"><span class="n">is_control</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.id" class="doc doc-heading">
+<code class="codehilite language-python"><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Alias for <code>_id</code>.</p>
   </div>
 
 </div>
@@ -1285,12 +1320,11 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.md5">
-<code class="codehilite language-python"><span class="n">md5</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.is_control" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">is_control</span><span class="p">:</span> <span class="nb">bool</span></code>
   
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 </h3>
@@ -1305,7 +1339,26 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.name">
+<h3 id="cellengine.resources.fcs_file.FcsFile.md5" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">md5</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="cellengine.resources.fcs_file.FcsFile.name" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
   
   <span class="doc doc-labels">
@@ -1327,86 +1380,8 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.panel">
-<code class="codehilite language-python"><span class="n">panel</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.panel_name">
-<code class="codehilite language-python"><span class="n">panel_name</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.sample_name">
-<code class="codehilite language-python"><span class="n">sample_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">(</span><span class="n">optional</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.size">
-<code class="codehilite language-python"><span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ReadOnly</span><span class="p">())</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.spill_string">
-<code class="codehilite language-python"><span class="n">spill_string</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.panel" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">panel</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Channel</span><span class="p">]</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1420,13 +1395,92 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 </div>
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="cellengine.resources.fcs_file.FcsFile.panel_name" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">panel_name</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="cellengine.resources.fcs_file.FcsFile.sample_name" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">sample_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="cellengine.resources.fcs_file.FcsFile.size" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">size</span><span class="p">:</span> <span class="nb">int</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="cellengine.resources.fcs_file.FcsFile.spill_string" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">spill_string</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Note: this property may be fetched lazily.</p>
+  </div>
+
+</div>
+
+
 
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.channel_for_reagent">
+<h3 id="cellengine.resources.fcs_file.FcsFile.channel_for_reagent" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">channel_for_reagent</span><span class="p">(</span><span class="n">reagent</span><span class="p">)</span></code>
 
 </h3>
@@ -1440,11 +1494,12 @@ gated to a specific population) see <code>FcsFile.get_events()</code>.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.create">
+<h3 id="cellengine.resources.fcs_file.FcsFile.create" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_file_number</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">add_event_number</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pre_subsample_n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pre_subsample_p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1491,6 +1546,8 @@ must also be present in the other FCS files.</p>
   a user with appropriate permissions. For AWS, GetObject is required.</li>
 <li>Importing objects may incur fees from the S3 service provider.</li>
 </ul>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1632,6 +1689,8 @@ pseudo-random value is used.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1658,11 +1717,12 @@ pseudo-random value is used.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.create_from_dataframe">
+<h3 id="cellengine.resources.fcs_file.FcsFile.create_from_dataframe" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create_from_dataframe</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">reagents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{})</span></code>
   
   <span class="doc doc-labels">
@@ -1696,6 +1756,8 @@ initial display scaling:</p>
 <p>FCS files created with this method always use float32 encoding. For
 efficiency, consider using float32 arrays upstream when generating the
 FCS file values.</p>
+
+
 
 <p><strong>Examples:</strong></p>
     <p>With reagents specified in a multi-level index:
@@ -1750,6 +1812,8 @@ FCS file values.</p>
 <span class="p">)</span>
 </code></pre></div></p>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1776,11 +1840,12 @@ FCS file values.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.delete">
+<h3 id="cellengine.resources.fcs_file.FcsFile.delete" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">delete</span><span class="p">()</span></code>
 
 </h3>
@@ -1792,11 +1857,12 @@ FCS file values.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get">
+<h3 id="cellengine.resources.fcs_file.FcsFile.get" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1812,11 +1878,12 @@ FCS file values.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get_events">
+<h3 id="cellengine.resources.fcs_file.FcsFile.get_events" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_events</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
@@ -1829,6 +1896,8 @@ FCS file values.</p>
 names because, unlike reagent names (<code>$PnS</code>), they are required and must
 be unique. To find the <code>$PnN</code> value for a given reagent name (<code>$PnS</code>),
 use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.FcsFile.channel_for_reagent"><code>fcs_file.channel_for_reagent(reagent)</code></a>.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1916,6 +1985,8 @@ parameter to <code>True</code> can cause parsing errors.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1962,11 +2033,12 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.get_file_internal_compensation">
+<h3 id="cellengine.resources.fcs_file.FcsFile.get_file_internal_compensation" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_file_internal_compensation</span><span class="p">()</span></code>
 
 </h3>
@@ -1980,12 +2052,13 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.plot">
-<code class="codehilite language-python"><span class="n">plot</span><span class="p">(</span><span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<h3 id="cellengine.resources.fcs_file.FcsFile.plot" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">plot</span><span class="p">(</span><span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compensation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1993,18 +2066,18 @@ parameter to <code>True</code> can cause parsing errors.</p>
   <div class="doc doc-contents ">
   
       <p>Build a plot for an FcsFile.</p>
-<p>See <a class="autorefs autorefs-internal" href="../api_client/#cellengine.utils.api_client.APIClient.APIClient.get_plot"><code>APIClient.get_plot()</code></a>
-for more information.</p>
+<p>See <a class="autorefs autorefs-internal" href="../plots/#cellengine.resources.plot.Plot.get"><code>Plot.get()</code></a> for more information.</p>
 
   </div>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.update">
+<h3 id="cellengine.resources.fcs_file.FcsFile.update" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">update</span><span class="p">()</span></code>
 
 </h3>
@@ -2018,11 +2091,12 @@ for more information.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.fcs_file.FcsFile.upload">
+<h3 id="cellengine.resources.fcs_file.FcsFile.upload" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">upload</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -2038,6 +2112,8 @@ for more information.</p>
 Contact us if you need to work with larger files.</p>
 <p>Automatically parses panels and annotations and updates ScaleSets to
 include all channels in the file.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>

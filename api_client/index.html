@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/api_client/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-7.3.6">
     
     
       
@@ -386,13 +386,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.create" class="md-nav__link">
-    create()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.utils.api_client.APIClient.APIClient.create_fcs_file" class="md-nav__link">
     create_fcs_file()
   </a>
@@ -400,8 +393,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.delete" class="md-nav__link">
-    delete()
+  <a href="#cellengine.utils.api_client.APIClient.APIClient.delete_attachment" class="md-nav__link">
+    delete_attachment()
   </a>
   
 </li>
@@ -554,13 +547,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.post_and_structure" class="md-nav__link">
-    post_and_structure()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.utils.api_client.APIClient.APIClient.post_compensation" class="md-nav__link">
     post_compensation()
   </a>
@@ -591,27 +577,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.utils.api_client.APIClient.APIClient.post_population" class="md-nav__link">
     post_population()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.post_statistics" class="md-nav__link">
-    post_statistics()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.unstructure_and_clean" class="md-nav__link">
-    unstructure_and_clean()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.update" class="md-nav__link">
-    update()
   </a>
   
 </li>
@@ -933,13 +898,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.create" class="md-nav__link">
-    create()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.utils.api_client.APIClient.APIClient.create_fcs_file" class="md-nav__link">
     create_fcs_file()
   </a>
@@ -947,8 +905,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.delete" class="md-nav__link">
-    delete()
+  <a href="#cellengine.utils.api_client.APIClient.APIClient.delete_attachment" class="md-nav__link">
+    delete_attachment()
   </a>
   
 </li>
@@ -1101,13 +1059,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.post_and_structure" class="md-nav__link">
-    post_and_structure()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#cellengine.utils.api_client.APIClient.APIClient.post_compensation" class="md-nav__link">
     post_compensation()
   </a>
@@ -1138,27 +1089,6 @@
           <li class="md-nav__item">
   <a href="#cellengine.utils.api_client.APIClient.APIClient.post_population" class="md-nav__link">
     post_population()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.post_statistics" class="md-nav__link">
-    post_statistics()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.unstructure_and_clean" class="md-nav__link">
-    unstructure_and_clean()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cellengine.utils.api_client.APIClient.APIClient.update" class="md-nav__link">
-    update()
   </a>
   
 </li>
@@ -1267,17 +1197,16 @@ GitHub</a>.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.APIClient">
-        <code>cellengine.APIClient</code>
+<h2 id="cellengine.APIClient" class="doc doc-heading">
+          <code>cellengine.APIClient</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="cellengine.utils.api_client.BaseAPIClient.BaseAPIClient">BaseAPIClient</span></code></p>
-
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="cellengine.utils.api_client.BaseAPIClient.BaseAPIClient">BaseAPIClient</span></code></p>
 
 
 
@@ -1295,7 +1224,7 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.authenticated">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.authenticated" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">authenticated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1314,7 +1243,7 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.base_url">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.base_url" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">base_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CELLENGINE_BASE_URL&#39;</span><span class="p">,</span> <span class="s1">&#39;https://cellengine.com/api/v1&#39;</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1333,7 +1262,7 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.cache_clear">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.cache_clear" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">cache_clear</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_id_by_name</span><span class="o">.</span><span class="n">cache_clear</span></code>
   
   <span class="doc doc-labels">
@@ -1352,7 +1281,7 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.cache_info">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.cache_info" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">cache_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_id_by_name</span><span class="o">.</span><span class="n">cache_info</span></code>
   
   <span class="doc doc-labels">
@@ -1371,7 +1300,7 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.password">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.password" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">password</span> <span class="o">=</span> <span class="n">password</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CELLENGINE_PASSWORD&#39;</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1390,7 +1319,7 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.token">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.token" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">token</span> <span class="o">=</span> <span class="n">token</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CELLENGINE_AUTH_TOKEN&#39;</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1409,7 +1338,7 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.user_id">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.user_id" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">user_id</span> <span class="o">=</span> <span class="kc">None</span></code>
   
   <span class="doc doc-labels">
@@ -1428,8 +1357,8 @@ GitHub</a>.</p>
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.username">
-<code class="codehilite language-python"><span class="n">username</span> <span class="o">=</span> <span class="n">username</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.username" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CELLENGINE_USERNAME&#39;</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -1445,11 +1374,12 @@ GitHub</a>.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.apply_tailoring">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.apply_tailoring" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">apply_tailoring</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gate</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="p">)</span></code>
 
 </h3>
@@ -1463,12 +1393,13 @@ GitHub</a>.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.clone_experiment">
-<code class="codehilite language-python"><span class="n">clone_experiment</span><span class="p">(</span><span class="n">_id</span><span class="p">,</span> <span class="n">props</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.clone_experiment" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">clone_experiment</span><span class="p">(</span><span class="n">_id</span><span class="p">,</span> <span class="n">props</span><span class="o">=</span><span class="p">{})</span></code>
 
 </h3>
 
@@ -1479,29 +1410,12 @@ GitHub</a>.</p>
 
 </div>
 
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.create">
-<code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Create a local entity on CellEngine.</p>
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.create_fcs_file">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.create_fcs_file" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create_fcs_file</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
 </h3>
@@ -1517,27 +1431,31 @@ used to import files from other experiments.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete">
-<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.delete_attachment" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">delete_attachment</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Delete an attachment</p>
 
   </div>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_entity">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.delete_entity" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">delete_entity</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">_id</span><span class="p">)</span></code>
 
 </h3>
@@ -1549,11 +1467,12 @@ used to import files from other experiments.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_experiment">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.delete_experiment" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">delete_experiment</span><span class="p">(</span><span class="n">_id</span><span class="p">)</span></code>
 
 </h3>
@@ -1561,18 +1480,20 @@ used to import files from other experiments.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Hard-delete an experiment.</p>
-<p>Warning: This action is irreversible!</p>
+      <p>Marks the experiment as deleted.</p>
+<p>Deleted experiments are permanently deleted after approximately
+7 days. Until then, deleted experiments can be recovered.</p>
 
   </div>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_gate">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.delete_gate" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">delete_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -1586,6 +1507,8 @@ the gid of a sector (i.e. one listed in <code>model.gids</code>) will result in 
 gates being deleted). If <code>_id</code> is specified, only that gate will be
 deleted, regardless of the other parameters specified. May be called as
 a static method from cellengine.Gate or from an Experiment instance.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1615,7 +1538,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
         <tr>
           <td><code>_id</code></td>
           <td>
-                <code>str</code>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1629,7 +1552,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
         <tr>
           <td><code>gid</code></td>
           <td>
-                <code>str</code>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1643,11 +1566,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
         <tr>
           <td><code>exclude</code></td>
           <td>
-                <code>str</code>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Gate ID to exclude from deletion.</p>
+              <p>Gate ID to exclude from deletion. <strong>Deprecated</strong>. Use the
+    untailoring API instead.</p>
             </div>
           </td>
           <td>
@@ -1664,6 +1588,8 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 <span class="n">experiment</span><span class="o">.</span><span class="n">delete_gate</span><span class="p">(</span><span class="n">_id</span> <span class="o">=</span> <span class="p">[</span><span class="n">gate</span> <span class="n">ID</span><span class="p">])</span>
 </code></pre></div>
 </details>
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1690,11 +1616,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.delete_gates">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.delete_gates" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">delete_gates</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span></code>
 
 </h3>
@@ -1706,11 +1633,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.download_attachment">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.download_attachment" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">download_attachment</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -1724,11 +1652,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.download_fcs_file">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.download_fcs_file" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">download_fcs_file</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
@@ -1737,6 +1666,8 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
   <div class="doc doc-contents ">
   
       <p>Download events for a specific FcsFile</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1841,11 +1772,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_attachment">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_attachment" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_attachment</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -1857,11 +1789,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_attachments">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_attachments" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_attachments</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></code>
 
 </h3>
@@ -1873,12 +1806,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_compensation">
-<code class="codehilite language-python"><span class="n">get_compensation</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_compensation" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_compensation</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1889,11 +1823,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_compensations">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_compensations" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_compensations</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
@@ -1905,12 +1840,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_experiment">
-<code class="codehilite language-python"><span class="n">get_experiment</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_experiment" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_experiment</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1921,12 +1857,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_experiments">
-<code class="codehilite language-python"><span class="n">get_experiments</span><span class="p">(</span><span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_experiments" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_experiments</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1937,12 +1874,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_file">
-<code class="codehilite language-python"><span class="n">get_fcs_file</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_file" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_fcs_file</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1953,11 +1891,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_files">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_fcs_files" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_fcs_files</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
@@ -1969,11 +1908,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_gate">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_gate" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
@@ -1987,11 +1927,12 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_gates">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_gates" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">get_gates</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
@@ -2003,12 +1944,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_plot">
-<code class="codehilite language-python"><span class="n">get_plot</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_plot" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_plot</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compensation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2019,12 +1961,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_population">
-<code class="codehilite language-python"><span class="n">get_population</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_population" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_population</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2035,12 +1978,13 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_populations">
-<code class="codehilite language-python"><span class="n">get_populations</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_populations" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_populations</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2051,30 +1995,32 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_scaleset">
-<code class="codehilite language-python"><span class="n">get_scaleset</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_scaleset" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_scaleset</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
   
-      <p>Get a scaleset for an experiment.</p>
+      <p>Get the scaleset for an experiment.</p>
 
   </div>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.get_statistics">
-<code class="codehilite language-python"><span class="n">get_statistics</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="s1">&#39;PARENT&#39;</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.get_statistics" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_statistics</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">statistics</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">annotations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compensation_id</span><span class="o">=</span><span class="n">UNCOMPENSATED</span><span class="p">,</span> <span class="n">fcs_file_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">percent_of</span><span class="o">=</span><span class="s1">&#39;PARENT&#39;</span><span class="p">,</span> <span class="n">population_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2082,6 +2028,8 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
   <div class="doc doc-contents ">
   
       <p>Request Statistics from CellEngine.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2111,11 +2059,11 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
         <tr>
           <td><code>statistics</code></td>
           <td>
-                <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
+                <code><span title="typing.List">List</span>[str]</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Statistical method to request. Any of "mean", "median",
+              <p>Statistics to calculate. Any of "mean", "median",
 "quantile", "mad" (median absolute deviation), "geometricmean",
 "eventcount", "cv", "stddev" or "percent" (case-insensitive).</p>
             </div>
@@ -2141,7 +2089,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
         <tr>
           <td><code>channels</code></td>
           <td>
-                <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
+                <code><span title="typing.List">List</span>[str]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -2157,7 +2105,7 @@ to calculate statistics for.</p>
         <tr>
           <td><code>annotations</code></td>
           <td>
-                <code><span title="typing.Optional">Optional</span>[bool]</code>
+                <code>bool</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -2172,23 +2120,20 @@ to calculate statistics for.</p>
         <tr>
           <td><code>compensation_id</code></td>
           <td>
-                <code><span title="typing.Optional">Optional</span>[str]</code>
+                <code><span title="typing.Union">Union</span>[<span title="cellengine.resources.compensation.Compensations">Compensations</span>, str]</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>Compensation to use for gating and
-statistic calculation.
-Defaults to uncompensated. Three special constants may be used:
-    0: Uncompensated
-    -1: File-Internal Compensation Uses the file's internal
-        compensation matrix, if available. If not, an error
-        will be returned.
-    -2: Per-File Compensation Use the compensation assigned to
-        each individual FCS file.</p>
+              <p>Compensation to use for gating and statistics
+calculation. Defaults to uncompensated. In addition to a
+compensation ID, three special constants may be used:
+    <a class="autorefs autorefs-internal" href="../compensations/#cellengine.UNCOMPENSATED"><code>UNCOMPENSATED</code></a>,
+    <a class="autorefs autorefs-internal" href="../compensations/#cellengine.FILE_INTERNAL"><code>FILE_INTERNAL</code></a> or
+    <a class="autorefs autorefs-internal" href="../compensations/#cellengine.PER_FILE"><code>PER_FILE</code></a>.</p>
             </div>
           </td>
           <td>
-                <code>None</code>
+                <code><a class="autorefs autorefs-internal" title="cellengine.resources.compensation.UNCOMPENSATED" href="../compensations/#cellengine.UNCOMPENSATED">UNCOMPENSATED</a></code>
           </td>
         </tr>
         <tr>
@@ -2209,7 +2154,7 @@ omitted, statistics for all non-control FCS files will be returned.</p>
         <tr>
           <td><code>format</code></td>
           <td>
-                <code><span title="typing.Optional">Optional</span>[str]</code>
+                <code>str</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -2274,6 +2219,8 @@ Defaults to ungated.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -2300,27 +2247,12 @@ Defaults to ungated.</p>
 
 </div>
 
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_and_structure">
-<code class="codehilite language-python"><span class="n">post_and_structure</span><span class="p">(</span><span class="n">_class</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_compensation">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.post_compensation" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">post_compensation</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
 </h3>
@@ -2332,12 +2264,13 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_experiment">
-<code class="codehilite language-python"><span class="n">post_experiment</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.post_experiment" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">post_experiment</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2350,12 +2283,13 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_gate">
-<code class="codehilite language-python"><span class="n">post_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{},</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.post_gate" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">post_gate</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{})</span></code>
 
 </h3>
 
@@ -2366,12 +2300,13 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_gates">
-<code class="codehilite language-python"><span class="n">post_gates</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{},</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.post_gates" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">post_gates</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{})</span></code>
 
 </h3>
 
@@ -2382,11 +2317,12 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_population">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.post_population" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">post_population</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">population</span><span class="p">)</span></code>
 
 </h3>
@@ -2398,59 +2334,12 @@ Defaults to ungated.</p>
 
 </div>
 
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.post_statistics">
-<code class="codehilite language-python"><span class="n">post_statistics</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">req_params</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-
-  </div>
-
-</div>
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.unstructure_and_clean">
-<code class="codehilite language-python"><span class="n">unstructure_and_clean</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span></code>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update">
-<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update_entity">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.update_entity" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">update_entity</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">entity_type</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
 </h3>
@@ -2462,11 +2351,12 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update_experiment">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.update_experiment" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">update_experiment</span><span class="p">(</span><span class="n">_id</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span></code>
 
 </h3>
@@ -2478,12 +2368,13 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.update_gate_family">
-<code class="codehilite language-python"><span class="n">update_gate_family</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.update_gate_family" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">update_gate_family</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="p">{})</span></code>
 
 </h3>
 
@@ -2494,11 +2385,12 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.upload_attachment">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.upload_attachment" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">upload_attachment</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -2507,6 +2399,8 @@ Defaults to ungated.</p>
   <div class="doc doc-contents ">
   
       <p>Upload an attachment</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2550,6 +2444,8 @@ Defaults to ungated.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -2565,7 +2461,7 @@ Defaults to ungated.</p>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>The newly-uploaded Attachment</p>
+              <p>The newly uploaded Attachment.</p>
             </div>
           </td>
         </tr>
@@ -2576,11 +2472,12 @@ Defaults to ungated.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.utils.api_client.APIClient.APIClient.upload_fcs_file">
+<h3 id="cellengine.utils.api_client.APIClient.APIClient.upload_fcs_file" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">upload_fcs_file</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">filepath_or_data</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
@@ -2589,6 +2486,8 @@ Defaults to ungated.</p>
   <div class="doc doc-contents ">
   
       <p>Upload an FCS file to CellEngine</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2631,6 +2530,8 @@ Defaults to ungated.</p>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>

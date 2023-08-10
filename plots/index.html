@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/plots/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-7.3.6">
     
     
       
@@ -604,8 +604,8 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.plot.Plot">
-        <code>cellengine.resources.plot.Plot</code>
+<h2 id="cellengine.resources.plot.Plot" class="doc doc-heading">
+          <code>cellengine.resources.plot.Plot</code>
 
   
   <span class="doc doc-labels">
@@ -616,12 +616,9 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="cellengine.utils.dataclass_mixin.DataClassMixin">DataClassMixin</span></code></p>
 
   
       <p>A class representing a CellEngine plot.</p>
-
 
 
   
@@ -636,11 +633,12 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.display">
+<h3 id="cellengine.resources.plot.Plot.display" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">display</span><span class="p">()</span></code>
 
 </h3>
@@ -652,12 +650,13 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.get">
-<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<h3 id="cellengine.resources.plot.Plot.get" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">z_channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compensation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -668,6 +667,8 @@ arguments to pass to the <code>get</code> method. Options are detailed above.</p
 
   <div class="doc doc-contents ">
   
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -781,6 +782,21 @@ Color channel name.</p>
           </td>
         </tr>
         <tr>
+          <td><code>compensation</code></td>
+          <td>
+                <code>string ID, 0 or -1</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Compensation to use for gating
+and display. Defaults to uncompensated (0).</p>
+            </div>
+          </td>
+          <td>
+                <code>0</code>
+          </td>
+        </tr>
+        <tr>
           <td><code>**kwargs</code></td>
           <td>
                 <code>Dict</code>
@@ -790,7 +806,6 @@ Color channel name.</p>
               <ul>
 <li>axesQ (bool): Display axes lines. Defaults to true.</li>
 <li>axisLabelsQ (bool): Display axis labels. Defaults to true.</li>
-<li>compensation (ID): Compensation to use for gating and display.</li>
 <li>color (str): Case-insensitive string in the format
     #rgb, #rgba, #rrggbb or #rrggbbaa. The foreground color, i.e.
     color of curve in "histogram" plots and dots in "dot" plots.</li>
@@ -815,7 +830,10 @@ Color channel name.</p>
 <li>seed (int): Seed for random number generator used for
     subsampling. Use for deterministic (reproducible) subsampling.
     If omitted, a pseudo-random value is used.</li>
-<li>smoothing (float): For density and contour plots, adjusts the</li>
+<li>smoothing (float): For density and contour plots, adjusts the
+    amount of smoothing. Defaults to 0 (no smoothing). Set to 1
+    for typical smoothing. Higher values (up to 10) increase
+    smoothing.</li>
 <li>strokeThickness (float): The thickness of histogram and contour
     plot lines. Defaults to 1.</li>
 <li>tickLabelsQ (bool): Display tick labels. Defaults to false.</li>
@@ -825,9 +843,7 @@ Color channel name.</p>
 <li>xAxisQ (bool): Display x axis line. Overrides axesQ.</li>
 <li>xTickLabelsQ (bool): Display x tick labels. overrides tickLabelsQ.</li>
 <li>xTicksQ (bool): Display x ticks. Overrides ticksQ.</li>
-<li>yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.
-    amount of smoothing. Defaults to 0 (no smoothing). Set to 1 for
-    typical smoothing. Higher values (up to 10) increase smoothing.</li>
+<li>yAxisLabelQ (bool): Display y axis label. Overrides axisLabelsQ.</li>
 <li>yAxisQ (bool): Display y axis line. Overrides axesQ.</li>
 <li>yTickLabelsQ (bool): Display y tick labels. Overrides tickLabelsQ.</li>
 <li>yTicksQ (bool): Display y ticks. Overrides ticksQ.</li>
@@ -845,11 +861,12 @@ Color channel name.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.plot.Plot.save">
+<h3 id="cellengine.resources.plot.Plot.save" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">save</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></code>
 
 </h3>

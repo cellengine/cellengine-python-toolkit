@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://primitybio.github.io/cellengine-python-toolkit/gates/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-7.3.6">
     
     
       
@@ -919,8 +919,8 @@ inherit the methods below.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.gate.Gate">
-        <code>cellengine.resources.gate.Gate</code>
+<h2 id="cellengine.resources.gate.Gate" class="doc doc-heading">
+          <code>cellengine.resources.gate.Gate</code>
 
 
 </h2>
@@ -928,7 +928,9 @@ inherit the methods below.</p>
 
   <div class="doc doc-contents first">
 
-
+  
+      <p>Do not construct directly; use the <code>Experiment.create_*_gate</code> and
+<code>__Gate.create()</code> methods.</p>
 
 
   
@@ -943,11 +945,12 @@ inherit the methods below.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.Gate.update">
+<h3 id="cellengine.resources.gate.Gate.update" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">update</span><span class="p">()</span></code>
 
 </h3>
@@ -961,11 +964,12 @@ inherit the methods below.</p>
 
 </div>
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.Gate.delete">
+<h3 id="cellengine.resources.gate.Gate.delete" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">delete</span><span class="p">()</span></code>
 
 </h3>
@@ -990,17 +994,16 @@ inherit the methods below.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.gate.RectangleGate">
-        <code>cellengine.resources.gate.RectangleGate</code>
+<h2 id="cellengine.resources.gate.RectangleGate" class="doc doc-heading">
+          <code>cellengine.resources.gate.RectangleGate</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
-
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="cellengine.resources.gate.SimpleGate">SimpleGate</span></code></p>
 
 
 
@@ -1016,11 +1019,12 @@ inherit the methods below.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.RectangleGate.create">
+<h3 id="cellengine.resources.gate.RectangleGate.create" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1033,6 +1037,8 @@ inherit the methods below.</p>
   <div class="doc doc-contents ">
   
       <p>Creates a rectangle gate.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1288,6 +1294,8 @@ population below which to create this population.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1304,12 +1312,14 @@ population below which to create this population.</p>
           <td>
             <div class="doc-md-description">
               <p>A RectangleGate if <code>create_population</code> is False, or a Tuple with the
-gate and populations if <code>create_population</code> is True.</p>
+gate and population if <code>create_population</code> is True.</p>
             </div>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_rectangle_gate</span><span class="p">(</span>
@@ -1338,17 +1348,16 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.gate.PolygonGate">
-        <code>cellengine.resources.gate.PolygonGate</code>
+<h2 id="cellengine.resources.gate.PolygonGate" class="doc doc-heading">
+          <code>cellengine.resources.gate.PolygonGate</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
-
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="cellengine.resources.gate.SimpleGate">SimpleGate</span></code></p>
 
 
 
@@ -1364,11 +1373,12 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.PolygonGate.create">
+<h3 id="cellengine.resources.gate.PolygonGate.create" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1381,6 +1391,8 @@ gate and populations if <code>create_population</code> is True.</p>
   <div class="doc doc-contents ">
   
       <p>Creates a polygon gate.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1591,6 +1603,8 @@ population below which to create this populations.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1613,6 +1627,8 @@ gate and populations if <code>create_population</code> is True.</p>
         </tr>
     </tbody>
   </table>
+
+
 
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_polygon_gate</span><span class="p">(</span>
@@ -1638,17 +1654,16 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.gate.EllipseGate">
-        <code>cellengine.resources.gate.EllipseGate</code>
+<h2 id="cellengine.resources.gate.EllipseGate" class="doc doc-heading">
+          <code>cellengine.resources.gate.EllipseGate</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
-
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="cellengine.resources.gate.SimpleGate">SimpleGate</span></code></p>
 
 
 
@@ -1664,11 +1679,12 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.EllipseGate.create">
+<h3 id="cellengine.resources.gate.EllipseGate.create" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">major</span><span class="p">,</span> <span class="n">minor</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -1681,6 +1697,8 @@ gate and populations if <code>create_population</code> is True.</p>
   <div class="doc doc-contents ">
   
       <p>Creates an ellipse gate.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1934,6 +1952,8 @@ population below which to create this populations.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -1956,6 +1976,8 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
         </tr>
     </tbody>
   </table>
+
+
 
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_ellipse_gate</span><span class="p">(</span>
@@ -1985,17 +2007,16 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.gate.RangeGate">
-        <code>cellengine.resources.gate.RangeGate</code>
+<h2 id="cellengine.resources.gate.RangeGate" class="doc doc-heading">
+          <code>cellengine.resources.gate.RangeGate</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
-
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="cellengine.resources.gate.SimpleGate">SimpleGate</span></code></p>
 
 
 
@@ -2011,11 +2032,12 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.RangeGate.create">
+<h3 id="cellengine.resources.gate.RangeGate.create" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -2028,6 +2050,8 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
   <div class="doc doc-contents ">
   
       <p>Creates a range gate.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2258,6 +2282,8 @@ population below which to create this populations.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -2280,6 +2306,8 @@ and a list of two Populations; otherwise, a RangeGate.</p>
         </tr>
     </tbody>
   </table>
+
+
 
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pop</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_range_gate</span><span class="p">(</span>
@@ -2305,17 +2333,16 @@ and a list of two Populations; otherwise, a RangeGate.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.gate.SplitGate">
-        <code>cellengine.resources.gate.SplitGate</code>
+<h2 id="cellengine.resources.gate.SplitGate" class="doc doc-heading">
+          <code>cellengine.resources.gate.SplitGate</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
-
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="cellengine.resources.gate.CompoundGate">CompoundGate</span></code></p>
 
 
 
@@ -2331,11 +2358,12 @@ and a list of two Populations; otherwise, a RangeGate.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.SplitGate.create">
+<h3 id="cellengine.resources.gate.SplitGate.create" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -2350,6 +2378,8 @@ and a list of two Populations; otherwise, a RangeGate.</p>
       <p>Creates a split gate.</p>
 <p>Split gates have two sectors (right and left), each with a unique gid
 and name.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2578,6 +2608,8 @@ population below which to create these populations.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -2600,6 +2632,8 @@ gate and populations if <code>create_population</code> is True.</p>
         </tr>
     </tbody>
   </table>
+
+
 
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="c1"># With automatic creation of the corresponding populations:</span>
@@ -2634,17 +2668,16 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
-<h2 class="doc doc-heading" id="cellengine.resources.gate.QuadrantGate">
-        <code>cellengine.resources.gate.QuadrantGate</code>
+<h2 id="cellengine.resources.gate.QuadrantGate" class="doc doc-heading">
+          <code>cellengine.resources.gate.QuadrantGate</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents first">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="cellengine.resources.gate.Gate" href="#cellengine.resources.gate.Gate">Gate</a></code></p>
-
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="cellengine.resources.gate.CompoundGate">CompoundGate</span></code></p>
 
 
 
@@ -2660,11 +2693,12 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="cellengine.resources.gate.QuadrantGate.create">
+<h3 id="cellengine.resources.gate.QuadrantGate.create" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">create</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">x_channel</span><span class="p">,</span> <span class="n">y_channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[],</span> <span class="n">skewable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="n">gid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tailored_per_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fcs_file_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fcs_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
   
   <span class="doc doc-labels">
@@ -2679,6 +2713,8 @@ gate and populations if <code>create_population</code> is True.</p>
       <p>Creates a quadrant gate.</p>
 <p>Quadrant gates have four sectors (upper-right, upper-left, lower-left,
 lower-right), each with a unique gid and name.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2817,7 +2853,7 @@ to the plot corners.</p>
             </div>
           </td>
           <td>
-                <code>[0, pi / 2, pi, 3 * pi / 2]</code>
+                <code>[0, <span title="math.pi">pi</span> / 2, <span title="math.pi">pi</span>, 3 * <span title="math.pi">pi</span> / 2]</code>
           </td>
         </tr>
         <tr>
@@ -2949,6 +2985,8 @@ population below which to create these populations.</p>
     </tbody>
   </table>
 
+
+
   <p><strong>Returns:</strong></p>
   <table>
     <thead>
@@ -2965,13 +3003,15 @@ population below which to create these populations.</p>
           <td>
             <div class="doc-md-description">
               <p>If <code>create_population</code> is <code>True</code>, a tuple containing the
-QuadrantGate and a list of two Populations; otherwise, a
+QuadrantGate and a list of four Populations; otherwise, a
 QuadrantGate.</p>
             </div>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
 <p><strong>Examples:</strong></p>
     <div class="highlight"><pre><span></span><code><span class="n">gate</span><span class="p">,</span> <span class="n">pops</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">create_quadrant_gate</span><span class="p">(</span>
