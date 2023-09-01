@@ -63,7 +63,7 @@ class Attachment:
         Args:
             experiment_id: ID of the experiment this attachment is connected with.
             _id (optional): ID of the attachment.
-            name (optional): Name of the experiment.
+            name (optional): Name of the attachment.
         """
         kwargs = {"name": name} if name else {"_id": _id}
         return ce.APIClient().get_attachment(experiment_id, **kwargs)
