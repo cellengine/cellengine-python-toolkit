@@ -42,6 +42,7 @@ class FcsFile:
     def __init__(self, properties: Dict[str, Any]):
         self._properties = properties
         self._changes = set()
+        self._orig_annotations = properties["annotations"].copy()
         # Used for caching events
         self._events_kwargs = {}
         self._events = DataFrame()
@@ -128,7 +129,37 @@ class FcsFile:
 
     @property
     def annotations(self) -> List[Annotations]:
+        """Examples:
+
+        Getting an annotation value:
+        ```py
+        next(a["value"] for a in file.annotations if a["name"] == "my_anno", None)
+        ```
+
+        Appending an annotation:
+        ```py
+        file.annotations.append({"name": "my_anno", "value": "my_value"})
+        ```
+
+        Modifying an annotation:
+        ```py
+        for anno in file.annotations:
+            if anno["name"] == "my_anno":
+                anno["value"] = "new_value"
+        ```
+
+        Removing an annotation:
+        ```py
+        file.annotations = [a for a in file.annotations if a["name"] != "my_anno"]
+        ```
+        """
         return self._properties["annotations"]
+
+    @annotations.setter
+    def annotations(self, val: bool):
+        # Mutations are also detected in the update() method.
+        self._properties["annotations"] = val
+        self._changes.add("annotations")
 
     @property
     def event_count(self) -> int:
@@ -445,11 +476,14 @@ class FcsFile:
     def update(self) -> None:
         """Save changes to this FcsFile to CellEngine."""
         update_properties = {key: self._properties[key] for key in self._changes}
+        if self.annotations != self._orig_annotations:
+            update_properties["annotations"] = self.annotations
         res = ce.APIClient().update_entity(
             self.experiment_id, self._id, "fcsfiles", update_properties
         )
         self._properties = res
         self._changes = set()
+        self._orig_annotations = res["annotations"].copy()
 
     def delete(self) -> None:
         return ce.APIClient().delete_entity(self.experiment_id, "fcsfiles", self._id)

@@ -50,8 +50,10 @@ def test_fcs_file_update(ligands_experiment):
     _, files = ligands_experiment
     file = files[0]
     file.filename = "new name.fcs"
+    file.annotations.append({"name": "new annotation", "value": "new value"})
     file.update()
     assert file.filename == "new name.fcs"
+    assert next(a for a in file.annotations if a.get("name") == "new annotation")
 
 
 def test_fcs_file_get_file_internal_compensation(ligands_experiment):
