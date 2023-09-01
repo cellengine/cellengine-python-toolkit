@@ -17,6 +17,7 @@ nav:
     - Compensations: compensations.md
     - Experiments: experiments.md
     - FcsFiles: fcs_files.md
+    - Folders: folders.md
     - Gates: gates.md
     - Plots: plots.md
     - Populations: populations.md

@@ -26,6 +26,7 @@ from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation, Compensations, UNCOMPENSATED
 from ...resources.experiment import Experiment
 from ...resources.fcs_file import FcsFile
+from ...resources.folder import Folder
 from ...resources.gate import (
     EllipseGate,
     Gate,
@@ -46,6 +47,7 @@ CE = TypeVar(
     Compensation,
     Experiment,
     FcsFile,
+    Folder,
     Gate,
     Plot,
     Population,
@@ -147,6 +149,8 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     ) -> Any:
         if resource_type == "experiments":
             path = "experiments"
+        elif resource_type == "folders":
+            path = "folders"
         else:
             path = f"experiments/{experiment_id}/{resource_type}"
 
@@ -471,6 +475,37 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             params=params,
             raw=True,
         )
+
+    # ------------------------------ Folders -------------------------------
+
+    def get_folders(self) -> List[Folder]:
+        res = self._get(f"{self.base_url}/folders")
+        return [Folder(folder) for folder in res]
+
+    def get_folder(self, _id=None, name=None) -> Folder:
+        if name is not None:
+            res = self._get_by_name(name, "folders")
+        elif _id is not None:
+            res = self._get(f"{self.base_url}/folders/{_id}")
+        else:
+            raise RuntimeError("Either _id or name must be specified.")
+        return Folder(res)
+
+    def post_folder(self, folder: dict) -> Folder:
+        """Create a new folder on CellEngine."""
+        res = self._post(f"{self.base_url}/folders", json=folder)
+        return Folder(res)
+
+    def update_folder(self, _id, body) -> Dict:
+        return self._patch(f"{self.base_url}/folders/{_id}", json=body)
+
+    def delete_folder(self, _id):
+        """Marks the folder as deleted.
+
+        Deleted folders are permanently deleted after approximately
+        7 days. Until then, deleted folders can be recovered.
+        """
+        self._delete(f"{self.base_url}/folders/{_id}")
 
     # -------------------------------- Gates -----------------------------------
 

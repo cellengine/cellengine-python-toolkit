@@ -17,6 +17,7 @@ from cellengine.resources.compensation import (
 )
 from cellengine.resources.experiment import Experiment
 from cellengine.resources.fcs_file import FcsFile
+from cellengine.resources.folder import Folder
 from cellengine.resources.gate import (
     EllipseGate,
     Gate,
