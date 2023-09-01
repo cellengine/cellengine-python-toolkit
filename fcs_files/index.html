@@ -1059,12 +1059,29 @@ metadata such as the panel and annotations.</p>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
+      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
   </span>
 
 </h3>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Examples:</p>
+<p>Getting an annotation value:
+<div class="highlight"><pre><span></span><code><span class="nb">next</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">annotations</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;my_anno&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Appending an annotation:
+<div class="highlight"><pre><span></span><code><span class="n">file</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;my_anno&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;my_value&quot;</span><span class="p">})</span>
+</code></pre></div></p>
+<p>Modifying an annotation:
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">anno</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">annotations</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">anno</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;my_anno&quot;</span><span class="p">:</span>
+        <span class="n">anno</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;new_value&quot;</span>
+</code></pre></div></p>
+<p>Removing an annotation:
+<div class="highlight"><pre><span></span><code><span class="n">file</span><span class="o">.</span><span class="n">annotations</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">annotations</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;my_anno&quot;</span><span class="p">]</span>
+</code></pre></div></p>
   </div>
 
 </div>
