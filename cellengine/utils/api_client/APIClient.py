@@ -71,9 +71,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def __init__(self, username=None, password=None, token=None):
         super(APIClient, self).__init__()
-        self.base_url = os.environ.get(
-            "CELLENGINE_BASE_URL", "https://cellengine.com/api/v1"
-        )
+        self.base_url = os.environ.get("CELLENGINE_BASE_URL", "https://cellengine.com")
         self.username = username or os.environ.get("CELLENGINE_USERNAME")
         self.password = password or os.environ.get("CELLENGINE_PASSWORD")
         self.token = token or os.environ.get("CELLENGINE_AUTH_TOKEN")
@@ -114,14 +112,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
             try:
                 res = self._post(
-                    f"{self.base_url}/signin",
+                    f"{self.base_url}/api/v1/signin",
                     {"username": self.username, "password": self.password},
                 )
             except APIError as err:
                 if '"otp" is required' in err.message:
                     otp = input("One-time code: ")
                     res = self._post(
-                        f"{self.base_url}/signin",
+                        f"{self.base_url}/api/v1/signin",
                         {
                             "username": self.username,
                             "password": self.password,
@@ -160,7 +158,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             query = "name"
 
         params = {"query": f'and(eq({query},"{name}"),eq(deleted,null))', "limit": 2}
-        res = self._get(f"{self.base_url}/{path}", params=params)
+        res = self._get(f"{self.base_url}/api/v1/{path}", params=params)
 
         if type(res) is not list:
             raise RuntimeError("Unexpected non-list response.")
@@ -189,7 +187,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def _lookup_by_name(self, path, query, name):
         params = {"query": f'and(eq({query},"{name}"),eq(deleted,null))', "limit": 2}
-        return self._get(f"{self.base_url}/{path}", params=params)
+        return self._get(f"{self.base_url}/api/v1/{path}", params=params)
 
     def _handle_response(self, response):
         if type(response) is list:
@@ -207,19 +205,19 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def update_entity(self, experiment_id, _id, entity_type, body) -> dict:
         return self._patch(
-            f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/{entity_type}/{_id}",
             json=body,
         )
 
     def delete_entity(self, experiment_id, entity_type, _id):
-        url = f"{self.base_url}/experiments/{experiment_id}/{entity_type}/{_id}"
+        url = f"{self.base_url}/api/v1/experiments/{experiment_id}/{entity_type}/{_id}"
         self._delete(url)
 
     # ------------------------------ Attachments -------------------------------
 
     def get_attachments(self, experiment_id) -> List[Attachment]:
         attachments = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/attachments"
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/attachments"
         )
         return [Attachment(attachment) for attachment in attachments]
 
@@ -227,7 +225,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """Download an attachment"""
         _id = _id or self._get_id_by_name(name, "attachments", experiment_id)
         attachment = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/attachments/{_id}",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/attachments/{_id}",
             raw=True,
         )
         return attachment
@@ -250,7 +248,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         else:  # _id is not None
             params = {"query": f'eq(_id,"{_id}")'}
             attachments = self._get(
-                f"{self.base_url}/experiments/{experiment_id}/attachments",
+                f"{self.base_url}/api/v1/experiments/{experiment_id}/attachments",
                 params=params,
             )
             if len(attachments) == 0:
@@ -270,7 +268,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Returns:
             The newly uploaded Attachment.
         """
-        url = f"{self.base_url}/experiments/{experiment_id}/attachments"
+        url = f"{self.base_url}/api/v1/experiments/{experiment_id}/attachments"
         file, headers = self._read_multipart_file(filepath, filename)
         return Attachment(self._post(url, data=file, headers=headers))
 
@@ -279,7 +277,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     ) -> None:
         """Delete an attachment"""
         _id = _id or self._get_id_by_name(name, "attachments", experiment_id)
-        self._delete(f"{self.base_url}/experiments/{experiment_id}/attachments/{_id}")
+        self._delete(
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/attachments/{_id}"
+        )
 
     # ----------------------------- Compensations ------------------------------
 
@@ -288,7 +288,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     ) -> List[Compensation]:
         # TODO Union[List[Compensation], List[Dict[str, Any]]] or get rid of as_dict
         compensations = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/compensations"
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/compensations"
         )
         if as_dict:
             return compensations
@@ -304,7 +304,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             res = self._get_by_name(name, "compensations", experiment_id)
         elif _id is not None:
             res = self._get(
-                f"{self.base_url}/experiments/{experiment_id}/compensations/{_id}"
+                f"{self.base_url}/api/v1/experiments/{experiment_id}/compensations/{_id}"  # noqa: E501
             )
         else:
             raise RuntimeError("Either _id or name must be specified.")
@@ -312,36 +312,37 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def post_compensation(self, experiment_id: str, body: Dict[str, Any]):
         res = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/compensations", json=body
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/compensations",
+            json=body,
         )
         return Compensation(res)
 
     # ------------------------------ Experiments -------------------------------
 
     def get_experiments(self) -> List[Experiment]:
-        res = self._get(f"{self.base_url}/experiments")
+        res = self._get(f"{self.base_url}/api/v1/experiments")
         return [Experiment(experiment) for experiment in res]
 
     def get_experiment(self, _id=None, name=None) -> Experiment:
         if name is not None:
             res = self._get_by_name(name, "experiments")
         elif _id is not None:
-            res = self._get(f"{self.base_url}/experiments/{_id}")
+            res = self._get(f"{self.base_url}/api/v1/experiments/{_id}")
         else:
             raise RuntimeError("Either _id or name must be specified.")
         return Experiment(res)
 
     def post_experiment(self, experiment: dict) -> Experiment:
         """Create a new experiment on CellEngine."""
-        res = self._post(f"{self.base_url}/experiments", json=experiment)
+        res = self._post(f"{self.base_url}/api/v1/experiments", json=experiment)
         return Experiment(res)
 
     def clone_experiment(self, _id, props: Dict[str, Any] = {}) -> Experiment:
-        res = self._post(f"{self.base_url}/experiments/{_id}/clone", json=props)
+        res = self._post(f"{self.base_url}/api/v1/experiments/{_id}/clone", json=props)
         return Experiment(res)
 
     def update_experiment(self, _id, body) -> Dict:
-        return self._patch(f"{self.base_url}/experiments/{_id}", json=body)
+        return self._patch(f"{self.base_url}/api/v1/experiments/{_id}", json=body)
 
     def delete_experiment(self, _id):
         """Marks the experiment as deleted.
@@ -349,12 +350,14 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Deleted experiments are permanently deleted after approximately
         7 days. Until then, deleted experiments can be recovered.
         """
-        self._delete(f"{self.base_url}/experiments/{_id}")
+        self._delete(f"{self.base_url}/api/v1/experiments/{_id}")
 
     # ------------------------------- FCS Files --------------------------------
 
     def get_fcs_files(self, experiment_id, as_dict=False) -> List[FcsFile]:
-        fcs_files = self._get(f"{self.base_url}/experiments/{experiment_id}/fcsfiles")
+        fcs_files = self._get(
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/fcsfiles"
+        )
         if as_dict:
             return fcs_files
         return [FcsFile(fcs_file) for fcs_file in fcs_files]
@@ -368,7 +371,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         # TODO this only needs to make one request to do a name lookup
         _id = _id or self._get_id_by_name(name, "fcsfiles", experiment_id)
         fcs_file = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{_id}"
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/fcsfiles/{_id}"
         )
         return FcsFile(fcs_file)
 
@@ -387,7 +390,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Returns:
             The newly-uploaded FcsFile
         """
-        url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
+        url = f"{self.base_url}/api/v1/experiments/{experiment_id}/fcsfiles"
         file, headers = self._read_multipart_file(filepath_or_data, filename)
         return FcsFile(self._post(url, data=file, headers=headers))
 
@@ -411,7 +414,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         subsampling existing file(s) from this or other experiments. Can be
         used to import files from other experiments.
         """
-        url = f"{self.base_url}/experiments/{experiment_id}/fcsfiles"
+        url = f"{self.base_url}/api/v1/experiments/{experiment_id}/fcsfiles"
         return FcsFile(self._post(url, json=body))
 
     def download_fcs_file(
@@ -471,7 +474,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             params = dict(kwargs)
 
         return self._get(
-            f"{self.base_url}/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/fcsfiles/{fcs_file_id}.fcs",  # noqa: E501
             params=params,
             raw=True,
         )
@@ -479,25 +482,25 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     # ------------------------------ Folders -------------------------------
 
     def get_folders(self) -> List[Folder]:
-        res = self._get(f"{self.base_url}/folders")
+        res = self._get(f"{self.base_url}/api/v1/folders")
         return [Folder(folder) for folder in res]
 
     def get_folder(self, _id=None, name=None) -> Folder:
         if name is not None:
             res = self._get_by_name(name, "folders")
         elif _id is not None:
-            res = self._get(f"{self.base_url}/folders/{_id}")
+            res = self._get(f"{self.base_url}/api/v1/folders/{_id}")
         else:
             raise RuntimeError("Either _id or name must be specified.")
         return Folder(res)
 
     def post_folder(self, folder: dict) -> Folder:
         """Create a new folder on CellEngine."""
-        res = self._post(f"{self.base_url}/folders", json=folder)
+        res = self._post(f"{self.base_url}/api/v1/folders", json=folder)
         return Folder(res)
 
     def update_folder(self, _id, body) -> Dict:
-        return self._patch(f"{self.base_url}/folders/{_id}", json=body)
+        return self._patch(f"{self.base_url}/api/v1/folders/{_id}", json=body)
 
     def delete_folder(self, _id):
         """Marks the folder as deleted.
@@ -505,12 +508,12 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         Deleted folders are permanently deleted after approximately
         7 days. Until then, deleted folders can be recovered.
         """
-        self._delete(f"{self.base_url}/folders/{_id}")
+        self._delete(f"{self.base_url}/api/v1/folders/{_id}")
 
     # -------------------------------- Gates -----------------------------------
 
     def get_gates(self, experiment_id, as_dict=False) -> List[Gate]:
-        gates = self._get(f"{self.base_url}/experiments/{experiment_id}/gates")
+        gates = self._get(f"{self.base_url}/api/v1/experiments/{experiment_id}/gates")
         if as_dict:
             return gates
         structured_gates = []
@@ -522,7 +525,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def get_gate(self, experiment_id: str, _id: str, as_dict: bool = False) -> Gate:
         """Gates cannot be retrieved by name."""
-        gate = self._get(f"{self.base_url}/experiments/{experiment_id}/gates/{_id}")
+        gate = self._get(
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/gates/{_id}"
+        )
         if as_dict:
             return gate
         return self._parse_gate_population(gate)[0]  # return only Gate
@@ -534,7 +539,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         params: Dict = {},
     ) -> List[Gate]:
         r = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/gates",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/gates",
             json=body,
             params=params,
         )
@@ -547,7 +552,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         params: Dict = {},
     ) -> Union[Gate, Tuple[Gate, Union[Population, List[Population], None]]]:
         r = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/gates",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/gates",
             json=body,
             params=params,
         )
@@ -595,9 +600,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
                 " To untailor gates, use the untailoring API."
             )
         if _id:
-            url = f"{self.base_url}/experiments/{experiment_id}/gates/{_id}"
+            url = f"{self.base_url}/api/v1/experiments/{experiment_id}/gates/{_id}"
         elif gid:
-            url = f"{self.base_url}/experiments/{experiment_id}/gates?gid={gid}"
+            url = f"{self.base_url}/api/v1/experiments/{experiment_id}/gates?gid={gid}"
             if exclude:
                 url = "{0}%exclude={1}".format(url, exclude)
         else:
@@ -605,7 +610,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         self._delete(url)
 
     def delete_gates(self, experiment_id: str, ids: List[str]):
-        url = f"{self.base_url}/experiments/{experiment_id}/gates/"
+        url = f"{self.base_url}/api/v1/experiments/{experiment_id}/gates/"
         [self._delete(url + _id) for _id in ids]
 
     def _parse_gate_population(
@@ -630,7 +635,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def update_gate_family(self, experiment_id, gid, body: dict = {}) -> dict:
         return self._patch(
-            f"{self.base_url}/experiments/{experiment_id}/gates?gid={gid}",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/gates?gid={gid}",
             json=body,
         )
 
@@ -639,7 +644,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
     ) -> ApplyTailoringRes:
         """Tailor a gate to a file or files."""
         return self._post(
-            f"{self.base_url}/experiments/{experiment_id}/gates/applyTailored",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/gates/applyTailored",
             params={"gid": gate.gid},
             json={"gate": gate._properties, "fcsFileIds": fcs_file_ids},
         )
@@ -674,7 +679,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             req_params.update(properties)
 
         data = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/plot",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/plot",
             params=req_params,
             raw=True,
         )
@@ -696,20 +701,20 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def get_populations(self, experiment_id) -> List[Population]:
         populations: List[Dict[str, Any]] = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/populations"
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/populations"
         )
         return [Population(pop) for pop in populations]
 
     def get_population(self, experiment_id, _id=None, name=None) -> Population:
         _id = _id or self._get_id_by_name(name, "populations", experiment_id)
         population = self._get(
-            f"{self.base_url}/experiments/{experiment_id}/populations/{_id}"
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/populations/{_id}"
         )
         return Population(population)
 
     def post_population(self, experiment_id, population: Dict[str, Any]) -> Population:
         res = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/populations",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/populations",
             json=population,
         )
         return Population(res)
@@ -718,9 +723,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
 
     def get_scaleset(self, experiment_id: str) -> ScaleSet:
         """Get the scaleset for an experiment."""
-        scaleset = self._get(f"{self.base_url}/experiments/{experiment_id}/scalesets")[
-            0
-        ]
+        scaleset = self._get(
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/scalesets"
+        )[0]
         return ScaleSet(scaleset)
 
     # ------------------------------ Statistics --------------------------------
@@ -797,7 +802,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         req_params = {key: val for key, val in params.items() if val is not None}
 
         raw_stats = self._post(
-            f"{self.base_url}/experiments/{experiment_id}/bulkstatistics",
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/bulkstatistics",
             json=req_params,
             raw=True,
         )

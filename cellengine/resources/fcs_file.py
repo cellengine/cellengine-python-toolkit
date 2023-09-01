@@ -144,7 +144,7 @@ class FcsFile:
         if "spillString" not in self._properties and self.has_file_internal_comp:
             base_url = ce.APIClient().base_url
             self._properties["spillString"] = ce.APIClient()._get(
-                f"{base_url}/experiments/{self.experiment_id}/fcsfiles/{self._id}"
+                f"{base_url}/api/v1/experiments/{self.experiment_id}/fcsfiles/{self._id}"  # noqa: E501
             )["spillString"]
         return self._properties["spillString"]
 
@@ -154,7 +154,7 @@ class FcsFile:
         if "header" not in self._properties:
             base_url = ce.APIClient().base_url
             self._properties["header"] = ce.APIClient()._get(
-                f"{base_url}/experiments/{self.experiment_id}/fcsfiles/{self._id}"
+                f"{base_url}/api/v1/experiments/{self.experiment_id}/fcsfiles/{self._id}"  # noqa: E501
             )["header"]
         return json.loads(self._properties["header"])
 
