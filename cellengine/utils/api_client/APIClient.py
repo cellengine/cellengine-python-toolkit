@@ -162,9 +162,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
             raise RuntimeError("Unexpected non-list response.")
 
         if len(res) == 0:
-            raise RuntimeError("Resource with the name '{}' does not exist.")
+            raise RuntimeError(f"Resource with the name '{name}' does not exist.")
         elif len(res) > 1:
-            raise RuntimeError("More than one resource with the name '{}' exists.")
+            raise RuntimeError(f"More than one resource with the name '{name}' exists.")
         return res[0]
 
     @lru_cache(maxsize=None)
@@ -195,6 +195,7 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return response[0]
 
     def _handle_list(self, response: List) -> None:
+        # FIXME these are supposed to be f-strings
         if len(response) == 0:
             raise RuntimeError("Resource with the name '{}' does not exist.")
         elif len(response) > 1:
