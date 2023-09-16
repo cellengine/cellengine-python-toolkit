@@ -24,7 +24,7 @@ setup(
     name="cellengine",
     version="1.0.0",  # update this in cellengine/__init__.py as well
     description="CellEngine API toolkit for Python",
-    url="https://github.com/primitybio/cellengine-python-toolkit",
+    url="https://github.com/cellengine/cellengine-python-toolkit",
     author="CellCarta",
     author_email="support@cellengine.com",
     license="MIT",
@@ -41,7 +41,7 @@ setup(
     platforms="Posix; MacOS X; Windows",
     install_requires=[
         "flowio~=1.0",
-        "flowio @ git+https://github.com/primitybio/FlowIO.git@next",
+        "flowio @ git+https://github.com/cellengine/FlowIO.git@next",
         "numpy~=1.17",
         "pandas~=1.1",
         "requests~=2.22",

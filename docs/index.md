@@ -7,7 +7,7 @@ API documentation visit [here](https://docs.cellengine.com/api/).
 Install `cellengine` using `pip` from GitHub:
 
 ```bash
-pip install git+https://github.com/primitybio/cellengine-python-toolkit.git
+pip install git+https://github.com/cellengine/cellengine-python-toolkit.git
 ```
 
 ### Authentication
@@ -73,5 +73,5 @@ experiment.attachments  # returns []
 ```
 
 ## More Help
-* [GitHub Issues](https://github.com/PrimityBio/cellengine-python-toolkit/issues)
+* [GitHub Issues](https://github.com/cellengine/cellengine-python-toolkit/issues)
 * [CellEngine API](https://docs.cellengine.com/api/)

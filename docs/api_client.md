@@ -35,7 +35,7 @@ CellEngine. It also provides `_get`, `_post`, `_patch`, and `_delete` methods
 for low-level interaction with the [CellEngine
 API](https://docs.cellengine.com/api/). If there is a higher-level feature
 that's missing, please feel free to [open an Issue in
-GitHub](https://github.com/primitybio/cellengine-python-toolkit/issues).
+GitHub](https://github.com/cellengine/cellengine-python-toolkit/issues).
 
 ## Properties
 - `base_url` (to override the cellengine.com URL, generally for internal use)
