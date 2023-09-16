@@ -60,9 +60,6 @@ plugins:
             filters:
               - "!^__[^__]"
               - "!^_"
-      watch:
-        - cellengine
-        - docs
 
 markdown_extensions:
   - admonition
