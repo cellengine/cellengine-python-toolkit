@@ -590,7 +590,8 @@ class FcsFile:
         use [`fcs_file.channel_for_reagent(reagent)`][cellengine.resources.fcs_file.FcsFile.channel_for_reagent].
 
         Args:
-            inplace: bool
+            inplace: If `True`, updates the `events` property of this `FcsFile`.
+            destination: If provided, the file will be saved to the given path.
             **kwargs:
                 - compensatedQ (bool): If `True`, applies the compensation
                     specified in compensationId to the exported events.

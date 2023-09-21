@@ -38,8 +38,7 @@ class Folder:
 
     @property
     def deleted(self) -> Union[datetime, None]:
-        """If the folder is soft-deleted, the date on which it was soft-deleted.
-        """
+        """If the folder is soft-deleted, the date on which it was soft-deleted."""
         deleted = self._properties["deleted"]
         return timestamp_to_datetime(deleted) if deleted else None
 
