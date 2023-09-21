@@ -1103,7 +1103,7 @@ metadata such as the panel and annotations.</p>
 
   <div class="doc doc-contents ">
   
-      <p>Return all channels in the file</p>
+      <p>Return all channels in the file.</p>
   </div>
 
 </div>
@@ -1124,6 +1124,9 @@ metadata such as the panel and annotations.</p>
 
 
   <div class="doc doc-contents ">
+  
+      <p>Used with per-file compensation to indicate the compensation to apply
+to this file.</p>
   </div>
 
 </div>
@@ -1144,6 +1147,8 @@ metadata such as the panel and annotations.</p>
 
 
   <div class="doc doc-contents ">
+  
+      <p>The CRC32c sum for the file, hex-encoded, per RFC 4960 Appendix B.</p>
   </div>
 
 </div>
@@ -1185,6 +1190,9 @@ metadata such as the panel and annotations.</p>
 
 
   <div class="doc doc-contents ">
+  
+      <p>If set, the file has been soft-deleted and may be permanently deleted
+later.</p>
   </div>
 
 </div>
@@ -1205,6 +1213,8 @@ metadata such as the panel and annotations.</p>
 
 
   <div class="doc doc-contents ">
+  
+      <p>The number of events (rows) in the file.</p>
   </div>
 
 </div>
@@ -1273,6 +1283,8 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>The filename.</p>
   </div>
 
 </div>
@@ -1294,6 +1306,8 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>If true, no gates that apply to this file can be changed.</p>
   </div>
 
 </div>
@@ -1314,6 +1328,9 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>Whether or not this file has a valid file-internal compensation
+matrix.</p>
   </div>
 
 </div>
@@ -1378,6 +1395,10 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>Whether or not this is a control file. Control files are hidden from
+most of the Web UI, and can be used to exclude compensation or
+calibration beads from analysis, for example.</p>
   </div>
 
 </div>
@@ -1398,6 +1419,8 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>The MD5 sum for the file, hex-encoded.</p>
   </div>
 
 </div>
@@ -1461,6 +1484,9 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>The name of the file's panel. Files with the same panelName are
+grouped into a panel.</p>
   </div>
 
 </div>
@@ -1481,6 +1507,8 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>The sample name extracted from the file header.</p>
   </div>
 
 </div>
@@ -1501,6 +1529,8 @@ subsampling, compensation and/or gating to a specific population, use
 
 
   <div class="doc doc-contents ">
+  
+      <p>The number of bytes in the file.</p>
   </div>
 
 </div>
@@ -1522,7 +1552,9 @@ subsampling, compensation and/or gating to a specific population, use
 
   <div class="doc doc-contents ">
   
-      <p>Note: this property may be fetched lazily.</p>
+      <p>The file-internal compensation, if present (see
+<code>has_file_internal_comp</code>). Note: this property may be fetched lazily due
+to its size.</p>
   </div>
 
 </div>
