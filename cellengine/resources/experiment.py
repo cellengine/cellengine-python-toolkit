@@ -324,8 +324,8 @@ class Experiment:
 
         Example:
         ```py
-        experiment.update({"name": "New Name"})
-        assert experiment.name == "New Name"
+        experiment.name = "New Name"
+        experiment.update()
         ```
         """
         update_properties = {key: self._properties[key] for key in self._changes}
