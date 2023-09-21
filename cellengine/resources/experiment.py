@@ -485,10 +485,19 @@ class Experiment:
         """List all gates on the experiment."""
         return ce.APIClient().get_gates(self._id)
 
-    def get_gate(self, _id: Optional[str] = None, name: Optional[str] = None) -> Gate:
-        """Get a specific gate."""
-        kwargs = {"name": name} if name else {"_id": _id}
-        return ce.APIClient().get_gate(self._id, **kwargs)
+    def get_gate(self, _id: str) -> Gate:
+        """Get a specific gate.
+
+        Gates cannot be retrieved by name because all gates in a group of
+        tailored gates have the same name, and because compound gates have a
+        `names` property instead of a `name` property. Instead, you can filter
+        the list of gates as follows to find a simple (not compound) gate:
+
+        ```py
+        [g for g in experiment.gates if g.name == "my gate"]
+        ```
+        """
+        return ce.APIClient().get_gate(self._id, _id=_id)
 
     def create_gates(self, gates: List):
         """Save a collection of gate objects."""

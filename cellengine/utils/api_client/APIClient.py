@@ -524,7 +524,9 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return structured_gates
 
     def get_gate(self, experiment_id: str, _id: str, as_dict: bool = False) -> Gate:
-        """Gates cannot be retrieved by name."""
+        """Gates cannot be retrieved by name because all gates in a group of
+        tailored gates have the same name, and because compound gates have a
+        `names` property instead of a `name` property."""
         gate = self._get(
             f"{self.base_url}/api/v1/experiments/{experiment_id}/gates/{_id}"
         )

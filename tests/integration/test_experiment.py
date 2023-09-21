@@ -1,3 +1,4 @@
+import json
 import uuid
 import pytest
 from typing import Iterator, Union, List, Dict
@@ -16,7 +17,9 @@ from cellengine.resources.population import Population
 @pytest.fixture()
 def full_experiment(
     blank_experiment: Experiment,
-) -> Iterator[Dict[str, Union[Experiment, Compensation, List[FcsFile]]]]:
+) -> Iterator[
+    Dict[str, Union[Experiment, Compensation, List[FcsFile], Attachment, Gate]]
+]:
     comp = blank_experiment.create_compensation(
         name="test_comp",
         channels=["Blue530-A", "Vio450-A"],
@@ -31,10 +34,35 @@ def full_experiment(
         "tests/data/Specimen_001_A2_A02_MeOHperm(DL350neg).fcs"
     )
 
+    att = blank_experiment.upload_attachment("tests/data/text.txt")
+
+    gate = blank_experiment.create_rectangle_gate(
+        name="test gate",
+        x_channel="FSC-A",
+        y_channel="SSC-A",
+        x1=10,
+        x2=100000,
+        y1=10,
+        y2=100000,
+        create_population=False,
+    )
+
+    pop = blank_experiment.create_population(
+        {
+            "name": "Pop 1",
+            "gates": json.dumps({"$and": [gate.gid]}),
+            "parent_id": None,
+            "terminal_gate_gid": gate.gid,
+        }
+    )
+
     yield {
         "experiment": blank_experiment,
         "compensation": comp,
         "fcs_files": [file1, file2],
+        "attachment": att,
+        "gate": gate,
+        "population": pop,
     }
 
 
@@ -162,6 +190,8 @@ def test_get_one_entity(
             assert str(ent.__module__) == "cellengine.resources.gate"
         else:
             assert type(ent) is _type
+    else:
+        raise Warning("No entities of type {} to test".format(entity))
 
 
 def test_get_statistics(full_experiment):
