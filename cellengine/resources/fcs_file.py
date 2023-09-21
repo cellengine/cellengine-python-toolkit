@@ -62,6 +62,7 @@ class FcsFile:
 
     @property
     def filename(self) -> str:
+        """The filename."""
         return self._properties["filename"]
 
     @filename.setter
@@ -80,18 +81,22 @@ class FcsFile:
 
     @property
     def md5(self) -> str:
+        """The MD5 sum for the file, hex-encoded."""
         return self._properties["md5"]
 
     @property
     def crc32c(self) -> str:
+        """The CRC32c sum for the file, hex-encoded, per RFC 4960 Appendix B."""
         return self._properties["crc32c"]
 
     @property
     def size(self) -> int:
+        """The number of bytes in the file."""
         return self._properties["size"]
 
     @property
     def gates_locked(self) -> bool:
+        """If true, no gates that apply to this file can be changed."""
         return self._properties["gatesLocked"]
 
     @gates_locked.setter
@@ -101,6 +106,8 @@ class FcsFile:
 
     @property
     def deleted(self) -> Union[datetime, None]:
+        """If set, the file has been soft-deleted and may be permanently deleted
+        later."""
         deleted = self._properties["deleted"]
         return timestamp_to_datetime(deleted) if deleted else None
 
@@ -113,10 +120,15 @@ class FcsFile:
 
     @property
     def is_control(self) -> bool:
+        """Whether or not this is a control file. Control files are hidden from
+        most of the Web UI, and can be used to exclude compensation or
+        calibration beads from analysis, for example."""
         return self._properties["isControl"]
 
     @property
     def panel_name(self) -> str:
+        """The name of the file's panel. Files with the same panelName are
+        grouped into a panel."""
         return self._properties["panelName"]
 
     @property
@@ -125,6 +137,8 @@ class FcsFile:
 
     @property
     def compensation(self) -> Union[FileCompensations, None]:
+        """Used with per-file compensation to indicate the compensation to apply
+        to this file."""
         return self._properties["compensation"]
 
     @property
@@ -163,15 +177,20 @@ class FcsFile:
 
     @property
     def event_count(self) -> int:
+        """The number of events (rows) in the file."""
         return self._properties["eventCount"]
 
     @property
     def has_file_internal_comp(self) -> bool:
+        """Whether or not this file has a valid file-internal compensation
+        matrix."""
         return self._properties["hasFileInternalComp"]
 
     @property
     def spill_string(self) -> str:
-        """Note: this property may be fetched lazily."""
+        """The file-internal compensation, if present (see
+        `has_file_internal_comp`). Note: this property may be fetched lazily due
+        to its size."""
         if "spillString" not in self._properties and self.has_file_internal_comp:
             base_url = ce.APIClient().base_url
             self._properties["spillString"] = ce.APIClient()._get(
@@ -195,6 +214,7 @@ class FcsFile:
 
     @property
     def sample_name(self) -> Optional[str]:
+        """The sample name extracted from the file header."""
         return self._properties["sampleName"]
 
     def __repr__(self):
@@ -202,7 +222,7 @@ class FcsFile:
 
     @property
     def channels(self) -> List[str]:
-        """Return all channels in the file"""
+        """Return all channels in the file."""
         return [f["channel"] for f in self.panel]
 
     def channel_for_reagent(self, reagent: str) -> Union[str, None]:

@@ -32,11 +32,14 @@ class Folder:
 
     @property
     def created(self) -> datetime:
+        """The date on which the folder was created."""
         created = self._properties["created"]
         return timestamp_to_datetime(created)
 
     @property
     def deleted(self) -> Union[datetime, None]:
+        """If the folder is soft-deleted, the date on which it was soft-deleted.
+        """
         deleted = self._properties["deleted"]
         return timestamp_to_datetime(deleted) if deleted else None
 
@@ -53,6 +56,7 @@ class Folder:
 
     @property
     def path(self) -> List[str]:
+        """The list of IDs of parent folders."""
         return self._properties["path"]
 
     @path.setter
@@ -68,7 +72,7 @@ class Folder:
 
     @classmethod
     def get(cls, _id: Optional[str] = None, name: Optional[str] = None) -> Folder:
-        """Get a Folder name or ID. Either `name` or `_id` must be specified.
+        """Get a Folder by name or ID. Either `name` or `_id` must be specified.
 
         Args:
             _id (optional): ID of the folder.
@@ -79,7 +83,7 @@ class Folder:
 
     @staticmethod
     def create(name: str, path: Optional[List[str]] = []) -> Folder:
-        """Create a folder.
+        """Creates a folder.
 
         Args:
             name (str): Name of the folder
