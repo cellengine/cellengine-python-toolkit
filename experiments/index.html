@@ -2892,8 +2892,9 @@ for more information.</p>
   
       <p>Get a specific gate.</p>
 <p>Gates cannot be retrieved by name because all gates in a group of
-tailored gates have the same name. Instead, you can filter the list of
-gates as follows:</p>
+tailored gates have the same name, and because compound gates have a
+<code>names</code> property instead of a <code>name</code> property. Instead, you can filter
+the list of gates as follows to find a simple (not compound) gate:</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">experiment</span><span class="o">.</span><span class="n">gates</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;my gate&quot;</span><span class="p">]</span>
 </code></pre></div>
 
