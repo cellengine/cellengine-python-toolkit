@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://cellengine.github.io/cellengine-python-toolkit/experiments/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-7.3.6">
     
     
       
@@ -2883,7 +2883,7 @@ for more information.</p>
 
 
 <h3 id="cellengine.resources.experiment.Experiment.get_gate" class="doc doc-heading">
-          <code class=" language-python"><span class="n">get_gate</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+          <code class=" language-python"><span class="n">get_gate</span><span class="p">(</span><span class="n">_id</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2891,6 +2891,11 @@ for more information.</p>
   <div class="doc doc-contents ">
   
       <p>Get a specific gate.</p>
+<p>Gates cannot be retrieved by name because all gates in a group of
+tailored gates have the same name. Instead, you can filter the list of
+gates as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">experiment</span><span class="o">.</span><span class="n">gates</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;my gate&quot;</span><span class="p">]</span>
+</code></pre></div>
 
   </div>
 
