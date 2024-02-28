@@ -1,4 +1,4 @@
-class APIError(BaseException):
+class APIError(Exception):
     """Raised when the CellEngine API responds with an error."""
 
     url: str
