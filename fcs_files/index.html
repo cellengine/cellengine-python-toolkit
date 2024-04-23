@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://cellengine.github.io/cellengine-python-toolkit/fcs_files/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-7.3.6">
     
     
       
@@ -1612,7 +1612,7 @@ must also be present in the other FCS files.</p>
 
 
 
-  <p><strong>Parameters:</strong></p>
+  <p><span class="doc-section-title">Parameters:</span></p>
   <table>
     <thead>
       <tr>
@@ -1623,7 +1623,7 @@ must also be present in the other FCS files.</p>
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>experiment_id</code></td>
           <td>
                 <code>str</code>
@@ -1637,7 +1637,7 @@ must also be present in the other FCS files.</p>
               <em>required</em>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>fcs_files</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str], <span title="typing.Dict">Dict</span>[str, str]]]</code>
@@ -1657,7 +1657,7 @@ and <code>"path"</code>; if the S3 object is private, additionally provide
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>filename</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
@@ -1671,7 +1671,7 @@ and <code>"path"</code>; if the S3 object is private, additionally provide
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>add_file_number</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[bool]</code>
@@ -1686,7 +1686,7 @@ to the resulting file.</p>
                 <code>False</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>add_event_number</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[bool]</code>
@@ -1703,7 +1703,7 @@ will appear more than once.</p>
                 <code>False</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>pre_subsample_n</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[int]</code>
@@ -1718,7 +1718,7 @@ events.</p>
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>pre_subsample_p</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[float]</code>
@@ -1733,7 +1733,7 @@ of events (0 to 1).</p>
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>seed</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[int]</code>
@@ -1754,7 +1754,7 @@ pseudo-random value is used.</p>
 
 
 
-  <p><strong>Returns:</strong></p>
+  <p><span class="doc-section-title">Returns:</span></p>
   <table>
     <thead>
       <tr>
@@ -1763,7 +1763,7 @@ pseudo-random value is used.</p>
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
           <td>
                 <code><a class="autorefs autorefs-internal" title="cellengine.resources.fcs_file.FcsFile" href="#cellengine.resources.fcs_file.FcsFile">FcsFile</a></code>
           </td>
@@ -1822,7 +1822,7 @@ FCS file values.</p>
 
 
 
-<p><strong>Examples:</strong></p>
+<p><span class="doc-section-title">Examples:</span></p>
     <p>With reagents specified in a multi-level index:
 <div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
@@ -1940,7 +1940,7 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
 
 
 
-  <p><strong>Parameters:</strong></p>
+  <p><span class="doc-section-title">Parameters:</span></p>
   <table>
     <thead>
       <tr>
@@ -1951,7 +1951,7 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>inplace</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[bool]</code>
@@ -1965,7 +1965,7 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
                 <code>False</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>destination</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
@@ -1979,7 +1979,7 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>**kwargs</code></td>
           <td>
                 <code><span title="typing.Any">Any</span></code>
@@ -2042,7 +2042,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
 
 
-  <p><strong>Returns:</strong></p>
+  <p><span class="doc-section-title">Returns:</span></p>
   <table>
     <thead>
       <tr>
@@ -2051,7 +2051,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
 <td><code>DataFrame</code></td>          <td>
                 <code><span title="typing.Union">Union</span>[<span title="pandas.core.frame.DataFrame">DataFrame</span>, None]</code>
           </td>
@@ -2061,7 +2061,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
 <td></td>          <td>
                 <code><span title="typing.Union">Union</span>[<span title="pandas.core.frame.DataFrame">DataFrame</span>, None]</code>
           </td>
@@ -2071,7 +2071,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
 <td></td>          <td>
                 <code><span title="typing.Union">Union</span>[<span title="pandas.core.frame.DataFrame">DataFrame</span>, None]</code>
           </td>
@@ -2170,7 +2170,7 @@ include all channels in the file.</p>
 
 
 
-  <p><strong>Parameters:</strong></p>
+  <p><span class="doc-section-title">Parameters:</span></p>
   <table>
     <thead>
       <tr>
@@ -2181,7 +2181,7 @@ include all channels in the file.</p>
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>experiment_id</code></td>
           <td>
                 <code>str</code>
@@ -2195,7 +2195,7 @@ include all channels in the file.</p>
               <em>required</em>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>filepath</code></td>
           <td>
                 <code>str</code>
