@@ -262,7 +262,7 @@ class FcsFile:
         experiment_id: str,
         filename: str,
         df: DataFrame,
-        reagents: Optional[List[str]] = None,
+        reagents: Optional[List[Union[str, None]]] = None,
         headers: Dict[str, str] = {},
     ) -> FcsFile:
         """Creates an FCS file from a DataFrame and uploads it CellEngine.
@@ -361,6 +361,8 @@ class FcsFile:
             channels = df.columns.get_level_values(0).tolist()
             if reagents is None:
                 reagents = df.columns.get_level_values(1).tolist()
+                # Filter out nan values. An Index will cast None to float (nan).
+                reagents = [r if r == r else None for r in reagents]
         else:
             channels = df.columns
 

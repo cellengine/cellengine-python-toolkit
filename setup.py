@@ -40,8 +40,7 @@ setup(
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
-        "flowio~=1.0",
-        "flowio @ git+https://github.com/cellengine/FlowIO.git@next",
+        "flowio~=1.1",
         "numpy~=1.17",
         "pandas~=1.1",
         "requests~=2.22",
