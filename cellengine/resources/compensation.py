@@ -137,8 +137,7 @@ class Compensation:
         channels: List[str],
         spill_matrix: List[float],
         dataframe: Optional[None],
-    ) -> Compensation:
-        ...
+    ) -> Compensation: ...
 
     @overload
     @classmethod
@@ -148,8 +147,7 @@ class Compensation:
         name: str,
         *,
         dataframe: DataFrame,
-    ) -> Compensation:
-        ...
+    ) -> Compensation: ...
 
     @classmethod
     def create(
@@ -230,14 +228,12 @@ class Compensation:
         return self.dataframe._repr_html_()
 
     @overload
-    def apply(self, file: FcsFile, inplace: Literal[True] = ..., **kwargs) -> None:
-        ...
+    def apply(self, file: FcsFile, inplace: Literal[True] = ..., **kwargs) -> None: ...
 
     @overload
     def apply(
         self, file: FcsFile, inplace: Literal[False] = ..., **kwargs
-    ) -> DataFrame:
-        ...
+    ) -> DataFrame: ...
 
     def apply(
         self, file: FcsFile, inplace: Optional[bool] = True, **kwargs

@@ -353,9 +353,9 @@ class FcsFile:
         """
 
         if "$COM" not in headers:
-            headers[
-                "$COM"
-            ] = f"Created by the CellEngine Python Toolkit v{ce.__version__}"
+            headers["$COM"] = (
+                f"Created by the CellEngine Python Toolkit v{ce.__version__}"
+            )
 
         if df.columns.nlevels > 1:
             channels = df.columns.get_level_values(0).tolist()
@@ -565,8 +565,7 @@ class FcsFile:
         inplace: Optional[bool] = ...,
         destination: None = ...,
         **kwargs: Any,
-    ) -> DataFrame:
-        ...
+    ) -> DataFrame: ...
 
     @overload
     def get_events(
@@ -574,8 +573,7 @@ class FcsFile:
         inplace: Optional[bool] = ...,
         destination: str = ...,
         **kwargs: Any,
-    ) -> None:
-        ...
+    ) -> None: ...
 
     def get_events(
         self,

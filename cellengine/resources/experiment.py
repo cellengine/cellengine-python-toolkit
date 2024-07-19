@@ -420,8 +420,7 @@ class Experiment:
     @overload
     def create_compensation(
         self, name: str, channels: List[str], spill_matrix: List[float]
-    ) -> Compensation:
-        ...
+    ) -> Compensation: ...
 
     @overload
     def create_compensation(
@@ -429,8 +428,7 @@ class Experiment:
         name: str,
         *,
         dataframe: DataFrame,
-    ) -> Compensation:
-        ...
+    ) -> Compensation: ...
 
     def create_compensation(
         self,
@@ -523,14 +521,12 @@ class Experiment:
     @overload
     def create_rectangle_gate(
         self, *args, create_population: Literal[True], **kwargs
-    ) -> Tuple[RectangleGate, Population]:
-        ...
+    ) -> Tuple[RectangleGate, Population]: ...
 
     @overload
     def create_rectangle_gate(
         self, *args, create_population: Literal[False], **kwargs
-    ) -> RectangleGate:
-        ...
+    ) -> RectangleGate: ...
 
     def create_rectangle_gate(
         self, *args, create_population: bool = True, **kwargs
@@ -550,14 +546,12 @@ class Experiment:
     @overload
     def create_polygon_gate(
         self, *args, create_population: Literal[True], **kwargs
-    ) -> Tuple[PolygonGate, Population]:
-        ...
+    ) -> Tuple[PolygonGate, Population]: ...
 
     @overload
     def create_polygon_gate(
         self, *args, create_population: Literal[False], **kwargs
-    ) -> PolygonGate:
-        ...
+    ) -> PolygonGate: ...
 
     def create_polygon_gate(
         self, *args, create_population: bool = True, **kwargs
@@ -577,14 +571,12 @@ class Experiment:
     @overload
     def create_ellipse_gate(
         self, *args, create_population: Literal[True], **kwargs
-    ) -> Tuple[EllipseGate, Population]:
-        ...
+    ) -> Tuple[EllipseGate, Population]: ...
 
     @overload
     def create_ellipse_gate(
         self, *args, create_population: Literal[False], **kwargs
-    ) -> EllipseGate:
-        ...
+    ) -> EllipseGate: ...
 
     def create_ellipse_gate(
         self, *args, create_population: bool = True, **kwargs
@@ -604,14 +596,12 @@ class Experiment:
     @overload
     def create_range_gate(
         self, *args, create_population: Literal[True], **kwargs
-    ) -> Tuple[RangeGate, Population]:
-        ...
+    ) -> Tuple[RangeGate, Population]: ...
 
     @overload
     def create_range_gate(
         self, *args, create_population: Literal[False], **kwargs
-    ) -> RangeGate:
-        ...
+    ) -> RangeGate: ...
 
     def create_range_gate(
         self, *args, create_population: bool = True, **kwargs
@@ -646,14 +636,12 @@ class Experiment:
     @overload
     def create_quadrant_gate(
         self, *args, create_population: Literal[True], **kwargs
-    ) -> Tuple[QuadrantGate, List[Population]]:
-        ...
+    ) -> Tuple[QuadrantGate, List[Population]]: ...
 
     @overload
     def create_quadrant_gate(
         self, *args, create_population: Literal[False], **kwargs
-    ) -> QuadrantGate:
-        ...
+    ) -> QuadrantGate: ...
 
     def create_quadrant_gate(
         self, *args, create_population: bool = True, **kwargs

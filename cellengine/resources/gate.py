@@ -250,8 +250,7 @@ class RectangleGate(SimpleGate):
         fcs_file: Optional[str] = None,
         create_population: Literal[True] = True,
         parent_population_id: Optional[str] = None,
-    ) -> Tuple[RectangleGate, Population]:
-        ...
+    ) -> Tuple[RectangleGate, Population]: ...
 
     @overload
     @classmethod
@@ -272,8 +271,7 @@ class RectangleGate(SimpleGate):
         fcs_file_id: Optional[str] = None,
         fcs_file: Optional[str] = None,
         create_population: Literal[False] = False,
-    ) -> RectangleGate:
-        ...
+    ) -> RectangleGate: ...
 
     @classmethod
     def create(
@@ -418,8 +416,7 @@ class PolygonGate(SimpleGate):
         fcs_file: Optional[str] = None,
         create_population: Literal[True] = True,
         parent_population_id: Optional[str] = None,  # TODO Ungated
-    ) -> Tuple[PolygonGate, Population]:
-        ...
+    ) -> Tuple[PolygonGate, Population]: ...
 
     @overload
     @classmethod
@@ -437,8 +434,7 @@ class PolygonGate(SimpleGate):
         fcs_file_id: Optional[str] = None,
         fcs_file: Optional[str] = None,
         create_population: Literal[False] = False,
-    ) -> PolygonGate:
-        ...
+    ) -> PolygonGate: ...
 
     @classmethod
     def create(
@@ -571,8 +567,7 @@ class EllipseGate(SimpleGate):
         fcs_file: Optional[str] = None,
         create_population: Literal[True] = True,
         parent_population_id: Optional[str] = None,  # TODO Ungated
-    ) -> Tuple[EllipseGate, Population]:
-        ...
+    ) -> Tuple[EllipseGate, Population]: ...
 
     @overload
     @classmethod
@@ -593,8 +588,7 @@ class EllipseGate(SimpleGate):
         fcs_file_id: Optional[str] = None,
         fcs_file: Optional[str] = None,
         create_population: Literal[False] = False,
-    ) -> EllipseGate:
-        ...
+    ) -> EllipseGate: ...
 
     @classmethod
     def create(
@@ -751,8 +745,7 @@ class RangeGate(SimpleGate):
         fcs_file: Optional[str] = None,
         create_population: Literal[True] = True,
         parent_population_id: Optional[str] = None,
-    ) -> Tuple[RangeGate, Population]:
-        ...
+    ) -> Tuple[RangeGate, Population]: ...
 
     @overload
     @classmethod
@@ -771,8 +764,7 @@ class RangeGate(SimpleGate):
         fcs_file_id: Optional[str] = None,
         fcs_file: Optional[str] = None,
         create_population: Literal[False] = False,
-    ) -> RangeGate:
-        ...
+    ) -> RangeGate: ...
 
     @classmethod
     def create(
@@ -915,8 +907,7 @@ class QuadrantGate(CompoundGate):
         fcs_file: Optional[str] = None,
         create_population: Literal[True] = True,
         parent_population_id: Optional[str] = None,  # TODO Ungated
-    ) -> Tuple[QuadrantGate, List[Population]]:
-        ...
+    ) -> Tuple[QuadrantGate, List[Population]]: ...
 
     @overload
     @classmethod
@@ -938,8 +929,7 @@ class QuadrantGate(CompoundGate):
         fcs_file_id: Optional[str] = None,
         fcs_file: Optional[str] = None,
         create_population: Literal[False] = False,
-    ) -> QuadrantGate:
-        ...
+    ) -> QuadrantGate: ...
 
     @classmethod
     def create(
@@ -1134,8 +1124,7 @@ class SplitGate(CompoundGate):
         fcs_file: Optional[str] = None,
         create_population: Literal[True] = True,
         parent_population_id: Optional[str] = None,  # TODO Ungated
-    ) -> Tuple[SplitGate, List[Population]]:
-        ...
+    ) -> Tuple[SplitGate, List[Population]]: ...
 
     @overload
     @classmethod
@@ -1154,8 +1143,7 @@ class SplitGate(CompoundGate):
         fcs_file_id: Optional[str] = None,
         fcs_file: Optional[str] = None,
         create_population: Literal[False] = False,
-    ) -> SplitGate:
-        ...
+    ) -> SplitGate: ...
 
     @classmethod
     def create(
