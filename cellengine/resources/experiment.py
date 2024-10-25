@@ -508,7 +508,14 @@ class Experiment:
 
     def create_gates(self, gates: List):
         """Save a collection of gate objects."""
-        return Gate.bulk_create(self._id, gates)
+        for gate in gates:
+            gate["experiment_id"] = self._id
+        formatted_gates = [Gate._format_gate(gate) for gate in gates]
+        return ce.APIClient().post_gates(
+            self._id,
+            formatted_gates,
+            {"create_population": False},
+        )
 
     def delete_gate(
         self,

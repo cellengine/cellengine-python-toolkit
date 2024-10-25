@@ -240,3 +240,24 @@ def test_update_experiment(blank_experiment):
     blank_experiment.name = "new name"
     blank_experiment.update()
     assert blank_experiment.name == "new name"
+
+
+def test_create_gates(full_experiment):
+    full_experiment["experiment"].create_gates(
+        [
+            {
+                "type": "RectangleGate",
+                "name": "rect",
+                "model": {
+                    "rectangle": {
+                        "x1": -1.16,
+                        "y1": 2284526,
+                        "x2": -0.7123,
+                        "y2": 2893493,
+                    }
+                },
+                "x_channel": "BUV805-A",
+                "y_channel": "FSC-H",
+            }
+        ]
+    )
