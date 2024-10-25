@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://cellengine.github.io/cellengine-python-toolkit/compensations/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-7.3.6">
     
     
       
@@ -845,7 +845,7 @@ otherwise noted.</p>
 
     <div class="doc doc-contents first">
 
-      <p>Apply no compensation.</p>
+        <p>Apply no compensation.</p>
     </div>
 
 </div>
@@ -866,7 +866,7 @@ otherwise noted.</p>
 
     <div class="doc doc-contents first">
 
-      <p>Use the file's internal compensation matrix, if available. If not available, an
+        <p>Use the file's internal compensation matrix, if available. If not available, an
 error will be returned from API requests.</p>
     </div>
 
@@ -888,7 +888,7 @@ error will be returned from API requests.</p>
 
     <div class="doc doc-contents first">
 
-      <p>Use the compensation assigned to each individual FCS file. Not a valid value for
+        <p>Use the compensation assigned to each individual FCS file. Not a valid value for
 <code>FcsFile.compensation</code>.</p>
     </div>
 
@@ -909,7 +909,12 @@ error will be returned from API requests.</p>
     <div class="doc doc-contents first">
 
 
-      <p>A class representing a CellEngine compensation matrix.</p>
+        <p>A class representing a CellEngine compensation matrix.</p>
+
+
+
+
+
 
 
 
@@ -997,7 +1002,7 @@ error will be returned from API requests.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Return the compensation matrix dataframe as HTML.</p>
+        <p>Return the compensation matrix dataframe as HTML.</p>
     </div>
 
 </div>
@@ -1037,7 +1042,7 @@ error will be returned from API requests.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Alias for <code>_id</code>.</p>
+        <p>Alias for <code>_id</code>.</p>
     </div>
 
 </div>
@@ -1091,11 +1096,19 @@ error will be returned from API requests.</p>
             <code class=" language-python"><span class="n">apply</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">apply</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">FcsFile</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">apply</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">FcsFile</span><span class="p">,</span> <span class="n">inplace</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Compensate an FcsFile's data.</p>
+        <p>Compensate an FcsFile's data.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1110,7 +1123,9 @@ error will be returned from API requests.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>file</code></td>
+            <td>
+                <code>file</code>
+            </td>
             <td>
                   <code><a class="autorefs autorefs-internal" title="cellengine.resources.fcs_file.FcsFile" href="../fcs_files/#cellengine.resources.fcs_file.FcsFile">FcsFile</a></code>
             </td>
@@ -1124,7 +1139,9 @@ error will be returned from API requests.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>inplace</code></td>
+            <td>
+                <code>inplace</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -1139,7 +1156,9 @@ If False, return the compensated events.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>**kwargs</code></td>
+            <td>
+                <code>**kwargs</code>
+            </td>
             <td>
                   <code><span title="typing.Dict">Dict</span></code>
             </td>
@@ -1157,7 +1176,7 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
           </tr>
       </tbody>
     </table>
-      <p>Returns:
+        <p>Returns:
     DataFrame: if <code>inplace=True</code>, updates <code>FcsFile.events</code> for
         the target FcsFile</p>
 
@@ -1176,11 +1195,23 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
   </span>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">spill_matrix</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">dataframe</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="kc">None</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Compensation</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Compensation</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Create a new compensation.</p>
+        <p>Create a new compensation.</p>
 <p>Specify either dataframe or channels and spill_matrix.</p>
 
 
@@ -1196,7 +1227,9 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1210,7 +1243,9 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1224,7 +1259,9 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>channels</code></td>
+            <td>
+                <code>channels</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[str]</code>
             </td>
@@ -1239,7 +1276,9 @@ compensation matrix applies.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>spill_matrix</code></td>
+            <td>
+                <code>spill_matrix</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -1254,7 +1293,9 @@ length of the array must be the number of channels squared.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>dataframe</code></td>
+            <td>
+                <code>dataframe</code>
+            </td>
             <td>
                   <code><span title="pandas.DataFrame">DataFrame</span></code>
             </td>
@@ -1305,7 +1346,7 @@ names in [df.index, df.columns].</p>
 
     <div class="doc doc-contents ">
 
-      <p>Creates a Compensation from a spill string (a file-internal compensation).
+        <p>Creates a Compensation from a spill string (a file-internal compensation).
 This can be used with FcsFile.spill_string. The compensation is not
 saved to CellEngine.</p>
 
@@ -1343,7 +1384,7 @@ saved to CellEngine.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Save changes to this Compensation to CellEngine.</p>
+        <p>Save changes to this Compensation to CellEngine.</p>
 
     </div>
 

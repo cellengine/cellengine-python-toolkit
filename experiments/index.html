@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://cellengine.github.io/cellengine-python-toolkit/experiments/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-7.3.6">
     
     
       
@@ -750,6 +750,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.save_revision" class="md-nav__link">
+    save_revision
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.undelete" class="md-nav__link">
     undelete
   </a>
@@ -1353,6 +1360,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.save_revision" class="md-nav__link">
+    save_revision
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.undelete" class="md-nav__link">
     undelete
   </a>
@@ -1431,11 +1445,16 @@ experiment's ID.</p>
     <div class="doc doc-contents first">
 
 
-      <p>The main container for an analysis. Don't construct directly; use
+        <p>The main container for an analysis. Don't construct directly; use
 <a class="autorefs autorefs-internal" href="#cellengine.resources.experiment.Experiment.create"><code>Experiment.create</code></a> or
 <a class="autorefs autorefs-internal" href="#cellengine.resources.experiment.Experiment.get"><code>Experiment.get</code></a>.</p>
 <p>Not all properties have full support in the Python toolkit. Please open an
 issue if you need to use a property that is not supported.</p>
+
+
+
+
+
 
 
 
@@ -1522,7 +1541,7 @@ issue if you need to use a property that is not supported.</p>
 
     <div class="doc doc-contents ">
 
-      <p>List all attachments on the experiment.</p>
+        <p>List all attachments on the experiment.</p>
     </div>
 
 </div>
@@ -1583,7 +1602,7 @@ issue if you need to use a property that is not supported.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Comments for experiment.</p>
+        <p>Comments for experiment.</p>
 <p>Defaults to overwrite; append new comments with
 experiment.comments.append(dict) with the form:
 <div class="highlight"><pre><span></span><code><span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
@@ -1611,7 +1630,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>List all compensations on the experiment.</p>
+        <p>List all compensations on the experiment.</p>
     </div>
 
 </div>
@@ -1730,7 +1749,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>List all FCS files on the experiment.</p>
+        <p>List all FCS files on the experiment.</p>
     </div>
 
 </div>
@@ -1751,7 +1770,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>List all gates on the experiment.</p>
+        <p>List all gates on the experiment.</p>
     </div>
 
 </div>
@@ -1772,7 +1791,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>Alias for <code>_id</code>.</p>
+        <p>Alias for <code>_id</code>.</p>
     </div>
 
 </div>
@@ -1912,7 +1931,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>List all populations in the experiment.</p>
+        <p>List all populations in the experiment.</p>
     </div>
 
 </div>
@@ -1934,7 +1953,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>When setting this value, use the user's <code>_id</code>.</p>
+        <p>When setting this value, use the user's <code>_id</code>.</p>
     </div>
 
 </div>
@@ -2032,7 +2051,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>Gets the experiment's ScaleSet</p>
+        <p>Gets the experiment's ScaleSet</p>
     </div>
 
 </div>
@@ -2109,7 +2128,7 @@ experiment.comments.append(dict) with the form:
 
     <div class="doc doc-contents ">
 
-      <p>Saves a deep copy of the experiment and all of its resources, including
+        <p>Saves a deep copy of the experiment and all of its resources, including
 attachments, FCS files, gates and populations.</p>
 
 
@@ -2125,7 +2144,9 @@ attachments, FCS files, gates and populations.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>props</code></td>
+            <td>
+                <code>props</code>
+            </td>
             <td>
                   <code><span title="typing.Dict">Dict</span>[str, <span title="typing.Any">Any</span>]</code>
             </td>
@@ -2186,7 +2207,7 @@ path (List[str]): Array of folder IDs comprising the path.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Creates a new experiment.</p>
+        <p>Creates a new experiment.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2201,7 +2222,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2215,7 +2238,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>comments</code></td>
+            <td>
+                <code>comments</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2229,7 +2254,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>uploader</code></td>
+            <td>
+                <code>uploader</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2243,7 +2270,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>primary_researcher</code></td>
+            <td>
+                <code>primary_researcher</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2257,7 +2286,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>tags</code></td>
+            <td>
+                <code>tags</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[str]</code>
             </td>
@@ -2271,7 +2302,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>path</code></td>
+            <td>
+                <code>path</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[str]</code>
             </td>
@@ -2321,11 +2354,21 @@ path (List[str]): Array of folder IDs comprising the path.</p>
             <code class=" language-python"><span class="n">create_compensation</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spill_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_compensation</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">spill_matrix</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Compensation</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_compensation</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Compensation</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Create a new compensation.</p>
+        <p>Create a new compensation.</p>
 <p>Specify either dataframe or channels and spill_matrix.</p>
 
 
@@ -2341,7 +2384,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2355,7 +2400,9 @@ path (List[str]): Array of folder IDs comprising the path.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>channels</code></td>
+            <td>
+                <code>channels</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[str]</code>
             </td>
@@ -2370,7 +2417,9 @@ compensation matrix applies.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>spill_matrix</code></td>
+            <td>
+                <code>spill_matrix</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -2385,7 +2434,9 @@ The length of the array must be the number of channels squared.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>dataframe</code></td>
+            <td>
+                <code>dataframe</code>
+            </td>
             <td>
                   <code><span title="pandas.core.frame.DataFrame">DataFrame</span></code>
             </td>
@@ -2413,11 +2464,19 @@ in [df.index, df.columns].</p>
             <code class=" language-python"><span class="n">create_ellipse_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_ellipse_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">EllipseGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_ellipse_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EllipseGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Create an EllipseGate.</p>
+        <p>Create an EllipseGate.</p>
 <p>Accepts all args and kwargs available for
 <a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.EllipseGate.create"><code>EllipseGate.create()</code></a>.</p>
 
@@ -2436,7 +2495,7 @@ in [df.index, df.columns].</p>
 
     <div class="doc doc-contents ">
 
-      <p>Save a collection of gate objects.</p>
+        <p>Save a collection of gate objects.</p>
 
     </div>
 
@@ -2449,11 +2508,19 @@ in [df.index, df.columns].</p>
             <code class=" language-python"><span class="n">create_polygon_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_polygon_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">PolygonGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_polygon_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolygonGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Create a PolygonGate.</p>
+        <p>Create a PolygonGate.</p>
 <p>Accepts all args and kwargs available for
 <a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.PolygonGate.create"><code>PolygonGate.create()</code></a>.</p>
 
@@ -2472,7 +2539,7 @@ in [df.index, df.columns].</p>
 
     <div class="doc doc-contents ">
 
-      <p>Create a population.</p>
+        <p>Create a population.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2487,7 +2554,9 @@ in [df.index, df.columns].</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>population</code></td>
+            <td>
+                <code>population</code>
+            </td>
             <td>
                   <code>dict</code>
             </td>
@@ -2548,11 +2617,19 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
             <code class=" language-python"><span class="n">create_quadrant_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_quadrant_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">QuadrantGate</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Population</span><span class="p">]]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_quadrant_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuadrantGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Create a QuadrantGate.</p>
+        <p>Create a QuadrantGate.</p>
 <p>Accepts all args and kwargs available for
 <a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.QuadrantGate.create"><code>QuadrantGate.create()</code></a>.</p>
 
@@ -2567,11 +2644,19 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
             <code class=" language-python"><span class="n">create_range_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_range_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">RangeGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_range_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RangeGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Create a RangeGate.</p>
+        <p>Create a RangeGate.</p>
 <p>Accepts all args and kwargs available for
 <a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.RangeGate.create"><code>RangeGate.create()</code></a>.</p>
 
@@ -2586,11 +2671,19 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
             <code class=" language-python"><span class="n">create_rectangle_gate</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_rectangle_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">RectangleGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create_rectangle_gate</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RectangleGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Create a RectangleGate.</p>
+        <p>Create a RectangleGate.</p>
 <p>Accepts all args and kwargs available for
 <a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.RectangleGate.create"><code>RectangleGate.create()</code></a>.</p>
 
@@ -2609,7 +2702,7 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
     <div class="doc doc-contents ">
 
-      <p>Create a SplitGate.</p>
+        <p>Create a SplitGate.</p>
 <p>Accepts all args and kwargs available for
 <a class="autorefs autorefs-internal" href="../gates/#cellengine.resources.gate.SplitGate.create"><code>SplitGate.create()</code></a>.</p>
 
@@ -2628,7 +2721,7 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
     <div class="doc doc-contents ">
 
-      <p>Marks the experiment as deleted.</p>
+        <p>Marks the experiment as deleted.</p>
 <p>Deleted experiments are permanently deleted after approximately
 7 days. Until then, deleted experiments can be recovered.</p>
 
@@ -2647,7 +2740,7 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
     <div class="doc doc-contents ">
 
-      <p>Delete an attachment from this experiment.</p>
+        <p>Delete an attachment from this experiment.</p>
 
     </div>
 
@@ -2664,7 +2757,7 @@ Use the <code>ComplexPopulationBuilder</code> to construct a complex population.
 
     <div class="doc doc-contents ">
 
-      <p>Delete a gate or gate family.
+        <p>Delete a gate or gate family.
 See the
 <a class="autorefs autorefs-internal" href="../api_client/#cellengine.APIClient.delete_gate"><code>APIClient</code></a>
 for more information.</p>
@@ -2684,7 +2777,7 @@ for more information.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Deletes multiple gates provided a list of _ids.</p>
+        <p>Deletes multiple gates provided a list of _ids.</p>
 
     </div>
 
@@ -2701,7 +2794,7 @@ for more information.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get a specific attachment.</p>
+        <p>Get a specific attachment.</p>
 
     </div>
 
@@ -2752,7 +2845,7 @@ for more information.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get a specific compensation.</p>
+        <p>Get a specific compensation.</p>
 
     </div>
 
@@ -2769,7 +2862,7 @@ for more information.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get a specific FCS file.</p>
+        <p>Get a specific FCS file.</p>
 
     </div>
 
@@ -2786,7 +2879,7 @@ for more information.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get a specific gate.</p>
+        <p>Get a specific gate.</p>
 <p>Gates cannot be retrieved by name because all gates in a group of
 tailored gates have the same name, and because compound gates have a
 <code>names</code> property instead of a <code>name</code> property. Instead, you can filter
@@ -2809,7 +2902,7 @@ the list of gates as follows to find a simple (not compound) gate:</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get a specific population.</p>
+        <p>Get a specific population.</p>
 
     </div>
 
@@ -2848,6 +2941,24 @@ the list of gates as follows to find a simple (not compound) gate:</p>
 <div class="doc doc-object doc-function">
 
 
+<h3 id="cellengine.resources.experiment.Experiment.save_revision" class="doc doc-heading">
+            <code class=" language-python"><span class="n">save_revision</span><span class="p">(</span><span class="n">description</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Saves a revision of the experiment. The new revision will be the last
+entry in the <code>revisions</code> property.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h3 id="cellengine.resources.experiment.Experiment.undelete" class="doc doc-heading">
             <code class=" language-python"><span class="n">undelete</span><span class="p">()</span></code>
 
@@ -2856,7 +2967,7 @@ the list of gates as follows to find a simple (not compound) gate:</p>
 
     <div class="doc doc-contents ">
 
-      <p>Clears a scheduled deletion.</p>
+        <p>Clears a scheduled deletion.</p>
 
     </div>
 
@@ -2873,7 +2984,7 @@ the list of gates as follows to find a simple (not compound) gate:</p>
 
     <div class="doc doc-contents ">
 
-      <p>Save the specified changes to CellEngine and update this instance
+        <p>Save the specified changes to CellEngine and update this instance
 with the new values on success.</p>
 <p>Example:
 <div class="highlight"><pre><span></span><code><span class="n">experiment</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;New Name&quot;</span>
@@ -2895,7 +3006,7 @@ with the new values on success.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Upload an attachment to this experiment.</p>
+        <p>Upload an attachment to this experiment.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2910,7 +3021,9 @@ with the new values on success.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>filepath</code></td>
+            <td>
+                <code>filepath</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2924,7 +3037,9 @@ with the new values on success.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>filename</code></td>
+            <td>
+                <code>filename</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2978,7 +3093,7 @@ with the new values on success.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Upload an FCS file to this experiment.</p>
+        <p>Upload an FCS file to this experiment.</p>
 
     </div>
 

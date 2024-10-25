@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://cellengine.github.io/cellengine-python-toolkit/gates/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-7.3.6">
     
     
       
@@ -1139,8 +1139,13 @@ inherit the methods below.</p>
     <div class="doc doc-contents first">
 
 
-      <p>Do not construct directly; use the <code>Experiment.create_*_gate</code> and
+        <p>Do not construct directly; use the <code>Experiment.create_*_gate</code> and
 <code>__Gate.create()</code> methods.</p>
+
+
+
+
+
 
 
 
@@ -1226,7 +1231,7 @@ inherit the methods below.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Alias for <code>_id</code>.</p>
+        <p>Alias for <code>_id</code>.</p>
     </div>
 
 </div>
@@ -1359,7 +1364,7 @@ inherit the methods below.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Apply this gate's tailoring (copy its geometry) to other FCS files.</p>
+        <p>Apply this gate's tailoring (copy its geometry) to other FCS files.</p>
 
     </div>
 
@@ -1425,7 +1430,7 @@ inherit the methods below.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Save changes to this Gate to CellEngine.</p>
+        <p>Save changes to this Gate to CellEngine.</p>
 
     </div>
 
@@ -1446,7 +1451,7 @@ inherit the methods below.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Update a given field for a gate family.</p>
+        <p>Update a given field for a gate family.</p>
 <p>Warning: This method does not modify local versions of gates; use the
 <code>.update()</code> method to ensure changes are reflected locally.</p>
 
@@ -1463,7 +1468,9 @@ inherit the methods below.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1477,7 +1484,9 @@ inherit the methods below.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gid</code></td>
+            <td>
+                <code>gid</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1491,7 +1500,9 @@ inherit the methods below.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>body</code></td>
+            <td>
+                <code>body</code>
+            </td>
             <td>
                   <code><span title="typing.Dict">Dict</span></code>
             </td>
@@ -1562,6 +1573,11 @@ inherit the methods below.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1583,11 +1599,48 @@ inherit the methods below.</p>
   </span>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">x2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">parent_population_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">RectangleGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">x2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RectangleGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Creates a rectangle gate.</p>
+        <p>Creates a rectangle gate.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1602,7 +1655,9 @@ inherit the methods below.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1616,7 +1671,9 @@ inherit the methods below.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x_channel</code></td>
+            <td>
+                <code>x_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1630,7 +1687,9 @@ inherit the methods below.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y_channel</code></td>
+            <td>
+                <code>y_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1644,7 +1703,9 @@ inherit the methods below.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1658,7 +1719,9 @@ inherit the methods below.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x1</code></td>
+            <td>
+                <code>x1</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1673,7 +1736,9 @@ applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x2</code></td>
+            <td>
+                <code>x2</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1688,7 +1753,9 @@ applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y1</code></td>
+            <td>
+                <code>y1</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1703,7 +1770,9 @@ applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y2</code></td>
+            <td>
+                <code>y2</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -1718,7 +1787,9 @@ applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>label</code></td>
+            <td>
+                <code>label</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -1732,7 +1803,9 @@ applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gid</code></td>
+            <td>
+                <code>gid</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1748,7 +1821,9 @@ specified when creating a tailored gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>locked</code></td>
+            <td>
+                <code>locked</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -1762,7 +1837,9 @@ specified when creating a tailored gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>tailored_per_file</code></td>
+            <td>
+                <code>tailored_per_file</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -1777,7 +1854,9 @@ file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file_id</code></td>
+            <td>
+                <code>fcs_file_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1793,7 +1872,9 @@ specify <code>fcs_file</code>.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file</code></td>
+            <td>
+                <code>fcs_file</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1812,7 +1893,9 @@ requests to the server. If specified, do not specify
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>create_population</code></td>
+            <td>
+                <code>create_population</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -1827,7 +1910,9 @@ created and returned in a tuple with the gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>parent_population_id</code></td>
+            <td>
+                <code>parent_population_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1911,6 +1996,11 @@ gate and population if <code>create_population</code> is True.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1932,11 +2022,42 @@ gate and population if <code>create_population</code> is True.</p>
   </span>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">vertices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">parent_population_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">PolygonGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">vertices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolygonGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Creates a polygon gate.</p>
+        <p>Creates a polygon gate.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1951,7 +2072,9 @@ gate and population if <code>create_population</code> is True.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1965,7 +2088,9 @@ gate and population if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x_channel</code></td>
+            <td>
+                <code>x_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1979,7 +2104,9 @@ gate and population if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y_channel</code></td>
+            <td>
+                <code>y_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1993,7 +2120,9 @@ gate and population if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2007,7 +2136,9 @@ gate and population if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>vertices</code></td>
+            <td>
+                <code>vertices</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
             </td>
@@ -2021,7 +2152,9 @@ gate and population if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>label</code></td>
+            <td>
+                <code>label</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -2035,7 +2168,9 @@ gate and population if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gid</code></td>
+            <td>
+                <code>gid</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2052,7 +2187,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>locked</code></td>
+            <td>
+                <code>locked</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2066,7 +2203,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>tailored_per_file</code></td>
+            <td>
+                <code>tailored_per_file</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2081,7 +2220,9 @@ file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file_id</code></td>
+            <td>
+                <code>fcs_file_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2097,7 +2238,9 @@ specify <code>fcs_file</code>.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file</code></td>
+            <td>
+                <code>fcs_file</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2116,7 +2259,9 @@ requests to the server. If specified, do not specify
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>create_population</code></td>
+            <td>
+                <code>create_population</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2131,7 +2276,9 @@ created and returned in a tuple with the gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>parent_population_id</code></td>
+            <td>
+                <code>parent_population_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2212,6 +2359,11 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -2233,11 +2385,48 @@ gate and populations if <code>create_population</code> is True.</p>
   </span>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">center</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">major</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">minor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">parent_population_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">EllipseGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">center</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">major</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">minor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EllipseGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Creates an ellipse gate.</p>
+        <p>Creates an ellipse gate.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2252,7 +2441,9 @@ gate and populations if <code>create_population</code> is True.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2266,7 +2457,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x_channel</code></td>
+            <td>
+                <code>x_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2280,7 +2473,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y_channel</code></td>
+            <td>
+                <code>y_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2294,7 +2489,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2308,7 +2505,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>center</code></td>
+            <td>
+                <code>center</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -2322,7 +2521,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>angle</code></td>
+            <td>
+                <code>angle</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2336,7 +2537,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>major</code></td>
+            <td>
+                <code>major</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2350,7 +2553,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>minor</code></td>
+            <td>
+                <code>minor</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2364,7 +2569,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>label</code></td>
+            <td>
+                <code>label</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -2378,7 +2585,9 @@ gate and populations if <code>create_population</code> is True.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gid</code></td>
+            <td>
+                <code>gid</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2395,7 +2604,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>locked</code></td>
+            <td>
+                <code>locked</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2410,7 +2621,9 @@ web interface.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>tailored_per_file</code></td>
+            <td>
+                <code>tailored_per_file</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2425,7 +2638,9 @@ file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file_id</code></td>
+            <td>
+                <code>fcs_file_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2441,7 +2656,9 @@ specify <code>fcs_file</code>.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file</code></td>
+            <td>
+                <code>fcs_file</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2460,7 +2677,9 @@ requests to the server. If specified, do not specify
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>create_population</code></td>
+            <td>
+                <code>create_population</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2475,7 +2694,9 @@ created and returned in a tuple with the gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>parent_population_id</code></td>
+            <td>
+                <code>parent_population_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2560,6 +2781,11 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -2581,11 +2807,44 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
   </span>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">x2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">parent_population_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">RangeGate</span><span class="p">,</span> <span class="n">Population</span><span class="p">]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">x2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RangeGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Creates a range gate.</p>
+        <p>Creates a range gate.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2600,7 +2859,9 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2614,7 +2875,9 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x_channel</code></td>
+            <td>
+                <code>x_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2628,7 +2891,9 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2642,7 +2907,9 @@ and a list of two Populations; otherwise, an EllipseGate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x1</code></td>
+            <td>
+                <code>x1</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2657,7 +2924,9 @@ been applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x2</code></td>
+            <td>
+                <code>x2</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2672,7 +2941,9 @@ applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y</code></td>
+            <td>
+                <code>y</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2687,7 +2958,9 @@ vertical lines</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>label</code></td>
+            <td>
+                <code>label</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -2702,7 +2975,9 @@ the midpoint of the gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gid</code></td>
+            <td>
+                <code>gid</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2719,7 +2994,9 @@ must be specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>locked</code></td>
+            <td>
+                <code>locked</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2734,7 +3011,9 @@ web interface.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>tailored_per_file</code></td>
+            <td>
+                <code>tailored_per_file</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2749,7 +3028,9 @@ tailored per FCS file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file_id</code></td>
+            <td>
+                <code>fcs_file_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2766,7 +3047,9 @@ a tailored gate group. If specified, do not specify
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file</code></td>
+            <td>
+                <code>fcs_file</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2785,7 +3068,9 @@ specified, do not specify <code>fcs_file_id</code>.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>create_population</code></td>
+            <td>
+                <code>create_population</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -2800,7 +3085,9 @@ created and returned in a tuple with the gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>parent_population_id</code></td>
+            <td>
+                <code>parent_population_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2881,6 +3168,11 @@ and a list of two Populations; otherwise, a RangeGate.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -2902,11 +3194,44 @@ and a list of two Populations; otherwise, a RangeGate.</p>
   </span>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">parent_population_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">SplitGate</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Population</span><span class="p">]]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SplitGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Creates a split gate.</p>
+        <p>Creates a split gate.</p>
 <p>Split gates have two sectors (right and left), each with a unique gid
 and name.</p>
 
@@ -2923,7 +3248,9 @@ and name.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2937,7 +3264,9 @@ and name.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x_channel</code></td>
+            <td>
+                <code>x_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2951,7 +3280,9 @@ and name.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2965,7 +3296,9 @@ and name.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x</code></td>
+            <td>
+                <code>x</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2980,7 +3313,9 @@ channel's scale has been applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y</code></td>
+            <td>
+                <code>y</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -2995,7 +3330,9 @@ extending from the center point.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>labels</code></td>
+            <td>
+                <code>labels</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
             </td>
@@ -3011,7 +3348,9 @@ corners.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gid</code></td>
+            <td>
+                <code>gid</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3028,7 +3367,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gids</code></td>
+            <td>
+                <code>gids</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
             </td>
@@ -3042,7 +3383,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>locked</code></td>
+            <td>
+                <code>locked</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3056,7 +3399,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>tailored_per_file</code></td>
+            <td>
+                <code>tailored_per_file</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3071,7 +3416,9 @@ file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file_id</code></td>
+            <td>
+                <code>fcs_file_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3087,7 +3434,9 @@ specify <code>fcs_file</code>.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file</code></td>
+            <td>
+                <code>fcs_file</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3106,7 +3455,9 @@ requests to the server. If specified, do not specify
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>create_population</code></td>
+            <td>
+                <code>create_population</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3121,7 +3472,9 @@ created and returned in a tuple with the gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>parent_population_id</code></td>
+            <td>
+                <code>parent_population_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3211,6 +3564,11 @@ gate and populations if <code>create_population</code> is True.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -3232,11 +3590,50 @@ gate and populations if <code>create_population</code> is True.</p>
   </span>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">skewable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">angles</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">parent_population_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">QuadrantGate</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Population</span><span class="p">]]</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">create</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">y_channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">skewable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">angles</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">gid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tailored_per_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fcs_file_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fcs_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">create_population</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuadrantGate</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Creates a quadrant gate.</p>
+        <p>Creates a quadrant gate.</p>
 <p>Quadrant gates have four sectors (upper-right, upper-left, lower-left,
 lower-right), each with a unique gid and name.</p>
 
@@ -3253,7 +3650,9 @@ lower-right), each with a unique gid and name.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -3267,7 +3666,9 @@ lower-right), each with a unique gid and name.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x_channel</code></td>
+            <td>
+                <code>x_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -3281,7 +3682,9 @@ lower-right), each with a unique gid and name.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y_channel</code></td>
+            <td>
+                <code>y_channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -3295,7 +3698,9 @@ lower-right), each with a unique gid and name.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>name</code></td>
+            <td>
+                <code>name</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -3309,7 +3714,9 @@ lower-right), each with a unique gid and name.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>x</code></td>
+            <td>
+                <code>x</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -3324,7 +3731,9 @@ has been applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>y</code></td>
+            <td>
+                <code>y</code>
+            </td>
             <td>
                   <code>float</code>
             </td>
@@ -3338,7 +3747,9 @@ has been applied).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>labels</code></td>
+            <td>
+                <code>labels</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[<span title="typing.List">List</span>[float]]</code>
             </td>
@@ -3354,7 +3765,9 @@ to the plot corners.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>skewable</code></td>
+            <td>
+                <code>skewable</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3368,7 +3781,9 @@ to the plot corners.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>angles</code></td>
+            <td>
+                <code>angles</code>
+            </td>
             <td>
                   <code><span title="typing.List">List</span>[float]</code>
             </td>
@@ -3382,7 +3797,9 @@ to the plot corners.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gid</code></td>
+            <td>
+                <code>gid</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3399,7 +3816,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>gids</code></td>
+            <td>
+                <code>gids</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
             </td>
@@ -3413,7 +3832,9 @@ specified.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>locked</code></td>
+            <td>
+                <code>locked</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3428,7 +3849,9 @@ interface.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>tailored_per_file</code></td>
+            <td>
+                <code>tailored_per_file</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3443,7 +3866,9 @@ tailored per FCS file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file_id</code></td>
+            <td>
+                <code>fcs_file_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3459,7 +3884,9 @@ specified, do not specify <code>fcs_file</code>.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_file</code></td>
+            <td>
+                <code>fcs_file</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -3478,7 +3905,9 @@ specified, do not specify <code>fcs_file_id</code>.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>create_population</code></td>
+            <td>
+                <code>create_population</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -3493,7 +3922,9 @@ created and returned in a tuple with the gate.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>parent_population_id</code></td>
+            <td>
+                <code>parent_population_id</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>

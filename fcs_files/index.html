@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://cellengine.github.io/cellengine-python-toolkit/fcs_files/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-7.3.6">
     
     
       
@@ -1035,7 +1035,12 @@ metadata such as the panel and annotations.</p>
     <div class="doc doc-contents first">
 
 
-      <p>A class representing a CellEngine FCS file.</p>
+        <p>A class representing a CellEngine FCS file.</p>
+
+
+
+
+
 
 
 
@@ -1065,7 +1070,7 @@ metadata such as the panel and annotations.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Examples:</p>
+        <p>Examples:</p>
 <p>Getting an annotation value:
 <div class="highlight"><pre><span></span><code><span class="nb">next</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">annotations</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;my_anno&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 </code></pre></div></p>
@@ -1100,7 +1105,7 @@ metadata such as the panel and annotations.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Return all channels in the file.</p>
+        <p>Return all channels in the file.</p>
     </div>
 
 </div>
@@ -1121,7 +1126,7 @@ metadata such as the panel and annotations.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Used with per-file compensation to indicate the compensation to apply
+        <p>Used with per-file compensation to indicate the compensation to apply
 to this file.</p>
     </div>
 
@@ -1143,7 +1148,7 @@ to this file.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The CRC32c sum for the file, hex-encoded, per RFC 4960 Appendix B.</p>
+        <p>The CRC32c sum for the file, hex-encoded, per RFC 4960 Appendix B.</p>
     </div>
 
 </div>
@@ -1184,7 +1189,7 @@ to this file.</p>
 
     <div class="doc doc-contents ">
 
-      <p>If set, the file has been soft-deleted and may be permanently deleted
+        <p>If set, the file has been soft-deleted and may be permanently deleted
 later.</p>
     </div>
 
@@ -1206,7 +1211,7 @@ later.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The number of events (rows) in the file.</p>
+        <p>The number of events (rows) in the file.</p>
     </div>
 
 </div>
@@ -1227,7 +1232,7 @@ later.</p>
 
     <div class="doc doc-contents ">
 
-      <p>A DataFrame containing this file's events (typically cells).</p>
+        <p>A DataFrame containing this file's events (typically cells).</p>
 <p>This is the last result from <code>FcsFile.get_events(inplace=True)</code>. If that
 method has not been called, a DataFrame will be fetched with all events
 (ungated, no compensation, no subsampling). To fetch events with
@@ -1273,7 +1278,7 @@ subsampling, compensation and/or gating to a specific population, use
 
     <div class="doc doc-contents ">
 
-      <p>The filename.</p>
+        <p>The filename.</p>
     </div>
 
 </div>
@@ -1295,7 +1300,7 @@ subsampling, compensation and/or gating to a specific population, use
 
     <div class="doc doc-contents ">
 
-      <p>If true, no gates that apply to this file can be changed.</p>
+        <p>If true, no gates that apply to this file can be changed.</p>
     </div>
 
 </div>
@@ -1316,7 +1321,7 @@ subsampling, compensation and/or gating to a specific population, use
 
     <div class="doc doc-contents ">
 
-      <p>Whether or not this file has a valid file-internal compensation
+        <p>Whether or not this file has a valid file-internal compensation
 matrix.</p>
     </div>
 
@@ -1338,7 +1343,7 @@ matrix.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Note: this property may be fetched lazily.</p>
+        <p>Note: this property may be fetched lazily.</p>
     </div>
 
 </div>
@@ -1359,7 +1364,7 @@ matrix.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Alias for <code>_id</code>.</p>
+        <p>Alias for <code>_id</code>.</p>
     </div>
 
 </div>
@@ -1380,7 +1385,7 @@ matrix.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Whether or not this is a control file. Control files are hidden from
+        <p>Whether or not this is a control file. Control files are hidden from
 most of the Web UI, and can be used to exclude compensation or
 calibration beads from analysis, for example.</p>
     </div>
@@ -1403,7 +1408,7 @@ calibration beads from analysis, for example.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The MD5 sum for the file, hex-encoded.</p>
+        <p>The MD5 sum for the file, hex-encoded.</p>
     </div>
 
 </div>
@@ -1425,7 +1430,7 @@ calibration beads from analysis, for example.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Alias for <code>filename</code>.</p>
+        <p>Alias for <code>filename</code>.</p>
     </div>
 
 </div>
@@ -1465,7 +1470,7 @@ calibration beads from analysis, for example.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The name of the file's panel. Files with the same panelName are
+        <p>The name of the file's panel. Files with the same panelName are
 grouped into a panel.</p>
     </div>
 
@@ -1487,7 +1492,7 @@ grouped into a panel.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The sample name extracted from the file header.</p>
+        <p>The sample name extracted from the file header.</p>
     </div>
 
 </div>
@@ -1508,7 +1513,7 @@ grouped into a panel.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The number of bytes in the file.</p>
+        <p>The number of bytes in the file.</p>
     </div>
 
 </div>
@@ -1529,7 +1534,7 @@ grouped into a panel.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The file-internal compensation, if present (see
+        <p>The file-internal compensation, if present (see
 <code>has_file_internal_comp</code>). Note: this property may be fetched lazily due
 to its size.</p>
     </div>
@@ -1549,7 +1554,7 @@ to its size.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Returns the channel name (<code>$PnN</code>) for the given reagent (<code>$PnS). Returns</code>None` if the channel isn't found.</p>
+        <p>Returns the channel name (<code>$PnN</code>) for the given reagent (<code>$PnS). Returns</code>None` if the channel isn't found.</p>
 
     </div>
 
@@ -1570,7 +1575,7 @@ to its size.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Creates an FCS file by copying, concatenating and/or subsampling
+        <p>Creates an FCS file by copying, concatenating and/or subsampling
 existing file(s) from this or other experiments, or by importing from an
 S3-compatible service.</p>
 <p>When concatenating and subsampling at the same time, subsampling is
@@ -1619,7 +1624,9 @@ must also be present in the other FCS files.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1633,7 +1640,9 @@ must also be present in the other FCS files.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>fcs_files</code></td>
+            <td>
+                <code>fcs_files</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str], <span title="typing.Dict">Dict</span>[str, str]]]</code>
             </td>
@@ -1653,7 +1662,9 @@ and <code>"path"</code>; if the S3 object is private, additionally provide
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>filename</code></td>
+            <td>
+                <code>filename</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1667,7 +1678,9 @@ and <code>"path"</code>; if the S3 object is private, additionally provide
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>add_file_number</code></td>
+            <td>
+                <code>add_file_number</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[bool]</code>
             </td>
@@ -1682,7 +1695,9 @@ to the resulting file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>add_event_number</code></td>
+            <td>
+                <code>add_event_number</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[bool]</code>
             </td>
@@ -1699,7 +1714,9 @@ will appear more than once.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>pre_subsample_n</code></td>
+            <td>
+                <code>pre_subsample_n</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[int]</code>
             </td>
@@ -1714,7 +1731,9 @@ events.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>pre_subsample_p</code></td>
+            <td>
+                <code>pre_subsample_p</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[float]</code>
             </td>
@@ -1729,7 +1748,9 @@ of events (0 to 1).</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>seed</code></td>
+            <td>
+                <code>seed</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[int]</code>
             </td>
@@ -1789,7 +1810,7 @@ pseudo-random value is used.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Creates an FCS file from a DataFrame and uploads it CellEngine.</p>
+        <p>Creates an FCS file from a DataFrame and uploads it CellEngine.</p>
 <p>Channel names (<code>$PnN</code> values such as "FITC-A" or "530/30-A") are read
 from the DataFrame column names.</p>
 <p>Reagent names (<code>$PnS</code> values such as "CD3") are optional and are read
@@ -1865,7 +1886,7 @@ FCS file values.</p>
     <span class="p">}</span>
 <span class="p">)</span>
 </code></pre></div></p>
-      <p>Returns:
+        <p>Returns:
     The created FCS file.</p>
 
     </div>
@@ -1913,11 +1934,23 @@ FCS file values.</p>
             <code class=" language-python"><span class="n">get_events</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_events</span><span class="p">(</span>
+    <span class="n">inplace</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">get_events</span><span class="p">(</span>
+    <span class="n">inplace</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Fetch a DataFrame containing this file's data.</p>
+        <p>Fetch a DataFrame containing this file's data.</p>
 <p>The returned DataFrame uses the channel names (<code>$PnN</code> values) for column
 names because, unlike reagent names (<code>$PnS</code>), they are required and must
 be unique. To find the <code>$PnN</code> value for a given reagent name (<code>$PnS</code>),
@@ -1936,7 +1969,9 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>inplace</code></td>
+            <td>
+                <code>inplace</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[bool]</code>
             </td>
@@ -1950,7 +1985,9 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>destination</code></td>
+            <td>
+                <code>destination</code>
+            </td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1964,7 +2001,9 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>**kwargs</code></td>
+            <td>
+                <code>**kwargs</code>
+            </td>
             <td>
                   <code><span title="typing.Any">Any</span></code>
             </td>
@@ -2082,7 +2121,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get the file-internal Compensation.</p>
+        <p>Get the file-internal Compensation.</p>
 
     </div>
 
@@ -2099,7 +2138,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Build a plot for an FcsFile.</p>
+        <p>Build a plot for an FcsFile.</p>
 <p>See <a class="autorefs autorefs-internal" href="../plots/#cellengine.resources.plot.Plot.get"><code>Plot.get()</code></a> for more information.</p>
 
     </div>
@@ -2117,7 +2156,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Save changes to this FcsFile to CellEngine.</p>
+        <p>Save changes to this FcsFile to CellEngine.</p>
 
     </div>
 
@@ -2138,7 +2177,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Uploads a file. The maximum file size is approximately 2.3 GB.
+        <p>Uploads a file. The maximum file size is approximately 2.3 GB.
 Contact us if you need to work with larger files.</p>
 <p>Automatically parses panels and annotations and updates ScaleSets to
 include all channels in the file.</p>
@@ -2156,7 +2195,9 @@ include all channels in the file.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>experiment_id</code></td>
+            <td>
+                <code>experiment_id</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -2170,7 +2211,9 @@ include all channels in the file.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>filepath</code></td>
+            <td>
+                <code>filepath</code>
+            </td>
             <td>
                   <code>str</code>
             </td>

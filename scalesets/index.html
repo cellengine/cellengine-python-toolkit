@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://cellengine.github.io/cellengine-python-toolkit/scalesets/">
       
       <link rel="icon" href="../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-7.3.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-7.3.6">
     
     
       
@@ -728,6 +728,11 @@ otherwise noted.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -771,7 +776,7 @@ otherwise noted.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Alias for <code>_id</code>.</p>
+        <p>Alias for <code>_id</code>.</p>
     </div>
 
 </div>
@@ -823,11 +828,23 @@ otherwise noted.</p>
             <code class=" language-python"><span class="n">apply</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">clamp_q</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
 
 </h3>
+          <div class="doc-overloads">
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">apply</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">FcsFile</span><span class="p">,</span>
+    <span class="n">clamp_q</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">in_place</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div><div class="doc-signature codehilite"><pre><span></span><code><span class="nf">apply</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">FcsFile</span><span class="p">,</span>
+    <span class="n">clamp_q</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">in_place</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+</code></pre></div>          </div>
 
 
     <div class="doc doc-contents ">
 
-      <p>Apply the scaleset to a file.</p>
+        <p>Apply the scaleset to a file.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -842,7 +859,9 @@ otherwise noted.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>file</code></td>
+            <td>
+                <code>file</code>
+            </td>
             <td>
                   <code><a class="autorefs autorefs-internal" title="cellengine.resources.fcs_file.FcsFile" href="../fcs_files/#cellengine.resources.fcs_file.FcsFile">FcsFile</a></code>
             </td>
@@ -859,7 +878,9 @@ events have already been retrieved.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>clamp_q</code></td>
+            <td>
+                <code>clamp_q</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -873,7 +894,9 @@ events have already been retrieved.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>in_place</code></td>
+            <td>
+                <code>in_place</code>
+            </td>
             <td>
                   <code>bool</code>
             </td>
@@ -924,7 +947,7 @@ returns a DataFrame.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get the scale function for a channel.</p>
+        <p>Get the scale function for a channel.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -939,7 +962,9 @@ returns a DataFrame.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>channel</code></td>
+            <td>
+                <code>channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -993,7 +1018,7 @@ returns a DataFrame.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get the scale for a channel.</p>
+        <p>Get the scale for a channel.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1008,7 +1033,9 @@ returns a DataFrame.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>channel</code></td>
+            <td>
+                <code>channel</code>
+            </td>
             <td>
                   <code>str</code>
             </td>
@@ -1072,7 +1099,7 @@ returns a DataFrame.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Save changes to this ScaleSet to CellEngine.</p>
+        <p>Save changes to this ScaleSet to CellEngine.</p>
 <p>Warning: This API endpoint can change gates if their coordinates are
 affected by the scale parameters. You may need to re-query gates to
 synchronize your local state with CellEngine.</p>
