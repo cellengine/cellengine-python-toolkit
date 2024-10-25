@@ -111,6 +111,14 @@ def test_experiment_clone(blank_experiment: Experiment):
     assert exp.name == blank_experiment.name + "-1"
 
 
+def test_save_revision(blank_experiment):
+    preDU = blank_experiment.deep_updated
+    blank_experiment.save_revision("my description")
+    assert len(blank_experiment.revisions) == 1
+    assert blank_experiment.revisions[0].get("description") == "my description"
+    assert blank_experiment.deep_updated > preDU
+
+
 def test_experiment_upload_fcs_file(blank_experiment: Experiment):
     file = blank_experiment.upload_fcs_file(
         "tests/data/Specimen_001_A1_A01_MeOHperm(DL350neg).fcs"

@@ -51,3 +51,4 @@ v1.0.0 will be the first stable release of the CellEngine Python Toolkit.
   permissions required for some operations.
 * All tests now run against a real CellEngine instance instead of using mocks,
   avoiding bugs due to stale mocks.
+* Support for `experiment.save_revision()`.

@@ -352,6 +352,12 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         """
         self._delete(f"{self.base_url}/api/v1/experiments/{_id}")
 
+    def save_experiment_revision(self, _id, description: str) -> Dict:
+        return self._post(
+            f"{self.base_url}/api/v1/experiments/{_id}/revision",
+            json={"description": description},
+        )
+
     # ------------------------------- FCS Files --------------------------------
 
     def get_fcs_files(self, experiment_id, as_dict=False) -> List[FcsFile]:

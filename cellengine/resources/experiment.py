@@ -365,6 +365,15 @@ class Experiment:
             self.deleted = None
             ce.APIClient().update_experiment(self._id, {"deleted": self.deleted})
 
+    def save_revision(self, description: str) -> None:
+        """
+        Saves a revision of the experiment. The new revision will be the last
+        entry in the `revisions` property.
+        """
+        r = ce.APIClient().save_experiment_revision(self._id, description)
+        self._properties["revisions"] = r.get("revisions")
+        self._properties["deepUpdated"] = r.get("deepUpdated")
+
     # Attachments
 
     @property
