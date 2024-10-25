@@ -2956,7 +2956,7 @@ the list of gates as follows to find a simple (not compound) gate:</p>
 
 
 <h3 id="cellengine.resources.experiment.Experiment.import_resources" class="doc doc-heading">
-            <code class=" language-python"><span class="n">import_resources</span><span class="p">(</span><span class="n">srcExperimentId</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="n">channelMap</span><span class="o">=</span><span class="p">{},</span> <span class="n">dstPopulationId</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class=" language-python"><span class="n">import_resources</span><span class="p">(</span><span class="n">src_experiment_id</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="n">channel_map</span><span class="o">=</span><span class="p">{},</span> <span class="n">dst_population_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2979,7 +2979,7 @@ the list of gates as follows to find a simple (not compound) gate:</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                <code>srcExperimentId</code>
+                <code>src_experiment_id</code>
             </td>
             <td>
                   <code>str</code>
@@ -3004,14 +3004,15 @@ the list of gates as follows to find a simple (not compound) gate:</p>
               <div class="doc-md-description">
                 <p>A dictionary with the following optional keys:
 - populations: Whether to import populations.
-- illustrations: Whether to import illustrations (True = all, False = none),
-  or a list of specific illustration IDs to import.
-- compensations: Whether to import compensations (True = all, False = none),
-  or a list of specific compensation IDs to import.
+- illustrations: Whether to import illustrations (True = all,
+  False = none), or a list of specific illustration IDs to import.
+- compensations: Whether to import compensations (True = all,
+  False = none), or a list of specific compensation IDs to import.
 - savedStatisticExports: Whether to import saved statistic exports
-  (True = all, False = none), or a list of specific export IDs to import.
-- annotations: Whether to import annotations (True = all, False = none),
-  or a list of specific annotation names to import.</p>
+  (True = all, False = none), or a list of specific export IDs to
+  import.
+- annotations: Whether to import annotations (True = all,
+  False = none), or a list of specific annotation names to import.</p>
               </div>
             </td>
             <td>
@@ -3020,7 +3021,7 @@ the list of gates as follows to find a simple (not compound) gate:</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>channelMap</code>
+                <code>channel_map</code>
             </td>
             <td>
                   <code><span title="typing.Dict">Dict</span>[str, str]</code>
@@ -3042,7 +3043,7 @@ does not affect compensation import.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>dstPopulationId</code>
+                <code>dst_population_id</code>
             </td>
             <td>
                   <code>str</code>
