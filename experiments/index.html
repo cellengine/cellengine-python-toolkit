@@ -750,6 +750,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.import_resources" class="md-nav__link">
+    import_resources
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.save_revision" class="md-nav__link">
     save_revision
   </a>
@@ -1355,6 +1362,13 @@
           <li class="md-nav__item">
   <a href="#cellengine.resources.experiment.Experiment.get_statistics" class="md-nav__link">
     get_statistics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellengine.resources.experiment.Experiment.import_resources" class="md-nav__link">
+    import_resources
   </a>
   
 </li>
@@ -2933,6 +2947,121 @@ the list of gates as follows to find a simple (not compound) gate:</p>
 
 
     <div class="doc doc-contents ">
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="cellengine.resources.experiment.Experiment.import_resources" class="doc doc-heading">
+            <code class=" language-python"><span class="n">import_resources</span><span class="p">(</span><span class="n">srcExperimentId</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="n">channelMap</span><span class="o">=</span><span class="p">{},</span> <span class="n">dstPopulationId</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Imports resources from another experiment.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>srcExperimentId</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the source experiment.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>what</code>
+            </td>
+            <td>
+                  <code><span title="cellengine.resources.experiment.ImportOpts">ImportOpts</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary with the following optional keys:
+- populations: Whether to import populations.
+- illustrations: Whether to import illustrations (True = all, False = none),
+  or a list of specific illustration IDs to import.
+- compensations: Whether to import compensations (True = all, False = none),
+  or a list of specific compensation IDs to import.
+- savedStatisticExports: Whether to import saved statistic exports
+  (True = all, False = none), or a list of specific export IDs to import.
+- annotations: Whether to import annotations (True = all, False = none),
+  or a list of specific annotation names to import.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>channelMap</code>
+            </td>
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[str, str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary Object mapping channel
+names from source experiment to destination experiment for
+imported gates. Gates using channels not present in the map or
+with channels set to the value "" will not be imported.
+Populations are only imported if all of their required gates are
+imported (i.e. the entire set of parents must be imported). This
+does not affect compensation import.</p>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dstPopulationId</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the destination parent population.
+If not provided, the root population is used.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <p>Use <code>experiment.gates</code> and similar to access the imported resources.
+<em>Note: If it would be useful for this method to return the imported
+resources, open a GitHub issue letting us know.</em></p>
 
     </div>
 
