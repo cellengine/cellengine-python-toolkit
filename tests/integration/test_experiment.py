@@ -119,6 +119,22 @@ def test_save_revision(blank_experiment):
     assert blank_experiment.deep_updated > preDU
 
 
+def test_experiment_import_resources(full_experiment):
+    dest = Experiment.create("dest")
+    dest.upload_fcs_file("tests/data/Specimen_001_A1_A01_MeOHperm(DL350neg).fcs")
+    dest.import_resources(
+        full_experiment["experiment"]._id,
+        {"populations": True, "compensations": True},
+        {
+            "FSC-A": "FSC-A",
+            "SSC-A": "SSC-A",
+        },
+    )
+    assert len(dest.gates) == 1
+    assert len(dest.populations) == 1
+    assert len(dest.compensations) == 1
+
+
 def test_experiment_upload_fcs_file(blank_experiment: Experiment):
     file = blank_experiment.upload_fcs_file(
         "tests/data/Specimen_001_A1_A01_MeOHperm(DL350neg).fcs"

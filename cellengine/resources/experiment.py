@@ -9,6 +9,11 @@ except ImportError:
 
 from pandas.core.frame import DataFrame
 
+try:
+    from typing import TypedDict, NotRequired
+except ImportError:
+    from typing_extensions import TypedDict, NotRequired
+
 import cellengine as ce
 from cellengine.resources.attachment import Attachment
 from cellengine.resources.compensation import Compensation, UNCOMPENSATED, Compensations
@@ -28,6 +33,18 @@ from cellengine.utils.helpers import (
     CommentList,
     timestamp_to_datetime,
     datetime_to_timestamp,
+)
+
+
+ImportOpts = TypedDict(
+    "ImportOpts",
+    {
+        "populations": NotRequired[bool],
+        "illustrations": NotRequired[Union[bool, List[str]]],
+        "compensations": NotRequired[Union[bool, List[str]]],
+        "savedStatisticExports": NotRequired[Union[bool, List[str]]],
+        "annotations": NotRequired[Union[bool, List[str]]],
+    },
 )
 
 
@@ -373,6 +390,47 @@ class Experiment:
         r = ce.APIClient().save_experiment_revision(self._id, description)
         self._properties["revisions"] = r.get("revisions")
         self._properties["deepUpdated"] = r.get("deepUpdated")
+
+    def import_resources(
+        self,
+        src_experiment_id: str,
+        what: ImportOpts,
+        channel_map: Optional[Dict[str, str]] = {},
+        dst_population_id: Optional[str] = None,
+    ) -> None:
+        """
+        Imports resources from another experiment.
+
+        Args:
+            src_experiment_id (str): The ID of the source experiment.
+            what (ImportOpts): A dictionary with the following optional keys:
+                - populations: Whether to import populations.
+                - illustrations: Whether to import illustrations (True = all,
+                  False = none), or a list of specific illustration IDs to import.
+                - compensations: Whether to import compensations (True = all,
+                  False = none), or a list of specific compensation IDs to import.
+                - savedStatisticExports: Whether to import saved statistic exports
+                  (True = all, False = none), or a list of specific export IDs to
+                  import.
+                - annotations: Whether to import annotations (True = all,
+                  False = none), or a list of specific annotation names to import.
+            channel_map (Dict[str, str]): A dictionary Object mapping channel
+                names from source experiment to destination experiment for
+                imported gates. Gates using channels not present in the map or
+                with channels set to the value "" will not be imported.
+                Populations are only imported if all of their required gates are
+                imported (i.e. the entire set of parents must be imported). This
+                does not affect compensation import.
+            dst_population_id (str): The ID of the destination parent population.
+                If not provided, the root population is used.
+
+        Use `experiment.gates` and similar to access the imported resources.
+        *Note: If it would be useful for this method to return the imported
+        resources, open a GitHub issue letting us know.*
+        """
+        ce.APIClient().import_experiment_resources(
+            self._id, src_experiment_id, what, channel_map, dst_population_id
+        )
 
     # Attachments
 

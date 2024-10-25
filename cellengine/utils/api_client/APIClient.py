@@ -24,7 +24,7 @@ from cellengine.utils.singleton import Singleton
 
 from ...resources.attachment import Attachment
 from ...resources.compensation import Compensation, Compensations, UNCOMPENSATED
-from ...resources.experiment import Experiment
+from ...resources.experiment import Experiment, ImportOpts
 from ...resources.fcs_file import FcsFile
 from ...resources.folder import Folder
 from ...resources.gate import (
@@ -356,6 +356,24 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         return self._post(
             f"{self.base_url}/api/v1/experiments/{_id}/revision",
             json={"description": description},
+        )
+
+    def import_experiment_resources(
+        self,
+        experiment_id: str,
+        src_experiment_id: str,
+        what: ImportOpts,
+        channel_map: Optional[Dict[str, str]],
+        dst_population_id: Optional[str],
+    ) -> None:
+        self._post(
+            f"{self.base_url}/api/v1/experiments/{experiment_id}/importResources",
+            json={
+                "srcExperiment": src_experiment_id,
+                "channelMap": channel_map,
+                "dstPopulationId": dst_population_id,
+                "import": what,
+            },
         )
 
     # ------------------------------- FCS Files --------------------------------
