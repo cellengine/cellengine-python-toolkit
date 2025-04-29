@@ -337,21 +337,21 @@
       
         <li class="md-nav__item">
   <a href="#cellengine.UNCOMPENSATED" class="md-nav__link">
-    UNCOMPENSATED
+    cellengine.UNCOMPENSATED
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#cellengine.FILE_INTERNAL" class="md-nav__link">
-    FILE_INTERNAL
+    cellengine.FILE_INTERNAL
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#cellengine.PER_FILE" class="md-nav__link">
-    PER_FILE
+    cellengine.PER_FILE
   </a>
   
 </li>
@@ -660,21 +660,21 @@
       
         <li class="md-nav__item">
   <a href="#cellengine.UNCOMPENSATED" class="md-nav__link">
-    UNCOMPENSATED
+    cellengine.UNCOMPENSATED
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#cellengine.FILE_INTERNAL" class="md-nav__link">
-    FILE_INTERNAL
+    cellengine.FILE_INTERNAL
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#cellengine.PER_FILE" class="md-nav__link">
-    PER_FILE
+    cellengine.PER_FILE
   </a>
   
 </li>
@@ -834,7 +834,7 @@ otherwise noted.</p>
 
 
 <h2 id="cellengine.UNCOMPENSATED" class="doc doc-heading">
-            <code class=" language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">UNCOMPENSATED</span><span class="p">:</span> <span class="n">UncompensatedType</span> <span class="o">=</span> <span class="mi">0</span></code>
+            <code class=" language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">UNCOMPENSATED</span> <span class="o">=</span> <span class="mi">0</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -846,6 +846,7 @@ otherwise noted.</p>
     <div class="doc doc-contents first">
 
         <p>Apply no compensation.</p>
+
     </div>
 
 </div>
@@ -855,7 +856,7 @@ otherwise noted.</p>
 
 
 <h2 id="cellengine.FILE_INTERNAL" class="doc doc-heading">
-            <code class=" language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">FILE_INTERNAL</span><span class="p">:</span> <span class="n">FileInternalType</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></code>
+            <code class=" language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">FILE_INTERNAL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -868,6 +869,7 @@ otherwise noted.</p>
 
         <p>Use the file's internal compensation matrix, if available. If not available, an
 error will be returned from API requests.</p>
+
     </div>
 
 </div>
@@ -877,7 +879,7 @@ error will be returned from API requests.</p>
 
 
 <h2 id="cellengine.PER_FILE" class="doc doc-heading">
-            <code class=" language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">PER_FILE</span><span class="p">:</span> <span class="n">PerFileType</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span></code>
+            <code class=" language-python"><span class="n">cellengine</span><span class="o">.</span><span class="n">PER_FILE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -890,6 +892,7 @@ error will be returned from API requests.</p>
 
         <p>Use the compensation assigned to each individual FCS file. Not a valid value for
 <code>FcsFile.compensation</code>.</p>
+
     </div>
 
 </div><h2 id="methods">Methods</h2>
@@ -910,6 +913,7 @@ error will be returned from API requests.</p>
 
 
         <p>A class representing a CellEngine compensation matrix.</p>
+
 
 
 
@@ -942,6 +946,7 @@ error will be returned from API requests.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -951,7 +956,7 @@ error will be returned from API requests.</p>
 
 
 <h3 id="cellengine.resources.compensation.Compensation.channels" class="doc doc-heading">
-            <code class=" language-python"><span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">channels</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -962,6 +967,7 @@ error will be returned from API requests.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -971,7 +977,7 @@ error will be returned from API requests.</p>
 
 
 <h3 id="cellengine.resources.compensation.Compensation.dataframe" class="doc doc-heading">
-            <code class=" language-python"><span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span></code>
+            <code class=" language-python"><span class="n">dataframe</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -982,6 +988,7 @@ error will be returned from API requests.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1003,6 +1010,7 @@ error will be returned from API requests.</p>
     <div class="doc doc-contents ">
 
         <p>Return the compensation matrix dataframe as HTML.</p>
+
     </div>
 
 </div>
@@ -1012,7 +1020,7 @@ error will be returned from API requests.</p>
 
 
 <h3 id="cellengine.resources.compensation.Compensation.experiment_id" class="doc doc-heading">
-            <code class=" language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">experiment_id</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1022,6 +1030,7 @@ error will be returned from API requests.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1031,7 +1040,7 @@ error will be returned from API requests.</p>
 
 
 <h3 id="cellengine.resources.compensation.Compensation.id" class="doc doc-heading">
-            <code class=" language-python"><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="nb">id</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1043,6 +1052,7 @@ error will be returned from API requests.</p>
     <div class="doc doc-contents ">
 
         <p>Alias for <code>_id</code>.</p>
+
     </div>
 
 </div>
@@ -1052,7 +1062,7 @@ error will be returned from API requests.</p>
 
 
 <h3 id="cellengine.resources.compensation.Compensation.name" class="doc doc-heading">
-            <code class=" language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">name</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1063,6 +1073,7 @@ error will be returned from API requests.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1072,7 +1083,7 @@ error will be returned from API requests.</p>
 
 
 <h3 id="cellengine.resources.compensation.Compensation.spill_matrix" class="doc doc-heading">
-            <code class=" language-python"><span class="n">spill_matrix</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">spill_matrix</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1083,6 +1094,7 @@ error will be returned from API requests.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1143,7 +1155,7 @@ error will be returned from API requests.</p>
                 <code>inplace</code>
             </td>
             <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1179,6 +1191,7 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
         <p>Returns:
     DataFrame: if <code>inplace=True</code>, updates <code>FcsFile.events</code> for
         the target FcsFile</p>
+
 
     </div>
 
@@ -1231,7 +1244,7 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
                 <code>experiment_id</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1247,7 +1260,7 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
                 <code>name</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1263,7 +1276,7 @@ Otherwise, the file's events will be retrieved from CellEngine.</p>
                 <code>channels</code>
             </td>
             <td>
-                  <code><span title="typing.List">List</span>[str]</code>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1280,7 +1293,7 @@ compensation matrix applies.</p>
                 <code>spill_matrix</code>
             </td>
             <td>
-                  <code><span title="typing.List">List</span>[float]</code>
+                  <code><span title="typing.List">List</span>[<span title="float">float</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1312,6 +1325,7 @@ names in [df.index, df.columns].</p>
       </tbody>
     </table>
 
+
     </div>
 
 </div>
@@ -1326,6 +1340,7 @@ names in [df.index, df.columns].</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1350,6 +1365,7 @@ names in [df.index, df.columns].</p>
 This can be used with FcsFile.spill_string. The compensation is not
 saved to CellEngine.</p>
 
+
     </div>
 
 </div>
@@ -1369,6 +1385,7 @@ saved to CellEngine.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -1385,6 +1402,7 @@ saved to CellEngine.</p>
     <div class="doc doc-contents ">
 
         <p>Save changes to this Compensation to CellEngine.</p>
+
 
     </div>
 

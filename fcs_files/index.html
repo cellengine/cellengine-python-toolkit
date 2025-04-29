@@ -1045,6 +1045,7 @@ metadata such as the panel and annotations.</p>
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -1058,7 +1059,7 @@ metadata such as the panel and annotations.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.annotations" class="doc doc-heading">
-            <code class=" language-python"><span class="n">annotations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Annotations</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">annotations</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1085,6 +1086,7 @@ metadata such as the panel and annotations.</p>
 <p>Removing an annotation:
 <div class="highlight"><pre><span></span><code><span class="n">file</span><span class="o">.</span><span class="n">annotations</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">annotations</span> <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;my_anno&quot;</span><span class="p">]</span>
 </code></pre></div></p>
+
     </div>
 
 </div>
@@ -1094,7 +1096,7 @@ metadata such as the panel and annotations.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.channels" class="doc doc-heading">
-            <code class=" language-python"><span class="n">channels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">channels</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1106,6 +1108,7 @@ metadata such as the panel and annotations.</p>
     <div class="doc doc-contents ">
 
         <p>Return all channels in the file.</p>
+
     </div>
 
 </div>
@@ -1115,7 +1118,7 @@ metadata such as the panel and annotations.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.compensation" class="doc doc-heading">
-            <code class=" language-python"><span class="n">compensation</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">FileCompensations</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">compensation</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1128,6 +1131,7 @@ metadata such as the panel and annotations.</p>
 
         <p>Used with per-file compensation to indicate the compensation to apply
 to this file.</p>
+
     </div>
 
 </div>
@@ -1137,7 +1141,7 @@ to this file.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.crc32c" class="doc doc-heading">
-            <code class=" language-python"><span class="n">crc32c</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">crc32c</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1149,6 +1153,7 @@ to this file.</p>
     <div class="doc doc-contents ">
 
         <p>The CRC32c sum for the file, hex-encoded, per RFC 4960 Appendix B.</p>
+
     </div>
 
 </div>
@@ -1158,7 +1163,7 @@ to this file.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.data" class="doc doc-heading">
-            <code class=" language-python"><span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">data</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1168,6 +1173,7 @@ to this file.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1177,7 +1183,7 @@ to this file.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.deleted" class="doc doc-heading">
-            <code class=" language-python"><span class="n">deleted</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">datetime</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">deleted</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1191,6 +1197,7 @@ to this file.</p>
 
         <p>If set, the file has been soft-deleted and may be permanently deleted
 later.</p>
+
     </div>
 
 </div>
@@ -1200,7 +1207,7 @@ later.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.event_count" class="doc doc-heading">
-            <code class=" language-python"><span class="n">event_count</span><span class="p">:</span> <span class="nb">int</span></code>
+            <code class=" language-python"><span class="n">event_count</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1212,6 +1219,7 @@ later.</p>
     <div class="doc doc-contents ">
 
         <p>The number of events (rows) in the file.</p>
+
     </div>
 
 </div>
@@ -1238,6 +1246,7 @@ method has not been called, a DataFrame will be fetched with all events
 (ungated, no compensation, no subsampling). To fetch events with
 subsampling, compensation and/or gating to a specific population, use
 <code>FcsFile.get_events()</code>.</p>
+
     </div>
 
 </div>
@@ -1247,7 +1256,7 @@ subsampling, compensation and/or gating to a specific population, use
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.experiment_id" class="doc doc-heading">
-            <code class=" language-python"><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">experiment_id</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1257,6 +1266,7 @@ subsampling, compensation and/or gating to a specific population, use
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1266,7 +1276,7 @@ subsampling, compensation and/or gating to a specific population, use
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.filename" class="doc doc-heading">
-            <code class=" language-python"><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">filename</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1279,6 +1289,7 @@ subsampling, compensation and/or gating to a specific population, use
     <div class="doc doc-contents ">
 
         <p>The filename.</p>
+
     </div>
 
 </div>
@@ -1288,7 +1299,7 @@ subsampling, compensation and/or gating to a specific population, use
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.gates_locked" class="doc doc-heading">
-            <code class=" language-python"><span class="n">gates_locked</span><span class="p">:</span> <span class="nb">bool</span></code>
+            <code class=" language-python"><span class="n">gates_locked</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1301,6 +1312,7 @@ subsampling, compensation and/or gating to a specific population, use
     <div class="doc doc-contents ">
 
         <p>If true, no gates that apply to this file can be changed.</p>
+
     </div>
 
 </div>
@@ -1310,7 +1322,7 @@ subsampling, compensation and/or gating to a specific population, use
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.has_file_internal_comp" class="doc doc-heading">
-            <code class=" language-python"><span class="n">has_file_internal_comp</span><span class="p">:</span> <span class="nb">bool</span></code>
+            <code class=" language-python"><span class="n">has_file_internal_comp</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1323,6 +1335,7 @@ subsampling, compensation and/or gating to a specific population, use
 
         <p>Whether or not this file has a valid file-internal compensation
 matrix.</p>
+
     </div>
 
 </div>
@@ -1332,7 +1345,7 @@ matrix.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.header" class="doc doc-heading">
-            <code class=" language-python"><span class="n">header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">header</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1344,6 +1357,7 @@ matrix.</p>
     <div class="doc doc-contents ">
 
         <p>Note: this property may be fetched lazily.</p>
+
     </div>
 
 </div>
@@ -1353,7 +1367,7 @@ matrix.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.id" class="doc doc-heading">
-            <code class=" language-python"><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="nb">id</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1365,6 +1379,7 @@ matrix.</p>
     <div class="doc doc-contents ">
 
         <p>Alias for <code>_id</code>.</p>
+
     </div>
 
 </div>
@@ -1374,7 +1389,7 @@ matrix.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.is_control" class="doc doc-heading">
-            <code class=" language-python"><span class="n">is_control</span><span class="p">:</span> <span class="nb">bool</span></code>
+            <code class=" language-python"><span class="n">is_control</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1388,6 +1403,7 @@ matrix.</p>
         <p>Whether or not this is a control file. Control files are hidden from
 most of the Web UI, and can be used to exclude compensation or
 calibration beads from analysis, for example.</p>
+
     </div>
 
 </div>
@@ -1397,7 +1413,7 @@ calibration beads from analysis, for example.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.md5" class="doc doc-heading">
-            <code class=" language-python"><span class="n">md5</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">md5</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1409,6 +1425,7 @@ calibration beads from analysis, for example.</p>
     <div class="doc doc-contents ">
 
         <p>The MD5 sum for the file, hex-encoded.</p>
+
     </div>
 
 </div>
@@ -1418,7 +1435,7 @@ calibration beads from analysis, for example.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.name" class="doc doc-heading">
-            <code class=" language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">name</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1431,6 +1448,7 @@ calibration beads from analysis, for example.</p>
     <div class="doc doc-contents ">
 
         <p>Alias for <code>filename</code>.</p>
+
     </div>
 
 </div>
@@ -1440,7 +1458,7 @@ calibration beads from analysis, for example.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.panel" class="doc doc-heading">
-            <code class=" language-python"><span class="n">panel</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Channel</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">panel</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1450,6 +1468,7 @@ calibration beads from analysis, for example.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1459,7 +1478,7 @@ calibration beads from analysis, for example.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.panel_name" class="doc doc-heading">
-            <code class=" language-python"><span class="n">panel_name</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">panel_name</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1472,6 +1491,7 @@ calibration beads from analysis, for example.</p>
 
         <p>The name of the file's panel. Files with the same panelName are
 grouped into a panel.</p>
+
     </div>
 
 </div>
@@ -1481,7 +1501,7 @@ grouped into a panel.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.sample_name" class="doc doc-heading">
-            <code class=" language-python"><span class="n">sample_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+            <code class=" language-python"><span class="n">sample_name</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1493,6 +1513,7 @@ grouped into a panel.</p>
     <div class="doc doc-contents ">
 
         <p>The sample name extracted from the file header.</p>
+
     </div>
 
 </div>
@@ -1502,7 +1523,7 @@ grouped into a panel.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.size" class="doc doc-heading">
-            <code class=" language-python"><span class="n">size</span><span class="p">:</span> <span class="nb">int</span></code>
+            <code class=" language-python"><span class="n">size</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1514,6 +1535,7 @@ grouped into a panel.</p>
     <div class="doc doc-contents ">
 
         <p>The number of bytes in the file.</p>
+
     </div>
 
 </div>
@@ -1523,7 +1545,7 @@ grouped into a panel.</p>
 
 
 <h3 id="cellengine.resources.fcs_file.FcsFile.spill_string" class="doc doc-heading">
-            <code class=" language-python"><span class="n">spill_string</span><span class="p">:</span> <span class="nb">str</span></code>
+            <code class=" language-python"><span class="n">spill_string</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
@@ -1537,6 +1559,7 @@ grouped into a panel.</p>
         <p>The file-internal compensation, if present (see
 <code>has_file_internal_comp</code>). Note: this property may be fetched lazily due
 to its size.</p>
+
     </div>
 
 </div>
@@ -1555,6 +1578,7 @@ to its size.</p>
     <div class="doc doc-contents ">
 
         <p>Returns the channel name (<code>$PnN</code>) for the given reagent (<code>$PnS). Returns</code>None` if the channel isn't found.</p>
+
 
     </div>
 
@@ -1628,7 +1652,7 @@ must also be present in the other FCS files.</p>
                 <code>experiment_id</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1644,7 +1668,7 @@ must also be present in the other FCS files.</p>
                 <code>fcs_files</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str], <span title="typing.Dict">Dict</span>[str, str]]]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="typing.List">List</span>[<span title="str">str</span>], <span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="str">str</span>]]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1666,7 +1690,7 @@ and <code>"path"</code>; if the S3 object is private, additionally provide
                 <code>filename</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1682,7 +1706,7 @@ and <code>"path"</code>; if the S3 object is private, additionally provide
                 <code>add_file_number</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[bool]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="bool">bool</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1699,7 +1723,7 @@ to the resulting file.</p>
                 <code>add_event_number</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[bool]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="bool">bool</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1718,7 +1742,7 @@ will appear more than once.</p>
                 <code>pre_subsample_n</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[int]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1735,7 +1759,7 @@ events.</p>
                 <code>pre_subsample_p</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[float]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="float">float</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1752,7 +1776,7 @@ of events (0 to 1).</p>
                 <code>seed</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[int]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1790,6 +1814,7 @@ pseudo-random value is used.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1889,6 +1914,7 @@ FCS file values.</p>
         <p>Returns:
     The created FCS file.</p>
 
+
     </div>
 
 </div>
@@ -1903,6 +1929,7 @@ FCS file values.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1922,6 +1949,7 @@ FCS file values.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1954,7 +1982,7 @@ FCS file values.</p>
 <p>The returned DataFrame uses the channel names (<code>$PnN</code> values) for column
 names because, unlike reagent names (<code>$PnS</code>), they are required and must
 be unique. To find the <code>$PnN</code> value for a given reagent name (<code>$PnS</code>),
-use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.FcsFile.channel_for_reagent"><code>fcs_file.channel_for_reagent(reagent)</code></a>.</p>
+use <a class="autorefs autorefs-internal" title="channel_for_reagent(reagent)" href="#cellengine.resources.fcs_file.FcsFile.channel_for_reagent"><code>fcs_file.channel_for_reagent(reagent)</code></a>.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1973,7 +2001,7 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
                 <code>inplace</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[bool]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="bool">bool</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1989,7 +2017,7 @@ use <a class="autorefs autorefs-internal" href="#cellengine.resources.fcs_file.F
                 <code>destination</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2106,6 +2134,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
       </tbody>
     </table>
 
+
     </div>
 
 </div>
@@ -2123,6 +2152,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
 
         <p>Get the file-internal Compensation.</p>
 
+
     </div>
 
 </div>
@@ -2139,7 +2169,12 @@ parameter to <code>True</code> can cause parsing errors.</p>
     <div class="doc doc-contents ">
 
         <p>Build a plot for an FcsFile.</p>
-<p>See <a class="autorefs autorefs-internal" href="../plots/#cellengine.resources.plot.Plot.get"><code>Plot.get()</code></a> for more information.</p>
+<p>See <a class="autorefs autorefs-internal" title="get(experiment_id, fcs_file_id, plot_type, x_channel, y_channel, z_channel=None, population_id=None, compensation=0, **kwargs)
+
+  
+      classmethod
+  " href="../plots/#cellengine.resources.plot.Plot.get"><code>Plot.get()</code></a> for more information.</p>
+
 
     </div>
 
@@ -2157,6 +2192,7 @@ parameter to <code>True</code> can cause parsing errors.</p>
     <div class="doc doc-contents ">
 
         <p>Save changes to this FcsFile to CellEngine.</p>
+
 
     </div>
 
@@ -2199,7 +2235,7 @@ include all channels in the file.</p>
                 <code>experiment_id</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2215,7 +2251,7 @@ include all channels in the file.</p>
                 <code>filepath</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2228,6 +2264,7 @@ include all channels in the file.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 

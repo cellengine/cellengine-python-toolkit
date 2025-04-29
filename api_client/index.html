@@ -393,6 +393,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.APIClient.delete_all_gates_and_populations" class="md-nav__link">
+    delete_all_gates_and_populations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.APIClient.delete_attachment" class="md-nav__link">
     delete_attachment
   </a>
@@ -968,6 +975,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cellengine.APIClient.delete_all_gates_and_populations" class="md-nav__link">
+    delete_all_gates_and_populations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cellengine.APIClient.delete_attachment" class="md-nav__link">
     delete_attachment
   </a>
@@ -1268,7 +1282,7 @@ CellEngine API and entities in the Python SDK. After authenticating, you may
 either use the <code>APIClient</code> directly or interact with the higher-level SDK
 entities.</p>
 <p>Assuming you have instantiated the <code>APIClient</code> object:
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">cellengine</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cellengine</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">APIClient</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
 <span class="c1"># Password: &lt;enter your password here&gt;</span>
 <span class="c1"># Alternatively, set CELLENGINE_PASSWORD in your environment</span>
@@ -1329,6 +1343,7 @@ GitHub</a>.</p>
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -1352,6 +1367,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1371,6 +1387,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1390,6 +1407,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1409,6 +1427,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1428,6 +1447,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1447,6 +1467,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1466,6 +1487,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1485,6 +1507,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
     </div>
 
 </div>
@@ -1504,6 +1527,7 @@ GitHub</a>.</p>
 
         <p>Tailor a gate to a file or files.</p>
 
+
     </div>
 
 </div>
@@ -1518,6 +1542,7 @@ GitHub</a>.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1538,6 +1563,23 @@ GitHub</a>.</p>
 subsampling existing file(s) from this or other experiments. Can be
 used to import files from other experiments.</p>
 
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="cellengine.APIClient.delete_all_gates_and_populations" class="doc doc-heading">
+            <code class=" language-python"><span class="n">delete_all_gates_and_populations</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
     </div>
 
 </div>
@@ -1555,6 +1597,7 @@ used to import files from other experiments.</p>
 
         <p>Delete an attachment</p>
 
+
     </div>
 
 </div>
@@ -1569,6 +1612,7 @@ used to import files from other experiments.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1589,6 +1633,7 @@ used to import files from other experiments.</p>
 <p>Deleted experiments are permanently deleted after approximately
 7 days. Until then, deleted experiments can be recovered.</p>
 
+
     </div>
 
 </div>
@@ -1607,6 +1652,7 @@ used to import files from other experiments.</p>
         <p>Marks the folder as deleted.</p>
 <p>Deleted folders are permanently deleted after approximately
 7 days. Until then, deleted folders can be recovered.</p>
+
 
     </div>
 
@@ -1647,7 +1693,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
                 <code>experiment_id</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1663,7 +1709,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
                 <code>_id</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1679,7 +1725,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
                 <code>gid</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1695,7 +1741,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
                 <code>exclude</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1741,6 +1787,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
       </tbody>
     </table>
 
+
     </div>
 
 </div>
@@ -1755,6 +1802,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1772,6 +1820,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
     <div class="doc doc-contents ">
 
         <p>Download an attachment</p>
+
 
     </div>
 
@@ -1807,7 +1856,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
                 <code>experiment_id</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1823,7 +1872,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
                 <code>fcs_file_id</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1896,6 +1945,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
       </tbody>
     </table>
 
+
     </div>
 
 </div>
@@ -1910,6 +1960,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1926,6 +1977,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -1940,6 +1992,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1956,6 +2009,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -1970,6 +2024,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -1986,6 +2041,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2000,6 +2056,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2016,6 +2073,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2031,6 +2089,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2045,6 +2104,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2065,6 +2125,7 @@ a static method from cellengine.Gate or from an Experiment instance.</p>
 tailored gates have the same name, and because compound gates have a
 <code>names</code> property instead of a <code>name</code> property.</p>
 
+
     </div>
 
 </div>
@@ -2079,6 +2140,7 @@ tailored gates have the same name, and because compound gates have a
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2095,6 +2157,7 @@ tailored gates have the same name, and because compound gates have a
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2110,6 +2173,7 @@ tailored gates have the same name, and because compound gates have a
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2124,6 +2188,7 @@ tailored gates have the same name, and because compound gates have a
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2141,6 +2206,7 @@ tailored gates have the same name, and because compound gates have a
     <div class="doc doc-contents ">
 
         <p>Get the scaleset for an experiment.</p>
+
 
     </div>
 
@@ -2176,7 +2242,7 @@ tailored gates have the same name, and because compound gates have a
                 <code>experiment_id</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2192,7 +2258,7 @@ tailored gates have the same name, and because compound gates have a
                 <code>statistics</code>
             </td>
             <td>
-                  <code><span title="typing.List">List</span>[str]</code>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2210,7 +2276,7 @@ tailored gates have the same name, and because compound gates have a
                 <code>q</code>
             </td>
             <td>
-                  <code>int</code>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2226,7 +2292,7 @@ tailored gates have the same name, and because compound gates have a
                 <code>channels</code>
             </td>
             <td>
-                  <code><span title="typing.List">List</span>[str]</code>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2244,7 +2310,7 @@ to calculate statistics for.</p>
                 <code>annotations</code>
             </td>
             <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2261,20 +2327,36 @@ to calculate statistics for.</p>
                 <code>compensation_id</code>
             </td>
             <td>
-                  <code><span title="typing.Union">Union</span>[<span title="cellengine.resources.compensation.Compensations">Compensations</span>, str]</code>
+                  <code><span title="typing.Union">Union</span>[<span title="cellengine.resources.compensation.Compensations">Compensations</span>, <span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
                 <p>Compensation to use for gating and statistics
 calculation. Defaults to uncompensated. In addition to a
 compensation ID, three special constants may be used:
-    <a class="autorefs autorefs-internal" href="../compensations/#cellengine.UNCOMPENSATED"><code>UNCOMPENSATED</code></a>,
-    <a class="autorefs autorefs-internal" href="../compensations/#cellengine.FILE_INTERNAL"><code>FILE_INTERNAL</code></a> or
-    <a class="autorefs autorefs-internal" href="../compensations/#cellengine.PER_FILE"><code>PER_FILE</code></a>.</p>
+    <a class="autorefs autorefs-internal" title="cellengine.UNCOMPENSATED = 0
+
+  
+      module-attribute
+  " href="../compensations/#cellengine.UNCOMPENSATED"><code>UNCOMPENSATED</code></a>,
+    <a class="autorefs autorefs-internal" title="cellengine.FILE_INTERNAL = -1
+
+  
+      module-attribute
+  " href="../compensations/#cellengine.FILE_INTERNAL"><code>FILE_INTERNAL</code></a> or
+    <a class="autorefs autorefs-internal" title="cellengine.PER_FILE = -2
+
+  
+      module-attribute
+  " href="../compensations/#cellengine.PER_FILE"><code>PER_FILE</code></a>.</p>
               </div>
             </td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="cellengine.resources.compensation.UNCOMPENSATED" href="../compensations/#cellengine.UNCOMPENSATED">UNCOMPENSATED</a></code>
+                  <code><a class="autorefs autorefs-internal" title="cellengine.UNCOMPENSATED = 0
+
+  
+      module-attribute
+   (cellengine.resources.compensation.UNCOMPENSATED)" href="../compensations/#cellengine.UNCOMPENSATED">UNCOMPENSATED</a></code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -2282,7 +2364,7 @@ compensation ID, three special constants may be used:
                 <code>fcs_file_ids</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[<span title="str">str</span>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2299,7 +2381,7 @@ omitted, statistics for all non-control FCS files will be returned.</p>
                 <code>format</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2317,7 +2399,7 @@ case-insensitive.</p>
                 <code>layout</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2334,7 +2416,7 @@ One of "tall-skinny", "medium", or "short-wide".</p>
                 <code>percent_of</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="typing.List">List</span>[<span title="str">str</span>]]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2355,7 +2437,7 @@ those populations.</p>
                 <code>population_ids</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[str]]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.List">List</span>[<span title="str">str</span>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2382,7 +2464,7 @@ Defaults to ungated.</p>
       <tbody>
           <tr class="doc-section-item">
 <td><code>statistics</code></td>            <td>
-                  <code><span title="typing.Union">Union</span>[<span title="typing.Dict">Dict</span>, str, <span title="pandas.core.frame.DataFrame">DataFrame</span>]</code>
+                  <code><span title="typing.Union">Union</span>[<span title="typing.Dict">Dict</span>, <span title="str">str</span>, <span title="pandas.core.frame.DataFrame">DataFrame</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2392,6 +2474,7 @@ Defaults to ungated.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2408,6 +2491,7 @@ Defaults to ungated.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2422,6 +2506,7 @@ Defaults to ungated.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2440,6 +2525,7 @@ Defaults to ungated.</p>
 
         <p>Create a new experiment on CellEngine.</p>
 
+
     </div>
 
 </div>
@@ -2457,6 +2543,7 @@ Defaults to ungated.</p>
 
         <p>Create a new folder on CellEngine.</p>
 
+
     </div>
 
 </div>
@@ -2471,6 +2558,7 @@ Defaults to ungated.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2487,6 +2575,7 @@ Defaults to ungated.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2501,6 +2590,7 @@ Defaults to ungated.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2517,6 +2607,7 @@ Defaults to ungated.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2531,6 +2622,7 @@ Defaults to ungated.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2547,6 +2639,7 @@ Defaults to ungated.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2562,6 +2655,7 @@ Defaults to ungated.</p>
 
     <div class="doc doc-contents ">
 
+
     </div>
 
 </div>
@@ -2576,6 +2670,7 @@ Defaults to ungated.</p>
 
 
     <div class="doc doc-contents ">
+
 
     </div>
 
@@ -2611,7 +2706,7 @@ Defaults to ungated.</p>
                 <code>filepath</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2627,7 +2722,7 @@ Defaults to ungated.</p>
                 <code>filename</code>
             </td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2664,6 +2759,7 @@ Defaults to ungated.</p>
       </tbody>
     </table>
 
+
     </div>
 
 </div>
@@ -2698,7 +2794,7 @@ Defaults to ungated.</p>
                 <code>filepath_or_data</code>
             </td>
             <td>
-                  <code><span title="typing.Union">Union</span>[str, <span title="io.BytesIO">BytesIO</span>]</code>
+                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="io.BytesIO">BytesIO</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2714,7 +2810,7 @@ Defaults to ungated.</p>
                 <code>filename</code>
             </td>
             <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2750,6 +2846,7 @@ Defaults to ungated.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 

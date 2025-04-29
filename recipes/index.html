@@ -517,7 +517,7 @@
                   <h1>Cookbook</h1>
                 
                 <h2 id="recipes-for-common-operations">Recipes for common operations</h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">cellengine.utils.api_client.APIClient</span> <span class="kn">import</span> <span class="n">APIClient</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">cellengine.utils.api_client.APIClient</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIClient</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">cellengine</span><span class="o">.</span><span class="n">APIClient</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">)</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_experiment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my experiment&quot;</span><span class="p">)</span>
 <span class="n">fcsfile</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get_fcs_file</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my fcs file&quot;</span><span class="p">)</span>
