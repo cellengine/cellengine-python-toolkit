@@ -639,6 +639,10 @@ class APIClient(BaseAPIClient, metaclass=Singleton):
         url = f"{self.base_url}/api/v1/experiments/{experiment_id}/gates/"
         [self._delete(url + _id) for _id in ids]
 
+    def delete_all_gates_and_populations(self, experiment_id: str) -> None:
+        url = f"{self.base_url}/api/v1/experiments/{experiment_id}/gates/reset"
+        self._post(url)
+
     def _parse_gate_population(
         self, res: Any
     ) -> Tuple[Gate, Union[Population, List[Population], None]]:

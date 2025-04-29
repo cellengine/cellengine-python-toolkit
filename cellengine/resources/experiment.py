@@ -592,6 +592,10 @@ class Experiment:
         """Deletes multiple gates provided a list of _ids."""
         ce.APIClient().delete_gates(self._id, ids)
 
+    def delete_all_gates_and_populations(self) -> None:
+        """Delete all gates and populations in the experiment."""
+        ce.APIClient().delete_all_gates_and_populations(self._id)
+
     @overload
     def create_rectangle_gate(
         self, *args, create_population: Literal[True], **kwargs

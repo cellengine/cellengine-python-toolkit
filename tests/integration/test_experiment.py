@@ -277,3 +277,11 @@ def test_create_gates(full_experiment):
             }
         ]
     )
+
+
+def test_delete_all_gates_and_populations(full_experiment):
+    experiment = full_experiment["experiment"]
+    experiment.delete_all_gates_and_populations()
+
+    assert len(experiment.gates) == 0
+    assert len(experiment.populations) == 0
