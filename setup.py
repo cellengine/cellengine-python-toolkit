@@ -40,7 +40,7 @@ setup(
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
-        "flowio~=1.1",
+        "flowio~=1.4",
         "numpy~=1.17",
         "pandas~=2.0",
         "requests~=2.22",

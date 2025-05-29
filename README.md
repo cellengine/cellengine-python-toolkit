@@ -43,6 +43,8 @@ v1.0.0 will be the first stable release of the CellEngine Python Toolkit.
 
 * **Pandas v2 dependency** updated from Pandas v1.
 
+* **flowio dependency updated to min 1.4**.
+
 ### Additional improvements
 
 * Most dependencies have been removed.
