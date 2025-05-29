@@ -42,7 +42,7 @@ setup(
     install_requires=[
         "flowio~=1.1",
         "numpy~=1.17",
-        "pandas~=1.1",
+        "pandas~=2.0",
         "requests~=2.22",
         "requests-toolbelt~=0.9",
         "urllib3~=1.25",

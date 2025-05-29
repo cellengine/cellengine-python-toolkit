@@ -41,6 +41,8 @@ v1.0.0 will be the first stable release of the CellEngine Python Toolkit.
   `Experiment.get_scaleset()` takes no args.** There is only one ScaleSet in an
   experiment, so passing an `_id` or name is unnecessary.
 
+* **Pandas v2 dependency** updated from Pandas v1.
+
 ### Additional improvements
 
 * Most dependencies have been removed.
