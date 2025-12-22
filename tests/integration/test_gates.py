@@ -81,9 +81,9 @@ def test_rectangle_gate_create(blank_experiment):
     assert m["y2"] == 215000
 
 
-def test_rectangle_gate_create_with_create_population(blank_experiment):
+def test_rectangle_gate_create_with_create_population(ligands_experiment):
     gate, population = RectangleGate.create(
-        experiment_id=blank_experiment._id,
+        experiment_id=ligands_experiment[0]._id,
         x_channel="FSC-A",
         y_channel="FSC-W",
         name="my gate",
@@ -92,13 +92,14 @@ def test_rectangle_gate_create_with_create_population(blank_experiment):
         y1=75000,
         y2=215000,
         create_population=True,
+        parent_population_id=ligands_experiment[3]._id
     )
     assert isinstance(gate, RectangleGate)
     assert gate.name == "my gate"
     assert isinstance(population, Population)
     assert population.name == "my gate"
     assert population.terminal_gate_gid == gate.gid
-    assert population.parent_id == None
+    assert population.parent_id == ligands_experiment[3]._id
 
 
 def test_ellipse_gate_create(blank_experiment):

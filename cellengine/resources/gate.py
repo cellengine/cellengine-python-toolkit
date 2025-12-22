@@ -348,7 +348,7 @@ class RectangleGate(SimpleGate):
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
             "createPopulation": kwargs.pop("create_population", True),
-            "parentPopulationid": kwargs.pop("parent_population_id", None),
+            "parentPopulationId": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
@@ -499,7 +499,7 @@ class PolygonGate(SimpleGate):
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
             "createPopulation": kwargs.pop("create_population", True),
-            "parentPopulationid": kwargs.pop("parent_population_id", None),
+            "parentPopulationId": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
@@ -664,7 +664,7 @@ class EllipseGate(SimpleGate):
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
             "createPopulation": kwargs.pop("create_population", True),
-            "parentPopulationid": kwargs.pop("parent_population_id", None),
+            "parentPopulationId": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
@@ -837,7 +837,7 @@ class RangeGate(SimpleGate):
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
             "createPopulation": kwargs.pop("create_population", True),
-            "parentPopulationid": kwargs.pop("parent_population_id", None),
+            "parentPopulationId": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
@@ -1011,7 +1011,7 @@ class QuadrantGate(CompoundGate):
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
             "createPopulation": kwargs.pop("create_population", True),
-            "parentPopulationid": kwargs.pop("parent_population_id", None),
+            "parentPopulationId": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
@@ -1227,7 +1227,7 @@ class SplitGate(CompoundGate):
         kwargs = get_args_as_kwargs(cls, locals())
         params = {
             "createPopulation": kwargs.pop("create_population", True),
-            "parentPopulationid": kwargs.pop("parent_population_id", None),
+            "parentPopulationId": kwargs.pop("parent_population_id", None),
         }
 
         gate = cls._format(**kwargs)
